@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TableSpot — Restaurant Dashboard</title>
+<title>GetATableSpot — Restaurant Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -18,8 +18,8 @@
 body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;display:flex}
 .sidebar{width:220px;background:var(--s1);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;height:100vh;position:sticky;top:0}
 .sb-logo{padding:20px 18px;border-bottom:1px solid var(--border)}
-.sb-logo .mark{font-family:var(--serif);font-size:1.2rem;font-weight:900;display:flex;align-items:center;gap:6px}
-.sb-logo .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.sb-logo .mark{font-family:var(--serif);font-size:1rem;font-weight:900;display:flex;align-items:center;gap:6px}
+.sb-logo .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
 .sb-logo .sub{font-family:var(--mono);font-size:.62rem;color:var(--muted);margin-top:2px;letter-spacing:1px}
 nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:1px}
 .nb{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:6px;border:none;background:none;color:var(--muted);font-family:var(--sans);font-size:.83rem;font-weight:500;cursor:pointer;width:100%;text-align:left;transition:all .15s}
@@ -114,7 +114,7 @@ nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:1px}
 <body>
 <aside class="sidebar">
   <div class="sb-logo">
-    <div class="mark"><span class="dot"></span>TableSpot</div>
+    <div class="mark"><span class="dot"></span>GetATableSpot</div>
     <div class="sub">RESTAURANT PORTAL</div>
   </div>
   <nav>
@@ -129,7 +129,7 @@ nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:1px}
   <div class="sb-bottom">
     <div class="plan-box">
       <div class="plan-tier">Current Plan</div>
-      <div class="plan-name">TableSpot Pro</div>
+      <div class="plan-name">GetATableSpot Pro</div>
       <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px">$99/month · Featured</div>
       <button class="btn-up" onclick="showToast('Opening upgrade…')">⭐ Upgrade to Elite</button>
     </div>
@@ -140,7 +140,7 @@ nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:1px}
     <div class="tb-title" id="tbTitle">Overview</div>
     <div class="tb-right">
       <div class="live-pill"><span class="live-dot"></span>LIVE</div>
-      <div class="tb-venue">Carbone · New York, NY</div>
+      <div class="tb-venue">Your Restaurant · GetATableSpot</div>
     </div>
   </div>
   <div class="content">
@@ -149,7 +149,7 @@ nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:1px}
         <div class="stat-card"><div class="sc-label">Profile Views Today</div><div class="sc-val g">847</div><div class="sc-sub up">↑ 23% vs yesterday</div></div>
         <div class="stat-card"><div class="sc-label">Reservations This Week</div><div class="sc-val a">142</div><div class="sc-sub up">↑ 18 from last week</div></div>
         <div class="stat-card"><div class="sc-label">Conversion Rate</div><div class="sc-val b">7.4%</div><div class="sc-sub">Industry avg: 4.8%</div></div>
-        <div class="stat-card"><div class="sc-label">Revenue via TableSpot</div><div class="sc-val g">$1,847</div><div class="sc-sub up">142 bookings × avg $13</div></div>
+        <div class="stat-card"><div class="sc-label">Revenue via GetATableSpot</div><div class="sc-val g">$1,847</div><div class="sc-sub up">142 bookings × avg $13</div></div>
       </div>
       <div class="two-col">
         <div class="card">
@@ -175,7 +175,7 @@ nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:1px}
     <div class="sec" id="sec-waittime">
       <div class="card" style="max-width:520px">
         <div class="card-head"><div class="card-title">Live Wait Time Control</div></div>
-        <p style="font-size:.82rem;color:var(--muted);margin-bottom:18px;line-height:1.5">Diners see this in real-time on TableSpot. Keep it accurate to build trust.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:18px;line-height:1.5">Diners see this in real-time on GetATableSpot. Keep it accurate to build trust.</p>
         <div class="sc-label">CURRENT WAIT</div>
         <div class="wait-display" id="waitDisp">25 min</div>
         <input type="range" class="wait-slider" id="waitSlider" min="0" max="120" value="25" oninput="onSlider(this.value)">
@@ -187,7 +187,7 @@ nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:1px}
           <button class="w-preset" onclick="setWait(45,this)">45 min</button>
           <button class="w-preset" onclick="setWait(60,this)">60+ min</button>
         </div>
-        <button class="btn-push" onclick="pushWait()">📡 Push Live to TableSpot</button>
+        <button class="btn-push" onclick="pushWait()">📡 Push Live to GetATableSpot</button>
         <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
           <div class="sc-label" style="margin-bottom:16px">WAIT TREND TODAY</div>
           <div class="bar-chart" id="waitChart"></div>
@@ -206,7 +206,7 @@ nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:1px}
     <div class="sec" id="sec-slots">
       <div class="card" style="max-width:640px">
         <div class="card-head"><div class="card-title">Manage Availability</div></div>
-        <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px;line-height:1.5">Toggle slots open or closed. Changes go live instantly.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px;line-height:1.5">Toggle slots open or closed. Changes go live instantly on GetATableSpot.</p>
         <div class="sc-label" style="margin-bottom:10px">DINNER SERVICE — TONIGHT</div>
         <div class="slots-grid" id="slotsGrid"></div>
         <button class="btn-push" style="margin-top:16px" onclick="saveSlots()">💾 Save and Go Live</button>
@@ -220,7 +220,7 @@ nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:1px}
           <label class="sw"><input type="checkbox" checked onchange="onToggle('featured',this)"><div class="sw-track"></div><div class="sw-thumb"></div></label>
         </div>
         <div class="feat-row">
-          <div class="feat-info"><div class="fi-title">📅 Accept Online Reservations</div><div class="fi-desc">Allow TableSpot diners to book directly</div></div>
+          <div class="feat-info"><div class="fi-title">📅 Accept Online Reservations</div><div class="fi-desc">Allow GetATableSpot diners to book directly</div></div>
           <label class="sw"><input type="checkbox" checked onchange="onToggle('reservations',this)"><div class="sw-track"></div><div class="sw-thumb"></div></label>
         </div>
         <div class="feat-row">
@@ -256,7 +256,7 @@ nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:1px}
           <div class="rev-row"><span class="rev-label">Special event upsells (8)</span><span class="rev-val pos">+$640</span></div>
           <div class="rev-row"><span class="rev-label">Per-cover commissions</span><span class="rev-val neg">−$213</span></div>
           <div class="rev-row"><span class="rev-label">Featured plan subscription</span><span class="rev-val neg">−$99</span></div>
-          <div class="rev-row"><span>Net revenue via TableSpot</span><span class="rev-val total">$6,152</span></div>
+          <div class="rev-row"><span>Net revenue via GetATableSpot</span><span class="rev-val total">$6,152</span></div>
         </div>
         <div class="card">
           <div class="card-head"><div class="card-title">Booking Sources</div></div>
@@ -284,22 +284,22 @@ function barChart(id,data){
 barChart('viewChart',[{l:'8a',v:42,tip:'42 views'},{l:'9a',v:78,tip:'78 views'},{l:'10a',v:95,tip:'95 views'},{l:'11a',v:134,tip:'134 views'},{l:'12p',v:187,tip:'187 views'},{l:'1p',v:143,tip:'143 views'},{l:'2p',v:98,tip:'98 views'},{l:'3p',v:76,tip:'76 views'},{l:'4p',v:112,tip:'112 views'},{l:'5p',v:167,tip:'167 views'},{l:'6p',v:201,tip:'201 views'},{l:'7p',v:184,tip:'184 views'}]);
 barChart('resChart',[{l:'Mon',v:14,tip:'14 reservations'},{l:'Tue',v:18,tip:'18'},{l:'Wed',v:22,tip:'22'},{l:'Thu',v:19,tip:'19'},{l:'Fri',v:38,tip:'38'},{l:'Sat',v:44,tip:'44'},{l:'Sun',v:32,tip:'32'}]);
 barChart('waitChart',[{l:'5p',v:10,tip:'10 min'},{l:'5:30',v:18,tip:'18 min'},{l:'6p',v:28,tip:'28 min'},{l:'6:30',v:35,tip:'35 min'},{l:'7p',v:42,tip:'42 min'},{l:'7:30',v:38,tip:'38 min'},{l:'8p',v:25,tip:'25 min'},{l:'8:30',v:18,tip:'18 min'},{l:'9p',v:10,tip:'10 min'}]);
-document.getElementById('topTerms').innerHTML=[['italian restaurant nyc',38],['carbone reservation',27],['best pasta new york',19],['midtown dinner',12],['special occasion restaurant',9]].map(([t,p])=>`<div style="display:flex;justify-content:space-between;margin-bottom:7px;font-size:.78rem"><span style="color:var(--muted)">${t}</span><span style="font-family:var(--mono);color:var(--gold);font-size:.72rem">${p}%</span></div>`).join('');
-const MOCK_RES=[{name:'Jessica M.',time:'6:00 PM',party:2,date:'Tonight',platform:'Resy',status:'confirmed',pro:true,note:'Anniversary'},{name:'David K.',time:'6:30 PM',party:4,date:'Tonight',platform:'OpenTable',status:'confirmed',pro:false,note:''},{name:'Rachel T.',time:'7:00 PM',party:2,date:'Tonight',platform:'TableSpot',status:'pending',pro:true,note:'Shellfish allergy'},{name:'William C.',time:'7:30 PM',party:6,date:'Tonight',platform:'TableSpot',status:'confirmed',pro:false,note:'Birthday'},{name:'Alexandra B.',time:'8:00 PM',party:3,date:'Tonight',platform:'Resy',status:'cancelled',pro:false,note:''},{name:'Michael R.',time:'8:30 PM',party:2,date:'Tonight',platform:'OpenTable',status:'confirmed',pro:true,note:'Window seat'},{name:'Sofia P.',time:'6:00 PM',party:4,date:'Tomorrow',platform:'TableSpot',status:'confirmed',pro:true,note:''},{name:'Tom H.',time:'7:00 PM',party:8,date:'Tomorrow',platform:'Google',status:'pending',pro:false,note:'Corporate dinner'}];
+document.getElementById('topTerms').innerHTML=[['restaurants near me',38],['best dinner spots',27],['open table reservation',19],['romantic dinner',12],['late night dining',9]].map(([t,p])=>`<div style="display:flex;justify-content:space-between;margin-bottom:7px;font-size:.78rem"><span style="color:var(--muted)">${t}</span><span style="font-family:var(--mono);color:var(--gold);font-size:.72rem">${p}%</span></div>`).join('');
+const MOCK_RES=[{name:'Jessica M.',time:'6:00 PM',party:2,date:'Tonight',platform:'Resy',status:'confirmed',pro:true,note:'Anniversary'},{name:'David K.',time:'6:30 PM',party:4,date:'Tonight',platform:'OpenTable',status:'confirmed',pro:false,note:''},{name:'Rachel T.',time:'7:00 PM',party:2,date:'Tonight',platform:'GetATableSpot',status:'pending',pro:true,note:'Shellfish allergy'},{name:'William C.',time:'7:30 PM',party:6,date:'Tonight',platform:'GetATableSpot',status:'confirmed',pro:false,note:'Birthday'},{name:'Alexandra B.',time:'8:00 PM',party:3,date:'Tonight',platform:'Resy',status:'cancelled',pro:false,note:''},{name:'Michael R.',time:'8:30 PM',party:2,date:'Tonight',platform:'OpenTable',status:'confirmed',pro:true,note:'Window seat'},{name:'Sofia P.',time:'6:00 PM',party:4,date:'Tomorrow',platform:'GetATableSpot',status:'confirmed',pro:true,note:''},{name:'Tom H.',time:'7:00 PM',party:8,date:'Tomorrow',platform:'Google',status:'pending',pro:false,note:'Corporate dinner'}];
 document.getElementById('resTbody').innerHTML=MOCK_RES.map(r=>`<tr><td style="font-weight:600">${r.name}</td><td style="font-family:var(--mono);font-size:.78rem">${r.time}</td><td style="font-family:var(--mono)">${r.party}</td><td style="color:var(--muted);font-size:.78rem">${r.date}</td><td style="font-size:.75rem;color:var(--muted)">${r.platform}</td><td><span class="status s-${r.status==='confirmed'?'conf':r.status==='pending'?'pend':'canc'}">${r.status}</span></td><td>${r.pro?'<span class="pro-tag">PRO</span>':''}</td><td style="font-size:.75rem;color:var(--muted);font-style:italic">${r.note}</td></tr>`).join('');
 const slots=[{t:'5:00 PM',open:true,cap:8},{t:'5:30 PM',open:true,cap:8},{t:'6:00 PM',open:false,cap:8},{t:'6:30 PM',open:true,cap:6},{t:'7:00 PM',open:true,cap:8},{t:'7:30 PM',open:false,cap:8},{t:'8:00 PM',open:true,cap:8},{t:'8:30 PM',open:true,cap:5},{t:'9:00 PM',open:true,cap:8},{t:'9:30 PM',open:false,cap:8},{t:'10:00 PM',open:true,cap:6},{t:'10:30 PM',open:true,cap:4}];
 function renderSlots(){document.getElementById('slotsGrid').innerHTML=slots.map((s,i)=>`<div class="slot-item ${s.open?'sl-open':'sl-closed'}" onclick="toggleSlot(${i})"><div class="slot-time">${s.t}</div><div class="slot-status ${s.open?'open':'closed'}">${s.open?'● Open':'○ Closed'}</div><div class="slot-cap">Cap: ${s.cap}</div></div>`).join('');}
 function toggleSlot(i){slots[i].open=!slots[i].open;renderSlots();}
-function saveSlots(){showToast('✓ Availability updated and live');}
+function saveSlots(){showToast('✓ Availability updated and live on GetATableSpot');}
 renderSlots();
 let waitVal=25;
 function onSlider(v){waitVal=parseInt(v);document.getElementById('waitDisp').textContent=v==='0'?'No wait':`${v} min`;document.getElementById('ovWait').textContent=v==='0'?'No wait':`${v} min`;}
 function setWait(v,btn){waitVal=v;document.getElementById('waitSlider').value=v;onSlider(v.toString());document.querySelectorAll('.w-preset').forEach(b=>b.classList.remove('wp-on'));btn.classList.add('wp-on');}
-function pushWait(){showToast(`📡 Wait time set to ${waitVal===0?'no wait':waitVal+' min'} — live now`);}
+function pushWait(){showToast(`📡 Wait time set to ${waitVal===0?'no wait':waitVal+' min'} — live now on GetATableSpot`);}
 function onToggle(f,el){const msgs={featured:'Featured listing '+(el.checked?'enabled':'disabled'),reservations:'Reservations '+(el.checked?'enabled':'paused'),wait:'Wait time '+(el.checked?'visible':'hidden'),ai:'AI Concierge '+(el.checked?'enabled':'disabled')};showToast(msgs[f]||'Setting updated');}
-const insights=[{icon:'📈',title:'Peak demand alert',body:'You are turning away an estimated 24 diners per Friday by closing all slots at 8 PM. Extending availability by 30 minutes could add $600–900 per week.',action:'Adjust Friday availability →'},{icon:'⚡',title:'Wait time impact',body:'Restaurants with under 20 min wait show 2.3× higher booking conversion. Your Friday average of 42 min is costing roughly 18 reservations per week.',action:'View wait optimization tips →'},{icon:'💬',title:'Review sentiment trend',body:'Yelp mentions of slow service increased 15% this month. This correlates with your 7:30 PM slot — consider adding an extra runner during that window.',action:'See review analysis →'},{icon:'💰',title:'Revenue opportunity',body:'Pro diners book 1.8× more frequently and spend 22% more per visit. Adding 2–3 Pro-exclusive slots could generate $400–800 additional monthly revenue.',action:'Set up Pro slots →'}];
+const insights=[{icon:'📈',title:'Peak demand alert',body:'You are turning away an estimated 24 diners per Friday by closing all slots at 8 PM. Extending availability by 30 minutes could add $600 to $900 per week.',action:'Adjust Friday availability →'},{icon:'⚡',title:'Wait time impact',body:'Restaurants with under 20 min wait show 2.3× higher booking conversion on GetATableSpot. Your Friday average of 42 min is costing roughly 18 reservations per week.',action:'View wait optimization tips →'},{icon:'💬',title:'Review sentiment trend',body:'Mentions of slow service increased 15% this month. This correlates with your 7:30 PM slot — consider adding an extra runner during that window.',action:'See review analysis →'},{icon:'💰',title:'Revenue opportunity',body:'Pro diners book 1.8× more frequently and spend 22% more per visit. Adding 2 to 3 Pro-exclusive slots could generate $400 to $800 additional monthly revenue.',action:'Set up Pro slots →'}];
 document.getElementById('insightsList').innerHTML=insights.map(i=>`<div class="insight-card"><div class="ic-head"><span>${i.icon}</span><span class="ic-title">${i.title}</span></div><div class="ic-body">${i.body}</div><span class="ic-action" onclick="showToast('Opening…')">${i.action}</span></div>`).join('');
-document.getElementById('sourceBreakdown').innerHTML=[['TableSpot Direct',44],['Resy',28],['OpenTable',18],['Google Reserve',8],['Walk-In',2]].map(([src,pct])=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:4px"><span>${src}</span><span style="font-family:var(--mono);color:var(--gold)">${pct}%</span></div><div style="height:4px;background:var(--s3);border-radius:2px"><div style="height:100%;width:${pct}%;background:var(--gold);border-radius:2px"></div></div></div>`).join('');
+document.getElementById('sourceBreakdown').innerHTML=[['GetATableSpot Direct',44],['Resy',28],['OpenTable',18],['Google Reserve',8],['Walk-In',2]].map(([src,pct])=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:4px"><span>${src}</span><span style="font-family:var(--mono);color:var(--gold)">${pct}%</span></div><div style="height:4px;background:var(--s3);border-radius:2px"><div style="height:100%;width:${pct}%;background:var(--gold);border-radius:2px"></div></div></div>`).join('');
 let _tt;
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3000);}
 </script>
