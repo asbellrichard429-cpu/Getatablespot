@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TableSpot Pro — Dine at a Higher Level</title>
+<title>GetATableSpot Pro — Dine at a Higher Level</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -95,11 +95,11 @@ header{padding:18px 32px;display:flex;align-items:center;justify-content:space-b
 </head>
 <body>
 <header>
-  <div class="logo"><span class="logo-dot"></span>TableSpot</div>
-  <button class="btn-back" onclick="history.back()">← Back</button>
+  <div class="logo"><span class="logo-dot"></span>GetATableSpot</div>
+  <button class="btn-back" onclick="window.location.href='index.html'">← Back</button>
 </header>
 <div class="hero">
-  <div class="hero-tag">✦ TableSpot Pro</div>
+  <div class="hero-tag">✦ GetATableSpot Pro</div>
   <h1>Dine at a<br><em>higher level.</em></h1>
   <p class="hero-sub">Real-time wait alerts, priority reservations, AI dining concierge, and exclusive access to the city's best tables.</p>
   <div class="hero-proof"><span class="hero-stars">★★★★★</span><span>Loved by 12,000+ diners in 8 cities</span></div>
@@ -123,7 +123,7 @@ header{padding:18px 32px;display:flex;align-items:center;justify-content:space-b
 <div class="plans-section">
   <div class="plans-header">
     <h2>Choose your plan</h2>
-    <p>Start free. Upgrade when you're ready to dine smarter.</p>
+    <p>Start free. Upgrade when you are ready to dine smarter.</p>
     <div class="billing-toggle">
       <span class="bt-label">Monthly</span>
       <div class="bt-pill" onclick="toggleBilling(this)">
@@ -208,8 +208,8 @@ header{padding:18px 32px;display:flex;align-items:center;justify-content:space-b
     </div>
     <div class="testi-card">
       <div class="tc-stars">★★★★★</div>
-      <div class="tc-text">"We switched from OpenTable to TableSpot. 44% of our reservations now come directly through TS. The AI insights actually tell us something actionable."</div>
-      <div class="tc-author"><div class="tc-avatar">👨‍🍳</div><div><div class="tc-name">Marco V.</div><div class="tc-sub">Owner, Rezdôra · Restaurant Pro</div></div></div>
+      <div class="tc-text">"We switched from OpenTable to GetATableSpot. 44% of our reservations now come directly through the platform. The AI insights are actually actionable."</div>
+      <div class="tc-author"><div class="tc-avatar">👨‍🍳</div><div><div class="tc-name">Marco V.</div><div class="tc-sub">Owner, Rezdora · Restaurant Pro</div></div></div>
     </div>
   </div>
 </div>
@@ -235,10 +235,10 @@ header{padding:18px 32px;display:flex;align-items:center;justify-content:space-b
 const API='http://localhost:3001/api';
 let annual=false,plan='pro';
 const PLANS={
-  pro:{badge:'✦ Pro Diner',title:'Start your free trial',sub:'7 days free, then $7.99/month. Cancel anytime.',btn:'Start Free Trial →',
-    order:[['TableSpot Pro Diner','$7.99/mo'],['7-day free trial','$0.00 today'],['Due today','$0.00']]},
+  pro:{badge:'✦ GetATableSpot Pro',title:'Start your free trial',sub:'7 days free, then $7.99/month. Cancel anytime.',btn:'Start Free Trial →',
+    order:[['GetATableSpot Pro Diner','$7.99/mo'],['7-day free trial','$0.00 today'],['Due today','$0.00']]},
   venue:{badge:'Restaurant Plan',title:'Claim your restaurant',sub:'30-day money-back guarantee.',btn:'Activate Dashboard →',
-    order:[['TableSpot Restaurant Pro','$99/mo'],['30-day money back','guaranteed'],['Due today','$99.00']]},
+    order:[['GetATableSpot Restaurant Pro','$99/mo'],['30-day money back','guaranteed'],['Due today','$99.00']]},
 };
 function toggleBilling(el){
   annual=!annual;
