@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TableSpot — Restaurant Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08090B;--s1:#0F1116;--s2:#161B24;--s3:#1E2535;
+  --border:#252D3E;--border2:#2E3A50;
+  --gold:#C9A84C;--gold-d:#8B6914;--gold-l:#E8D5A3;
+  --green:#2DD4BF;--red:#F87171;--amber:#FBBF24;--blue:#60A5FA;
+  --text:#E8EDF5;--muted:#6B7A99;--muted2:#4A5568;
+  --serif:'Playfair Display',serif;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;display:flex}
+.sidebar{width:220px;background:var(--s1);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;height:100vh;position:sticky;top:0}
+.sb-logo{padding:20px 18px;border-bottom:1px solid var(--border)}
+.sb-logo .mark{font-family:var(--serif);font-size:1.2rem;font-weight:900;display:flex;align-items:center;gap:6px}
+.sb-logo .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.sb-logo .sub{font-family:var(--mono);font-size:.62rem;color:var(--muted);margin-top:2px;letter-spacing:1px}
+nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:1px}
+.nb{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:6px;border:none;background:none;color:var(--muted);font-family:var(--sans);font-size:.83rem;font-weight:500;cursor:pointer;width:100%;text-align:left;transition:all .15s}
+.nb:hover{color:var(--text);background:var(--s2)}
+.nb.on{background:rgba(201,168,76,.08);color:var(--gold);border:1px solid rgba(201,168,76,.12)}
+.nb .ni{width:18px;text-align:center;font-size:.95rem}
+.sb-bottom{padding:12px 10px;border-top:1px solid var(--border)}
+.plan-box{background:var(--s2);border:1px solid rgba(201,168,76,.15);border-radius:8px;padding:12px}
+.plan-tier{font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.plan-name{font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.btn-up{width:100%;padding:8px;background:var(--gold);color:#000;border:none;border-radius:4px;font-family:var(--sans);font-weight:600;font-size:.78rem;cursor:pointer}
+.main-wrap{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.topbar{background:var(--s1);border-bottom:1px solid var(--border);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.tb-title{font-size:1rem;font-weight:600;color:var(--text)}
+.tb-right{display:flex;align-items:center;gap:10px}
+.live-pill{display:flex;align-items:center;gap:5px;background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.15);border-radius:4px;padding:4px 10px;font-family:var(--mono);font-size:.68rem;color:var(--green);letter-spacing:.5px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.tb-venue{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.content{padding:24px 28px;flex:1}
+.sec{display:none}
+.sec.on{display:block}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.stat-card{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:18px 20px}
+.sc-label{font-family:var(--mono);font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.sc-val{font-size:1.8rem;font-weight:700;line-height:1;margin-bottom:4px}
+.sc-val.g{color:var(--green)}.sc-val.a{color:var(--amber)}.sc-val.r{color:var(--red)}.sc-val.b{color:var(--blue)}
+.sc-sub{font-size:.75rem;color:var(--muted);font-family:var(--mono)}
+.sc-sub.up{color:var(--green)}.sc-sub.dn{color:var(--red)}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:16px}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.card-title{font-size:.82rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
+.card-badge{font-family:var(--mono);font-size:.62rem;padding:2px 7px;border-radius:3px;background:rgba(45,212,191,.1);color:var(--green);border:1px solid rgba(45,212,191,.15)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bar-chart{display:flex;align-items:flex-end;gap:5px;height:120px;margin-top:8px}
+.bc-bar{flex:1;border-radius:3px 3px 0 0;background:var(--s3);position:relative;min-height:4px;cursor:pointer;transition:background .15s}
+.bc-bar:hover{background:rgba(201,168,76,.2)}
+.bc-fill{position:absolute;bottom:0;left:0;right:0;border-radius:3px 3px 0 0;background:linear-gradient(to top,var(--gold),rgba(201,168,76,.3));transition:height .4s ease}
+.bc-label{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.58rem;color:var(--muted);white-space:nowrap}
+.bc-tip{display:none;position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:var(--s2);border:1px solid var(--border);border-radius:4px;padding:3px 7px;font-family:var(--mono);font-size:.65rem;white-space:nowrap;color:var(--text)}
+.bc-bar:hover .bc-tip{display:block}
+.wait-display{font-family:var(--mono);font-size:2.5rem;font-weight:500;color:var(--green);line-height:1;margin-bottom:8px}
+.wait-slider{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--s3);outline:none;cursor:pointer;margin-bottom:12px}
+.wait-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);border:3px solid var(--bg);cursor:pointer}
+.wait-presets{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.w-preset{padding:5px 12px;border-radius:3px;border:1px solid var(--border);background:var(--s2);color:var(--muted);font-family:var(--mono);font-size:.72rem;cursor:pointer;transition:all .15s}
+.w-preset:hover,.w-preset.wp-on{background:rgba(201,168,76,.1);border-color:var(--gold);color:var(--gold)}
+.btn-push{width:100%;padding:10px;background:var(--gold);color:#000;border:none;border-radius:4px;font-family:var(--sans);font-weight:600;font-size:.85rem;cursor:pointer}
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{font-family:var(--mono);font-size:.63rem;color:var(--muted);text-align:left;padding:0 10px 10px;text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--border)}
+.data-table td{padding:10px;font-size:.82rem;border-bottom:1px solid rgba(37,45,62,.6);color:var(--text)}
+.data-table tr:last-child td{border-bottom:none}
+.status{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:3px;font-size:.68rem;font-weight:600;letter-spacing:.5px}
+.s-conf{background:rgba(45,212,191,.08);color:var(--green);border:1px solid rgba(45,212,191,.15)}
+.s-pend{background:rgba(251,191,36,.08);color:var(--amber);border:1px solid rgba(251,191,36,.15)}
+.s-canc{background:rgba(248,113,113,.08);color:var(--red);border:1px solid rgba(248,113,113,.15)}
+.pro-tag{font-family:var(--mono);font-size:.62rem;color:var(--amber);background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.15);padding:2px 6px;border-radius:3px}
+.slots-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.slot-item{border:1px solid var(--border);border-radius:6px;padding:10px;text-align:center;cursor:pointer;transition:all .15s}
+.slot-item:hover{border-color:var(--gold)}
+.slot-item.sl-open{border-color:rgba(45,212,191,.25);background:rgba(45,212,191,.04)}
+.slot-item.sl-closed{border-color:rgba(248,113,113,.2);background:rgba(248,113,113,.03)}
+.slot-time{font-family:var(--mono);font-size:.75rem;color:var(--text);font-weight:500;margin-bottom:3px}
+.slot-status{font-size:.65rem;font-weight:600}
+.slot-status.open{color:var(--green)}.slot-status.closed{color:var(--red)}
+.slot-cap{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:2px}
+.feat-row{display:flex;align-items:center;justify-content:space-between;padding:14px;background:var(--s2);border:1px solid var(--border);border-radius:6px;margin-bottom:8px}
+.feat-info .fi-title{font-size:.85rem;font-weight:600;margin-bottom:2px}
+.feat-info .fi-desc{font-size:.75rem;color:var(--muted)}
+.sw{width:40px;height:22px;position:relative;cursor:pointer;flex-shrink:0}
+.sw input{display:none}
+.sw-track{position:absolute;inset:0;background:var(--s3);border-radius:999px;border:1px solid var(--border);transition:background .2s}
+.sw-thumb{position:absolute;width:16px;height:16px;background:var(--muted2);border-radius:50%;top:2px;left:2px;transition:all .2s}
+.sw input:checked+.sw-track{background:var(--gold);border-color:var(--gold)}
+.sw input:checked~.sw-thumb{transform:translateX(18px);background:#000}
+.rev-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(37,45,62,.6);font-size:.83rem}
+.rev-row:last-child{border-bottom:none;font-weight:700;margin-top:4px;padding-top:14px}
+.rev-label{color:var(--muted)}
+.rev-val.pos{color:var(--green);font-family:var(--mono)}
+.rev-val.neg{color:var(--red);font-family:var(--mono)}
+.rev-val.total{color:var(--text);font-family:var(--mono);font-size:.95rem}
+.insight-card{background:var(--s2);border:1px solid rgba(201,168,76,.15);border-radius:6px;padding:14px;margin-bottom:8px}
+.ic-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ic-title{font-size:.82rem;font-weight:600;color:var(--gold-l)}
+.ic-body{font-size:.8rem;color:var(--muted);line-height:1.5}
+.ic-action{display:inline-block;margin-top:8px;font-size:.75rem;color:var(--gold);font-weight:600;cursor:pointer;text-decoration:underline}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--s2);border:1px solid var(--border);color:var(--text);padding:11px 18px;border-radius:6px;font-size:.82rem;font-weight:500;z-index:999;transform:translateY(80px);opacity:0;transition:all .3s}
+.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:800px){.sidebar{display:none}.stats-row{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}.slots-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sb-logo">
+    <div class="mark"><span class="dot"></span>TableSpot</div>
+    <div class="sub">RESTAURANT PORTAL</div>
+  </div>
+  <nav>
+    <button class="nb on" onclick="nav('overview',this)"><span class="ni">◈</span> Overview</button>
+    <button class="nb" onclick="nav('waittime',this)"><span class="ni">⏱</span> Wait Time</button>
+    <button class="nb" onclick="nav('reservations',this)"><span class="ni">📅</span> Reservations</button>
+    <button class="nb" onclick="nav('slots',this)"><span class="ni">🗓</span> Availability</button>
+    <button class="nb" onclick="nav('listing',this)"><span class="ni">✦</span> My Listing</button>
+    <button class="nb" onclick="nav('intel',this)"><span class="ni">🤖</span> AI Insights</button>
+    <button class="nb" onclick="nav('revenue',this)"><span class="ni">$</span> Revenue</button>
+  </nav>
+  <div class="sb-bottom">
+    <div class="plan-box">
+      <div class="plan-tier">Current Plan</div>
+      <div class="plan-name">TableSpot Pro</div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px">$99/month · Featured</div>
+      <button class="btn-up" onclick="showToast('Opening upgrade…')">⭐ Upgrade to Elite</button>
+    </div>
+  </div>
+</aside>
+<div class="main-wrap">
+  <div class="topbar">
+    <div class="tb-title" id="tbTitle">Overview</div>
+    <div class="tb-right">
+      <div class="live-pill"><span class="live-dot"></span>LIVE</div>
+      <div class="tb-venue">Carbone · New York, NY</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="sec on" id="sec-overview">
+      <div class="stats-row">
+        <div class="stat-card"><div class="sc-label">Profile Views Today</div><div class="sc-val g">847</div><div class="sc-sub up">↑ 23% vs yesterday</div></div>
+        <div class="stat-card"><div class="sc-label">Reservations This Week</div><div class="sc-val a">142</div><div class="sc-sub up">↑ 18 from last week</div></div>
+        <div class="stat-card"><div class="sc-label">Conversion Rate</div><div class="sc-val b">7.4%</div><div class="sc-sub">Industry avg: 4.8%</div></div>
+        <div class="stat-card"><div class="sc-label">Revenue via TableSpot</div><div class="sc-val g">$1,847</div><div class="sc-sub up">142 bookings × avg $13</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Hourly Views Today <span class="card-badge">TODAY</span></div></div>
+          <div class="bar-chart" id="viewChart"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Current Status</div></div>
+          <div style="margin-bottom:16px">
+            <div class="sc-label">LIVE WAIT TIME</div>
+            <div class="wait-display" id="ovWait">25 min</div>
+            <div style="font-size:.72rem;color:var(--muted);font-family:var(--mono)">Updated 3 min ago</div>
+          </div>
+          <div class="sc-label" style="margin-bottom:8px">TOP SEARCH TERMS</div>
+          <div id="topTerms"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Reservations — Last 7 Days <span class="card-badge">+18%</span></div></div>
+        <div class="bar-chart" id="resChart"></div>
+      </div>
+    </div>
+    <div class="sec" id="sec-waittime">
+      <div class="card" style="max-width:520px">
+        <div class="card-head"><div class="card-title">Live Wait Time Control</div></div>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:18px;line-height:1.5">Diners see this in real-time on TableSpot. Keep it accurate to build trust.</p>
+        <div class="sc-label">CURRENT WAIT</div>
+        <div class="wait-display" id="waitDisp">25 min</div>
+        <input type="range" class="wait-slider" id="waitSlider" min="0" max="120" value="25" oninput="onSlider(this.value)">
+        <div class="wait-presets">
+          <button class="w-preset" onclick="setWait(0,this)">No wait</button>
+          <button class="w-preset" onclick="setWait(10,this)">10 min</button>
+          <button class="w-preset" onclick="setWait(20,this)">20 min</button>
+          <button class="w-preset wp-on" onclick="setWait(25,this)">25 min</button>
+          <button class="w-preset" onclick="setWait(45,this)">45 min</button>
+          <button class="w-preset" onclick="setWait(60,this)">60+ min</button>
+        </div>
+        <button class="btn-push" onclick="pushWait()">📡 Push Live to TableSpot</button>
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
+          <div class="sc-label" style="margin-bottom:16px">WAIT TREND TODAY</div>
+          <div class="bar-chart" id="waitChart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="sec" id="sec-reservations">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Upcoming Reservations <span class="card-badge">12 today</span></div></div>
+        <table class="data-table">
+          <thead><tr><th>Guest</th><th>Time</th><th>Party</th><th>Date</th><th>Platform</th><th>Status</th><th>Pro</th><th>Notes</th></tr></thead>
+          <tbody id="resTbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="sec" id="sec-slots">
+      <div class="card" style="max-width:640px">
+        <div class="card-head"><div class="card-title">Manage Availability</div></div>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px;line-height:1.5">Toggle slots open or closed. Changes go live instantly.</p>
+        <div class="sc-label" style="margin-bottom:10px">DINNER SERVICE — TONIGHT</div>
+        <div class="slots-grid" id="slotsGrid"></div>
+        <button class="btn-push" style="margin-top:16px" onclick="saveSlots()">💾 Save and Go Live</button>
+      </div>
+    </div>
+    <div class="sec" id="sec-listing">
+      <div class="card" style="max-width:540px">
+        <div class="card-head"><div class="card-title">Listing Controls</div></div>
+        <div class="feat-row">
+          <div class="feat-info"><div class="fi-title">✦ Featured Placement</div><div class="fi-desc">Appear first in search · Gold border · 3× more clicks</div></div>
+          <label class="sw"><input type="checkbox" checked onchange="onToggle('featured',this)"><div class="sw-track"></div><div class="sw-thumb"></div></label>
+        </div>
+        <div class="feat-row">
+          <div class="feat-info"><div class="fi-title">📅 Accept Online Reservations</div><div class="fi-desc">Allow TableSpot diners to book directly</div></div>
+          <label class="sw"><input type="checkbox" checked onchange="onToggle('reservations',this)"><div class="sw-track"></div><div class="sw-thumb"></div></label>
+        </div>
+        <div class="feat-row">
+          <div class="feat-info"><div class="fi-title">⏱ Show Live Wait Time</div><div class="fi-desc">Display real-time wait to nearby diners</div></div>
+          <label class="sw"><input type="checkbox" checked onchange="onToggle('wait',this)"><div class="sw-track"></div><div class="sw-thumb"></div></label>
+        </div>
+        <div class="feat-row">
+          <div class="feat-info"><div class="fi-title">🤖 AI Concierge Visible</div><div class="fi-desc">Pro diners can ask AI about your menu</div></div>
+          <label class="sw"><input type="checkbox" onchange="onToggle('ai',this)"><div class="sw-track"></div><div class="sw-thumb"></div></label>
+        </div>
+      </div>
+    </div>
+    <div class="sec" id="sec-intel">
+      <div style="max-width:640px">
+        <div style="margin-bottom:20px">
+          <div style="font-family:var(--serif);font-size:1.3rem;font-weight:700;margin-bottom:4px">AI Dining Intelligence</div>
+          <div style="font-size:.82rem;color:var(--muted)">Updated hourly from your reservation and wait data</div>
+        </div>
+        <div id="insightsList"></div>
+      </div>
+    </div>
+    <div class="sec" id="sec-revenue">
+      <div class="stats-row">
+        <div class="stat-card"><div class="sc-label">This Month</div><div class="sc-val g">$5,824</div><div class="sc-sub up">142 bookings</div></div>
+        <div class="stat-card"><div class="sc-label">Commission Paid</div><div class="sc-val r">$213</div><div class="sc-sub">142 × $1.50</div></div>
+        <div class="stat-card"><div class="sc-label">Plan Cost</div><div class="sc-val a">$99</div><div class="sc-sub">Pro plan/month</div></div>
+        <div class="stat-card"><div class="sc-label">Net Gain</div><div class="sc-val g">$5,512</div><div class="sc-sub up">ROI: 44× plan cost</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Revenue Breakdown</div></div>
+          <div class="rev-row"><span class="rev-label">Reservation revenue (142 covers)</span><span class="rev-val pos">+$5,824</span></div>
+          <div class="rev-row"><span class="rev-label">Special event upsells (8)</span><span class="rev-val pos">+$640</span></div>
+          <div class="rev-row"><span class="rev-label">Per-cover commissions</span><span class="rev-val neg">−$213</span></div>
+          <div class="rev-row"><span class="rev-label">Featured plan subscription</span><span class="rev-val neg">−$99</span></div>
+          <div class="rev-row"><span>Net revenue via TableSpot</span><span class="rev-val total">$6,152</span></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Booking Sources</div></div>
+          <div id="sourceBreakdown"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const titles={overview:'Overview',waittime:'Wait Time Control',reservations:'Reservations',slots:'Availability Manager',listing:'Listing Settings',intel:'AI Insights',revenue:'Revenue Analytics'};
+function nav(id,btn){
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('sec-'+id).classList.add('on');
+  document.getElementById('tbTitle').textContent=titles[id];
+}
+function barChart(id,data){
+  const el=document.getElementById(id);if(!el)return;
+  const max=Math.max(...data.map(d=>d.v),1);
+  el.innerHTML=data.map(d=>`<div class="bc-bar"><div class="bc-fill" style="height:${(d.v/max)*100}%"></div><div class="bc-label">${d.l}</div><div class="bc-tip">${d.tip||d.v}</div></div>`).join('');
+}
+barChart('viewChart',[{l:'8a',v:42,tip:'42 views'},{l:'9a',v:78,tip:'78 views'},{l:'10a',v:95,tip:'95 views'},{l:'11a',v:134,tip:'134 views'},{l:'12p',v:187,tip:'187 views'},{l:'1p',v:143,tip:'143 views'},{l:'2p',v:98,tip:'98 views'},{l:'3p',v:76,tip:'76 views'},{l:'4p',v:112,tip:'112 views'},{l:'5p',v:167,tip:'167 views'},{l:'6p',v:201,tip:'201 views'},{l:'7p',v:184,tip:'184 views'}]);
+barChart('resChart',[{l:'Mon',v:14,tip:'14 reservations'},{l:'Tue',v:18,tip:'18'},{l:'Wed',v:22,tip:'22'},{l:'Thu',v:19,tip:'19'},{l:'Fri',v:38,tip:'38'},{l:'Sat',v:44,tip:'44'},{l:'Sun',v:32,tip:'32'}]);
+barChart('waitChart',[{l:'5p',v:10,tip:'10 min'},{l:'5:30',v:18,tip:'18 min'},{l:'6p',v:28,tip:'28 min'},{l:'6:30',v:35,tip:'35 min'},{l:'7p',v:42,tip:'42 min'},{l:'7:30',v:38,tip:'38 min'},{l:'8p',v:25,tip:'25 min'},{l:'8:30',v:18,tip:'18 min'},{l:'9p',v:10,tip:'10 min'}]);
+document.getElementById('topTerms').innerHTML=[['italian restaurant nyc',38],['carbone reservation',27],['best pasta new york',19],['midtown dinner',12],['special occasion restaurant',9]].map(([t,p])=>`<div style="display:flex;justify-content:space-between;margin-bottom:7px;font-size:.78rem"><span style="color:var(--muted)">${t}</span><span style="font-family:var(--mono);color:var(--gold);font-size:.72rem">${p}%</span></div>`).join('');
+const MOCK_RES=[{name:'Jessica M.',time:'6:00 PM',party:2,date:'Tonight',platform:'Resy',status:'confirmed',pro:true,note:'Anniversary'},{name:'David K.',time:'6:30 PM',party:4,date:'Tonight',platform:'OpenTable',status:'confirmed',pro:false,note:''},{name:'Rachel T.',time:'7:00 PM',party:2,date:'Tonight',platform:'TableSpot',status:'pending',pro:true,note:'Shellfish allergy'},{name:'William C.',time:'7:30 PM',party:6,date:'Tonight',platform:'TableSpot',status:'confirmed',pro:false,note:'Birthday'},{name:'Alexandra B.',time:'8:00 PM',party:3,date:'Tonight',platform:'Resy',status:'cancelled',pro:false,note:''},{name:'Michael R.',time:'8:30 PM',party:2,date:'Tonight',platform:'OpenTable',status:'confirmed',pro:true,note:'Window seat'},{name:'Sofia P.',time:'6:00 PM',party:4,date:'Tomorrow',platform:'TableSpot',status:'confirmed',pro:true,note:''},{name:'Tom H.',time:'7:00 PM',party:8,date:'Tomorrow',platform:'Google',status:'pending',pro:false,note:'Corporate dinner'}];
+document.getElementById('resTbody').innerHTML=MOCK_RES.map(r=>`<tr><td style="font-weight:600">${r.name}</td><td style="font-family:var(--mono);font-size:.78rem">${r.time}</td><td style="font-family:var(--mono)">${r.party}</td><td style="color:var(--muted);font-size:.78rem">${r.date}</td><td style="font-size:.75rem;color:var(--muted)">${r.platform}</td><td><span class="status s-${r.status==='confirmed'?'conf':r.status==='pending'?'pend':'canc'}">${r.status}</span></td><td>${r.pro?'<span class="pro-tag">PRO</span>':''}</td><td style="font-size:.75rem;color:var(--muted);font-style:italic">${r.note}</td></tr>`).join('');
+const slots=[{t:'5:00 PM',open:true,cap:8},{t:'5:30 PM',open:true,cap:8},{t:'6:00 PM',open:false,cap:8},{t:'6:30 PM',open:true,cap:6},{t:'7:00 PM',open:true,cap:8},{t:'7:30 PM',open:false,cap:8},{t:'8:00 PM',open:true,cap:8},{t:'8:30 PM',open:true,cap:5},{t:'9:00 PM',open:true,cap:8},{t:'9:30 PM',open:false,cap:8},{t:'10:00 PM',open:true,cap:6},{t:'10:30 PM',open:true,cap:4}];
+function renderSlots(){document.getElementById('slotsGrid').innerHTML=slots.map((s,i)=>`<div class="slot-item ${s.open?'sl-open':'sl-closed'}" onclick="toggleSlot(${i})"><div class="slot-time">${s.t}</div><div class="slot-status ${s.open?'open':'closed'}">${s.open?'● Open':'○ Closed'}</div><div class="slot-cap">Cap: ${s.cap}</div></div>`).join('');}
+function toggleSlot(i){slots[i].open=!slots[i].open;renderSlots();}
+function saveSlots(){showToast('✓ Availability updated and live');}
+renderSlots();
+let waitVal=25;
+function onSlider(v){waitVal=parseInt(v);document.getElementById('waitDisp').textContent=v==='0'?'No wait':`${v} min`;document.getElementById('ovWait').textContent=v==='0'?'No wait':`${v} min`;}
+function setWait(v,btn){waitVal=v;document.getElementById('waitSlider').value=v;onSlider(v.toString());document.querySelectorAll('.w-preset').forEach(b=>b.classList.remove('wp-on'));btn.classList.add('wp-on');}
+function pushWait(){showToast(`📡 Wait time set to ${waitVal===0?'no wait':waitVal+' min'} — live now`);}
+function onToggle(f,el){const msgs={featured:'Featured listing '+(el.checked?'enabled':'disabled'),reservations:'Reservations '+(el.checked?'enabled':'paused'),wait:'Wait time '+(el.checked?'visible':'hidden'),ai:'AI Concierge '+(el.checked?'enabled':'disabled')};showToast(msgs[f]||'Setting updated');}
+const insights=[{icon:'📈',title:'Peak demand alert',body:'You are turning away an estimated 24 diners per Friday by closing all slots at 8 PM. Extending availability by 30 minutes could add $600–900 per week.',action:'Adjust Friday availability →'},{icon:'⚡',title:'Wait time impact',body:'Restaurants with under 20 min wait show 2.3× higher booking conversion. Your Friday average of 42 min is costing roughly 18 reservations per week.',action:'View wait optimization tips →'},{icon:'💬',title:'Review sentiment trend',body:'Yelp mentions of slow service increased 15% this month. This correlates with your 7:30 PM slot — consider adding an extra runner during that window.',action:'See review analysis →'},{icon:'💰',title:'Revenue opportunity',body:'Pro diners book 1.8× more frequently and spend 22% more per visit. Adding 2–3 Pro-exclusive slots could generate $400–800 additional monthly revenue.',action:'Set up Pro slots →'}];
+document.getElementById('insightsList').innerHTML=insights.map(i=>`<div class="insight-card"><div class="ic-head"><span>${i.icon}</span><span class="ic-title">${i.title}</span></div><div class="ic-body">${i.body}</div><span class="ic-action" onclick="showToast('Opening…')">${i.action}</span></div>`).join('');
+document.getElementById('sourceBreakdown').innerHTML=[['TableSpot Direct',44],['Resy',28],['OpenTable',18],['Google Reserve',8],['Walk-In',2]].map(([src,pct])=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:4px"><span>${src}</span><span style="font-family:var(--mono);color:var(--gold)">${pct}%</span></div><div style="height:4px;background:var(--s3);border-radius:2px"><div style="height:100%;width:${pct}%;background:var(--gold);border-radius:2px"></div></div></div>`).join('');
+let _tt;
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3000);}
+</script>
+</body>
+</html>
