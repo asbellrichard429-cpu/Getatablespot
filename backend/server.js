@@ -210,6 +210,20 @@ app.get('/api/venues/:id/reviews', async (req, res) => {
   res.json({ reviews });
 });
 
+app.get('/api/search', async (req, res) => {
+  try {
+    const { q } = req.query;
+    if (!q) return res.status(400).json({ error: 'q required' });
+    const { data } = await axios.get(
+      'https://maps.googleapis.com/maps/api/place/textsearch/json',
+      { params: { query: q, type: 'restaurant', key: G_KEY } }
+    );
+    res.json({ results: data.results || [] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.post('/api/reservations', async (req, res) => {
   try {
     const { venueId, time, date, partySize, guestName, guestEmail, notes, isPro } = req.body;
@@ -255,6 +269,16 @@ app.get('/api/restaurant-dashboard/:id/analytics', async (req, res) => {
     conversionRate: 7.4,
     revenueViaGetATableSpot: 567 * 1.50,
   });
+});
+
+app.post('/api/restaurant-claim', async (req, res) => {
+  try {
+    const { restaurantId, restaurantName, restaurantAddress, ownerName, email, phone, plan } = req.body;
+    console.log('New restaurant claim:', { restaurantId, restaurantName, restaurantAddress, ownerName, email, phone, plan });
+    res.json({ success: true, message: 'Claim received. Dashboard access will be sent to your email.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.post('/api/subscribe', async (req, res) => {
