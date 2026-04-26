@@ -226,7 +226,7 @@ select.field-in{cursor:pointer}
 
   <div class="form-wrap" id="claimForm">
     <div class="form-title">Claim your restaurant</div>
-    <div class="form-sub">Your restaurant is already on GetATableSpot. Claim it to take control — takes less than 2 minutes.</div>
+    <div class="form-sub">Your restaurant is already on GetATableSpot. Claim it to take control — takes less than 2 minutes. First 7 days free.</div>
 
     <div class="step-indicator" id="stepIndicator">
       <div class="step-dot active" id="sd1">1</div>
@@ -289,13 +289,13 @@ select.field-in{cursor:pointer}
 
       <div class="divider"></div>
       <div class="plan-header">Choose your plan</div>
-      <div class="plan-sub">Founding restaurants get priority placement as traffic grows in your market. Cancel anytime.</div>
+      <div class="plan-sub">7 days free on all plans — no charge until day 8. Founding restaurants get priority placement as traffic grows. Cancel anytime.</div>
 
       <div class="plan-cards">
         <div class="plan-card" onclick="selectPlan('basic',this)">
           <div class="plan-name">Basic</div>
           <div class="plan-price">$49</div>
-          <div class="plan-period">per month</div>
+          <div class="plan-period">per month after trial</div>
           <div class="plan-tagline">Control your listing. Start getting found.</div>
           <div class="plan-feats">
             <div class="plan-feat y">✓ Dashboard access</div>
@@ -310,7 +310,7 @@ select.field-in{cursor:pointer}
           <div class="popular-badge">MOST POPULAR</div>
           <div class="plan-name">Pro</div>
           <div class="plan-price">$99</div>
-          <div class="plan-period">per month</div>
+          <div class="plan-period">per month after trial</div>
           <div class="plan-tagline">Priority visibility. Fill more tables.</div>
           <div class="plan-feats">
             <div class="plan-feat y">✓ Everything in Basic</div>
@@ -324,7 +324,7 @@ select.field-in{cursor:pointer}
         <div class="plan-card" onclick="selectPlan('elite',this)">
           <div class="plan-name">Elite</div>
           <div class="plan-price">$299</div>
-          <div class="plan-period">per month</div>
+          <div class="plan-period">per month after trial</div>
           <div class="plan-tagline">Dominate your local market.</div>
           <div class="plan-feats">
             <div class="plan-feat y">✓ Everything in Pro</div>
@@ -342,9 +342,9 @@ select.field-in{cursor:pointer}
       </div>
 
       <button class="btn-claim" id="btnClaim" onclick="submitClaim()">
-        <span id="claimBtnLabel">Claim My Restaurant — Start Free 30 Days →</span>
+        <span id="claimBtnLabel">Claim My Restaurant — Start Free 7 Days →</span>
       </button>
-      <div class="secure-note">🔒 Secured by Stripe · Cancel anytime · No setup fees · No per-reservation charges</div>
+      <div class="secure-note">🔒 Secured by Stripe · 7 days free · Cancel anytime · No setup fees · No per-reservation charges</div>
     </div>
   </div>
 
@@ -384,10 +384,10 @@ select.field-in{cursor:pointer}
 <div class="success" id="successScreen">
   <div class="success-icon">🎉</div>
   <div class="success-title">You're in!</div>
-  <div class="success-sub">Welcome to GetATableSpot. As a founding restaurant you get priority placement as traffic grows in your market. Check your email — your payment link and dashboard access are on the way.</div>
+  <div class="success-sub">Welcome to GetATableSpot. As a founding restaurant you get priority placement as traffic grows in your market. You're being redirected to complete your free 7-day trial setup now.</div>
   <div class="success-box">
     <div style="font-weight:700;margin-bottom:14px;font-size:.88rem">What happens next:</div>
-    <div class="next-item"><div class="next-num">1</div><div>Check your email for your secure payment link. Complete payment to activate your dashboard.</div></div>
+    <div class="next-item"><div class="next-num">1</div><div>Complete your free trial setup on the next screen. Your card will not be charged for 7 days.</div></div>
     <div class="next-item"><div class="next-num">2</div><div>Log into your dashboard and set your current wait time — diners see it immediately.</div></div>
     <div class="next-item"><div class="next-num">3</div><div>Your Featured badge and founding restaurant status go live within 24 hours.</div></div>
   </div>
@@ -401,9 +401,9 @@ let selectedRestaurant=null;
 let selectedPlanName='pro';
 
 const STRIPE_LINKS={
-  basic:'https://buy.stripe.com/9B628qceVb4E6WMal6bEA02',
-  pro:'https://buy.stripe.com/5kQ7sK5QxfkUbd278UbEA01',
-  elite:'https://buy.stripe.com/6oUfZg1Ahc8IgxmbpabEA00',
+  basic:'https://buy.stripe.com/6oU3cua6N5Kkbd2gJubEA03',
+  pro:'https://buy.stripe.com/4gMaEW92J0q0ch6gJubEA04',
+  elite:'https://buy.stripe.com/bJe6oG2El4Gg94UbpabEA05',
 };
 
 function updateSteps(step){
@@ -504,10 +504,9 @@ async function submitClaim(){
   document.getElementById('successScreen').style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
 
-  // Redirect to Stripe payment after 2 seconds
   setTimeout(()=>{
     window.location.href=STRIPE_LINKS[selectedPlanName];
-  },2000);
+  },2500);
 }
 
 let _tt;
