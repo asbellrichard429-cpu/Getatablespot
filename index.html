@@ -29,7 +29,8 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .btn-search{background:var(--gold);color:var(--ink);border:none;padding:0 20px;font-family:var(--sans);font-weight:600;font-size:.85rem;cursor:pointer;white-space:nowrap}
 .header-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
 .btn-hdr{padding:8px 16px;border-radius:4px;font-family:var(--sans);font-weight:500;font-size:.83rem;cursor:pointer;border:none;white-space:nowrap}
-.btn-signin{background:rgba(255,255,255,.08);color:var(--paper);border:1px solid rgba(255,255,255,.15)}
+.btn-restaurants{background:rgba(255,255,255,.08);color:var(--paper);border:1px solid rgba(255,255,255,.15)}
+.btn-restaurants:hover{background:rgba(255,255,255,.14)}
 .btn-pro-hdr{background:var(--gold);color:var(--ink);font-weight:600}
 .cuisine-nav{background:var(--warm);border-bottom:1px solid var(--border)}
 .cuisine-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:2px;overflow-x:auto;height:48px;scrollbar-width:none}
@@ -150,11 +151,11 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
     <div class="search-bar">
       <input id="searchInput" type="text" placeholder="Restaurant, cuisine…" oninput="onSearch()" onkeydown="if(event.key==='Enter')doSearch()">
       <div class="divider-v"></div>
-      <input id="locationInput" class="location-input" type="text" placeholder="City or address…" onkeydown="if(event.key==='Enter')searchLocation()">
+      <input id="locationInput" class="location-input" type="text" placeholder="City or address…" onkeydown="if(event.key==='Enter')doSearch()">
       <button class="btn-search" onclick="doSearch()">Search</button>
     </div>
     <div class="header-actions">
-      <button class="btn-hdr btn-signin" onclick="showToast('Sign in coming soon!')">Sign In</button>
+      <button class="btn-hdr btn-restaurants" onclick="window.location.href='claim-restaurant.html'">For Restaurants</button>
       <button class="btn-hdr btn-pro-hdr" onclick="openProPage()">✦ Go Pro</button>
     </div>
   </div>
@@ -291,15 +292,6 @@ async function geocode(query){
     }
   }catch{}
   return null;
-}
-
-async function searchLocation(){
-  const query=document.getElementById('locationInput').value.trim();
-  if(!query)return;
-  showToast('Searching '+query+'…');
-  const loc=await geocode(query);
-  if(loc){currentLat=loc.lat;currentLng=loc.lng;load(loc.lat,loc.lng);showToast('Showing restaurants in '+loc.label);}
-  else showToast('Location not found. Try a different city.');
 }
 
 async function load(lat,lng){
@@ -439,18 +431,33 @@ function toggleFilter(f,btn){if(activeFilters.has(f)){activeFilters.delete(f);bt
 function setCuisine(c,btn){currentCuisine=c;document.querySelectorAll('.cuisine-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderRestaurants();}
 let _st;
 function onSearch(){clearTimeout(_st);searchQ=document.getElementById('searchInput').value;_st=setTimeout(renderRestaurants,250);}
+
 async function doSearch(){
   const locQuery=document.getElementById('locationInput').value.trim();
-  if(locQuery){await searchLocation();}
-  else{renderRestaurants();}
+  const searchQuery=document.getElementById('searchInput').value.trim();
+  if(locQuery){
+    showToast('Searching '+locQuery+'…');
+    const loc=await geocode(locQuery);
+    if(loc){
+      currentLat=loc.lat;currentLng=loc.lng;
+      await load(loc.lat,loc.lng);
+      showToast('Showing restaurants in '+loc.label);
+    }else{
+      showToast('Location not found. Try a different city.');
+    }
+  }else if(searchQuery){
+    renderRestaurants();
+  }else{
+    load(currentLat,currentLng);
+  }
 }
+
 function sortBy(v){currentSort=v;renderRestaurants();}
 function openProPage(){window.location.href='pro-subscription.html';}
 
 let _tt;
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3200);}
 
-// Auto detect location on load
 if(navigator.geolocation){
   navigator.geolocation.getCurrentPosition(
     p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;load(currentLat,currentLng);},
