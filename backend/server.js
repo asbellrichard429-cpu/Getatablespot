@@ -1,0 +1,5 @@
+GOOGLE_PLACES_API_KEY=AIzaSyB_JOErDDkAiF9PurZXwEQSHGhe_X1-m5I
+YELP_API_KEY=your_yelp_api_key_here
+STRIPE_SECRET_KEY=sk_test_placeholder
+PORT=3001
+ALLOWED_ORIGINS=http://localhost:3000,https://getatablespot.com
