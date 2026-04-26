@@ -3,202 +3,322 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GetATableSpot — Find Your Next Great Meal</title>
+<title>GetATableSpot — Skip the Wait. Know Before You Go.</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --ink:#0F0D0A; --paper:#FAF8F4; --warm:#F5F0E8;
-  --gold:#C9A84C; --gold-light:#E8D5A3; --gold-dark:#8B6914;
-  --ember:#E85D3A; --sage:#4A7C59; --slate:#4A5568;
-  --border:#E2DDD5; --border-dark:#C8C0B4;
+:root{
+  --ink:#0F0D0A;--paper:#FAF8F4;--warm:#F5F0E8;
+  --gold:#C9A84C;--gold-l:#E8D5A3;--gold-d:#8B6914;
+  --ember:#E85D3A;--sage:#4A7C59;--slate:#6B7A8D;
+  --border:#E2DDD5;
   --serif:'Playfair Display',Georgia,serif;
   --sans:'DM Sans',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);min-height:100vh}
-header{background:var(--ink);position:sticky;top:0;z-index:200}
-.header-top{max-width:1280px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;gap:16px}
-.logo{font-family:var(--serif);font-size:1.5rem;font-weight:900;color:var(--paper);display:flex;align-items:center;gap:10px;white-space:nowrap}
-.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block}
-.search-bar{flex:1;max-width:640px;display:flex;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:6px;overflow:hidden}
-.search-bar input{flex:1;background:none;border:none;outline:none;padding:10px 16px;color:var(--paper);font-family:var(--sans);font-size:.9rem}
-.search-bar input::placeholder{color:rgba(255,255,255,.4)}
-.search-bar .divider-v{width:1px;background:rgba(255,255,255,.12);flex-shrink:0}
-.location-input{width:160px;background:none;border:none;outline:none;padding:10px 12px;color:rgba(255,255,255,.8);font-family:var(--sans);font-size:.82rem;flex-shrink:0}
-.location-input::placeholder{color:rgba(255,255,255,.4)}
-.btn-search{background:var(--gold);color:var(--ink);border:none;padding:0 20px;font-family:var(--sans);font-weight:600;font-size:.85rem;cursor:pointer;white-space:nowrap}
-.header-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
-.btn-hdr{padding:8px 16px;border-radius:4px;font-family:var(--sans);font-weight:500;font-size:.83rem;cursor:pointer;border:none;white-space:nowrap}
-.btn-restaurants{background:rgba(255,255,255,.08);color:var(--paper);border:1px solid rgba(255,255,255,.15)}
-.btn-restaurants:hover{background:rgba(255,255,255,.14)}
-.btn-pro-hdr{background:var(--gold);color:var(--ink);font-weight:600}
+
+/* HEADER */
+header{background:var(--ink);position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,255,255,.06)}
+.header-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:var(--serif);font-size:1.3rem;font-weight:900;color:var(--paper);display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none}
+.logo-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.header-links{display:flex;align-items:center;gap:8px}
+.btn-hdr{padding:7px 16px;border-radius:4px;font-family:var(--sans);font-weight:600;font-size:.82rem;cursor:pointer;border:none;white-space:nowrap;transition:all .15s}
+.btn-diners{background:var(--gold);color:var(--ink)}
+.btn-diners:hover{background:var(--gold-l)}
+.btn-biz{background:rgba(255,255,255,.1);color:var(--paper);border:1px solid rgba(255,255,255,.2)}
+.btn-biz:hover{background:rgba(255,255,255,.16)}
+
+/* HERO */
+.hero{background:var(--ink);padding:72px 24px 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,168,76,.1),transparent)}
+.hero-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.hero h1{font-family:var(--serif);font-size:clamp(2.2rem,5.5vw,4rem);font-weight:900;color:var(--paper);line-height:1.1;margin-bottom:12px}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto 16px;line-height:1.6}
+.hero-disclaimer{font-size:.72rem;color:rgba(255,255,255,.3);margin-bottom:36px}
+
+/* AUDIENCE SPLIT */
+.audience-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:640px;margin:0 auto 40px}
+@media(max-width:500px){.audience-split{grid-template-columns:1fr;gap:12px}}
+.audience-card{border-radius:10px;padding:24px;cursor:pointer;transition:transform .2s,box-shadow .2s;text-align:left;border:none;font-family:var(--sans)}
+.audience-card:hover{transform:translateY(-3px)}
+.ac-diner{background:var(--gold);color:var(--ink)}
+.ac-restaurant{background:rgba(255,255,255,.08);color:var(--paper);border:1.5px solid rgba(255,255,255,.2)}
+.ac-restaurant:hover{background:rgba(255,255,255,.14)}
+.ac-label{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.7;margin-bottom:8px}
+.ac-headline{font-family:var(--serif);font-size:1.2rem;font-weight:900;line-height:1.2;margin-bottom:6px}
+.ac-sub{font-size:.78rem;opacity:.75;line-height:1.4}
+.ac-btn{display:inline-block;margin-top:14px;padding:8px 18px;border-radius:4px;font-weight:700;font-size:.82rem}
+.ac-diner .ac-btn{background:var(--ink);color:var(--paper)}
+.ac-restaurant .ac-btn{background:var(--gold);color:var(--ink)}
+
+/* SOCIAL PROOF */
+.proof-band{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:12px 24px}
+.proof-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.proof-item{font-size:.75rem;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:6px}
+.proof-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.6}
+
+/* SEARCH */
+.search-section{background:var(--paper);border-bottom:2px solid var(--border);padding:16px 24px}
+.search-inner{max-width:860px;margin:0 auto}
+.search-row{display:flex;gap:8px;flex-wrap:wrap}
+.search-box{flex:1;min-width:200px;display:flex;background:white;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .15s}
+.search-box:focus-within{border-color:var(--ink)}
+.search-icon{padding:0 12px;color:var(--slate);display:flex;align-items:center;font-size:1rem;flex-shrink:0}
+.search-box input{flex:1;background:none;border:none;outline:none;padding:11px 4px 11px 0;font-family:var(--sans);font-size:.92rem;color:var(--ink)}
+.search-box input::placeholder{color:#B0A898}
+.location-box{display:flex;background:white;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .15s;min-width:200px;flex:1}
+.location-box:focus-within{border-color:var(--ink)}
+.btn-gps{background:none;border:none;border-right:1px solid var(--border);padding:0 12px;cursor:pointer;color:var(--slate);font-size:1rem;display:flex;align-items:center;flex-shrink:0;transition:background .15s}
+.btn-gps:hover{background:var(--warm)}
+.location-box input{flex:1;background:none;border:none;outline:none;padding:11px 12px;font-family:var(--sans);font-size:.92rem;color:var(--ink)}
+.location-box input::placeholder{color:#B0A898}
+.btn-find{padding:11px 24px;background:var(--ink);color:var(--paper);border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.92rem;cursor:pointer;white-space:nowrap;transition:background .15s;flex-shrink:0}
+.btn-find:hover{background:#2A2218}
+
+/* CUISINE NAV */
 .cuisine-nav{background:var(--warm);border-bottom:1px solid var(--border)}
-.cuisine-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:2px;overflow-x:auto;height:48px;scrollbar-width:none}
+.cuisine-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:2px;overflow-x:auto;height:46px;scrollbar-width:none}
 .cuisine-inner::-webkit-scrollbar{display:none}
-.cuisine-btn{padding:6px 16px;border-radius:3px;border:none;background:none;font-family:var(--sans);font-size:.82rem;font-weight:500;color:var(--slate);cursor:pointer;white-space:nowrap}
+.cuisine-btn{padding:5px 14px;border-radius:3px;border:none;background:none;font-family:var(--sans);font-size:.8rem;font-weight:500;color:var(--slate);cursor:pointer;white-space:nowrap;transition:all .15s}
+.cuisine-btn:hover{background:rgba(15,13,10,.06);color:var(--ink)}
 .cuisine-btn.active{background:var(--ink);color:var(--paper)}
-.main{max-width:1280px;margin:0 auto;padding:32px 24px}
-.pro-strip{background:linear-gradient(135deg,var(--ink),#2A2218);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:14px 20px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.pro-strip h4{color:var(--paper);font-size:.9rem;font-weight:600;margin-bottom:2px}
-.pro-strip p{color:rgba(255,255,255,.5);font-size:.78rem}
-.btn-strip-pro{padding:8px 18px;background:var(--gold);color:var(--ink);border:none;border-radius:4px;font-family:var(--sans);font-weight:600;font-size:.82rem;cursor:pointer;white-space:nowrap}
-.filter-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:12px;flex-wrap:wrap}
-.filter-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.filter-pill{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:4px;border:1px solid var(--border);background:white;font-size:.82rem;font-weight:500;cursor:pointer;color:var(--slate)}
+
+/* MAIN */
+.main{max-width:1280px;margin:0 auto;padding:28px 24px}
+
+/* FILTER ROW */
+.filter-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:12px;flex-wrap:wrap}
+.filter-left{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.filter-pill{display:flex;align-items:center;gap:5px;padding:6px 13px;border-radius:999px;border:1.5px solid var(--border);background:white;font-size:.78rem;font-weight:600;cursor:pointer;color:var(--slate);transition:all .15s;white-space:nowrap}
+.filter-pill:hover{border-color:var(--ink);color:var(--ink)}
 .filter-pill.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.filter-pill select{background:none;border:none;outline:none;font-family:var(--sans);font-size:.82rem;font-weight:500;cursor:pointer;color:inherit}
-.result-meta{font-size:.82rem;color:var(--slate)}
-.result-meta strong{color:var(--ink);font-weight:600}
-.sort-sel{padding:7px 12px;border:1px solid var(--border);border-radius:4px;font-family:var(--sans);font-size:.82rem;background:white;cursor:pointer;outline:none}
-.restaurants-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
-.r-card{background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;animation:fadeUp .3s ease both;position:relative}
+.filter-pill select{background:none;border:none;outline:none;font-family:var(--sans);font-size:.78rem;font-weight:600;cursor:pointer;color:inherit}
+.result-meta{font-size:.8rem;color:var(--slate)}
+.result-meta strong{color:var(--ink);font-weight:700}
+.sort-sel{padding:6px 12px;border:1.5px solid var(--border);border-radius:4px;font-family:var(--sans);font-size:.8rem;background:white;cursor:pointer;outline:none;color:var(--slate)}
+
+/* GRID */
+.restaurants-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px}
+
+/* CARD */
+.r-card{background:white;border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;animation:fadeUp .3s ease both;position:relative}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.r-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(15,13,10,.12)}
-.r-card.is-featured{border-color:var(--gold-light)}
-.r-card-img{height:200px;position:relative;overflow:hidden;background:#1A1A1A;display:flex;align-items:center;justify-content:center;font-size:5rem}
-.r-card-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.r-featured-tag{position:absolute;top:12px;left:12px;background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:2px;z-index:2}
-.r-wait-tag{position:absolute;top:12px;right:12px;border-radius:4px;padding:5px 10px;font-weight:600;font-size:.75rem;display:flex;align-items:center;gap:5px;z-index:2;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2)}
-.wt-none{background:rgba(15,15,15,.7);color:#7EBD8E}
-.wt-low{background:rgba(15,15,15,.7);color:#A8D5B5}
-.wt-med{background:rgba(15,15,15,.7);color:#E8C97A}
-.wt-high{background:rgba(15,15,15,.7);color:#F0896A}
-.wt-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:blink 1.4s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.r-save-btn{position:absolute;bottom:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;z-index:2}
-.r-body{padding:16px 18px 18px}
-.r-sources{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
-.r-src{font-size:.65rem;font-weight:600;padding:2px 6px;border-radius:2px}
+.r-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(15,13,10,.12);border-color:#C8C0B4}
+.r-card.is-featured{border-color:var(--gold-l);box-shadow:0 0 0 1px var(--gold-l)}
+.r-img{height:190px;position:relative;overflow:hidden;background:#1A1A1A;display:flex;align-items:center;justify-content:center;font-size:4.5rem}
+.r-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .4s}
+.r-card:hover .r-img img{transform:scale(1.04)}
+.r-img-emoji{position:relative;z-index:1}
+.featured-tag{position:absolute;top:10px;left:10px;background:var(--gold);color:var(--ink);font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:2px;z-index:2}
+.wait-tag{position:absolute;top:10px;right:10px;border-radius:5px;padding:5px 10px;font-weight:700;font-size:.72rem;display:flex;align-items:center;gap:5px;z-index:2;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25)}
+.wt-none{background:rgba(10,10,10,.72);color:#7EBD8E}
+.wt-low{background:rgba(10,10,10,.72);color:#A8D5B5}
+.wt-med{background:rgba(10,10,10,.72);color:#E8C97A}
+.wt-high{background:rgba(10,10,10,.72);color:#F0896A}
+.wt-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:blink 1.3s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.save-btn{position:absolute;bottom:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;z-index:2;transition:transform .15s}
+.save-btn:hover{transform:scale(1.15)}
+.r-body{padding:14px 16px 16px}
+.r-sources{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
+.r-src{font-size:.62rem;font-weight:700;padding:2px 6px;border-radius:2px;letter-spacing:.3px}
 .rs-yelp{background:#FFF0F0;color:#C41200}
 .rs-google{background:#EEF3FF;color:#1557BF}
 .rs-opentable{background:#EDF8F1;color:#1D6B3A}
 .rs-resy{background:#FFF4EE;color:#C45000}
-.rs-tock{background:#F0F0F0;color:#333}
-.r-cuisine{font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate);margin-bottom:6px}
-.r-name{font-family:var(--serif);font-size:1.2rem;font-weight:700;line-height:1.25;margin-bottom:8px}
-.r-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-.r-stars{color:var(--gold-dark);font-size:.85rem}
-.r-price{font-size:.82rem;font-weight:600;color:var(--sage)}
-.r-dist{font-size:.77rem;color:var(--slate)}
-.r-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
-.r-tag{padding:3px 8px;border-radius:2px;background:var(--warm);border:1px solid var(--border);font-size:.72rem;color:var(--slate)}
-.r-actions{display:flex;gap:8px}
-.btn-book{flex:1;padding:9px 14px;background:var(--ink);color:var(--paper);border:none;border-radius:4px;font-family:var(--sans);font-weight:500;font-size:.83rem;cursor:pointer}
-.btn-book.gold{background:var(--gold);color:var(--ink)}
-.btn-sm{padding:9px 12px;border-radius:4px;background:var(--warm);border:1px solid var(--border);cursor:pointer;font-size:.82rem;color:var(--slate)}
-.overlay{display:none;position:fixed;inset:0;background:rgba(15,13,10,.65);backdrop-filter:blur(6px);z-index:500;align-items:flex-end;justify-content:center}
+.r-cuisine{font-size:.66rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate);margin-bottom:5px}
+.r-name{font-family:var(--serif);font-size:1.15rem;font-weight:700;line-height:1.2;margin-bottom:8px}
+.r-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.r-stars{color:var(--gold-d);font-size:.82rem}
+.r-rcount{font-size:.74rem;color:var(--slate)}
+.r-price{font-size:.8rem;font-weight:700;color:var(--sage)}
+.r-dist{font-size:.74rem;color:var(--slate)}
+.r-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.r-tag{padding:3px 8px;border-radius:2px;background:var(--warm);border:1px solid var(--border);font-size:.7rem;color:var(--slate)}
+.r-wait-note{font-size:.68rem;color:var(--slate);margin-bottom:12px;font-style:italic}
+.r-actions{display:flex;gap:7px}
+.btn-reserve{flex:1;padding:9px 12px;background:var(--ink);color:var(--paper);border:none;border-radius:5px;font-family:var(--sans);font-weight:600;font-size:.8rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px}
+.btn-reserve:hover{background:#2A2218}
+.btn-reserve.gold{background:var(--gold);color:var(--ink)}
+.btn-reserve.gold:hover{background:var(--gold-l)}
+.btn-reserve:disabled{background:#E0E0E0;color:#999;cursor:not-allowed}
+.btn-icon{padding:9px 11px;border-radius:5px;background:var(--warm);border:1px solid var(--border);cursor:pointer;font-size:.88rem;transition:background .15s;color:var(--slate)}
+.btn-icon:hover{background:var(--border)}
+
+/* SKELETON */
+.skel{background:white;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.skel-img{height:190px;background:linear-gradient(90deg,#F0EBE0 25%,#FAF7F2 50%,#F0EBE0 75%);background-size:200% 100%;animation:shim 1.4s infinite}
+@keyframes shim{0%{background-position:100%}100%{background-position:-100%}}
+.skel-body{padding:14px 16px}
+.skel-line{height:12px;border-radius:3px;background:linear-gradient(90deg,#F0EBE0 25%,#FAF7F2 50%,#F0EBE0 75%);background-size:200% 100%;animation:shim 1.4s infinite;margin-bottom:10px}
+.skel-line.s60{width:60%}.skel-line.s40{width:40%}
+.empty{text-align:center;padding:64px 24px;color:var(--slate)}
+.empty-title{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px;color:var(--ink)}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(15,13,10,.6);backdrop-filter:blur(5px);z-index:500;align-items:flex-end;justify-content:center}
 .overlay.open{display:flex}
 @media(min-width:600px){.overlay{align-items:center}}
-.modal{background:white;width:100%;max-width:580px;max-height:95vh;border-radius:12px 12px 0 0;overflow-y:auto;box-shadow:0 24px 80px rgba(15,13,10,.25);animation:slideUp .3s ease}
-@media(min-width:600px){.modal{border-radius:12px}}
+.modal{background:white;width:100%;max-width:580px;max-height:95vh;border-radius:14px 14px 0 0;overflow-y:auto;box-shadow:0 24px 80px rgba(15,13,10,.25);animation:slideUp .3s ease}
+@media(min-width:600px){.modal{border-radius:14px;animation:popIn .25s ease}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes popIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
 .modal-hero{height:180px;background:#1A1A1A;position:relative;display:flex;align-items:center;justify-content:center;font-size:5rem;overflow:hidden}
 .modal-hero img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.modal-close{position:absolute;top:14px;right:14px;z-index:10;width:32px;height:32px;border-radius:50%;background:rgba(15,13,10,.5);border:none;color:white;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
-.modal-body{padding:24px}
-.modal-r-name{font-family:var(--serif);font-size:1.4rem;font-weight:700;margin-bottom:4px}
-.modal-cuisine{font-size:.72rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate);margin-bottom:12px}
-.modal-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.m-info-box{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:11px 13px}
-.m-info-label{font-size:.68rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);margin-bottom:3px}
-.m-info-val{font-size:.88rem;font-weight:500}
-.wait-box{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:13px 16px;display:flex;align-items:center;gap:14px;margin-bottom:16px}
-.wb-label{font-size:.68rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);margin-bottom:2px}
-.wb-val{font-size:1rem;font-weight:600}
+.modal-hero-emoji{position:relative;z-index:1}
+.modal-close{position:absolute;top:12px;right:12px;z-index:10;width:32px;height:32px;border-radius:50%;background:rgba(15,13,10,.55);border:none;color:white;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+.modal-body{padding:22px 24px 28px}
+.modal-cuisine{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate);margin-bottom:4px}
+.modal-name{font-family:var(--serif);font-size:1.4rem;font-weight:700;margin-bottom:10px}
+.modal-sources{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.info-box{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:10px 12px}
+.info-lbl{font-size:.65rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);margin-bottom:3px}
+.info-val{font-size:.85rem;font-weight:500;color:var(--ink)}
+.info-val a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--border)}
+.info-val a:hover{border-color:var(--ink)}
+.wait-box{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:12px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.wb-icon{font-size:1.5rem}
+.wb-lbl{font-size:.65rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);margin-bottom:2px}
+.wb-val{font-size:.95rem;font-weight:700}
 .wb-green{color:var(--sage)}.wb-yellow{color:#8B6914}.wb-red{color:var(--ember)}
-.divider{height:1px;background:var(--border);margin:16px 0}
-.section-head{font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:12px}
-.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-.t-btn{padding:9px 6px;border:1px solid var(--border);border-radius:4px;font-family:var(--sans);font-size:.8rem;font-weight:500;cursor:pointer;background:white;text-align:center;transition:all .15s}
+.wait-disclaimer{font-size:.68rem;color:var(--slate);font-style:italic;margin-bottom:14px;padding-left:4px}
+.divider{height:1px;background:var(--border);margin:14px 0}
+.sec-head{font-weight:700;font-size:.92rem;margin-bottom:12px}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}
+.t-btn{padding:9px 4px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.78rem;font-weight:600;cursor:pointer;background:white;text-align:center;transition:all .15s}
 .t-btn:hover,.t-btn.sel{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.t-btn.full{background:var(--warm);color:var(--border-dark);cursor:not-allowed;text-decoration:line-through}
-.party-sel{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.party-ctrl{display:flex;align-items:center;gap:8px}
-.p-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:white;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
-.p-num{font-size:1.1rem;font-weight:600;min-width:24px;text-align:center}
-.field-lbl{display:block;font-size:.78rem;font-weight:600;color:var(--slate);margin-bottom:4px}
-.field-in{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:4px;font-family:var(--sans);font-size:.9rem;margin-bottom:12px;outline:none}
+.t-btn.full{background:var(--warm);color:#B0A898;cursor:not-allowed;text-decoration:line-through;border-color:var(--border)}
+.party-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.party-lbl{font-size:.84rem;font-weight:500;color:var(--slate)}
+.p-ctrl{display:flex;align-items:center;gap:8px}
+.p-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:white;cursor:pointer;font-size:1rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.p-btn:hover{background:var(--warm)}
+.p-num{font-size:1.1rem;font-weight:700;min-width:24px;text-align:center}
+.field-lbl{display:block;font-size:.76rem;font-weight:600;color:var(--slate);margin-bottom:4px;letter-spacing:.3px}
+.field-in{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.9rem;margin-bottom:12px;outline:none;transition:border-color .15s}
 .field-in:focus{border-color:var(--ink)}
-.yelp-rev{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:8px}
-.yr-stars{color:var(--gold-dark);font-size:.82rem;margin-bottom:5px}
-.yr-text{font-size:.83rem;font-family:var(--serif);font-style:italic;line-height:1.5}
-.yr-author{font-size:.73rem;color:var(--slate);margin-top:6px}
-.btn-confirm{width:100%;padding:14px;background:var(--ink);color:var(--paper);border:none;border-radius:4px;font-family:var(--sans);font-weight:600;font-size:.95rem;cursor:pointer;margin-top:4px}
-.skel{background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.skel-img{height:200px;background:linear-gradient(90deg,#F0EBE0 25%,#FAF7F2 50%,#F0EBE0 75%);background-size:200% 100%;animation:shim 1.4s infinite}
-@keyframes shim{0%{background-position:100%}100%{background-position:-100%}}
-.skel-body{padding:16px 18px}
-.skel-line{height:13px;border-radius:3px;background:linear-gradient(90deg,#F0EBE0 25%,#FAF7F2 50%,#F0EBE0 75%);background-size:200% 100%;animation:shim 1.4s infinite;margin-bottom:10px}
-.skel-line.s60{width:60%}.skel-line.s40{width:40%}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--paper);padding:11px 22px;border-radius:4px;font-size:.85rem;font-weight:500;z-index:999;opacity:0;transition:all .3s;white-space:nowrap}
+.btn-confirm{width:100%;padding:13px;background:var(--ink);color:var(--paper);border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.92rem;cursor:pointer;transition:background .15s;margin-top:4px}
+.btn-confirm:hover{background:#2A2218}
+.yelp-rev{border:1px solid var(--border);border-radius:6px;padding:11px 13px;margin-bottom:8px}
+.yr-stars{color:var(--gold-d);font-size:.8rem;margin-bottom:4px}
+.yr-text{font-size:.8rem;font-family:var(--serif);font-style:italic;line-height:1.5}
+.yr-author{font-size:.7rem;color:var(--slate);margin-top:5px;font-weight:600}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--paper);padding:11px 22px;border-radius:5px;font-size:.84rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap;box-shadow:0 8px 24px rgba(15,13,10,.25)}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-.empty{text-align:center;padding:72px 24px;color:var(--slate)}
-.empty-title{font-family:var(--serif);font-size:1.5rem;margin-bottom:8px;color:var(--ink)}
+
 @media(max-width:768px){
-  .header-top{flex-wrap:wrap;height:auto;padding:12px 16px;gap:10px}
-  .search-bar{order:3;flex:0 0 100%;max-width:100%}
+  .header-inner{padding:0 16px}
+  .search-row{gap:8px}
+  .search-box,.location-box{min-width:0;flex:0 0 100%}
+  .btn-find{width:100%}
   .restaurants-grid{grid-template-columns:1fr}
   .time-grid{grid-template-columns:repeat(3,1fr)}
-  .modal-info-grid{grid-template-columns:1fr}
-  .location-input{width:120px}
+  .info-grid{grid-template-columns:1fr}
+  .audience-split{max-width:100%}
 }
 </style>
 </head>
 <body>
+
+<!-- HEADER -->
 <header>
-  <div class="header-top">
-    <div class="logo"><span class="logo-dot"></span>GetATableSpot</div>
-    <div class="search-bar">
-      <input id="searchInput" type="text" placeholder="Restaurant, cuisine…" oninput="onSearch()" onkeydown="if(event.key==='Enter')doSearch()">
-      <div class="divider-v"></div>
-      <input id="locationInput" class="location-input" type="text" placeholder="City or address…" onkeydown="if(event.key==='Enter')doSearch()">
-      <button class="btn-search" onclick="doSearch()">Search</button>
-    </div>
-    <div class="header-actions">
-      <button class="btn-hdr btn-restaurants" onclick="window.location.href='claim-restaurant.html'">For Restaurants</button>
-      <button class="btn-hdr btn-pro-hdr" onclick="openProPage()">✦ Go Pro</button>
+  <div class="header-inner">
+    <a class="logo" href="/"><span class="logo-dot"></span>GetATableSpot</a>
+    <div class="header-links">
+      <button class="btn-hdr btn-diners" onclick="scrollToSearch()">Find a Table</button>
+      <button class="btn-hdr btn-biz" onclick="window.location.href='claim-restaurant.html'">For Restaurants</button>
     </div>
   </div>
 </header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Powered by real restaurant data</div>
+  <h1>Skip the Wait.<br><em>Know Before You Go.</em></h1>
+  <p class="hero-sub">Find a table fast. Check live wait times before you leave the house. No more surprises.</p>
+  <p class="hero-disclaimer">Wait times are estimated · Updated by restaurants · Powered by Google</p>
+
+  <div class="audience-split">
+    <button class="audience-card ac-diner" onclick="scrollToSearch()">
+      <div class="ac-label">For Diners</div>
+      <div class="ac-headline">Find a Table Fast</div>
+      <div class="ac-sub">Check wait times before you leave. Browse real restaurants near you.</div>
+      <span class="ac-btn">Find Restaurants →</span>
+    </button>
+    <button class="audience-card ac-restaurant" onclick="window.location.href='claim-restaurant.html'">
+      <div class="ac-label">For Restaurants</div>
+      <div class="ac-headline">Fill Your Tables Faster</div>
+      <div class="ac-sub">Early access restaurants get priority placement as traffic grows.</div>
+      <span class="ac-btn">Claim My Restaurant →</span>
+    </button>
+  </div>
+
+  <div class="proof-band">
+    <div class="proof-inner">
+      <span class="proof-item"><span class="proof-dot"></span>Restaurants added daily</span>
+      <span class="proof-item"><span class="proof-dot"></span>Serving diners across 50+ cities</span>
+      <span class="proof-item"><span class="proof-dot"></span>Powered by real restaurant data</span>
+      <span class="proof-item"><span class="proof-dot"></span>No per-reservation fees</span>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-section" id="searchSection">
+  <div class="search-inner">
+    <div class="search-row">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input id="searchInput" type="text" placeholder="Restaurant, cuisine, neighborhood…" oninput="onSearch()" onkeydown="if(event.key==='Enter')doSearch()">
+      </div>
+      <div class="location-box">
+        <button class="btn-gps" onclick="geolocate()" title="Use my location">📍</button>
+        <input id="locationInput" type="text" placeholder="City, state or zip code…" onkeydown="if(event.key==='Enter')doSearch()">
+      </div>
+      <button class="btn-find" onclick="doSearch()">Find Restaurants</button>
+    </div>
+  </div>
+</div>
+
+<!-- CUISINE NAV -->
 <nav class="cuisine-nav">
   <div class="cuisine-inner">
-    <button class="cuisine-btn active" onclick="setCuisine('all',this)">All</button>
-    <button class="cuisine-btn" onclick="setCuisine('italian',this)">🍝 Italian</button>
-    <button class="cuisine-btn" onclick="setCuisine('japanese',this)">🍣 Japanese</button>
-    <button class="cuisine-btn" onclick="setCuisine('mexican',this)">🌮 Mexican</button>
-    <button class="cuisine-btn" onclick="setCuisine('american',this)">🍔 American</button>
-    <button class="cuisine-btn" onclick="setCuisine('chinese',this)">🥡 Chinese</button>
-    <button class="cuisine-btn" onclick="setCuisine('indian',this)">🍛 Indian</button>
-    <button class="cuisine-btn" onclick="setCuisine('french',this)">🥐 French</button>
-    <button class="cuisine-btn" onclick="setCuisine('thai',this)">🍜 Thai</button>
-    <button class="cuisine-btn" onclick="setCuisine('steakhouse',this)">🥩 Steakhouse</button>
-    <button class="cuisine-btn" onclick="setCuisine('seafood',this)">🦞 Seafood</button>
-    <button class="cuisine-btn" onclick="setCuisine('pizza',this)">🍕 Pizza</button>
-    <button class="cuisine-btn" onclick="setCuisine('brunch',this)">🥞 Brunch</button>
+    <button class="cuisine-btn active" data-cuisine="all" onclick="setCuisine('all',this)">All</button>
+    <button class="cuisine-btn" data-cuisine="italian" onclick="setCuisine('italian',this)">🍝 Italian</button>
+    <button class="cuisine-btn" data-cuisine="japanese" onclick="setCuisine('japanese',this)">🍣 Japanese</button>
+    <button class="cuisine-btn" data-cuisine="mexican" onclick="setCuisine('mexican',this)">🌮 Mexican</button>
+    <button class="cuisine-btn" data-cuisine="american" onclick="setCuisine('american',this)">🍔 American</button>
+    <button class="cuisine-btn" data-cuisine="chinese" onclick="setCuisine('chinese',this)">🥡 Chinese</button>
+    <button class="cuisine-btn" data-cuisine="indian" onclick="setCuisine('indian',this)">🍛 Indian</button>
+    <button class="cuisine-btn" data-cuisine="french" onclick="setCuisine('french',this)">🥐 French</button>
+    <button class="cuisine-btn" data-cuisine="thai" onclick="setCuisine('thai',this)">🍜 Thai</button>
+    <button class="cuisine-btn" data-cuisine="steakhouse" onclick="setCuisine('steakhouse',this)">🥩 Steakhouse</button>
+    <button class="cuisine-btn" data-cuisine="seafood" onclick="setCuisine('seafood',this)">🦞 Seafood</button>
+    <button class="cuisine-btn" data-cuisine="pizza" onclick="setCuisine('pizza',this)">🍕 Pizza</button>
+    <button class="cuisine-btn" data-cuisine="brunch" onclick="setCuisine('brunch',this)">🥞 Brunch</button>
   </div>
 </nav>
+
+<!-- MAIN -->
 <div class="main">
-  <div class="pro-strip">
-    <div>
-      <h4>✦ GetATableSpot Pro — Dine smarter every night</h4>
-      <p>Real-time wait alerts · Priority reservations · AI concierge · Michelin radar</p>
-    </div>
-    <button class="btn-strip-pro" onclick="openProPage()">Try Free 7 Days →</button>
-  </div>
   <div class="filter-row">
     <div class="filter-left">
       <button class="filter-pill" id="f-open" onclick="toggleFilter('open',this)">🟢 Open Now</button>
       <button class="filter-pill" id="f-lowwait" onclick="toggleFilter('lowwait',this)">⚡ Low Wait</button>
       <button class="filter-pill" id="f-reservable" onclick="toggleFilter('reservable',this)">📅 Reservable</button>
       <button class="filter-pill" id="f-outdoor" onclick="toggleFilter('outdoor',this)">🌿 Outdoor</button>
-      <button class="filter-pill" id="f-michelin" onclick="toggleFilter('michelin',this)">⭐ Michelin</button>
       <div class="filter-pill">
         <select id="priceFilter" onchange="renderRestaurants()">
           <option value="">Any Price</option>
-          <option value="$">$</option>
-          <option value="$$">$$</option>
-          <option value="$$$">$$$</option>
-          <option value="$$$$">$$$$</option>
+          <option value="$">$ Budget</option>
+          <option value="$$">$$ Moderate</option>
+          <option value="$$$">$$$ Upscale</option>
+          <option value="$$$$">$$$$ Fine Dining</option>
         </select>
       </div>
     </div>
@@ -212,43 +332,43 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
       </select>
     </div>
   </div>
+
   <div id="gridContainer">
     <div class="restaurants-grid">
-      <div class="skel"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s60"></div><div class="skel-line s40"></div><div class="skel-line"></div></div></div>
-      <div class="skel"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s60"></div><div class="skel-line s40"></div><div class="skel-line"></div></div></div>
-      <div class="skel"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s60"></div><div class="skel-line s40"></div><div class="skel-line"></div></div></div>
-      <div class="skel"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s60"></div><div class="skel-line s40"></div><div class="skel-line"></div></div></div>
-      <div class="skel"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s60"></div><div class="skel-line s40"></div><div class="skel-line"></div></div></div>
-      <div class="skel"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s60"></div><div class="skel-line s40"></div><div class="skel-line"></div></div></div>
+      ${[...Array(6)].map(()=>`<div class="skel"><div class="skel-img"></div><div class="skel-body"><div class="skel-line s60"></div><div class="skel-line s40"></div><div class="skel-line"></div></div></div>`).join('')}
     </div>
   </div>
 </div>
+
+<!-- MODAL -->
 <div class="overlay" id="overlay" onclick="closeModal(event)">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-hero" id="mHero">
       <img id="mHeroImg" src="" alt="" style="display:none" onerror="this.style.display='none'">
-      <span id="mEmoji" style="position:relative;z-index:1">🍽️</span>
+      <span class="modal-hero-emoji" id="mEmoji">🍽️</span>
     </div>
     <div class="modal-body">
       <div class="modal-cuisine" id="mCuisine">CUISINE</div>
-      <div class="modal-r-name" id="mName">Restaurant</div>
-      <div class="r-sources" id="mSources"></div>
-      <div class="modal-info-grid" id="mInfoGrid"></div>
+      <div class="modal-name" id="mName">Restaurant</div>
+      <div class="modal-sources" id="mSources"></div>
+      <div class="info-grid" id="mInfoGrid"></div>
       <div class="wait-box" id="mWaitBox"></div>
-      <div id="yelpBox" style="display:none;margin-bottom:16px">
-        <div style="font-size:.75rem;font-weight:600;color:var(--slate);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Yelp Reviews</div>
+      <p class="wait-disclaimer">⏱ Wait times are estimated and updated by restaurants. Actual times may vary.</p>
+      <div id="yelpBox" style="display:none;margin-bottom:12px">
+        <div style="font-size:.7rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Yelp Reviews</div>
         <div id="yelpList"></div>
       </div>
       <div class="divider"></div>
-      <div class="section-head">Reserve a Table</div>
+      <div class="sec-head">Reserve a Table</div>
       <div class="time-grid" id="timeGrid"></div>
-      <div class="party-sel">
-        <span style="font-size:.85rem;font-weight:500;color:var(--slate)">Party size:</span>
-        <div class="party-ctrl">
+      <div class="party-row">
+        <span class="party-lbl">Party size:</span>
+        <div class="p-ctrl">
           <button class="p-btn" onclick="adj(-1)">−</button>
           <div class="p-num" id="pNum">2</div>
           <button class="p-btn" onclick="adj(1)">+</button>
+          <span style="font-size:.78rem;color:var(--slate);margin-left:4px">guests</span>
         </div>
       </div>
       <label class="field-lbl">Your Name</label>
@@ -261,7 +381,9 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
     </div>
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <script>
 const API='https://getatablespot-api.onrender.com/api';
 const GKEY='AIzaSyB_JOErDDkAiF9PurZXwEQSHGhe_X1-m5I';
@@ -272,13 +394,28 @@ let partySize=2,selectedTime=null,currentR=null;
 let currentLat=40.7128,currentLng=-74.0060;
 
 const MOCK=[
-  {id:'r1',name:'Carbone',cuisine:'Italian',emoji:'🍝',bg:'linear-gradient(135deg,#2C1810,#8B4513)',rating:4.9,reviews:3241,price:'$$$$',distance:'0.3 mi',waitMins:25,waitLevel:'med',isOpen:true,outdoor:false,michelin:true,reservable:true,isFeatured:true,address:'181 Thompson St, New York',hours:'Mon–Sun 5:30pm–11pm',phone:'(212) 254-3000',sources:['yelp','google','resy'],tags:['Italian-American','Classic Cocktails','Celebratory'],times:['5:30 PM','6:00 PM','6:30 PM','7:00 PM','7:30 PM','8:00 PM','8:30 PM','9:00 PM'],fullSlots:[0,1,3],yelpReviews:[{stars:5,text:'The most perfect Italian-American meal I have ever had.',author:'Jessica M.'},{stars:5,text:'Atmosphere, food, service — all flawless.',author:'David K.'}]},
-  {id:'r2',name:'Nobu',cuisine:'Japanese',emoji:'🍣',bg:'linear-gradient(135deg,#0D1B2A,#2E4057)',rating:4.8,reviews:2876,price:'$$$$',distance:'0.8 mi',waitMins:40,waitLevel:'high',isOpen:true,outdoor:false,michelin:true,reservable:true,isFeatured:false,address:'105 Hudson St, New York',hours:'Mon–Sun 5:45pm–10:30pm',phone:'(212) 219-0500',sources:['yelp','google','opentable'],tags:['Omakase','Celebrity Spot','New Style Japanese'],times:['5:45 PM','6:15 PM','6:45 PM','7:15 PM','7:45 PM','8:15 PM','9:00 PM','9:30 PM'],fullSlots:[0,1,2,5],yelpReviews:[{stars:5,text:'The black cod miso is life-changing.',author:'Rachel T.'}]},
-  {id:'r3',name:"Joe's Pizza",cuisine:'Pizza',emoji:'🍕',bg:'linear-gradient(135deg,#8B1A1A,#CC4444)',rating:4.6,reviews:8920,price:'$',distance:'0.1 mi',waitMins:5,waitLevel:'low',isOpen:true,outdoor:true,michelin:false,reservable:false,isFeatured:false,address:'7 Carmine St, New York',hours:'Sun–Thu 10am–4am',phone:'(212) 366-1182',sources:['yelp','google'],tags:['NY Slice','Late Night','Cash Only'],times:[],fullSlots:[],yelpReviews:[{stars:5,text:'Best slice in NYC, period.',author:'Mike R.'}]},
-  {id:'r4',name:'Le Bernardin',cuisine:'French',emoji:'🦞',bg:'linear-gradient(135deg,#1A2C3A,#2E5077)',rating:4.9,reviews:1567,price:'$$$$',distance:'1.4 mi',waitMins:0,waitLevel:'none',isOpen:true,outdoor:false,michelin:true,reservable:true,isFeatured:false,address:'155 W 51st St, New York',hours:'Mon–Fri 12pm–2:30pm, 5:15pm–10pm',phone:'(212) 554-1515',sources:['yelp','google','opentable','resy'],tags:['Michelin 3 Stars','Seafood','Tasting Menu'],times:['12:00 PM','12:30 PM','5:15 PM','5:45 PM','6:15 PM','6:45 PM','7:15 PM','7:45 PM'],fullSlots:[2,3,4],yelpReviews:[{stars:5,text:'Three Michelin stars and it earns every single one.',author:'William C.'}]},
-  {id:'r5',name:'Shake Shack',cuisine:'American',emoji:'🍔',bg:'linear-gradient(135deg,#2D5A27,#4A8C42)',rating:4.3,reviews:12450,price:'$',distance:'0.4 mi',waitMins:12,waitLevel:'low',isOpen:true,outdoor:true,michelin:false,reservable:false,isFeatured:false,address:'Madison Square Park, New York',hours:'Daily 11am–10pm',phone:'(646) 435-0135',sources:['yelp','google'],tags:['Burgers','Craft Beer','Outdoor Seating'],times:[],fullSlots:[],yelpReviews:[{stars:4,text:'The ShackBurger is iconic.',author:'Chris L.'}]},
-  {id:'r6',name:'Balthazar',cuisine:'French',emoji:'🥐',bg:'linear-gradient(135deg,#2C1A0E,#6B3A1F)',rating:4.5,reviews:4328,price:'$$$',distance:'0.6 mi',waitMins:35,waitLevel:'high',isOpen:true,outdoor:false,michelin:false,reservable:true,isFeatured:false,address:'80 Spring St, New York',hours:'Mon–Fri 7:30am–12am',phone:'(212) 965-1414',sources:['yelp','google','opentable'],tags:['Brasserie','Brunch','Raw Bar'],times:['11:30 AM','12:00 PM','12:30 PM','7:00 PM','7:30 PM','8:00 PM','8:30 PM','9:00 PM'],fullSlots:[0,3,4],yelpReviews:[{stars:5,text:'The platonic ideal of a French brasserie.',author:'Alexandra B.'}]},
+  {id:'r1',name:'Carbone',cuisine:'italian restaurant',emoji:'🍝',bg:'linear-gradient(135deg,#2C1810,#8B4513)',rating:4.9,reviews:3241,price:'$$$$',distance:'0.3 mi',waitMins:25,waitLevel:'med',isOpen:true,outdoor:false,michelin:true,reservable:true,isFeatured:true,address:'181 Thompson St, New York, NY 10012',hours:'Mon–Sun 5:30pm–11pm',phone:'(212) 254-3000',sources:['yelp','google','resy'],tags:['Italian-American','Classic Cocktails','Celebratory'],times:['5:30 PM','6:00 PM','6:30 PM','7:00 PM','7:30 PM','8:00 PM','8:30 PM','9:00 PM'],fullSlots:[0,1,3],yelpReviews:[{stars:5,text:'The most perfect Italian-American meal I have ever had.',author:'Jessica M.'},{stars:5,text:'Atmosphere, food, service — all flawless.',author:'David K.'}]},
+  {id:'r2',name:'Nobu',cuisine:'japanese restaurant',emoji:'🍣',bg:'linear-gradient(135deg,#0D1B2A,#2E4057)',rating:4.8,reviews:2876,price:'$$$$',distance:'0.8 mi',waitMins:40,waitLevel:'high',isOpen:true,outdoor:false,michelin:true,reservable:true,isFeatured:false,address:'105 Hudson St, New York, NY 10013',hours:'Mon–Sun 5:45pm–10:30pm',phone:'(212) 219-0500',sources:['yelp','google','opentable'],tags:['Omakase','Celebrity Spot','New Style Japanese'],times:['5:45 PM','6:15 PM','6:45 PM','7:15 PM','7:45 PM','8:15 PM','9:00 PM','9:30 PM'],fullSlots:[0,1,2,5],yelpReviews:[{stars:5,text:'The black cod miso is life-changing.',author:'Rachel T.'}]},
+  {id:'r3',name:"Joe's Pizza",cuisine:'pizza restaurant',emoji:'🍕',bg:'linear-gradient(135deg,#8B1A1A,#CC4444)',rating:4.6,reviews:8920,price:'$',distance:'0.1 mi',waitMins:5,waitLevel:'low',isOpen:true,outdoor:true,michelin:false,reservable:false,isFeatured:false,address:'7 Carmine St, New York, NY 10014',hours:'Sun–Thu 10am–4am, Fri–Sat 10am–5am',phone:'(212) 366-1182',sources:['yelp','google'],tags:['NY Slice','Late Night','Cash Only','Iconic'],times:[],fullSlots:[],yelpReviews:[{stars:5,text:'Best slice in NYC, period.',author:'Mike R.'}]},
+  {id:'r4',name:'Le Bernardin',cuisine:'french restaurant',emoji:'🦞',bg:'linear-gradient(135deg,#1A2C3A,#2E5077)',rating:4.9,reviews:1567,price:'$$$$',distance:'1.4 mi',waitMins:0,waitLevel:'none',isOpen:true,outdoor:false,michelin:true,reservable:true,isFeatured:false,address:'155 W 51st St, New York, NY 10019',hours:'Mon–Fri 12pm–2:30pm, 5:15pm–10pm',phone:'(212) 554-1515',sources:['yelp','google','opentable','resy'],tags:['Michelin 3 Stars','Seafood','Tasting Menu'],times:['12:00 PM','12:30 PM','5:15 PM','5:45 PM','6:15 PM','6:45 PM','7:15 PM','7:45 PM'],fullSlots:[2,3,4],yelpReviews:[{stars:5,text:'Three Michelin stars and it earns every single one.',author:'William C.'}]},
+  {id:'r5',name:'Shake Shack',cuisine:'american restaurant',emoji:'🍔',bg:'linear-gradient(135deg,#2D5A27,#4A8C42)',rating:4.3,reviews:12450,price:'$',distance:'0.4 mi',waitMins:12,waitLevel:'low',isOpen:true,outdoor:true,michelin:false,reservable:false,isFeatured:false,address:'Madison Square Park, New York, NY 10010',hours:'Daily 11am–10pm',phone:'(646) 435-0135',sources:['yelp','google'],tags:['Burgers','Craft Beer','Outdoor Seating'],times:[],fullSlots:[],yelpReviews:[{stars:4,text:'The ShackBurger is iconic.',author:'Chris L.'}]},
+  {id:'r6',name:'Balthazar',cuisine:'french restaurant',emoji:'🥐',bg:'linear-gradient(135deg,#2C1A0E,#6B3A1F)',rating:4.5,reviews:4328,price:'$$$',distance:'0.6 mi',waitMins:35,waitLevel:'high',isOpen:true,outdoor:false,michelin:false,reservable:true,isFeatured:false,address:'80 Spring St, New York, NY 10012',hours:'Mon–Fri 7:30am–12am, Sat–Sun 8am–12am',phone:'(212) 965-1414',sources:['yelp','google','opentable'],tags:['Brasserie','Brunch','Raw Bar','Power Lunch'],times:['11:30 AM','12:00 PM','12:30 PM','7:00 PM','7:30 PM','8:00 PM','8:30 PM','9:00 PM'],fullSlots:[0,3,4],yelpReviews:[{stars:5,text:'The platonic ideal of a French brasserie.',author:'Alexandra B.'}]},
 ];
+
+const CUISINE_MAP={
+  italian:['italian','pizza','mediterranean'],
+  japanese:['japanese','sushi','ramen','asian'],
+  mexican:['mexican','taco','tex-mex'],
+  american:['american','burger','diner','bbq','steakhouse','steak'],
+  chinese:['chinese','dim sum','cantonese'],
+  indian:['indian','curry'],
+  french:['french','brasserie','bistro','patisserie','bakery'],
+  thai:['thai','noodle'],
+  steakhouse:['steak','steakhouse','american'],
+  seafood:['seafood','fish','oyster','sushi'],
+  pizza:['pizza'],
+  brunch:['brunch','breakfast','cafe','diner','american'],
+};
 
 const SRCS={yelp:{label:'Yelp',cls:'rs-yelp'},google:{label:'Google',cls:'rs-google'},opentable:{label:'OpenTable',cls:'rs-opentable'},resy:{label:'Resy',cls:'rs-resy'},tock:{label:'Tock',cls:'rs-tock'}};
 
@@ -286,10 +423,7 @@ async function geocode(query){
   try{
     const r=await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(query)}&key=${GKEY}`);
     const d=await r.json();
-    if(d.results?.length){
-      const loc=d.results[0].geometry.location;
-      return{lat:loc.lat,lng:loc.lng,label:d.results[0].formatted_address};
-    }
+    if(d.results?.length){const loc=d.results[0].geometry.location;return{lat:loc.lat,lng:loc.lng,label:d.results[0].formatted_address};}
   }catch{}
   return null;
 }
@@ -309,6 +443,13 @@ function showSkeletons(){
   document.getElementById('resultMeta').textContent='Loading…';
 }
 
+function cuisineMatch(restaurant,cuisine){
+  if(cuisine==='all')return true;
+  const keywords=CUISINE_MAP[cuisine]||[cuisine];
+  const haystack=(restaurant.cuisine||'').toLowerCase()+' '+(restaurant.tags||[]).join(' ').toLowerCase()+' '+(restaurant.name||'').toLowerCase();
+  return keywords.some(k=>haystack.includes(k));
+}
+
 function getFiltered(){
   const priceF=document.getElementById('priceFilter').value;
   return restaurants.filter(r=>{
@@ -316,10 +457,9 @@ function getFiltered(){
     if(activeFilters.has('lowwait')&&!['low','none'].includes(r.waitLevel))return false;
     if(activeFilters.has('reservable')&&!r.reservable)return false;
     if(activeFilters.has('outdoor')&&!r.outdoor)return false;
-    if(activeFilters.has('michelin')&&!r.michelin)return false;
     if(priceF&&r.price!==priceF)return false;
-    if(currentCuisine!=='all'&&r.cuisine.toLowerCase()!==currentCuisine)return false;
-    if(searchQ){const q=searchQ.toLowerCase();if(![r.name,...(r.tags||[]),r.cuisine].some(s=>s.toLowerCase().includes(q)))return false;}
+    if(currentCuisine!=='all'&&!cuisineMatch(r,currentCuisine))return false;
+    if(searchQ){const q=searchQ.toLowerCase();if(![r.name,...(r.tags||[]),(r.cuisine||'')].some(s=>s.toLowerCase().includes(q)))return false;}
     return true;
   });
 }
@@ -329,35 +469,54 @@ function getSorted(list){
     if(b.isFeatured!==a.isFeatured)return b.isFeatured-a.isFeatured;
     if(currentSort==='rating')return b.rating-a.rating;
     if(currentSort==='wait')return(a.waitMins??999)-(b.waitMins??999);
-    if(currentSort==='reviews')return b.reviews-a.reviews;
-    if(currentSort==='distance')return parseFloat(a.distance)-parseFloat(b.distance);
+    if(currentSort==='reviews')return(b.reviews||b.reviewCount||0)-(a.reviews||a.reviewCount||0);
+    if(currentSort==='distance')return parseFloat(a.distance||0)-parseFloat(b.distance||0);
     return 0;
   });
 }
 
 function wtClass(lv){return{none:'wt-none',low:'wt-low',med:'wt-med',high:'wt-high'}[lv]||'wt-low'}
-function wtText(r){if(!r.isOpen)return'— Closed';if(r.waitMins===0||r.waitLevel==='none')return'✓ Seated Now';return`~${r.waitMins}m wait`;}
+function wtText(r){
+  if(!r.isOpen)return'Closed';
+  if(r.waitMins===0||r.waitLevel==='none')return'✓ Seated Now';
+  return`~${r.waitMins}m wait`;
+}
 function starsStr(r){const f=Math.floor(r);return'★'.repeat(f)+(r%1>=.5?'½':'')+'☆'.repeat(5-f-(r%1>=.5?1:0))}
+function mapsUrl(addr){return`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`}
 
 function cardHTML(r,delay=0){
   const srcs=(r.sources||[]).map(s=>SRCS[s]?`<span class="r-src ${SRCS[s].cls}">${SRCS[s].label}</span>`:'').join('');
   const tags=(r.tags||[]).slice(0,3).map(t=>`<span class="r-tag">${t}</span>`).join('');
-  const bookBtn=r.reservable?`<button class="btn-book${r.isFeatured?' gold':''}" onclick="event.stopPropagation();openModal('${r.id}')">Reserve →</button>`:`<button class="btn-book" style="background:var(--warm);color:var(--slate);border:1px solid var(--border)" onclick="event.stopPropagation();openModal('${r.id}')">View Details</button>`;
+  const saved=savedIds.has(r.id);
+  const bookBtn=r.reservable
+    ?`<button class="btn-reserve${r.isFeatured?' gold':''}" onclick="event.stopPropagation();openModal('${r.id}')">Reserve →</button>`
+    :`<button class="btn-reserve" style="background:var(--warm);color:var(--slate);border:1px solid var(--border)" onclick="event.stopPropagation();openModal('${r.id}')">View Details</button>`;
   return`<div class="r-card${r.isFeatured?' is-featured':''}" onclick="openModal('${r.id}')" style="animation-delay:${delay}ms">
-    <div class="r-card-img" style="background:${r.bg||'linear-gradient(135deg,#1A1A1A,#333)'}">
+    <div class="r-img" style="background:${r.bg||'linear-gradient(135deg,#1A1A1A,#333)'}">
       ${r.photoUrl?`<img src="${r.photoUrl.trim()}" alt="${r.name}" onerror="this.style.display='none'">`:''}
-      <span style="position:relative;z-index:1">${r.emoji||'🍽️'}</span>
-      ${r.isFeatured?'<div class="r-featured-tag">✦ Featured</div>':''}
-      <div class="r-wait-tag ${wtClass(r.waitLevel)}"><span class="wt-dot"></span>${wtText(r)}</div>
-      <button class="r-save-btn" onclick="event.stopPropagation();toggleSave('${r.id}',this)">${savedIds.has(r.id)?'♥':'♡'}</button>
+      <span class="r-img-emoji">${r.emoji||'🍽️'}</span>
+      ${r.isFeatured?'<div class="featured-tag">✦ Featured</div>':''}
+      <div class="wait-tag ${wtClass(r.waitLevel)}"><span class="wt-dot"></span>${wtText(r)}</div>
+      <button class="save-btn" onclick="event.stopPropagation();toggleSave('${r.id}',this)" title="Save">${saved?'♥':'♡'}</button>
     </div>
     <div class="r-body">
       <div class="r-sources">${srcs}</div>
       <div class="r-cuisine">${(r.cuisine||'restaurant').toUpperCase()}</div>
       <div class="r-name">${r.name}</div>
-      <div class="r-meta"><span class="r-stars">${starsStr(r.rating)}</span><span style="font-size:.77rem;color:var(--slate)">(${(r.reviews||r.reviewCount||0).toLocaleString()})</span><span class="r-price">${r.price||'$$'}</span><span class="r-dist">📍 ${r.distance||'nearby'}</span>${r.michelin?'<span style="font-size:.72rem;color:var(--gold-dark);font-weight:600">⭐ Michelin</span>':''}</div>
+      <div class="r-meta">
+        <span class="r-stars">${starsStr(r.rating)}</span>
+        <span class="r-rcount">(${(r.reviews||r.reviewCount||0).toLocaleString()})</span>
+        <span class="r-price">${r.price||'$$'}</span>
+        <span class="r-dist">📍 ${r.distance||'nearby'}</span>
+        ${r.michelin?'<span style="font-size:.7rem;color:var(--gold-d);font-weight:700">⭐ Michelin</span>':''}
+      </div>
       <div class="r-tags">${tags}</div>
-      <div class="r-actions" onclick="event.stopPropagation()">${bookBtn}<button class="btn-sm" onclick="showToast('Opening directions…')">↗</button><button class="btn-sm" onclick="showToast('Link copied!')">⎘</button></div>
+      <div class="r-wait-note">⏱ Wait times estimated · Updated by restaurants</div>
+      <div class="r-actions" onclick="event.stopPropagation()">
+        ${bookBtn}
+        <button class="btn-icon" title="Get directions" onclick="window.open('${mapsUrl(r.address||r.name)}','_blank')">🗺️</button>
+        <button class="btn-icon" title="Save" onclick="toggleSave('${r.id}',this)">${saved?'♥':'♡'}</button>
+      </div>
     </div>
   </div>`;
 }
@@ -365,7 +524,10 @@ function cardHTML(r,delay=0){
 function renderRestaurants(){
   const filtered=getSorted(getFiltered());
   document.getElementById('resultMeta').innerHTML=`<strong>${filtered.length}</strong> restaurants`;
-  if(!filtered.length){document.getElementById('gridContainer').innerHTML='<div class="empty"><div class="empty-title">No restaurants found</div><p>Try adjusting your filters.</p></div>';return;}
+  if(!filtered.length){
+    document.getElementById('gridContainer').innerHTML='<div class="empty"><div class="empty-title">No restaurants found</div><p>Try a different filter or search term.</p></div>';
+    return;
+  }
   document.getElementById('gridContainer').innerHTML=`<div class="restaurants-grid">${filtered.map((r,i)=>cardHTML(r,i*40)).join('')}</div>`;
 }
 
@@ -382,17 +544,22 @@ async function openModal(id){
   document.getElementById('mName').textContent=currentR.name;
   document.getElementById('mSources').innerHTML=(currentR.sources||[]).map(s=>SRCS[s]?`<span class="r-src ${SRCS[s].cls}">${SRCS[s].label}</span>`:'').join('');
   document.getElementById('pNum').textContent=partySize;
-  document.getElementById('gName').value='';
-  document.getElementById('gEmail').value='';
-  document.getElementById('gNote').value='';
-  const addr=currentR.address||'Address not available';
+  ['gName','gEmail','gNote'].forEach(id=>document.getElementById(id).value='');
+  const addr=currentR.address||currentR.name;
   const hrs=Array.isArray(currentR.hours)?currentR.hours[0]||'See Google Maps':currentR.hours||'See Google Maps';
-  document.getElementById('mInfoGrid').innerHTML=[{label:'Address',val:`📍 ${addr}`},{label:'Hours',val:`🕐 ${hrs}`},{label:'Phone',val:`📞 ${currentR.phone||'Not listed'}`},{label:'Rating',val:`${starsStr(currentR.rating)} ${currentR.rating}`}].map(({label,val})=>`<div class="m-info-box"><div class="m-info-label">${label}</div><div class="m-info-val">${val}</div></div>`).join('');
+  document.getElementById('mInfoGrid').innerHTML=[
+    {label:'Address',val:`<a href="${mapsUrl(addr)}" target="_blank">📍 ${addr}</a>`},
+    {label:'Hours',val:`🕐 ${hrs}`},
+    {label:'Phone',val:`📞 ${currentR.phone||'Not listed'}`},
+    {label:'Rating',val:`${starsStr(currentR.rating)} ${currentR.rating} (${(currentR.reviews||currentR.reviewCount||0).toLocaleString()} reviews)`},
+  ].map(({label,val})=>`<div class="info-box"><div class="info-lbl">${label}</div><div class="info-val">${val}</div></div>`).join('');
   const wc={none:'wb-green',low:'wb-green',med:'wb-yellow',high:'wb-red'}[currentR.waitLevel]||'wb-yellow';
   const wt=!currentR.isOpen?'Currently closed':currentR.waitMins===0?'No wait — walk right in':`~${currentR.waitMins} minute wait`;
-  document.getElementById('mWaitBox').innerHTML=`<div style="font-size:1.6rem">⏱</div><div><div class="wb-label">LIVE WAIT TIME</div><div class="wb-val ${wc}">${wt}</div></div>`;
-  if(currentR.yelpReviews?.length){document.getElementById('yelpBox').style.display='block';document.getElementById('yelpList').innerHTML=currentR.yelpReviews.map(rv=>`<div class="yelp-rev"><div class="yr-stars">${'★'.repeat(rv.stars)}</div><div class="yr-text">"${rv.text}"</div><div class="yr-author">— ${rv.author} via Yelp</div></div>`).join('');}
-  else{document.getElementById('yelpBox').style.display='none';}
+  document.getElementById('mWaitBox').innerHTML=`<div class="wb-icon">⏱</div><div><div class="wb-lbl">Live Wait Time</div><div class="wb-val ${wc}">${wt}</div></div>`;
+  if(currentR.yelpReviews?.length){
+    document.getElementById('yelpBox').style.display='block';
+    document.getElementById('yelpList').innerHTML=currentR.yelpReviews.map(rv=>`<div class="yelp-rev"><div class="yr-stars">${'★'.repeat(rv.stars)}</div><div class="yr-text">"${rv.text}"</div><div class="yr-author">— ${rv.author} via Yelp</div></div>`).join('');
+  }else{document.getElementById('yelpBox').style.display='none';}
   let slots=currentR.times||[],fullSlots=currentR.fullSlots||[];
   try{
     const sr=await fetch(`${API}/venues/${currentR.id}/slots?date=${new Date().toISOString().split('T')[0]}`,{signal:AbortSignal.timeout(3000)});
@@ -400,10 +567,13 @@ async function openModal(id){
     if(sd.slots?.length){slots=sd.slots.map(s=>s.time);fullSlots=sd.slots.reduce((a,s,i)=>{if(!s.available)a.push(i);return a;},[]);}
   }catch{}
   if(currentR.reservable&&slots.length){
-    document.getElementById('timeGrid').innerHTML=slots.map((t,i)=>{const full=fullSlots.includes(i);return`<button class="t-btn${full?' full':''}" data-time="${t}" onclick="${full?'':'selectTime(this)'}">${t}${full?'<br><small>Full</small>':''}</button>`;}).join('');
+    document.getElementById('timeGrid').innerHTML=slots.map((t,i)=>{
+      const full=fullSlots.includes(i);
+      return`<button class="t-btn${full?' full':''}" data-time="${t}" onclick="${full?'':'selectTime(this)'}">${t}${full?'<br><small style="font-size:.6rem">Full</small>':''}</button>`;
+    }).join('');
     document.getElementById('btnConfirm').style.display='block';
   }else{
-    document.getElementById('timeGrid').innerHTML='<div style="color:var(--slate);font-size:.85rem;grid-column:1/-1;padding:8px 0">Walk-in only — no reservation needed.</div>';
+    document.getElementById('timeGrid').innerHTML='<div style="color:var(--slate);font-size:.83rem;grid-column:1/-1;padding:6px 0">Walk-in only — no reservation needed.</div>';
     document.getElementById('btnConfirm').style.display='none';
   }
   document.getElementById('overlay').classList.add('open');
@@ -423,37 +593,58 @@ async function confirmRes(){
   document.getElementById('btnConfirm').disabled=true;
   try{await fetch(`${API}/reservations`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({venueId:currentR.id,time:selectedTime,partySize,guestName:name,guestEmail:email}),signal:AbortSignal.timeout(5000)});}catch{}
   closeModal();
-  setTimeout(()=>{showToast(`Confirmed at ${currentR.name} — ${selectedTime} for ${partySize}`);document.getElementById('btnConfirm').textContent='Confirm Reservation';document.getElementById('btnConfirm').disabled=false;},200);
+  setTimeout(()=>{
+    showToast(`Confirmed at ${currentR.name} — ${selectedTime} for ${partySize}`);
+    document.getElementById('btnConfirm').textContent='Confirm Reservation';
+    document.getElementById('btnConfirm').disabled=false;
+  },200);
 }
 
-function toggleSave(id,btn){if(savedIds.has(id)){savedIds.delete(id);btn.textContent='♡';showToast('Removed from saved');}else{savedIds.add(id);btn.textContent='♥';showToast('Saved to your list');}}
-function toggleFilter(f,btn){if(activeFilters.has(f)){activeFilters.delete(f);btn.classList.remove('on');}else{activeFilters.add(f);btn.classList.add('on');}renderRestaurants();}
-function setCuisine(c,btn){currentCuisine=c;document.querySelectorAll('.cuisine-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderRestaurants();}
+function toggleSave(id,btn){
+  if(savedIds.has(id)){savedIds.delete(id);btn.textContent='♡';showToast('Removed from saved');}
+  else{savedIds.add(id);btn.textContent='♥';showToast('❤️ Saved! Check wait times before you head out.');}
+}
+
+function toggleFilter(f,btn){
+  if(activeFilters.has(f)){activeFilters.delete(f);btn.classList.remove('on');}
+  else{activeFilters.add(f);btn.classList.add('on');}
+  renderRestaurants();
+}
+
+function setCuisine(c,btn){
+  currentCuisine=c;
+  document.querySelectorAll('.cuisine-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderRestaurants();
+}
+
 let _st;
 function onSearch(){clearTimeout(_st);searchQ=document.getElementById('searchInput').value;_st=setTimeout(renderRestaurants,250);}
 
 async function doSearch(){
   const locQuery=document.getElementById('locationInput').value.trim();
-  const searchQuery=document.getElementById('searchInput').value.trim();
   if(locQuery){
     showToast('Searching '+locQuery+'…');
     const loc=await geocode(locQuery);
-    if(loc){
-      currentLat=loc.lat;currentLng=loc.lng;
-      await load(loc.lat,loc.lng);
-      showToast('Showing restaurants in '+loc.label);
-    }else{
-      showToast('Location not found. Try a different city.');
-    }
-  }else if(searchQuery){
-    renderRestaurants();
-  }else{
-    load(currentLat,currentLng);
-  }
+    if(loc){currentLat=loc.lat;currentLng=loc.lng;await load(loc.lat,loc.lng);showToast('Showing restaurants in '+loc.label);}
+    else showToast('Location not found. Try city, state or zip code.');
+  }else{renderRestaurants();}
+}
+
+function geolocate(){
+  if(!navigator.geolocation){showToast('Location not supported on this browser');return;}
+  showToast('📍 Finding your location…');
+  navigator.geolocation.getCurrentPosition(
+    p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;load(currentLat,currentLng);showToast('Showing restaurants near you');},
+    ()=>showToast('Could not get location. Try entering your city.')
+  );
+}
+
+function scrollToSearch(){
+  document.getElementById('searchSection').scrollIntoView({behavior:'smooth'});
 }
 
 function sortBy(v){currentSort=v;renderRestaurants();}
-function openProPage(){window.location.href='pro-subscription.html';}
 
 let _tt;
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3200);}
