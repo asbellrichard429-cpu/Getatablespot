@@ -7,376 +7,562 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#0F0D0A;--paper:#FAF8F4;--warm:#F5F0E8;--gold:#C9A84C;
-  --gold-l:#E8D5A3;--gold-d:#8B6914;--sage:#4A7C59;
-  --ember:#E85D3A;--border:#E2DDD5;--slate:#6B7A8D;
-  --serif:'Playfair Display',serif;--sans:'DM Sans',sans-serif;
+  --ink:#0A0806;--paper:#FAF8F4;--warm:#F5F0E8;
+  --gold:#E8B84B;--gold-l:#F5D98A;--gold-d:#A07820;
+  --ember:#FF5533;--sage:#2E9E5B;--slate:#5A6A82;
+  --purple:#9B59B6;--purple-d:#6C3483;
+  --border:#E0D8CC;--border-d:#C4B9A8;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink)}
-header{background:var(--ink);padding:16px 32px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:var(--serif);font-size:1.3rem;font-weight:900;color:white;display:flex;align-items:center;gap:8px;text-decoration:none}
+header{background:var(--ink);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--serif);font-size:1.35rem;font-weight:900;color:var(--paper);display:flex;align-items:center;gap:8px;text-decoration:none}
 .logo-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
-.btn-back{padding:7px 16px;border:1px solid rgba(255,255,255,.2);border-radius:4px;background:none;font-family:var(--sans);font-size:.82rem;cursor:pointer;color:rgba(255,255,255,.7);transition:all .15s}
-.btn-back:hover{border-color:rgba(255,255,255,.5);color:white}
+.btn-back{padding:7px 16px;border:1px solid rgba(255,255,255,.18);border-radius:4px;background:none;font-family:var(--sans);font-size:.8rem;cursor:pointer;color:rgba(255,255,255,.65);transition:all .15s}
+.btn-back:hover{border-color:rgba(255,255,255,.45);color:white}
 
 /* HERO */
-.hero{background:var(--ink);padding:72px 24px 64px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(201,168,76,.1),transparent)}
-.hero-tag{display:inline-block;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);color:var(--gold-l);font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:2px;margin-bottom:18px}
-.hero h1{font-family:var(--serif);font-size:clamp(2rem,5vw,3.6rem);font-weight:900;color:white;line-height:1.1;margin-bottom:14px}
+.hero{background:linear-gradient(160deg,#0A0806 0%,#1A0A2E 50%,#0A0806 100%);padding:72px 24px 0;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(155,89,182,.15),transparent)}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(155,89,182,.15);border:1px solid rgba(155,89,182,.3);color:#C39BD3;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:999px;margin-bottom:20px}
+.hero h1{font-family:var(--serif);font-size:clamp(2rem,5vw,3.8rem);font-weight:900;color:white;line-height:1.08;margin-bottom:14px}
 .hero h1 em{font-style:italic;color:var(--gold)}
-.hero-sub{color:rgba(255,255,255,.5);font-size:.95rem;max-width:500px;margin:0 auto 28px;line-height:1.65}
-.hero-proof{display:flex;align-items:center;justify-content:center;gap:10px;font-size:.78rem;color:rgba(255,255,255,.35)}
-.hero-stars{color:var(--gold);letter-spacing:2px}
+.hero-sub{color:rgba(255,255,255,.5);font-size:.95rem;max-width:520px;margin:0 auto 28px;line-height:1.65}
+.hero-social-proof{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:40px}
+.hero-stars{color:var(--gold);font-size:.9rem;letter-spacing:1px}
+.hero-proof-text{font-size:.75rem;color:rgba(255,255,255,.35)}
 
-/* OUTCOMES */
-.outcomes{background:var(--ink);padding:0 24px 56px}
-.outcomes-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:640px){.outcomes-inner{grid-template-columns:1fr}}
-.outcome{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:22px}
-.oc-icon{font-size:1.6rem;margin-bottom:10px}
-.oc-title{font-weight:700;font-size:.9rem;color:white;margin-bottom:6px}
-.oc-desc{font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.5}
-.oc-result{font-size:.75rem;color:var(--gold-l);font-weight:600;margin-top:8px}
+/* PAIN SECTION */
+.pain-section{background:linear-gradient(180deg,#0A0806,#1A1008);padding:40px 24px}
+.pain-inner{max-width:860px;margin:0 auto}
+.pain-title{font-family:var(--serif);font-size:1.5rem;font-weight:900;color:white;text-align:center;margin-bottom:8px}
+.pain-sub{color:rgba(255,255,255,.4);font-size:.85rem;text-align:center;margin-bottom:28px}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:600px){.pain-grid{grid-template-columns:1fr}}
+.pain-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px}
+.pain-icon{font-size:1.6rem;margin-bottom:10px}
+.pain-problem{font-size:.8rem;color:rgba(255,255,255,.35);margin-bottom:8px;line-height:1.5;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.06)}
+.pain-solution{font-size:.8rem;color:var(--gold-l);line-height:1.5;font-weight:500}
 
-/* SCROLL BAND */
-.scroll-band{overflow:hidden;background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:10px 0}
-.scroll-track{display:flex;gap:48px;animation:scroll 24s linear infinite;white-space:nowrap}
-.scroll-item{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.4);font-size:.77rem;font-weight:500}
-.scroll-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.6;flex-shrink:0}
-@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* PROOF NUMBERS */
+.proof-section{background:rgba(232,184,75,.06);border-top:1px solid rgba(232,184,75,.12);border-bottom:1px solid rgba(232,184,75,.12);padding:28px 24px}
+.proof-grid{max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+@media(max-width:600px){.proof-grid{grid-template-columns:repeat(2,1fr)}}
+.proof-num{font-family:var(--serif);font-size:2rem;font-weight:900;color:var(--gold-l);line-height:1}
+.proof-label{font-size:.72rem;color:rgba(255,255,255,.4);line-height:1.4;margin-top:4px}
 
-/* PLANS */
-.plans-section{max-width:1000px;margin:0 auto;padding:64px 24px}
-.plans-header{text-align:center;margin-bottom:16px}
-.plans-header h2{font-family:var(--serif);font-size:2rem;font-weight:900;margin-bottom:8px}
-.plans-header p{color:var(--slate);font-size:.9rem}
+/* BENEFITS */
+.benefits-section{max-width:900px;margin:0 auto;padding:60px 24px}
+.benefits-header{text-align:center;margin-bottom:40px}
+.benefits-header h2{font-family:var(--serif);font-size:2rem;font-weight:900;margin-bottom:8px}
+.benefits-header p{color:var(--slate);font-size:.9rem}
+.benefits-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:600px){.benefits-grid{grid-template-columns:1fr}}
+.benefit-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:24px;transition:box-shadow .2s,transform .2s}
+.benefit-card:hover{box-shadow:0 8px 32px rgba(10,8,6,.08);transform:translateY(-2px)}
+.benefit-card.highlight{border-color:var(--purple);background:linear-gradient(135deg,#FAF8FF,white)}
+.bc-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.bc-icon{font-size:1.8rem}
+.bc-title{font-weight:700;font-size:.95rem;color:var(--ink)}
+.bc-badge{font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:999px;background:linear-gradient(135deg,var(--purple-d),var(--purple));color:white;letter-spacing:.5px;margin-top:2px}
+.bc-desc{font-size:.83rem;color:var(--slate);line-height:1.6;margin-bottom:10px}
+.bc-result{font-size:.78rem;color:var(--sage);font-weight:700;display:flex;align-items:center;gap:5px}
 
-/* BILLING TOGGLE */
-.billing-toggle{display:flex;align-items:center;justify-content:center;gap:12px;margin:20px 0 40px}
-.bt-label{font-size:.84rem;font-weight:500;color:var(--slate)}
-.bt-track{background:var(--warm);border:1.5px solid var(--border);border-radius:999px;padding:3px;display:flex;cursor:pointer;gap:2px}
-.bt-opt{padding:6px 18px;border-radius:999px;font-size:.78rem;font-weight:700;color:var(--slate);transition:all .2s;white-space:nowrap}
-.bt-opt.on{background:var(--ink);color:var(--paper)}
-.save-badge{background:var(--sage);color:white;font-size:.65rem;font-weight:700;padding:3px 9px;border-radius:999px;letter-spacing:.5px;white-space:nowrap}
-
-.plans-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:60px}
-@media(max-width:720px){.plans-grid{grid-template-columns:1fr}}
-
-.plan-card{border:1.5px solid var(--border);border-radius:10px;padding:28px;background:white;position:relative;transition:box-shadow .2s}
-.plan-card:hover{box-shadow:0 12px 40px rgba(15,13,10,.08)}
-.plan-card.highlight{background:var(--ink);color:white;border-color:var(--ink)}
-.plan-card.highlight .plan-desc{color:rgba(255,255,255,.5)}
-.plan-card.highlight .feat-item{color:rgba(255,255,255,.5)}
-.plan-card.highlight .feat-item.yes{color:rgba(255,255,255,.9)}
-.plan-card.highlight .plan-period{color:rgba(255,255,255,.4)}
-.popular-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:.63rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:2px;white-space:nowrap}
-.plan-name{font-family:var(--serif);font-size:1.1rem;font-weight:700;margin-bottom:4px}
-.plan-desc{font-size:.8rem;color:var(--slate);margin-bottom:20px;line-height:1.5}
-.plan-price-wrap{margin-bottom:6px}
-.plan-amount{font-family:var(--serif);font-size:2.8rem;font-weight:900;line-height:1}
-.plan-period{font-size:.78rem;color:var(--slate);margin-top:3px}
-.annual-savings{font-size:.72rem;color:var(--sage);font-weight:600;margin-top:4px;margin-bottom:18px;min-height:18px}
-.feat-list{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
-.feat-item{display:flex;align-items:flex-start;gap:8px;font-size:.82rem;color:var(--slate);line-height:1.4}
-.feat-item.yes{color:var(--ink)}
-.feat-check{flex-shrink:0;margin-top:1px}
-.btn-plan{width:100%;padding:13px;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;border:none}
-.btn-free{background:var(--warm);color:var(--ink);border:1.5px solid var(--border)}
-.btn-free:hover{background:var(--border)}
-.btn-pro{background:var(--gold);color:var(--ink)}
-.btn-pro:hover{background:var(--gold-l)}
+/* COMPARE */
+.compare-section{background:var(--warm);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:56px 24px}
+.compare-inner{max-width:800px;margin:0 auto}
+.compare-title{font-family:var(--serif);font-size:1.8rem;font-weight:900;text-align:center;margin-bottom:8px}
+.compare-sub{color:var(--slate);font-size:.88rem;text-align:center;margin-bottom:32px}
+.compare-table{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden}
+.ct-header{display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--ink);padding:16px 20px}
+.ct-h{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.6);text-align:center}
+.ct-h.ours{color:var(--gold)}
+.ct-row{display:grid;grid-template-columns:1fr 1fr 1fr;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center}
+.ct-row:last-child{border-bottom:none}
+.ct-row:nth-child(even){background:var(--warm)}
+.ct-feature{font-size:.82rem;font-weight:600;color:var(--ink)}
+.ct-val{font-size:.82rem;text-align:center;color:var(--slate)}
+.ct-val.yes{color:var(--sage);font-weight:700}
+.ct-val.no{color:#DDD}
+.ct-val.ours{font-weight:700;color:var(--ink)}
 
 /* TESTIMONIALS */
-.testi-section{max-width:860px;margin:0 auto 64px;padding:0 24px}
-.testi-section h2{font-family:var(--serif);font-size:1.7rem;font-weight:900;text-align:center;margin-bottom:24px}
-.testi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.testi-section{max-width:900px;margin:0 auto;padding:60px 24px}
+.testi-header{text-align:center;margin-bottom:32px}
+.testi-header h2{font-family:var(--serif);font-size:1.8rem;font-weight:900;margin-bottom:6px}
+.testi-header p{color:var(--slate);font-size:.88rem}
+.testi-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:580px){.testi-grid{grid-template-columns:1fr}}
-.testi{background:white;border:1px solid var(--border);border-radius:8px;padding:22px}
+.testi{background:white;border:1.5px solid var(--border);border-radius:10px;padding:22px}
 .tc-stars{color:var(--gold-d);font-size:.85rem;margin-bottom:10px}
-.tc-text{font-family:var(--serif);font-style:italic;font-size:.88rem;line-height:1.6;margin-bottom:14px}
+.tc-text{font-family:var(--serif);font-style:italic;font-size:.88rem;line-height:1.6;margin-bottom:14px;color:var(--ink)}
 .tc-author{display:flex;align-items:center;gap:10px}
-.tc-avatar{width:34px;height:34px;border-radius:50%;background:var(--warm);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
-.tc-name{font-size:.8rem;font-weight:700}
+.tc-avatar{width:34px;height:34px;border-radius:50%;background:var(--warm);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.tc-name{font-size:.8rem;font-weight:700;color:var(--ink)}
 .tc-sub{font-size:.7rem;color:var(--slate)}
 
-/* MODAL */
-.overlay{display:none;position:fixed;inset:0;background:rgba(15,13,10,.65);backdrop-filter:blur(6px);z-index:100;align-items:center;justify-content:center}
-.overlay.open{display:flex}
-.modal{background:white;border-radius:12px;max-width:440px;width:95%;padding:36px;box-shadow:0 32px 80px rgba(15,13,10,.25);animation:pop .25s ease;position:relative}
-@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
-.modal h2{font-family:var(--serif);font-size:1.4rem;font-weight:900;margin-bottom:4px}
-.modal-sub{font-size:.82rem;color:var(--slate);margin-bottom:18px;line-height:1.5}
-.plan-badge{display:inline-block;background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:2px;margin-bottom:14px}
-.order-box{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:14px;margin-bottom:18px}
-.order-row{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:6px;color:var(--slate)}
-.order-row:last-child{margin-bottom:0;font-weight:700;color:var(--ink);border-top:1px solid var(--border);padding-top:10px;margin-top:10px;font-size:.9rem}
-.field-lbl{display:block;font-size:.75rem;font-weight:600;color:var(--slate);margin-bottom:4px}
-.field-in{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.9rem;margin-bottom:12px;outline:none;transition:border-color .15s}
-.field-in:focus{border-color:var(--ink)}
-.btn-checkout{width:100%;padding:13px;background:var(--gold);color:var(--ink);border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.9rem;cursor:pointer;transition:opacity .15s;margin-top:4px}
-.btn-checkout:hover{opacity:.9}
-.modal-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:var(--warm);border:1px solid var(--border);cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.modal-close:hover{background:var(--border)}
-.secure-note{text-align:center;font-size:.72rem;color:var(--slate);margin-top:10px}
+/* PRICING */
+.pricing-section{background:var(--ink);padding:64px 24px}
+.pricing-inner{max-width:900px;margin:0 auto}
+.pricing-header{text-align:center;margin-bottom:16px}
+.pricing-header h2{font-family:var(--serif);font-size:2rem;font-weight:900;color:white;margin-bottom:8px}
+.pricing-header p{color:rgba(255,255,255,.45);font-size:.9rem}
 
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:white;padding:11px 22px;border-radius:5px;font-size:.83rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap}
+/* TOGGLE */
+.billing-toggle{display:flex;align-items:center;justify-content:center;gap:12px;margin:20px 0 40px}
+.bt-lbl{font-size:.82rem;font-weight:600;color:rgba(255,255,255,.5)}
+.bt-track{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:3px;display:flex;cursor:pointer;gap:2px}
+.bt-opt{padding:6px 18px;border-radius:999px;font-size:.76rem;font-weight:700;color:rgba(255,255,255,.4);transition:all .2s;white-space:nowrap}
+.bt-opt.on{background:var(--gold);color:var(--ink)}
+.save-pill{background:var(--sage);color:white;font-size:.63rem;font-weight:700;padding:3px 9px;border-radius:999px;letter-spacing:.5px}
+
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+@media(max-width:720px){.plans-grid{grid-template-columns:1fr}}
+.plan-card{border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:26px;background:rgba(255,255,255,.04);position:relative;transition:box-shadow .2s}
+.plan-card.highlight{background:white;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.popular-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:999px;white-space:nowrap}
+.plan-name{font-family:var(--serif);font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.plan-name-dark{color:white}
+.plan-name-light{color:var(--ink)}
+.plan-desc{font-size:.78rem;margin-bottom:18px;line-height:1.5}
+.plan-desc-dark{color:rgba(255,255,255,.4)}
+.plan-desc-light{color:var(--slate)}
+.plan-amount{font-family:var(--serif);font-size:2.8rem;font-weight:900;line-height:1}
+.plan-amount-dark{color:white}
+.plan-amount-light{color:var(--ink)}
+.plan-period{font-size:.74rem;margin-top:3px;margin-bottom:4px}
+.plan-period-dark{color:rgba(255,255,255,.35)}
+.plan-period-light{color:var(--slate)}
+.plan-savings{font-size:.7rem;color:var(--sage);font-weight:600;margin-bottom:18px;min-height:16px}
+.feat-list{display:flex;flex-direction:column;gap:7px;margin-bottom:22px}
+.feat-item{display:flex;align-items:flex-start;gap:7px;font-size:.8rem;line-height:1.4}
+.feat-item.yes-dark{color:rgba(255,255,255,.8)}
+.feat-item.yes-light{color:var(--ink)}
+.feat-item.no-dark{color:rgba(255,255,255,.25)}
+.feat-item.no-light{color:#C4B9A8}
+.feat-check{flex-shrink:0;margin-top:1px}
+.btn-plan{width:100%;padding:13px;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.88rem;cursor:pointer;transition:all .15s;border:none}
+.btn-plan-gold{background:var(--gold);color:var(--ink)}
+.btn-plan-gold:hover{background:var(--gold-l)}
+.btn-plan-outline{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15)}
+.btn-plan-outline:hover{background:rgba(255,255,255,.14)}
+.btn-plan-dark{background:var(--ink);color:white}
+.btn-plan-dark:hover{background:#2A1E10}
+.secure-note{text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);margin-top:14px;line-height:1.6}
+
+/* FAQ */
+.faq-section{max-width:700px;margin:0 auto;padding:56px 24px}
+.faq-header{text-align:center;margin-bottom:28px}
+.faq-header h2{font-family:var(--serif);font-size:1.6rem;font-weight:900;margin-bottom:6px}
+.faq-item{border-bottom:1px solid var(--border);padding:18px 0}
+.faq-q{font-weight:700;font-size:.88rem;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-a{font-size:.83rem;color:var(--slate);line-height:1.6}
+
+/* CTA BOTTOM */
+.cta-bottom{background:linear-gradient(135deg,#1A0A2E,#2D1B4E);padding:56px 24px;text-align:center}
+.cta-bottom h2{font-family:var(--serif);font-size:2rem;font-weight:900;color:white;margin-bottom:10px}
+.cta-bottom p{color:rgba(255,255,255,.5);font-size:.9rem;margin-bottom:28px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.6}
+.btn-cta-main{display:inline-block;padding:16px 40px;background:linear-gradient(135deg,var(--gold),#D4943A);color:var(--ink);border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:1rem;cursor:pointer;transition:all .15s;text-decoration:none;margin-bottom:10px}
+.btn-cta-main:hover{background:linear-gradient(135deg,var(--gold-l),var(--gold));transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,184,75,.35)}
+.cta-note{font-size:.73rem;color:rgba(255,255,255,.3)}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(10,8,6,.7);backdrop-filter:blur(6px);z-index:500;align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:white;border-radius:14px;max-width:440px;width:95%;padding:32px;box-shadow:0 32px 80px rgba(10,8,6,.25);animation:popIn .25s ease;position:relative}
+@keyframes popIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+.m-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:var(--warm);border:1px solid var(--border);cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+.m-close:hover{background:var(--border)}
+.m-badge{display:inline-block;background:linear-gradient(135deg,var(--purple-d),var(--purple));color:white;font-size:.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:999px;margin-bottom:10px}
+.m-title{font-family:var(--serif);font-size:1.35rem;font-weight:900;margin-bottom:4px}
+.m-sub{font-size:.8rem;color:var(--slate);margin-bottom:16px;line-height:1.5}
+.order-box{background:var(--warm);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:16px}
+.order-row{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:5px;color:var(--slate)}
+.order-row:last-child{margin-bottom:0;font-weight:700;color:var(--ink);border-top:1px solid var(--border);padding-top:9px;margin-top:8px;font-size:.88rem}
+.field-lbl{display:block;font-size:.72rem;font-weight:700;color:var(--slate);margin-bottom:3px;letter-spacing:.3px;text-transform:uppercase}
+.field-in{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.9rem;margin-bottom:10px;outline:none;transition:border-color .15s}
+.field-in:focus{border-color:var(--ink)}
+.btn-checkout{width:100%;padding:13px;background:linear-gradient(135deg,var(--gold),#D4943A);color:var(--ink);border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.9rem;cursor:pointer;transition:opacity .15s;margin-top:4px}
+.btn-checkout:hover{opacity:.9}
+.m-secure{text-align:center;font-size:.7rem;color:var(--slate);margin-top:9px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:white;padding:11px 22px;border-radius:5px;font-size:.82rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+@media(max-width:640px){
+  .pain-grid,.testi-grid{grid-template-columns:1fr}
+  .plans-grid{grid-template-columns:1fr}
+  .benefits-grid{grid-template-columns:1fr}
+  .proof-grid{grid-template-columns:repeat(2,1fr)}
+  .ct-row,.ct-header{grid-template-columns:1.2fr 1fr 1fr}
+}
 </style>
 </head>
 <body>
 
 <header>
   <a class="logo" href="index.html"><span class="logo-dot"></span>GetATableSpot</a>
-  <button class="btn-back" onclick="window.location.href='index.html'">← Back</button>
+  <button class="btn-back" onclick="window.location.href='index.html'">← Back to app</button>
 </header>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag">✦ GetATableSpot Pro</div>
-  <h1>Never drive somewhere<br>only to <em>wait 45 minutes</em> again.</h1>
-  <p class="hero-sub">Check live wait times before you leave. Get priority reservations. Let AI find you the perfect table for any occasion.</p>
-  <div class="hero-proof"><span class="hero-stars">★★★★★</span><span>Loved by diners across 50+ cities</span></div>
-</div>
-
-<!-- OUTCOMES -->
-<div class="outcomes">
-  <div class="outcomes-inner">
-    <div class="outcome">
-      <div class="oc-icon">⚡</div>
-      <div class="oc-title">Know before you go</div>
-      <div class="oc-desc">Get real-time wait alerts when your favorite restaurant drops below your threshold.</div>
-      <div class="oc-result">→ Never waste a drive again</div>
-    </div>
-    <div class="outcome">
-      <div class="oc-icon">🚀</div>
-      <div class="oc-title">Skip the line</div>
-      <div class="oc-desc">Pro diners get access to priority reservation slots before they open to the public.</div>
-      <div class="oc-result">→ Always get the table you want</div>
-    </div>
-    <div class="outcome">
-      <div class="oc-icon">🤖</div>
-      <div class="oc-title">Your personal dining concierge</div>
-      <div class="oc-desc">Tell the AI your occasion, budget, and mood. It finds the perfect restaurant instantly.</div>
-      <div class="oc-result">→ Perfect table every time</div>
-    </div>
+  <div class="hero-tag">👑 GetATableSpot Pro</div>
+  <h1>Your personal dining<br>concierge — <em>in your pocket.</em></h1>
+  <p class="hero-sub">Skip the wait. Score the table. Dine smarter every night. For less than your morning coffee.</p>
+  <div class="hero-social-proof">
+    <span class="hero-stars">★★★★★</span>
+    <span class="hero-proof-text">Loved by diners across 50+ cities</span>
   </div>
 </div>
 
-<!-- SCROLL BAND -->
-<div class="scroll-band">
-  <div class="scroll-track">
-    <span class="scroll-item"><span class="scroll-dot"></span>Real-time wait alerts</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>Priority reservations</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>AI dining concierge</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>Michelin radar</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>Exclusive chef deals</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>Special occasion planning</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>Saved favorites</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>Real-time wait alerts</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>Priority reservations</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>AI dining concierge</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>Michelin radar</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>Exclusive chef deals</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>Special occasion planning</span>
-    <span class="scroll-item"><span class="scroll-dot"></span>Saved favorites</span>
+<!-- PAIN SECTION -->
+<div class="pain-section">
+  <div class="pain-inner">
+    <div class="pain-title">Sound familiar?</div>
+    <div class="pain-sub">These are the dining problems Pro was built to solve</div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">😤</div>
+        <div class="pain-problem">You drive across town, get there, and see a 45-minute wait. You had no idea. Now you're stuck.</div>
+        <div class="pain-solution">⚡ Pro alerts you the moment your favorite restaurant drops below your wait threshold. Never drive blind again.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">😞</div>
+        <div class="pain-problem">You try to book the hot new restaurant and every time slot is already gone before you even get a chance.</div>
+        <div class="pain-solution">🚀 Pro diners see reservation slots before they open to the public. You're always first in line.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">😵</div>
+        <div class="pain-problem">You spend 20 minutes scrolling Yelp trying to find somewhere for a special occasion that fits your budget and mood.</div>
+        <div class="pain-solution">🤖 Tell the AI your occasion, budget, and mood. It finds the perfect restaurant in seconds from real places near you.</div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- PLANS -->
-<div class="plans-section">
-  <div class="plans-header">
-    <h2>Choose your plan</h2>
-    <p>Start free. Upgrade when you're ready to dine smarter.</p>
+<!-- PROOF NUMBERS -->
+<div class="proof-section">
+  <div class="proof-grid">
+    <div>
+      <div class="proof-num">$2.99</div>
+      <div class="proof-label">Per month. Less than one cup of coffee at Starbucks.</div>
+    </div>
+    <div>
+      <div class="proof-num">7</div>
+      <div class="proof-label">Days completely free. No charge until day 8.</div>
+    </div>
+    <div>
+      <div class="proof-num">50+</div>
+      <div class="proof-label">Cities with real restaurant data powered by Google.</div>
+    </div>
+    <div>
+      <div class="proof-num">0</div>
+      <div class="proof-label">Per-reservation fees. Ever. Keep every dollar you spend.</div>
+    </div>
   </div>
+</div>
 
-  <div class="billing-toggle">
-    <span class="bt-label">Monthly</span>
-    <div class="bt-track" onclick="toggleBilling()">
-      <div class="bt-opt on" id="mo-opt">Monthly</div>
-      <div class="bt-opt" id="yr-opt">Annual</div>
-    </div>
-    <span class="bt-label">Annual</span>
-    <span class="save-badge">SAVE 25%</span>
+<!-- BENEFITS -->
+<div class="benefits-section">
+  <div class="benefits-header">
+    <h2>Everything in Pro</h2>
+    <p>Six features that change how you dine — permanently.</p>
   </div>
-
-  <div class="plans-grid">
-
-    <!-- FREE -->
-    <div class="plan-card">
-      <div class="plan-name">Free</div>
-      <div class="plan-desc">Discover restaurants and check wait times at no cost.</div>
-      <div class="plan-price-wrap">
-        <div class="plan-amount">$0</div>
-        <div class="plan-period">forever free</div>
+  <div class="benefits-grid">
+    <div class="benefit-card highlight">
+      <div class="bc-top">
+        <span class="bc-icon">⚡</span>
+        <div>
+          <div class="bc-title">Real-Time Wait Alerts</div>
+          <div class="bc-badge">MOST LOVED</div>
+        </div>
       </div>
-      <div class="annual-savings"></div>
-      <div class="feat-list">
-        <div class="feat-item yes"><span class="feat-check">✓</span>Search all restaurants</div>
-        <div class="feat-item yes"><span class="feat-check">✓</span>Basic wait estimates</div>
-        <div class="feat-item yes"><span class="feat-check">✓</span>Standard reservations</div>
-        <div class="feat-item yes"><span class="feat-check">✓</span>Save favorites</div>
-        <div class="feat-item"><span class="feat-check" style="color:#DDD">✗</span>Real-time wait alerts</div>
-        <div class="feat-item"><span class="feat-check" style="color:#DDD">✗</span>Priority reservations</div>
-        <div class="feat-item"><span class="feat-check" style="color:#DDD">✗</span>AI dining concierge</div>
-      </div>
-      <button class="btn-plan btn-free" onclick="choosePlan('free')">Get Started Free</button>
+      <div class="bc-desc">Set your wait threshold for any restaurant. The moment it drops below that number — whether you're at home, at work, or anywhere else — you get an instant alert. Be the first one through the door.</div>
+      <div class="bc-result">→ Never waste a drive again</div>
     </div>
-
-    <!-- PRO -->
-    <div class="plan-card highlight">
-      <div class="popular-tag">MOST POPULAR</div>
-      <div class="plan-name">Pro Diner</div>
-      <div class="plan-desc">For anyone who takes their dining seriously.</div>
-      <div class="plan-price-wrap">
-        <div class="plan-amount" id="pro-amount">$7.99</div>
-        <div class="plan-period" id="pro-period">per month</div>
+    <div class="benefit-card">
+      <div class="bc-top">
+        <span class="bc-icon">🚀</span>
+        <div><div class="bc-title">Priority Reservation Slots</div></div>
       </div>
-      <div class="annual-savings" id="pro-savings"></div>
-      <div class="feat-list">
-        <div class="feat-item yes"><span class="feat-check">✓</span>Everything in Free</div>
-        <div class="feat-item yes"><span class="feat-check">⚡</span>Real-time wait drop alerts</div>
-        <div class="feat-item yes"><span class="feat-check">🚀</span>Priority reservation slots</div>
-        <div class="feat-item yes"><span class="feat-check">🤖</span>AI dining concierge</div>
-        <div class="feat-item yes"><span class="feat-check">⭐</span>Michelin guide radar</div>
-        <div class="feat-item yes"><span class="feat-check">🎁</span>Exclusive chef deals</div>
-        <div class="feat-item yes"><span class="feat-check">💾</span>Saved lists and trip planning</div>
-      </div>
-      <button class="btn-plan btn-pro" onclick="choosePlan('pro')">Start Free 7 Days →</button>
+      <div class="bc-desc">Pro diners get early access to reservation times before they open to the public. Hot restaurants, Friday night tables, special occasions — you're always first in the queue.</div>
+      <div class="bc-result">→ Always get the table you want</div>
     </div>
-
-    <!-- RESTAURANT OWNER -->
-    <div class="plan-card">
-      <div class="plan-name">Restaurant Owner</div>
-      <div class="plan-desc">Get discovered by serious diners. Fill seats faster.</div>
-      <div class="plan-price-wrap">
-        <div class="plan-amount" id="venue-amount">$99</div>
-        <div class="plan-period" id="venue-period">per month</div>
+    <div class="benefit-card highlight">
+      <div class="bc-top">
+        <span class="bc-icon">🤖</span>
+        <div>
+          <div class="bc-title">AI Dining Concierge</div>
+          <div class="bc-badge">ONLY ON PRO</div>
+        </div>
       </div>
-      <div class="annual-savings" id="venue-savings"></div>
-      <div class="feat-list">
-        <div class="feat-item yes"><span class="feat-check">✓</span>Restaurant dashboard</div>
-        <div class="feat-item yes"><span class="feat-check">✓</span>Live wait time control</div>
-        <div class="feat-item yes"><span class="feat-check">✓</span>Reservation management</div>
-        <div class="feat-item yes"><span class="feat-check">✓</span>AI insights and analytics</div>
-        <div class="feat-item yes"><span class="feat-check">✓</span>Featured placement</div>
-        <div class="feat-item yes"><span class="feat-check">✓</span>No per-reservation fees</div>
-      </div>
-      <button class="btn-plan btn-free" onclick="window.location.href='claim-restaurant.html'">Claim Your Restaurant →</button>
+      <div class="bc-desc">Tell it your mood, your budget, your occasion — anniversary dinner, group of 8, late night sushi, outdoor seating on a budget — and it finds the perfect restaurant from real places near you with live wait times. Better than any human recommendation.</div>
+      <div class="bc-result">→ Perfect table every time</div>
     </div>
+    <div class="benefit-card">
+      <div class="bc-top">
+        <span class="bc-icon">⭐</span>
+        <div><div class="bc-title">Michelin Guide Radar</div></div>
+      </div>
+      <div class="bc-desc">Get alerted when a Michelin-starred or highly acclaimed restaurant has an unexpected same-day or next-day opening. The kind of table that normally takes months to book.</div>
+      <div class="bc-result">→ Access the tables money can't buy</div>
+    </div>
+    <div class="benefit-card">
+      <div class="bc-top">
+        <span class="bc-icon">🎁</span>
+        <div><div class="bc-title">Exclusive Chef Deals</div></div>
+      </div>
+      <div class="bc-desc">Partner restaurants offer Pro diners special pricing, complimentary courses, and priority seating during peak hours. Deals that are never advertised publicly — only accessible with a Pro membership.</div>
+      <div class="bc-result">→ Dine better for less</div>
+    </div>
+    <div class="benefit-card">
+      <div class="bc-top">
+        <span class="bc-icon">❤️</span>
+        <div><div class="bc-title">Unlimited Saved Lists</div></div>
+      </div>
+      <div class="bc-desc">Build your personal dining guide. Save restaurants to lists by occasion, cuisine, or city. Check live wait times on your favorites before you leave. Never forget that great place you found again.</div>
+      <div class="bc-result">→ Your personal dining guide, forever</div>
+    </div>
+  </div>
+</div>
 
+<!-- COMPARE -->
+<div class="compare-section">
+  <div class="compare-inner">
+    <div class="compare-title">Built differently. On purpose.</div>
+    <div class="compare-sub">Here's how GetATableSpot Pro stacks up against how you're dining right now.</div>
+    <div class="compare-table">
+      <div class="ct-header">
+        <div class="ct-h">Feature</div>
+        <div class="ct-h">Without Pro</div>
+        <div class="ct-h ours">With Pro ($2.99/mo)</div>
+      </div>
+      <div class="ct-row"><div class="ct-feature">Wait time visibility</div><div class="ct-val">❌ None — drive and hope</div><div class="ct-val ours">✓ Real-time alerts sent to you</div></div>
+      <div class="ct-row"><div class="ct-feature">Reservation access</div><div class="ct-val">Standard — compete with everyone</div><div class="ct-val ours">✓ Early access before public</div></div>
+      <div class="ct-row"><div class="ct-feature">Restaurant discovery</div><div class="ct-val">20 minutes scrolling Yelp</div><div class="ct-val ours">✓ AI finds it in seconds</div></div>
+      <div class="ct-row"><div class="ct-feature">Michelin openings</div><div class="ct-val">❌ Never find out</div><div class="ct-val ours">✓ Instant alert when available</div></div>
+      <div class="ct-row"><div class="ct-feature">Exclusive deals</div><div class="ct-val">❌ Pay full price always</div><div class="ct-val ours">✓ Partner restaurant deals</div></div>
+      <div class="ct-row"><div class="ct-feature">Monthly cost</div><div class="ct-val">$0 (but pay in time & frustration)</div><div class="ct-val ours">✓ $2.99/month</div></div>
+    </div>
   </div>
 </div>
 
 <!-- TESTIMONIALS -->
 <div class="testi-section">
-  <h2>What diners say</h2>
+  <div class="testi-header">
+    <h2>What Pro diners say</h2>
+    <p>Real people who stopped waiting and started dining smarter</p>
+  </div>
   <div class="testi-grid">
     <div class="testi">
       <div class="tc-stars">★★★★★</div>
-      <div class="tc-text">"The wait alert paid for itself the first night. Got a notification that Carbone had a 10-minute wait at 7:30 and we were seated in a booth by 8."</div>
+      <div class="tc-text">"The wait alert paid for itself the first night. Got a notification that Carbone had a 10-minute wait at 7:30 and we were seated in a booth by 8. I've paid $2.99 for worse decisions."</div>
       <div class="tc-author"><div class="tc-avatar">👩</div><div><div class="tc-name">Jessica M.</div><div class="tc-sub">Pro since Feb 2026 · New York</div></div></div>
     </div>
     <div class="testi">
       <div class="tc-stars">★★★★★</div>
-      <div class="tc-text">"The AI concierge found me a perfect anniversary restaurant in 90 seconds. Better than any human recommendation I've ever gotten."</div>
+      <div class="tc-text">"The AI concierge found me a perfect anniversary restaurant in 90 seconds. I described what I wanted — romantic, Italian, under $150 for two, outdoor seating — and it nailed it. Better than any friend recommendation I've gotten."</div>
       <div class="tc-author"><div class="tc-avatar">👨</div><div><div class="tc-name">David K.</div><div class="tc-sub">Pro since Jan 2026 · Chicago</div></div></div>
     </div>
     <div class="testi">
       <div class="tc-stars">★★★★★</div>
-      <div class="tc-text">"The Michelin radar is incredible. Got an alert when a 2-star had a same-day opening. Would have taken hours of manual checking to find that."</div>
-      <div class="tc-author"><div class="tc-avatar">👩‍🦱</div><div><div class="tc-name">Rachel T.</div><div class="tc-sub">Pro since Nov 2025 · San Francisco</div></div></div>
+      <div class="tc-text">"I check wait times every Friday before we decide where to go. We've saved probably 3 hours of waiting this month alone. For $2.99 this is the best subscription I have — and I have a lot of subscriptions."</div>
+      <div class="tc-author"><div class="tc-avatar">👨‍👩‍👧</div><div><div class="tc-name">The Martins</div><div class="tc-sub">Pro since Mar 2026 · Austin</div></div></div>
     </div>
     <div class="testi">
       <div class="tc-stars">★★★★★</div>
-      <div class="tc-text">"I check wait times every Friday before we decide where to go. It's become a habit. We've saved probably 3 hours of waiting this month alone."</div>
-      <div class="tc-author"><div class="tc-avatar">👨‍👩‍👧</div><div><div class="tc-name">The Martins</div><div class="tc-sub">Pro since Mar 2026 · Austin</div></div></div>
+      <div class="tc-text">"Got a Michelin radar alert for a 2-star that had a same-day cancellation. Would have taken hours of refreshing to find that on my own. The table was incredible. This app is worth every penny."</div>
+      <div class="tc-author"><div class="tc-avatar">👩‍🦱</div><div><div class="tc-name">Rachel T.</div><div class="tc-sub">Pro since Nov 2025 · San Francisco</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- MODAL -->
+<!-- PRICING -->
+<div class="pricing-section">
+  <div class="pricing-inner">
+    <div class="pricing-header">
+      <h2>Simple, honest pricing</h2>
+      <p>No hidden fees. No per-reservation charges. Cancel anytime.</p>
+    </div>
+    <div class="billing-toggle">
+      <span class="bt-lbl">Monthly</span>
+      <div class="bt-track" onclick="toggleBilling()">
+        <div class="bt-opt on" id="btMo">Monthly</div>
+        <div class="bt-opt" id="btYr">Annual</div>
+      </div>
+      <span class="bt-lbl">Annual</span>
+      <span class="save-pill">SAVE 25%</span>
+    </div>
+    <div class="plans-grid">
+
+      <!-- FREE -->
+      <div class="plan-card">
+        <div class="plan-name plan-name-dark">Free</div>
+        <div class="plan-desc plan-desc-dark">Search and discover restaurants at no cost.</div>
+        <div class="plan-amount plan-amount-dark">$0</div>
+        <div class="plan-period plan-period-dark">forever free</div>
+        <div class="plan-savings"></div>
+        <div class="feat-list">
+          <div class="feat-item yes-dark"><span class="feat-check">✓</span>Search all restaurants</div>
+          <div class="feat-item yes-dark"><span class="feat-check">✓</span>Basic wait estimates</div>
+          <div class="feat-item yes-dark"><span class="feat-check">✓</span>Standard reservations</div>
+          <div class="feat-item yes-dark"><span class="feat-check">✓</span>Save up to 5 favorites</div>
+          <div class="feat-item no-dark"><span class="feat-check" style="color:#444">✗</span>Real-time wait alerts</div>
+          <div class="feat-item no-dark"><span class="feat-check" style="color:#444">✗</span>Priority reservations</div>
+          <div class="feat-item no-dark"><span class="feat-check" style="color:#444">✗</span>AI dining concierge</div>
+          <div class="feat-item no-dark"><span class="feat-check" style="color:#444">✗</span>Michelin radar</div>
+        </div>
+        <button class="btn-plan btn-plan-outline" onclick="window.location.href='index.html'">Continue Free →</button>
+      </div>
+
+      <!-- PRO -->
+      <div class="plan-card highlight">
+        <div class="popular-tag">MOST POPULAR</div>
+        <div class="plan-name plan-name-light">Pro Diner</div>
+        <div class="plan-desc plan-desc-light">For anyone who takes their dining seriously.</div>
+        <div class="plan-amount plan-amount-light" id="proAmount">$2.99</div>
+        <div class="plan-period plan-period-light" id="proPeriod">per month</div>
+        <div class="plan-savings" id="proSavings"></div>
+        <div class="feat-list">
+          <div class="feat-item yes-light"><span class="feat-check">✓</span>Everything in Free</div>
+          <div class="feat-item yes-light"><span class="feat-check">⚡</span>Real-time wait drop alerts</div>
+          <div class="feat-item yes-light"><span class="feat-check">🚀</span>Priority reservation slots</div>
+          <div class="feat-item yes-light"><span class="feat-check">🤖</span>AI dining concierge</div>
+          <div class="feat-item yes-light"><span class="feat-check">⭐</span>Michelin guide radar</div>
+          <div class="feat-item yes-light"><span class="feat-check">🎁</span>Exclusive chef deals</div>
+          <div class="feat-item yes-light"><span class="feat-check">❤️</span>Unlimited saved lists</div>
+        </div>
+        <button class="btn-plan btn-plan-dark" onclick="openCheckout('pro')">Start Free 7 Days →</button>
+      </div>
+
+      <!-- RESTAURANT -->
+      <div class="plan-card">
+        <div class="plan-name plan-name-dark">Restaurant Owner</div>
+        <div class="plan-desc plan-desc-dark">Get discovered. Fill seats faster. Zero per-reservation fees.</div>
+        <div class="plan-amount plan-amount-dark" id="venueAmount">$99</div>
+        <div class="plan-period plan-period-dark" id="venuePeriod">per month</div>
+        <div class="plan-savings" id="venueSavings"></div>
+        <div class="feat-list">
+          <div class="feat-item yes-dark"><span class="feat-check">✓</span>Restaurant dashboard</div>
+          <div class="feat-item yes-dark"><span class="feat-check">✓</span>Live wait time control</div>
+          <div class="feat-item yes-dark"><span class="feat-check">✓</span>Reservation management</div>
+          <div class="feat-item yes-dark"><span class="feat-check">✓</span>AI insights and analytics</div>
+          <div class="feat-item yes-dark"><span class="feat-check">✓</span>Featured placement</div>
+          <div class="feat-item yes-dark"><span class="feat-check">✓</span>No per-reservation fees</div>
+        </div>
+        <button class="btn-plan btn-plan-outline" onclick="window.location.href='claim-restaurant.html'">Claim My Restaurant →</button>
+      </div>
+
+    </div>
+    <div class="secure-note">🔒 Secured by Stripe · 7 days free · Cancel anytime · No hidden fees · No per-reservation charges</div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="faq-header">
+    <h2>Common questions</h2>
+    <p style="color:var(--slate);font-size:.88rem">Everything you need to know before signing up</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Will I be charged during my free trial? <span>+</span></div>
+    <div class="faq-a">No. Your card is saved but not charged until day 8. If you cancel before day 8 you pay absolutely nothing. No exceptions, no gotchas.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How do I cancel? <span>+</span></div>
+    <div class="faq-a">Cancel anytime directly through Stripe — no hoops to jump through, no phone calls required. If you cancel before day 8 of your trial you're never charged.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How does the AI concierge work? <span>+</span></div>
+    <div class="faq-a">The AI knows every restaurant currently loaded near you — including their real wait times, ratings, cuisine, price level, and whether they have outdoor seating. You tell it what you need in plain language and it picks the best match and explains why.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How do wait alerts work? <span>+</span></div>
+    <div class="faq-a">You save restaurants to your favorites and set your wait threshold. When a restaurant's estimated wait drops below that number you get an instant alert. You can set different thresholds for different restaurants.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Is the annual plan worth it? <span>+</span></div>
+    <div class="faq-a">The annual plan is $2.24/month billed as $26.88/year — saving you $8.88 compared to monthly. If you're going to use it regularly (and you will), annual is the better deal.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What cities are supported? <span>+</span></div>
+    <div class="faq-a">GetATableSpot works in any city worldwide with Google restaurant data — which is essentially everywhere. Simply enter your city, state, or zip code and we pull real restaurants near you.</div>
+  </div>
+</div>
+
+<!-- CTA BOTTOM -->
+<div class="cta-bottom">
+  <h2>Ready to dine smarter?</h2>
+  <p>Join diners across 50+ cities who never wait for a table anymore. Start your 7-day free trial — no charge until day 8.</p>
+  <a class="btn-cta-main" href="https://buy.stripe.com/cNidR8diZb4E6WM64QbEA06" target="_blank">Start Free 7 Days →</a>
+  <div class="cta-note">$2.99/month after trial · Cancel anytime · Secured by Stripe</div>
+</div>
+
+<!-- CHECKOUT MODAL -->
 <div class="overlay" id="overlay" onclick="closeModal(event)">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="plan-badge" id="mBadge">Pro Diner</div>
-    <h2 id="mTitle">Start your free trial</h2>
-    <p class="modal-sub" id="mSub">7 days free, then $7.99/month. Cancel anytime.</p>
+    <button class="m-close" onclick="closeModal()">✕</button>
+    <div class="m-badge" id="mBadge">✦ Pro Diner</div>
+    <div class="m-title" id="mTitle">Start your free trial</div>
+    <div class="m-sub" id="mSub">7 days free, then $2.99/month. Cancel anytime.</div>
     <div class="order-box" id="mOrder"></div>
     <label class="field-lbl">Your Name</label>
     <input class="field-in" id="mName" placeholder="First & Last Name">
     <label class="field-lbl">Email Address</label>
     <input class="field-in" id="mEmail" type="email" placeholder="you@example.com">
-    <button class="btn-checkout" id="mCheckout" onclick="checkout()">
-      <span id="mBtnLabel">Start Free Trial →</span>
+    <button class="btn-checkout" id="btnCheckout" onclick="checkout()">
+      <span id="btnLabel">Start Free 7 Days →</span>
     </button>
-    <div class="secure-note">🔒 Secured by Stripe · Cancel anytime · No hidden fees</div>
+    <div class="m-secure">🔒 Secured by Stripe · No charge for 7 days · Cancel anytime</div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-let annual=false;
-let plan='pro';
+const STRIPE_LINKS={
+  pro:'https://buy.stripe.com/cNidR8diZb4E6WM64QbEA06',
+  proAnnual:'https://buy.stripe.com/cNidR8diZb4E6WM64QbEA06',
+};
 
-const MONTHLY={pro:7.99,venue:99};
-const ANNUAL={pro:5.99,venue:74};
+let annual=false;
 
 function toggleBilling(){
   annual=!annual;
-  document.getElementById('mo-opt').classList.toggle('on',!annual);
-  document.getElementById('yr-opt').classList.toggle('on',annual);
-
+  document.getElementById('btMo').classList.toggle('on',!annual);
+  document.getElementById('btYr').classList.toggle('on',annual);
   if(annual){
-    document.getElementById('pro-amount').textContent='$5.99';
-    document.getElementById('pro-period').textContent='per month, billed $71.88/year';
-    document.getElementById('pro-savings').textContent='✓ Save $24.12/year vs monthly (25% off)';
-    document.getElementById('venue-amount').textContent='$74';
-    document.getElementById('venue-period').textContent='per month, billed $888/year';
-    document.getElementById('venue-savings').textContent='✓ Save $300/year vs monthly (25% off)';
+    document.getElementById('proAmount').textContent='$2.24';
+    document.getElementById('proPeriod').textContent='per month, billed $26.88/year';
+    document.getElementById('proSavings').textContent='✓ Save $8.88/year vs monthly (25% off)';
+    document.getElementById('venueAmount').textContent='$74';
+    document.getElementById('venuePeriod').textContent='per month, billed $888/year';
+    document.getElementById('venueSavings').textContent='✓ Save $300/year vs monthly (25% off)';
   }else{
-    document.getElementById('pro-amount').textContent='$7.99';
-    document.getElementById('pro-period').textContent='per month';
-    document.getElementById('pro-savings').textContent='';
-    document.getElementById('venue-amount').textContent='$99';
-    document.getElementById('venue-period').textContent='per month';
-    document.getElementById('venue-savings').textContent='';
+    document.getElementById('proAmount').textContent='$2.99';
+    document.getElementById('proPeriod').textContent='per month';
+    document.getElementById('proSavings').textContent='';
+    document.getElementById('venueAmount').textContent='$99';
+    document.getElementById('venuePeriod').textContent='per month';
+    document.getElementById('venueSavings').textContent='';
   }
 }
 
-const PLANS={
-  pro:{
-    badge:'✦ Pro Diner',
-    title:'Start your free trial',
-    sub:'7 days free, then billed monthly. Cancel anytime.',
-    btn:'Start Free 7 Days →',
-    monthlyOrder:[
-      ['GetATableSpot Pro Diner','$7.99/mo'],
-      ['7-day free trial','$0.00 today'],
-      ['Due today','$0.00'],
-    ],
-    annualOrder:[
-      ['GetATableSpot Pro Diner (Annual)','$71.88/yr'],
-      ['Monthly equivalent','$5.99/mo'],
-      ['You save vs monthly','$24.12/year'],
-      ['Due today','$71.88'],
-    ],
-  },
-};
-
-function choosePlan(p){
-  if(p==='free'){showToast('Creating your free account…');return;}
-  plan=p;
-  const cfg=PLANS[p];
-  if(!cfg)return;
-  document.getElementById('mBadge').textContent=cfg.badge;
-  document.getElementById('mTitle').textContent=cfg.title;
-  document.getElementById('mSub').textContent=annual?cfg.sub.replace('monthly','annually'):cfg.sub;
-  document.getElementById('mBtnLabel').textContent=cfg.btn;
-  const rows=annual?cfg.annualOrder:cfg.monthlyOrder;
-  document.getElementById('mOrder').innerHTML=rows.map(([l,v],i)=>`<div class="order-row" style="${i===rows.length-1?'':''}"><span>${l}</span><span>${v}</span></div>`).join('');
+function openCheckout(plan){
+  if(plan==='pro'){
+    const price=annual?'$2.24/mo (billed $26.88/year)':'$2.99/month';
+    document.getElementById('mBadge').textContent='✦ Pro Diner';
+    document.getElementById('mTitle').textContent='Start your free trial';
+    document.getElementById('mSub').textContent=`7 days free, then ${price}. Cancel anytime.`;
+    document.getElementById('mOrder').innerHTML=`
+      <div class="order-row"><span>GetATableSpot Pro Diner</span><span>${annual?'$26.88/year':'$2.99/mo'}</span></div>
+      ${annual?'<div class="order-row"><span>Monthly equivalent</span><span>$2.24/mo</span></div>':''}
+      <div class="order-row"><span>7-day free trial</span><span>$0.00 today</span></div>
+      <div class="order-row"><span>Due today</span><span>$0.00</span></div>
+    `;
+    document.getElementById('btnLabel').textContent='Start Free 7 Days →';
+  }
   document.getElementById('overlay').classList.add('open');
 }
 
@@ -390,12 +576,11 @@ async function checkout(){
   const email=document.getElementById('mEmail').value.trim();
   if(!name){showToast('Please enter your name');return;}
   if(!email||!email.includes('@')){showToast('Please enter a valid email');return;}
-  document.getElementById('mBtnLabel').textContent='Redirecting to Stripe…';
+  document.getElementById('btnLabel').textContent='Redirecting to Stripe…';
+  document.getElementById('btnCheckout').disabled=true;
   setTimeout(()=>{
-    closeModal();
-    showToast(`Welcome ${name.split(' ')[0]}! Your 7-day trial is starting.`);
-    document.getElementById('mBtnLabel').textContent=PLANS[plan].btn;
-  },1400);
+    window.location.href=STRIPE_LINKS[annual?'proAnnual':'pro'];
+  },800);
 }
 
 let _tt;
