@@ -8,6 +8,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 
 const app = express();
+app.set('trust proxy',1);
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder');
 const cache = new NodeCache({ stdTTL: 3600 });
 
