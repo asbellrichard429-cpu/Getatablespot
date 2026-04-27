@@ -16,8 +16,6 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);min-height:100vh}
-
-/* HEADER */
 header{background:var(--ink);position:sticky;top:0;z-index:200}
 .header-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .logo{font-family:var(--serif);font-size:1.4rem;font-weight:900;color:var(--paper);display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none}
@@ -28,19 +26,14 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .btn-find-hdr:hover{background:var(--gold-l)}
 .btn-biz-hdr{background:rgba(255,255,255,.1);color:var(--paper);border:1px solid rgba(255,255,255,.2)}
 .btn-biz-hdr:hover{background:rgba(255,255,255,.18)}
-
-/* HERO */
-.hero{background:linear-gradient(160deg,#0A0806 0%,#1A1008 50%,#0A0806 100%);padding:80px 24px 0;text-align:center;position:relative;overflow:hidden}
+.hero{background:linear-gradient(160deg,#0A0806 0%,#1A1008 50%,#0A0806 100%);padding:72px 24px 0;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 60% at 50% 0%,rgba(232,184,75,.14),transparent)}
-.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,transparent,var(--paper))}
 .hero-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:8px}
 .hero-eyebrow::before,.hero-eyebrow::after{content:'';flex:1;max-width:60px;height:1px;background:rgba(232,184,75,.3)}
 .hero h1{font-family:var(--serif);font-size:clamp(2.4rem,6vw,4.4rem);font-weight:900;color:#FAF8F4;line-height:1.08;margin-bottom:14px;position:relative;z-index:1}
 .hero h1 em{font-style:italic;color:var(--gold);text-shadow:0 0 40px rgba(232,184,75,.3)}
 .hero-sub{font-size:1rem;color:rgba(255,255,255,.5);max-width:480px;margin:0 auto 14px;line-height:1.65;position:relative;z-index:1}
 .hero-disclaimer{font-size:.7rem;color:rgba(255,255,255,.25);margin-bottom:40px;position:relative;z-index:1}
-
-/* AUDIENCE CARDS */
 .audience-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:620px;margin:0 auto 0;position:relative;z-index:1}
 @media(max-width:480px){.audience-split{grid-template-columns:1fr}}
 .ac{border-radius:12px;padding:24px;cursor:pointer;transition:transform .2s,box-shadow .2s;text-align:left;border:none;font-family:var(--sans);display:block;width:100%}
@@ -52,45 +45,37 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .ac-tag{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:8px}
 .ac-title{font-family:var(--serif);font-size:1.25rem;font-weight:900;line-height:1.2;margin-bottom:6px}
 .ac-desc{font-size:.78rem;opacity:.75;line-height:1.45;margin-bottom:14px}
-.ac-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:4px;font-weight:700;font-size:.8rem;transition:all .15s}
+.ac-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:4px;font-weight:700;font-size:.8rem}
 .ac-diner .ac-cta{background:var(--ink);color:var(--paper)}
 .ac-resto .ac-cta{background:var(--gold);color:var(--ink)}
-
-/* PROOF BAND */
 .proof-band{background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.05);padding:12px 24px;position:relative;z-index:1}
 .proof-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
 .proof-item{font-size:.72rem;color:rgba(255,255,255,.35);display:flex;align-items:center;gap:5px;white-space:nowrap}
 .proof-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.7}
 
-/* SEARCH */
-.search-section{background:var(--paper);border-bottom:2px solid var(--border);padding:18px 24px;position:sticky;top:58px;z-index:100;box-shadow:0 4px 20px rgba(10,8,6,.06)}
-.search-inner{max-width:900px;margin:0 auto}
-.search-row{display:flex;gap:8px;flex-wrap:wrap}
-.s-box{display:flex;background:white;border:2px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .15s;flex:1;min-width:180px}
-.s-box:focus-within{border-color:var(--ink)}
-.s-icon{padding:0 12px;color:var(--slate);display:flex;align-items:center;font-size:1rem;flex-shrink:0}
-.s-box input{flex:1;background:none;border:none;outline:none;padding:11px 4px 11px 0;font-family:var(--sans);font-size:.92rem;color:var(--ink)}
-.s-box input::placeholder{color:#B8AFA0}
-.l-box{display:flex;background:white;border:2px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .15s;flex:1;min-width:180px}
+/* CUISINE NAV — MOVED ABOVE SEARCH */
+.cuisine-nav{background:var(--ink);border-bottom:1px solid rgba(255,255,255,.08)}
+.cuisine-inner{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:4px;overflow-x:auto;height:52px;scrollbar-width:none}
+.cuisine-inner::-webkit-scrollbar{display:none}
+.c-btn{padding:7px 16px;border-radius:999px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);font-family:var(--sans);font-size:.8rem;font-weight:600;color:rgba(255,255,255,.6);cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.c-btn:hover{background:rgba(255,255,255,.12);color:white;border-color:rgba(255,255,255,.25)}
+.c-btn.active{background:var(--gold);color:var(--ink);border-color:var(--gold);box-shadow:0 2px 12px rgba(232,184,75,.4)}
+
+/* SEARCH — BELOW CUISINE */
+.search-section{background:white;border-bottom:2px solid var(--border);padding:16px 24px;position:sticky;top:58px;z-index:100;box-shadow:0 4px 20px rgba(10,8,6,.06)}
+.search-inner{max-width:700px;margin:0 auto}
+.search-row{display:flex;gap:8px}
+.l-box{display:flex;background:white;border:2px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .15s;flex:1}
 .l-box:focus-within{border-color:var(--ink)}
-.btn-gps{background:none;border:none;border-right:1px solid var(--border);padding:0 13px;cursor:pointer;color:var(--slate);font-size:1.1rem;display:flex;align-items:center;flex-shrink:0;transition:background .15s}
+.btn-gps{background:none;border:none;border-right:1px solid var(--border);padding:0 14px;cursor:pointer;color:var(--slate);font-size:1.1rem;display:flex;align-items:center;flex-shrink:0;transition:background .15s}
 .btn-gps:hover{background:var(--warm);color:var(--ember)}
-.l-box input{flex:1;background:none;border:none;outline:none;padding:11px 12px;font-family:var(--sans);font-size:.92rem;color:var(--ink)}
+.l-box input{flex:1;background:none;border:none;outline:none;padding:12px 14px;font-family:var(--sans);font-size:.95rem;color:var(--ink)}
 .l-box input::placeholder{color:#B8AFA0}
-.btn-find{padding:11px 28px;background:var(--ink);color:var(--paper);border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.92rem;cursor:pointer;white-space:nowrap;transition:background .15s;flex-shrink:0}
+.btn-find{padding:12px 28px;background:var(--ink);color:var(--paper);border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.92rem;cursor:pointer;white-space:nowrap;transition:background .15s;flex-shrink:0}
 .btn-find:hover{background:#2A1E10}
 
-/* CUISINE NAV */
-.cuisine-nav{background:white;border-bottom:2px solid var(--border)}
-.cuisine-inner{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:2px;overflow-x:auto;height:48px;scrollbar-width:none}
-.cuisine-inner::-webkit-scrollbar{display:none}
-.c-btn{padding:6px 14px;border-radius:4px;border:none;background:none;font-family:var(--sans);font-size:.8rem;font-weight:600;color:var(--slate);cursor:pointer;white-space:nowrap;transition:all .15s}
-.c-btn:hover{background:var(--warm);color:var(--ink)}
-.c-btn.active{background:var(--ink);color:var(--paper)}
-
-/* MAIN */
-.main{max-width:1280px;margin:0 auto;padding:28px 24px}
-.filter-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:10px;flex-wrap:wrap}
+.main{max-width:1280px;margin:0 auto;padding:24px 24px}
+.filter-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:10px;flex-wrap:wrap}
 .filter-left{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .f-pill{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--border);background:white;font-size:.76rem;font-weight:700;cursor:pointer;color:var(--slate);transition:all .15s;white-space:nowrap}
 .f-pill:hover{border-color:var(--ink);color:var(--ink)}
@@ -99,11 +84,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .result-meta{font-size:.8rem;color:var(--slate)}
 .result-meta strong{color:var(--ink);font-weight:700}
 .sort-sel{padding:6px 11px;border:1.5px solid var(--border);border-radius:4px;font-family:var(--sans);font-size:.78rem;background:white;cursor:pointer;outline:none;color:var(--slate)}
-
-/* GRID */
 .restaurants-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-
-/* CARD */
 .r-card{background:white;border:1.5px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;animation:fadeUp .3s ease both;position:relative}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .r-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,8,6,.14);border-color:var(--border-d)}
@@ -120,8 +101,8 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .wb-high{background:rgba(5,5,5,.75);color:#FF7055}
 .wb-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 1.3s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
-.save-btn{position:absolute;bottom:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;z-index:2;transition:transform .15s,background .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-.save-btn:hover{transform:scale(1.2);background:white}
+.save-btn{position:absolute;bottom:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;z-index:2;transition:transform .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.save-btn:hover{transform:scale(1.2)}
 .r-body{padding:14px 16px 16px}
 .r-sources{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
 .r-src{font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:2px;letter-spacing:.3px}
@@ -135,7 +116,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .r-stars{color:var(--gold-d);font-size:.82rem;letter-spacing:1px}
 .r-rcount{font-size:.72rem;color:var(--slate)}
 .r-price{font-size:.8rem;font-weight:700;color:var(--sage)}
-.r-dist{font-size:.72rem;color:var(--slate);display:flex;align-items:center;gap:3px}
+.r-dist{font-size:.72rem;color:var(--slate)}
 .michelin-badge{font-size:.68rem;color:var(--gold-d);font-weight:700;background:rgba(232,184,75,.1);padding:2px 6px;border-radius:2px;border:1px solid rgba(232,184,75,.3)}
 .r-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
 .r-tag{padding:3px 8px;border-radius:3px;background:var(--warm);border:1px solid var(--border);font-size:.68rem;color:var(--slate);font-weight:500}
@@ -149,8 +130,6 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .btn-icon:hover{background:var(--border);transform:translateY(-1px)}
 .btn-order{padding:9px 10px;border-radius:5px;background:linear-gradient(135deg,#1A6B36,#2E9E5B);color:white;border:none;cursor:pointer;font-size:.72rem;font-weight:700;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:4px}
 .btn-order:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(46,158,91,.3)}
-
-/* SKELETON */
 .skel{background:white;border:1.5px solid var(--border);border-radius:10px;overflow:hidden}
 .skel-img{height:195px;background:linear-gradient(90deg,#EEE8DF 25%,#F8F4EE 50%,#EEE8DF 75%);background-size:200% 100%;animation:shim 1.4s infinite}
 @keyframes shim{0%{background-position:100%}100%{background-position:-100%}}
@@ -160,8 +139,6 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .empty{text-align:center;padding:64px 24px;color:var(--slate)}
 .empty-icon{font-size:3rem;margin-bottom:12px}
 .empty-title{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px;color:var(--ink)}
-
-/* MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(10,8,6,.7);backdrop-filter:blur(6px);z-index:500;align-items:flex-end;justify-content:center}
 .overlay.open{display:flex}
 @media(min-width:600px){.overlay{align-items:center}}
@@ -172,12 +149,12 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .m-hero{height:200px;background:#1A1008;position:relative;display:flex;align-items:center;justify-content:center;font-size:5rem;overflow:hidden}
 .m-hero img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
 .m-hero-emoji{position:relative;z-index:1}
-.m-close{position:absolute;top:12px;right:12px;z-index:10;width:32px;height:32px;border-radius:50%;background:rgba(10,8,6,.6);border:none;color:white;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.m-close{position:absolute;top:12px;right:12px;z-index:10;width:32px;height:32px;border-radius:50%;background:rgba(10,8,6,.6);border:none;color:white;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
 .m-close:hover{background:rgba(10,8,6,.85)}
 .m-body{padding:22px 24px 32px}
 .m-cuisine{font-size:.66rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin-bottom:4px}
 .m-name{font-family:var(--serif);font-size:1.5rem;font-weight:700;margin-bottom:10px;color:var(--ink)}
-.m-sources{display:flex;gap:5px;margin-bottom:16px;flex-wrap:wrap}
+.m-sources{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap}
 .m-actions-top{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .btn-m-order{padding:10px 18px;background:linear-gradient(135deg,#1A6B36,#2E9E5B);color:white;border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.82rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
 .btn-m-order:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(46,158,91,.35)}
@@ -205,7 +182,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .party-lbl{font-size:.84rem;font-weight:600;color:var(--slate)}
 .p-ctrl{display:flex;align-items:center;gap:8px}
 .p-btn{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);background:white;cursor:pointer;font-size:1.1rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .15s;color:var(--ink)}
-.p-btn:hover{background:var(--warm);border-color:var(--border-d)}
+.p-btn:hover{background:var(--warm)}
 .p-num{font-size:1.1rem;font-weight:700;min-width:28px;text-align:center}
 .field-lbl{display:block;font-size:.74rem;font-weight:700;color:var(--slate);margin-bottom:4px;letter-spacing:.3px;text-transform:uppercase}
 .field-in{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.9rem;margin-bottom:12px;outline:none;transition:border-color .15s;color:var(--ink)}
@@ -216,15 +193,12 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .yr-stars{color:var(--gold-d);font-size:.8rem;margin-bottom:4px}
 .yr-text{font-size:.8rem;font-family:var(--serif);font-style:italic;line-height:1.55;color:var(--ink)}
 .yr-author{font-size:.7rem;color:var(--slate);margin-top:5px;font-weight:600}
-
-/* TOAST */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--paper);padding:12px 24px;border-radius:5px;font-size:.84rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap;box-shadow:0 8px 28px rgba(10,8,6,.3)}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-
 @media(max-width:768px){
   .header-inner{padding:0 16px}
-  .search-row{gap:8px}
-  .s-box,.l-box{min-width:0;flex:0 0 100%}
+  .search-row{flex-wrap:wrap;gap:8px}
+  .l-box{flex:0 0 100%}
   .btn-find{width:100%}
   .restaurants-grid{grid-template-columns:1fr}
   .time-grid{grid-template-columns:repeat(3,1fr)}
@@ -246,13 +220,11 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
   </div>
 </header>
 
-<!-- HERO — DINER FIRST -->
 <div class="hero">
   <div class="hero-eyebrow">Powered by real restaurant data</div>
   <h1>Skip the Wait.<br><em>Know Before You Go.</em></h1>
   <p class="hero-sub">Find a table fast. Check live wait times before you leave the house. Browse real restaurants in any city.</p>
   <p class="hero-disclaimer">⏱ Wait times are estimated · Updated by restaurants · Powered by Google</p>
-
   <div class="audience-split">
     <button class="ac ac-diner" onclick="scrollToSearch()">
       <div class="ac-tag">For Diners</div>
@@ -267,7 +239,6 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
       <span class="ac-cta">Claim My Restaurant →</span>
     </button>
   </div>
-
   <div class="proof-band">
     <div class="proof-inner">
       <span class="proof-item"><span class="proof-dot"></span>Restaurants added daily</span>
@@ -279,27 +250,10 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
   </div>
 </div>
 
-<!-- SEARCH -->
-<div class="search-section" id="searchSection">
-  <div class="search-inner">
-    <div class="search-row">
-      <div class="s-box">
-        <span class="s-icon">🔍</span>
-        <input id="searchInput" type="text" placeholder="Restaurant, cuisine, neighborhood…" oninput="onSearch()" onkeydown="if(event.key==='Enter')doSearch()">
-      </div>
-      <div class="l-box">
-        <button class="btn-gps" onclick="geolocate()" title="Use my location">📍</button>
-        <input id="locationInput" type="text" placeholder="City, state or zip code…" onkeydown="if(event.key==='Enter')doSearch()">
-      </div>
-      <button class="btn-find" onclick="doSearch()">Find Restaurants</button>
-    </div>
-  </div>
-</div>
-
-<!-- CUISINE NAV -->
-<nav class="cuisine-nav">
+<!-- CUISINE BUTTONS FIRST -->
+<nav class="cuisine-nav" id="searchSection">
   <div class="cuisine-inner">
-    <button class="c-btn active" data-cuisine="all" onclick="setCuisine('all',this)">All</button>
+    <button class="c-btn active" data-cuisine="all" onclick="setCuisine('all',this)">🍽️ All</button>
     <button class="c-btn" data-cuisine="italian" onclick="setCuisine('italian',this)">🍝 Italian</button>
     <button class="c-btn" data-cuisine="japanese" onclick="setCuisine('japanese',this)">🍣 Japanese</button>
     <button class="c-btn" data-cuisine="mexican" onclick="setCuisine('mexican',this)">🌮 Mexican</button>
@@ -313,11 +267,22 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
     <button class="c-btn" data-cuisine="seafood" onclick="setCuisine('seafood',this)">🦞 Seafood</button>
     <button class="c-btn" data-cuisine="pizza" onclick="setCuisine('pizza',this)">🍕 Pizza</button>
     <button class="c-btn" data-cuisine="brunch" onclick="setCuisine('brunch',this)">🥞 Brunch</button>
-    <button class="c-btn" data-cuisine="chinese" onclick="setCuisine('chinese',this)">🥡 Chinese</button>
   </div>
 </nav>
 
-<!-- MAIN -->
+<!-- LOCATION SEARCH BELOW CUISINE -->
+<div class="search-section">
+  <div class="search-inner">
+    <div class="search-row">
+      <div class="l-box">
+        <button class="btn-gps" onclick="geolocate()" title="Use my location">📍</button>
+        <input id="locationInput" type="text" placeholder="Enter city, state or zip code to find restaurants…" onkeydown="if(event.key==='Enter')doSearch()">
+      </div>
+      <button class="btn-find" onclick="doSearch()">Find Restaurants</button>
+    </div>
+  </div>
+</div>
+
 <div class="main">
   <div class="filter-row">
     <div class="filter-left">
@@ -353,7 +318,6 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
   </div>
 </div>
 
-<!-- MODAL -->
 <div class="overlay" id="overlay" onclick="closeModal(event)">
   <div class="modal">
     <button class="m-close" onclick="closeModal()">✕</button>
@@ -402,24 +366,42 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 const API='https://getatablespot-api.onrender.com/api';
 const GKEY='AIzaSyB_JOErDDkAiF9PurZXwEQSHGhe_X1-m5I';
 let restaurants=[],savedIds=new Set(),activeFilters=new Set();
-let currentCuisine='all',searchQ='',currentSort='rating';
+let currentCuisine='all',currentSort='rating';
 let partySize=2,selectedTime=null,currentR=null;
 let currentLat=40.7128,currentLng=-74.0060;
 
-const CUISINE_MAP={
-  italian:['italian','pizza','mediterranean','sicilian','roman','venetian','tuscan'],
-  japanese:['japanese','sushi','ramen','tempura','teppanyaki','izakaya','omakase'],
-  mexican:['mexican','taco','tex-mex','cantina','burrito','tamale'],
-  american:['american','burger','diner','bbq','southern','comfort','classic'],
-  bargrill:['bar','grill','pub','tavern','gastropub','sports bar','brewpub','brewery','saloon'],
-  chinese:['chinese','dim sum','cantonese','szechuan','hunan','taiwanese','dumpling'],
-  indian:['indian','curry','tandoor','punjabi','biryani','chai'],
-  french:['french','brasserie','bistro','patisserie','provencal','normandy'],
-  thai:['thai','pad thai','noodle','satay','tom yum'],
-  steakhouse:['steak','steakhouse','chophouse','prime','porterhouse'],
-  seafood:['seafood','fish','oyster','lobster','crab','clam','shrimp'],
-  pizza:['pizza','pizzeria','neapolitan','new york style','chicago style'],
-  brunch:['brunch','breakfast','brunch spot','morning','eggs benedict','pancake','waffle'],
+// Google Places types mapped to cuisine categories
+const CUISINE_TYPES={
+  italian:['italian_restaurant','pizza_restaurant','mediterranean_restaurant'],
+  japanese:['japanese_restaurant','sushi_restaurant','ramen_restaurant','asian_restaurant'],
+  mexican:['mexican_restaurant','tex_mex_restaurant','taco_restaurant'],
+  american:['american_restaurant','hamburger_restaurant','diner','fast_food_restaurant'],
+  bargrill:['bar','pub','sports_bar','gastropub','brew_pub','american_restaurant','barbecue_restaurant'],
+  chinese:['chinese_restaurant','dim_sum_restaurant'],
+  indian:['indian_restaurant'],
+  french:['french_restaurant'],
+  thai:['thai_restaurant'],
+  steakhouse:['steak_house','american_restaurant'],
+  seafood:['seafood_restaurant'],
+  pizza:['pizza_restaurant','pizza_delivery'],
+  brunch:['brunch_restaurant','breakfast_restaurant','cafe','american_restaurant'],
+};
+
+// Fallback keyword matching for cuisine display names
+const CUISINE_KEYWORDS={
+  italian:['italian','pizza','mediterranean','sicilian'],
+  japanese:['japanese','sushi','ramen','noodle','asian'],
+  mexican:['mexican','taco','tex-mex','burrito','cantina'],
+  american:['american','burger','diner','bbq','southern'],
+  bargrill:['bar','grill','pub','tavern','gastropub','sports','brewery','brewpub','saloon'],
+  chinese:['chinese','dim sum','cantonese','szechuan','taiwanese'],
+  indian:['indian','curry','tandoor'],
+  french:['french','brasserie','bistro','patisserie'],
+  thai:['thai','pad thai'],
+  steakhouse:['steak','steakhouse','chophouse'],
+  seafood:['seafood','fish','oyster','lobster','crab'],
+  pizza:['pizza','pizzeria'],
+  brunch:['brunch','breakfast','waffle','pancake'],
 };
 
 const SRCS={
@@ -430,13 +412,30 @@ const SRCS={
 };
 
 const MOCK=[
-  {id:'r1',name:'Carbone',cuisine:'italian restaurant',emoji:'🍝',bg:'linear-gradient(135deg,#2C1810,#8B4513)',rating:4.9,reviews:3241,price:'$$$$',distance:'0.3 mi',waitMins:25,waitLevel:'med',isOpen:true,outdoor:false,michelin:true,reservable:true,isFeatured:true,address:'181 Thompson St, New York, NY 10012',hours:'Mon–Sun 5:30pm–11pm',phone:'(212) 254-3000',website:'https://carbonenewyork.com',sources:['yelp','google','resy'],tags:['Italian-American','Classic Cocktails','Celebratory'],times:['5:30 PM','6:00 PM','6:30 PM','7:00 PM','7:30 PM','8:00 PM','8:30 PM','9:00 PM'],fullSlots:[0,1,3]},
-  {id:'r2',name:'Nobu',cuisine:'japanese restaurant',emoji:'🍣',bg:'linear-gradient(135deg,#0D1B2A,#2E4057)',rating:4.8,reviews:2876,price:'$$$$',distance:'0.8 mi',waitMins:40,waitLevel:'high',isOpen:true,outdoor:false,michelin:true,reservable:true,isFeatured:false,address:'105 Hudson St, New York, NY 10013',hours:'Mon–Sun 5:45pm–10:30pm',phone:'(212) 219-0500',website:'https://noburestaurants.com',sources:['yelp','google','opentable'],tags:['Omakase','Celebrity Spot','New Style Japanese'],times:['5:45 PM','6:15 PM','6:45 PM','7:15 PM','7:45 PM','8:15 PM','9:00 PM','9:30 PM'],fullSlots:[0,1,2,5]},
-  {id:'r3',name:"Joe's Pizza",cuisine:'pizza restaurant',emoji:'🍕',bg:'linear-gradient(135deg,#8B1A1A,#CC4444)',rating:4.6,reviews:8920,price:'$',distance:'0.1 mi',waitMins:5,waitLevel:'low',isOpen:true,outdoor:true,michelin:false,reservable:false,isFeatured:false,address:'7 Carmine St, New York, NY 10014',hours:'Sun–Thu 10am–4am',phone:'(212) 366-1182',website:'https://joespizzanyc.com',sources:['yelp','google'],tags:['NY Slice','Late Night','Cash Only','Iconic'],times:[]},
-  {id:'r4',name:'The Dead Rabbit',cuisine:'bar',emoji:'🍺',bg:'linear-gradient(135deg,#1A0A00,#4A2000)',rating:4.7,reviews:5240,price:'$$',distance:'0.9 mi',waitMins:15,waitLevel:'low',isOpen:true,outdoor:false,michelin:false,reservable:true,isFeatured:false,address:'30 Water St, New York, NY 10004',hours:'Mon–Sun 11am–2am',phone:'(917) 540-5228',website:'https://thedeadrabbit.com',sources:['yelp','google','opentable'],tags:['Craft Cocktails','Irish Pub','Gastropub','Award Winning'],times:['12:00 PM','1:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM'],fullSlots:[0]},
-  {id:'r5',name:'Shake Shack',cuisine:'american restaurant',emoji:'🍔',bg:'linear-gradient(135deg,#2D5A27,#4A8C42)',rating:4.3,reviews:12450,price:'$',distance:'0.4 mi',waitMins:12,waitLevel:'low',isOpen:true,outdoor:true,michelin:false,reservable:false,isFeatured:false,address:'Madison Square Park, New York, NY 10010',hours:'Daily 11am–10pm',phone:'(646) 435-0135',website:'https://shakeshack.com',sources:['yelp','google'],tags:['Burgers','Craft Beer','Outdoor Seating'],times:[]},
-  {id:'r6',name:'Balthazar',cuisine:'french restaurant',emoji:'🥐',bg:'linear-gradient(135deg,#2C1A0E,#6B3A1F)',rating:4.5,reviews:4328,price:'$$$',distance:'0.6 mi',waitMins:35,waitLevel:'high',isOpen:true,outdoor:false,michelin:false,reservable:true,isFeatured:false,address:'80 Spring St, New York, NY 10012',hours:'Mon–Fri 7:30am–12am',phone:'(212) 965-1414',website:'https://balthazarny.com',sources:['yelp','google','opentable'],tags:['Brasserie','Brunch','Raw Bar'],times:['11:30 AM','12:00 PM','7:00 PM','7:30 PM','8:00 PM','8:30 PM','9:00 PM'],fullSlots:[0,3]},
+  {id:'r1',name:'Carbone',cuisine:'italian restaurant',types:['italian_restaurant'],emoji:'🍝',bg:'linear-gradient(135deg,#2C1810,#8B4513)',rating:4.9,reviews:3241,price:'$$$$',distance:'0.3 mi',waitMins:25,waitLevel:'med',isOpen:true,outdoor:false,michelin:true,reservable:true,isFeatured:true,address:'181 Thompson St, New York, NY 10012',hours:'Mon–Sun 5:30pm–11pm',phone:'(212) 254-3000',website:'https://carbonenewyork.com',sources:['yelp','google','resy'],tags:['Italian-American','Classic Cocktails'],times:['5:30 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM'],fullSlots:[0,1]},
+  {id:'r2',name:'The Dead Rabbit',cuisine:'bar',types:['bar','gastropub'],emoji:'🍺',bg:'linear-gradient(135deg,#1A0A00,#4A2000)',rating:4.7,reviews:5240,price:'$$',distance:'0.9 mi',waitMins:15,waitLevel:'low',isOpen:true,outdoor:false,michelin:false,reservable:true,isFeatured:false,address:'30 Water St, New York, NY 10004',hours:'Mon–Sun 11am–2am',phone:'(917) 540-5228',website:'https://thedeadrabbit.com',sources:['yelp','google'],tags:['Craft Cocktails','Gastropub','Award Winning'],times:['12:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM']},
+  {id:'r3',name:"Joe's Pizza",cuisine:'pizza restaurant',types:['pizza_restaurant'],emoji:'🍕',bg:'linear-gradient(135deg,#8B1A1A,#CC4444)',rating:4.6,reviews:8920,price:'$',distance:'0.1 mi',waitMins:5,waitLevel:'low',isOpen:true,outdoor:true,michelin:false,reservable:false,isFeatured:false,address:'7 Carmine St, New York, NY 10014',hours:'Sun–Thu 10am–4am',phone:'(212) 366-1182',website:'https://joespizzanyc.com',sources:['yelp','google'],tags:['NY Slice','Late Night','Iconic'],times:[]},
+  {id:'r4',name:'Los Tacos No.1',cuisine:'mexican restaurant',types:['mexican_restaurant','taco_restaurant'],emoji:'🌮',bg:'linear-gradient(135deg,#3D1C02,#7A3B0E)',rating:4.8,reviews:15245,price:'$',distance:'0.5 mi',waitMins:10,waitLevel:'low',isOpen:true,outdoor:false,michelin:false,reservable:false,isFeatured:false,address:'229 W 43rd St, New York, NY 10036',hours:'Mon–Sun 11am–12am',phone:'',website:'https://lostacos1.com',sources:['google'],tags:['Authentic','Fast Casual','Street Tacos'],times:[]},
+  {id:'r5',name:'Shake Shack',cuisine:'american restaurant',types:['american_restaurant','hamburger_restaurant'],emoji:'🍔',bg:'linear-gradient(135deg,#2D5A27,#4A8C42)',rating:4.3,reviews:12450,price:'$',distance:'0.4 mi',waitMins:12,waitLevel:'low',isOpen:true,outdoor:true,michelin:false,reservable:false,isFeatured:false,address:'Madison Square Park, New York, NY 10010',hours:'Daily 11am–10pm',phone:'(646) 435-0135',website:'https://shakeshack.com',sources:['yelp','google'],tags:['Burgers','Craft Beer','Outdoor'],times:[]},
+  {id:'r6',name:'Katz\'s Delicatessen',cuisine:'deli',types:['deli','american_restaurant'],emoji:'🥪',bg:'linear-gradient(135deg,#1A1A1A,#444)',rating:4.5,reviews:52310,price:'$$',distance:'0.8 mi',waitMins:8,waitLevel:'low',isOpen:true,outdoor:true,michelin:false,reservable:false,isFeatured:false,address:'205 E Houston St, New York, NY 10002',hours:'Mon–Sun 8am–11pm',phone:'(212) 254-2246',website:'https://katzsdelicatessen.com',sources:['yelp','google'],tags:['NYC Icon','Pastrami','Since 1888'],times:[]},
 ];
+
+function cuisineMatch(r, c){
+  if(c==='all') return true;
+  const types = (r.types||[]).map(t=>t.toLowerCase());
+  const cuisine = (r.cuisine||'').toLowerCase();
+  const tags = (r.tags||[]).join(' ').toLowerCase();
+  const name = (r.name||'').toLowerCase();
+  const allText = [cuisine, tags, name, ...types].join(' ');
+
+  // Check Google types first (most accurate)
+  const allowedTypes = CUISINE_TYPES[c] || [];
+  if(allowedTypes.some(t => types.includes(t.toLowerCase()))) return true;
+
+  // Fallback to keyword matching
+  const keywords = CUISINE_KEYWORDS[c] || [c];
+  return keywords.some(k => allText.includes(k.toLowerCase()));
+}
 
 async function geocode(query){
   try{
@@ -462,47 +461,35 @@ function showSkeletons(){
   document.getElementById('resultMeta').textContent='Loading…';
 }
 
-function cuisineMatch(r,c){
-  if(c==='all')return true;
-  const kw=CUISINE_MAP[c]||[c];
-  const hay=[(r.cuisine||''),(r.tags||[]).join(' '),(r.name||''),(r.types||[]).join(' ')].join(' ').toLowerCase();
-  return kw.some(k=>hay.includes(k.toLowerCase()));
-}
-
 function getFiltered(){
   const priceF=document.getElementById('priceFilter').value;
   return restaurants.filter(r=>{
-    if(activeFilters.has('open')&&!r.isOpen)return false;
-    if(activeFilters.has('lowwait')&&!['low','none'].includes(r.waitLevel))return false;
-    if(activeFilters.has('reservable')&&!r.reservable)return false;
-    if(activeFilters.has('outdoor')&&!r.outdoor)return false;
-    if(activeFilters.has('order')&&!r.website)return false;
-    if(priceF&&r.price!==priceF)return false;
-    if(!cuisineMatch(r,currentCuisine))return false;
-    if(searchQ){
-      const q=searchQ.toLowerCase();
-      const hay=[(r.name||''),(r.cuisine||''),(r.tags||[]).join(' '),(r.address||'')].join(' ').toLowerCase();
-      if(!hay.includes(q))return false;
-    }
+    if(activeFilters.has('open')&&!r.isOpen) return false;
+    if(activeFilters.has('lowwait')&&!['low','none'].includes(r.waitLevel)) return false;
+    if(activeFilters.has('reservable')&&!r.reservable) return false;
+    if(activeFilters.has('outdoor')&&!r.outdoor) return false;
+    if(activeFilters.has('order')&&!r.website) return false;
+    if(priceF&&r.price!==priceF) return false;
+    if(!cuisineMatch(r, currentCuisine)) return false;
     return true;
   });
 }
 
 function getSorted(list){
   return[...list].sort((a,b)=>{
-    if(b.isFeatured!==a.isFeatured)return b.isFeatured-a.isFeatured;
-    if(currentSort==='rating')return(b.rating||0)-(a.rating||0);
-    if(currentSort==='wait')return(a.waitMins??999)-(b.waitMins??999);
-    if(currentSort==='reviews')return(b.reviews||b.reviewCount||0)-(a.reviews||a.reviewCount||0);
-    if(currentSort==='distance')return parseFloat(a.distance||0)-parseFloat(b.distance||0);
+    if(b.isFeatured!==a.isFeatured) return b.isFeatured-a.isFeatured;
+    if(currentSort==='rating') return(b.rating||0)-(a.rating||0);
+    if(currentSort==='wait') return(a.waitMins??999)-(b.waitMins??999);
+    if(currentSort==='reviews') return(b.reviews||b.reviewCount||0)-(a.reviews||a.reviewCount||0);
+    if(currentSort==='distance') return parseFloat(a.distance||0)-parseFloat(b.distance||0);
     return 0;
   });
 }
 
 function wbClass(lv){return{none:'wb-none',low:'wb-low',med:'wb-med',high:'wb-high'}[lv]||'wb-low'}
 function wtText(r){
-  if(!r.isOpen)return'Closed';
-  if(r.waitMins===0||r.waitLevel==='none')return'✓ Seated Now';
+  if(!r.isOpen) return'Closed';
+  if(r.waitMins===0||r.waitLevel==='none') return'✓ Seated Now';
   return`~${r.waitMins} min wait`;
 }
 function starsStr(n){const f=Math.floor(n||0);return'★'.repeat(f)+(n%1>=.5?'½':'')+'☆'.repeat(Math.max(0,5-f-(n%1>=.5?1:0)))}
@@ -517,7 +504,7 @@ function cardHTML(r,delay=0){
     ?`<button class="btn-reserve${r.isFeatured?' gold':''}" onclick="event.stopPropagation();openModal('${r.id}')">📅 Reserve</button>`
     :`<button class="btn-reserve" style="background:var(--warm);color:var(--slate);border:1.5px solid var(--border)" onclick="event.stopPropagation();openModal('${r.id}')">View Details</button>`;
   const orderBtn=r.website
-    ?`<button class="btn-order" onclick="event.stopPropagation();window.open('${r.website}','_blank')" title="Order pickup online">🛍️ Order</button>`
+    ?`<button class="btn-order" onclick="event.stopPropagation();window.open('${r.website}','_blank')">🛍️ Order</button>`
     :'';
   return`<div class="r-card${r.isFeatured?' featured':''}" onclick="openModal('${r.id}')" style="animation-delay:${delay}ms">
     <div class="r-img" style="background:${r.bg||'linear-gradient(135deg,#1A1008,#333)'}">
@@ -551,9 +538,10 @@ function cardHTML(r,delay=0){
 
 function renderRestaurants(){
   const filtered=getSorted(getFiltered());
-  document.getElementById('resultMeta').innerHTML=`<strong>${filtered.length}</strong> restaurants`;
+  const cuisineName=currentCuisine==='all'?'restaurants':`${currentCuisine} restaurants`;
+  document.getElementById('resultMeta').innerHTML=`<strong>${filtered.length}</strong> ${cuisineName}`;
   if(!filtered.length){
-    document.getElementById('gridContainer').innerHTML='<div class="empty"><div class="empty-icon">🍽️</div><div class="empty-title">No restaurants found</div><p style="color:var(--slate);font-size:.88rem">Try a different filter, cuisine, or city.</p></div>';
+    document.getElementById('gridContainer').innerHTML=`<div class="empty"><div class="empty-icon">🍽️</div><div class="empty-title">No ${cuisineName} found</div><p style="color:var(--slate);font-size:.88rem">Try a different location or filter.</p></div>`;
     return;
   }
   document.getElementById('gridContainer').innerHTML=`<div class="restaurants-grid">${filtered.map((r,i)=>cardHTML(r,i*35)).join('')}</div>`;
@@ -573,15 +561,10 @@ async function openModal(id){
   document.getElementById('mSources').innerHTML=(currentR.sources||[]).map(s=>SRCS[s]?`<span class="r-src ${SRCS[s].cls}">${SRCS[s].label}</span>`:'').join('');
   document.getElementById('pNum').textContent=partySize;
   ['gName','gEmail','gNote'].forEach(id=>document.getElementById(id).value='');
-
-  // Top action buttons
   let topBtns='';
-  if(currentR.website){
-    topBtns+=`<button class="btn-m-order" onclick="window.open('${currentR.website}','_blank')">🛍️ Order Pickup Online</button>`;
-  }
+  if(currentR.website) topBtns+=`<button class="btn-m-order" onclick="window.open('${currentR.website}','_blank')">🛍️ Order Pickup Online</button>`;
   topBtns+=`<button class="btn-m-dir" onclick="window.open('${mapsUrl(currentR.address||currentR.name)}','_blank')">🗺️ Get Directions</button>`;
   document.getElementById('mActionsTop').innerHTML=topBtns;
-
   const addr=currentR.address||currentR.name;
   const hrs=Array.isArray(currentR.hours)?currentR.hours[0]||'See Google Maps':currentR.hours||'See Google Maps';
   document.getElementById('mInfoGrid').innerHTML=[
@@ -590,23 +573,19 @@ async function openModal(id){
     {label:'Phone',val:`📞 ${currentR.phone||'Not listed'}`},
     {label:'Rating',val:`${starsStr(currentR.rating)} ${currentR.rating} (${(currentR.reviews||currentR.reviewCount||0).toLocaleString()})`},
   ].map(({label,val})=>`<div class="info-box"><div class="info-lbl">${label}</div><div class="info-val">${val}</div></div>`).join('');
-
   const wbc={none:'wb-green',low:'wb-green',med:'wb-yellow',high:'wb-red'}[currentR.waitLevel]||'wb-yellow';
   const wt=!currentR.isOpen?'Currently closed':currentR.waitMins===0?'No wait — walk right in':`~${currentR.waitMins} minute wait`;
   document.getElementById('mWaitBox').innerHTML=`<div class="wb-icon">⏱</div><div><div class="wb-lbl">Live Wait Time</div><div class="wb-val ${wbc}">${wt}</div></div>`;
-
   if(currentR.yelpReviews?.length){
     document.getElementById('yelpBox').style.display='block';
     document.getElementById('yelpList').innerHTML=currentR.yelpReviews.map(rv=>`<div class="yelp-rev"><div class="yr-stars">${'★'.repeat(rv.stars)}</div><div class="yr-text">"${rv.text}"</div><div class="yr-author">— ${rv.author} via Yelp</div></div>`).join('');
   }else{document.getElementById('yelpBox').style.display='none';}
-
   let slots=currentR.times||[],fullSlots=currentR.fullSlots||[];
   try{
     const sr=await fetch(`${API}/venues/${currentR.id}/slots?date=${new Date().toISOString().split('T')[0]}`,{signal:AbortSignal.timeout(3000)});
     const sd=await sr.json();
     if(sd.slots?.length){slots=sd.slots.map(s=>s.time);fullSlots=sd.slots.reduce((a,s,i)=>{if(!s.available)a.push(i);return a;},[]);}
   }catch{}
-
   if(currentR.reservable&&slots.length){
     document.getElementById('timeGrid').innerHTML=slots.map((t,i)=>{
       const full=fullSlots.includes(i);
@@ -659,33 +638,25 @@ function setCuisine(c,btn){
   renderRestaurants();
 }
 
-let _st;
-function onSearch(){clearTimeout(_st);searchQ=document.getElementById('searchInput').value;_st=setTimeout(renderRestaurants,250);}
-
 async function doSearch(){
   const locQuery=document.getElementById('locationInput').value.trim();
-  const searchQuery=document.getElementById('searchInput').value.trim();
   if(locQuery){
     showToast('Searching '+locQuery+'…');
     const loc=await geocode(locQuery);
     if(loc){
       currentLat=loc.lat;currentLng=loc.lng;
-      searchQ=searchQuery;
       await load(loc.lat,loc.lng);
-      if(searchQuery)renderRestaurants();
+      showToast('Showing '+( currentCuisine==='all'?'restaurants':''+currentCuisine+' restaurants')+' in '+loc.label);
     }else{
       showToast('Location not found. Try city, state or zip.');
     }
-  }else if(searchQuery){
-    searchQ=searchQuery;
-    renderRestaurants();
   }else{
     load(currentLat,currentLng);
   }
 }
 
 function geolocate(){
-  if(!navigator.geolocation){showToast('Location not available on this browser');return;}
+  if(!navigator.geolocation){showToast('Location not available');return;}
   showToast('📍 Finding your location…');
   navigator.geolocation.getCurrentPosition(
     p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;load(currentLat,currentLng);showToast('Showing restaurants near you');},
@@ -695,7 +666,6 @@ function geolocate(){
 
 function scrollToSearch(){
   document.getElementById('searchSection').scrollIntoView({behavior:'smooth'});
-  setTimeout(()=>document.getElementById('searchInput').focus(),500);
 }
 
 function sortBy(v){currentSort=v;renderRestaurants();}
