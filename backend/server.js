@@ -28,8 +28,10 @@ const CUISINE_TYPE_MAP = {
   italian: ['italian_restaurant', 'pizza_restaurant'],
   japanese: ['japanese_restaurant', 'sushi_restaurant', 'ramen_restaurant'],
   mexican: ['mexican_restaurant', 'taco_restaurant', 'tex_mex_restaurant'],
-  american: ['american_restaurant', 'hamburger_restaurant', 'diner'],
-  bargrill: ['bar', 'pub', 'sports_bar', 'gastropub', 'american_restaurant'],
+  american: ['american_restaurant', 'hamburger_restaurant', 'diner', 'fast_food_restaurant'],
+  bargrill: ['bar', 'pub', 'sports_bar', 'gastropub', 'american_restaurant', 'barbecue_restaurant', 'bar_and_grill'],
+  barlounge: ['bar', 'cocktail_bar', 'wine_bar', 'pub', 'lounge', 'night_club', 'live_music_venue'],
+  cigarbars: ['bar', 'lounge', 'pub', 'cocktail_bar'],
   chinese: ['chinese_restaurant', 'dim_sum_restaurant'],
   indian: ['indian_restaurant'],
   french: ['french_restaurant'],
@@ -38,8 +40,19 @@ const CUISINE_TYPE_MAP = {
   seafood: ['seafood_restaurant'],
   pizza: ['pizza_restaurant'],
   brunch: ['brunch_restaurant', 'breakfast_restaurant', 'cafe'],
-  all: ['restaurant'],
+  all: ['restaurant', 'bar', 'food'],
 };
+
+function calcDistance(lat1, lng1, lat2, lng2) {
+  const R = 3958.8; // miles
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLng/2) * Math.sin(dLng/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return (R * c).toFixed(1);
+}
 
 async function sendEmail({ to, subject, html }) {
   if (!RESEND_KEY) return;
@@ -59,15 +72,11 @@ async function sendEmail({ to, subject, html }) {
   }
 }
 
-// Single nearby search call
-async function googleNearbySearch({ lat, lng, radius = 5000, cuisine = 'all' }) {
+async function googleNearbySearch({ lat, lng, radius = 8000, cuisine = 'all' }) {
   const types = CUISINE_TYPE_MAP[cuisine] || ['restaurant'];
   const body = {
     locationRestriction: {
-      circle: {
-        center: { latitude: lat, longitude: lng },
-        radius: radius
-      }
+      circle: { center: { latitude: lat, longitude: lng }, radius }
     },
     includedTypes: types,
     maxResultCount: 20,
@@ -80,6 +89,7 @@ async function googleNearbySearch({ lat, lng, radius = 5000, cuisine = 'all' }) 
     'places.photos', 'places.types', 'places.primaryType',
     'places.internationalPhoneNumber', 'places.websiteUri',
     'places.dineIn', 'places.reservable', 'places.outdoorSeating',
+    'places.servesBeer', 'places.servesWine', 'places.servesAlcohol',
   ].join(',');
   try {
     const { data } = await axios.post(`${G_BASE}/places:searchNearby`, body, {
@@ -96,28 +106,24 @@ async function googleNearbySearch({ lat, lng, radius = 5000, cuisine = 'all' }) 
   }
 }
 
-// Make multiple calls with offset centers to get more results
-async function googleNearbyRestaurants({ lat, lng, radius = 8000, cuisine = 'all' }) {
-  const cacheKey = `gnearby:${lat}:${lng}:${radius}:${cuisine}`;
+async function googleNearbyRestaurants({ lat, lng, radius = 12000, cuisine = 'all' }) {
+  const cacheKey = `gnearby:${lat.toFixed(3)}:${lng.toFixed(3)}:${radius}:${cuisine}`;
   const cached = cache.get(cacheKey);
   if (cached) return cached;
 
-  // Offset distance in degrees (~0.018 degrees = ~2km)
-  const offset = 0.018;
+  const offset = 0.025;
   const centers = [
-    { lat, lng },                          // center
-    { lat: lat + offset, lng },            // north
-    { lat: lat - offset, lng },            // south
-    { lat, lng: lng + offset },            // east
-    { lat, lng: lng - offset },            // west
+    { lat, lng },
+    { lat: lat + offset, lng },
+    { lat: lat - offset, lng },
+    { lat, lng: lng + offset },
+    { lat, lng: lng - offset },
   ];
 
-  // Call all centers in parallel
   const allResults = await Promise.all(
     centers.map(c => googleNearbySearch({ lat: c.lat, lng: c.lng, radius: radius * 0.7, cuisine }))
   );
 
-  // Flatten and deduplicate by place ID
   const seen = new Set();
   const combined = [];
   for (const results of allResults) {
@@ -129,21 +135,19 @@ async function googleNearbyRestaurants({ lat, lng, radius = 8000, cuisine = 'all
     }
   }
 
-  // Sort by rating
   combined.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-
   cache.set(cacheKey, combined, 3600);
   return combined;
 }
 
-async function yelpSearch({ lat, lng, term = 'restaurants', radius = 8000 }) {
-  const cacheKey = `yelp:${lat}:${lng}:${term}`;
+async function yelpSearch({ lat, lng, term = 'restaurants', radius = 12000 }) {
+  const cacheKey = `yelp:${lat.toFixed(3)}:${lng.toFixed(3)}:${term}`;
   const cached = cache.get(cacheKey);
   if (cached) return cached;
   try {
     const { data } = await axios.get(`${YELP_BASE}/businesses/search`, {
       headers: { Authorization: `Bearer ${YELP_KEY}` },
-      params: { latitude: lat, longitude: lng, term, radius, categories: 'restaurants', limit: 50 },
+      params: { latitude: lat, longitude: lng, term, radius: Math.min(radius, 40000), categories: 'restaurants,bars', limit: 50 },
     });
     cache.set(cacheKey, data.businesses || [], 86400);
     return data.businesses || [];
@@ -197,9 +201,15 @@ function estimateWait(googlePlace) {
   return { waitMins: m, waitLevel: m < 15 ? 'low' : m < 30 ? 'med' : 'high' };
 }
 
-function mergeRestaurant(gPlace, yelpMatch) {
+function mergeRestaurant(gPlace, yelpMatch, userLat, userLng) {
   const { waitMins, waitLevel } = estimateWait(gPlace);
   const photo = gPlace.photos?.[0]?.name;
+  const placeLat = gPlace.location?.latitude;
+  const placeLng = gPlace.location?.longitude;
+  const distance = (userLat && userLng && placeLat && placeLng)
+    ? `${calcDistance(userLat, userLng, placeLat, placeLng)} mi`
+    : 'nearby';
+
   return {
     id: gPlace.id,
     name: gPlace.displayName?.text || 'Unknown',
@@ -218,6 +228,7 @@ function mergeRestaurant(gPlace, yelpMatch) {
     types: gPlace.types || [],
     outdoor: gPlace.outdoorSeating || false,
     reservable: gPlace.reservable || false,
+    servesAlcohol: gPlace.servesAlcohol || gPlace.servesBeer || gPlace.servesWine || false,
     yelpId: yelpMatch?.id || null,
     yelpRating: yelpMatch?.rating || null,
     yelpUrl: yelpMatch?.url || null,
@@ -225,10 +236,10 @@ function mergeRestaurant(gPlace, yelpMatch) {
     tags: yelpMatch?.categories?.map(c => c.title) || [],
     waitMins,
     waitLevel,
+    distance,
     sources: ['google', ...(yelpMatch ? ['yelp'] : []), ...(gPlace.reservable ? ['opentable'] : [])],
     isFeatured: false,
     michelin: false,
-    distance: '0.5 mi',
     emoji: '🍽️',
     bg: 'linear-gradient(135deg,#1A1A1A,#333)',
   };
@@ -248,25 +259,17 @@ const restaurantProfiles = new Map();
 
 app.get('/api/venues', async (req, res) => {
   try {
-    const { lat, lng, radius = 8000, cuisine = 'all' } = req.query;
+    const { lat, lng, radius = 12000, cuisine = 'all' } = req.query;
     if (!lat || !lng) return res.status(400).json({ error: 'lat and lng required' });
+    const userLat = parseFloat(lat);
+    const userLng = parseFloat(lng);
 
     const [googleResults, yelpResults] = await Promise.all([
-      googleNearbyRestaurants({
-        lat: parseFloat(lat),
-        lng: parseFloat(lng),
-        radius: parseInt(radius),
-        cuisine
-      }),
-      yelpSearch({
-        lat: parseFloat(lat),
-        lng: parseFloat(lng),
-        radius: parseInt(radius),
-        term: cuisine === 'all' ? 'restaurants' : cuisine.replace('bargrill', 'bar grill')
-      }),
+      googleNearbyRestaurants({ lat: userLat, lng: userLng, radius: parseInt(radius), cuisine }),
+      yelpSearch({ lat: userLat, lng: userLng, radius: parseInt(radius), term: cuisine === 'all' ? 'restaurants' : cuisine.replace('bargrill', 'bar grill').replace('barlounge', 'bar lounge').replace('cigarbars', 'cigar bar') }),
     ]);
 
-    const merged = googleResults.map(gp => mergeRestaurant(gp, matchYelp(gp, yelpResults)));
+    const merged = googleResults.map(gp => mergeRestaurant(gp, matchYelp(gp, yelpResults), userLat, userLng));
     merged.sort((a, b) => (b.isFeatured - a.isFeatured) || (b.rating - a.rating));
     res.json({ venues: merged, total: merged.length });
   } catch (err) {
@@ -303,7 +306,7 @@ app.get('/api/search', async (req, res) => {
     if (!q) return res.status(400).json({ error: 'q required' });
     const { data } = await axios.get(
       'https://maps.googleapis.com/maps/api/place/textsearch/json',
-      { params: { query: q, type: 'restaurant', key: G_KEY } }
+      { params: { query: q, key: G_KEY } }
     );
     res.json({ results: data.results || [] });
   } catch (err) {
@@ -313,18 +316,45 @@ app.get('/api/search', async (req, res) => {
 
 app.post('/api/reservations', async (req, res) => {
   try {
-    const { venueId, time, date, partySize, guestName, guestEmail, notes, isPro } = req.body;
+    const { venueId, time, date, partySize, guestName, guestEmail, restaurantName, restaurantPhone, notes } = req.body;
     if (!venueId || !guestName || !guestEmail || !time) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
     const id = `GATS-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
-    const reservation = {
-      id, venueId, time, date, partySize,
-      guestName, guestEmail, notes, isPro,
-      status: 'confirmed',
-      createdAt: new Date()
-    };
+    const reservation = { id, venueId, time, date, partySize, guestName, guestEmail, notes, status: 'confirmed', createdAt: new Date() };
     reservations.set(id, reservation);
+
+    // Send confirmation email to diner
+    await sendEmail({
+      to: guestEmail,
+      subject: `✓ Reservation Confirmed — ${restaurantName || 'Your Restaurant'} at ${time}`,
+      html: `
+        <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;background:#FAF8F4">
+          <div style="text-align:center;margin-bottom:24px">
+            <div style="font-family:Georgia,serif;font-size:1.4rem;font-weight:900;color:#0A0806">GetATableSpot</div>
+            <div style="width:6px;height:6px;border-radius:50%;background:#E8B84B;margin:8px auto"></div>
+          </div>
+          <div style="background:white;border:1px solid #E0D8CC;border-radius:10px;padding:24px;margin-bottom:20px">
+            <div style="font-size:1.8rem;text-align:center;margin-bottom:12px">🎉</div>
+            <h2 style="font-family:Georgia,serif;font-size:1.3rem;font-weight:700;text-align:center;margin-bottom:4px">Your reservation is confirmed!</h2>
+            <p style="color:#5A6A82;font-size:.85rem;text-align:center;margin-bottom:20px">See you there, ${guestName.split(' ')[0]}!</p>
+            <div style="background:#F5F0E8;border-radius:8px;padding:16px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px"><span style="font-size:.75rem;font-weight:700;color:#5A6A82;text-transform:uppercase">Restaurant</span><span style="font-weight:700;font-size:.9rem">${restaurantName||'Your Restaurant'}</span></div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px"><span style="font-size:.75rem;font-weight:700;color:#5A6A82;text-transform:uppercase">Time</span><span style="font-weight:700;font-size:.9rem">${time}</span></div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px"><span style="font-size:.75rem;font-weight:700;color:#5A6A82;text-transform:uppercase">Party Size</span><span style="font-weight:700;font-size:.9rem">${partySize} guests</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="font-size:.75rem;font-weight:700;color:#5A6A82;text-transform:uppercase">Confirmation #</span><span style="font-weight:700;font-size:.85rem;color:#E8B84B">${id}</span></div>
+            </div>
+          </div>
+          ${notes ? `<div style="background:white;border:1px solid #E0D8CC;border-radius:8px;padding:14px;margin-bottom:16px"><div style="font-size:.72rem;font-weight:700;color:#5A6A82;text-transform:uppercase;margin-bottom:4px">Special Requests</div><div style="font-size:.85rem">${notes}</div></div>` : ''}
+          <div style="background:#1A0A2E;border-radius:8px;padding:14px;text-align:center;margin-bottom:16px">
+            <div style="font-size:.78rem;color:rgba(255,255,255,.6);margin-bottom:6px">Check live wait times before you head out</div>
+            <a href="https://getatablespot.com" style="color:#E8B84B;font-weight:700;font-size:.85rem;text-decoration:none">getatablespot.com →</a>
+          </div>
+          <p style="font-size:.72rem;color:#A8A094;text-align:center">If you need to cancel, please contact the restaurant directly.${restaurantPhone ? ` Call: ${restaurantPhone}` : ''}</p>
+        </div>
+      `
+    });
+
     res.json({ success: true, confirmationNumber: id, reservation });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -332,13 +362,7 @@ app.post('/api/reservations', async (req, res) => {
 });
 
 app.get('/api/restaurant-dashboard/:id', async (req, res) => {
-  const profile = restaurantProfiles.get(req.params.id) || {
-    venueId: req.params.id,
-    waitMins: 0,
-    isFeatured: false,
-    plan: 'free',
-    slots: [],
-  };
+  const profile = restaurantProfiles.get(req.params.id) || { venueId: req.params.id, waitMins: 0, isFeatured: false, plan: 'free', slots: [] };
   res.json(profile);
 });
 
@@ -350,12 +374,7 @@ app.patch('/api/restaurant-dashboard/:id', async (req, res) => {
 });
 
 app.get('/api/restaurant-dashboard/:id/analytics', async (req, res) => {
-  res.json({
-    views: { today: 847, week: 4921, month: 19340 },
-    reservations: { today: 24, week: 142, month: 567 },
-    conversionRate: 7.4,
-    revenueViaGetATableSpot: 567 * 1.50,
-  });
+  res.json({ views: { today: 847, week: 4921, month: 19340 }, reservations: { today: 24, week: 142, month: 567 }, conversionRate: 7.4, revenueViaGetATableSpot: 567 * 1.50 });
 });
 
 app.post('/api/restaurant-claim', async (req, res) => {
@@ -364,50 +383,19 @@ app.post('/api/restaurant-claim', async (req, res) => {
     console.log('New restaurant claim:', { restaurantName, ownerName, email, plan });
     const planPrices = { basic: '$49/month', pro: '$99/month', elite: '$299/month' };
     const planPrice = planPrices[plan] || '$99/month';
+
     await sendEmail({
       to: NOTIFY_EMAIL,
       subject: `🍽️ New Restaurant Claim — ${restaurantName}`,
-      html: `
-        <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:32px 24px">
-          <h2 style="font-family:Georgia,serif;font-size:1.5rem;margin-bottom:4px">New Restaurant Claim</h2>
-          <p style="color:#6B7A8D;margin-bottom:24px">Someone just claimed their restaurant on GetATableSpot</p>
-          <div style="background:#F5F0E8;border-radius:8px;padding:20px;margin-bottom:20px">
-            <div style="margin-bottom:12px"><div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Restaurant</div><div style="font-weight:700">${restaurantName}</div><div style="font-size:.82rem;color:#6B7A8D">${restaurantAddress}</div></div>
-            <div style="margin-bottom:12px"><div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Owner</div><div style="font-weight:600">${ownerName} · ${role}</div></div>
-            <div style="margin-bottom:12px"><div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Contact</div><div>${email} · ${phone}</div></div>
-            <div><div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Plan</div><div style="font-weight:700;color:#C9A84C">${plan.toUpperCase()} — ${planPrice}</div></div>
-          </div>
-          <div style="background:#0F0D0A;border-radius:8px;padding:16px 20px;margin-bottom:20px">
-            <div style="font-size:.72rem;font-weight:700;color:#C9A84C;text-transform:uppercase;margin-bottom:8px">Stripe Payment Link</div>
-            <a href="${stripeLink}" style="color:#E8D5A3;font-size:.85rem;word-break:break-all">${stripeLink}</a>
-          </div>
-          <div style="background:#EDF8F1;border:1px solid #B8E0C4;border-radius:6px;padding:14px 16px">
-            <div style="font-weight:700;font-size:.85rem;color:#1D6B3A;margin-bottom:6px">Next Steps</div>
-            <ol style="font-size:.82rem;color:#1D6B3A;padding-left:18px;line-height:1.8">
-              <li>Reply to ${email} to introduce yourself</li>
-              <li>Send them the Stripe payment link above</li>
-              <li>Send dashboard: getatablespot.com/restaurant-dashboard.html</li>
-              <li>Add to your tracking spreadsheet</li>
-            </ol>
-          </div>
-        </div>
-      `
+      html: `<div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:32px 24px"><h2 style="font-family:Georgia,serif">New Restaurant Claim</h2><p style="color:#6B7A8D;margin-bottom:24px">Someone just claimed their restaurant on GetATableSpot</p><div style="background:#F5F0E8;border-radius:8px;padding:20px;margin-bottom:16px"><p><strong>${restaurantName}</strong><br><span style="color:#6B7A8D;font-size:.85rem">${restaurantAddress}</span></p><p style="margin-top:12px"><strong>${ownerName}</strong> · ${role}<br>${email} · ${phone}</p><p style="margin-top:12px;color:#C9A84C;font-weight:700">${plan.toUpperCase()} — ${planPrice}</p></div><div style="background:#0F0D0A;border-radius:8px;padding:16px;margin-bottom:16px"><div style="color:#C9A84C;font-size:.72rem;font-weight:700;margin-bottom:8px">STRIPE PAYMENT LINK</div><a href="${stripeLink}" style="color:#E8D5A3;font-size:.85rem;word-break:break-all">${stripeLink}</a></div><div style="background:#EDF8F1;border:1px solid #B8E0C4;border-radius:6px;padding:14px"><strong style="color:#1D6B3A">Next steps:</strong><ol style="color:#1D6B3A;font-size:.82rem;padding-left:18px;margin-top:8px;line-height:1.8"><li>Reply to ${email}</li><li>Send Stripe payment link</li><li>Send dashboard: getatablespot.com/restaurant-dashboard.html</li><li>Add to tracking spreadsheet</li></ol></div></div>`
     });
+
     await sendEmail({
       to: email,
       subject: `Welcome to GetATableSpot — Your restaurant is being activated`,
-      html: `
-        <div style="font-family:sans-serif;max-width:520px;margin:0 auto;padding:32px 24px">
-          <h2 style="font-family:Georgia,serif;font-size:1.4rem;margin-bottom:8px">Welcome, ${ownerName.split(' ')[0]}! 🎉</h2>
-          <p style="color:#6B7A8D;margin-bottom:24px;line-height:1.6">Your restaurant <strong>${restaurantName}</strong> is being activated on GetATableSpot.</p>
-          <div style="text-align:center;margin-bottom:20px">
-            <a href="${stripeLink}" style="display:inline-block;background:#C9A84C;color:#000;font-weight:700;font-size:.9rem;padding:13px 28px;border-radius:5px;text-decoration:none">Complete Free Trial Setup →</a>
-            <div style="font-size:.72rem;color:#6B7A8D;margin-top:8px">7 days free · No charge until day 8 · Cancel anytime</div>
-          </div>
-          <p style="font-size:.78rem;color:#6B7A8D;text-align:center">Questions? Reply to this email anytime.<br><br>Welcome to GetATableSpot.<br><strong>Richard & Stephanie</strong></p>
-        </div>
-      `
+      html: `<div style="font-family:sans-serif;max-width:520px;margin:0 auto;padding:32px 24px"><h2 style="font-family:Georgia,serif">Welcome, ${ownerName.split(' ')[0]}! 🎉</h2><p style="color:#6B7A8D;margin-bottom:24px;line-height:1.6">Your restaurant <strong>${restaurantName}</strong> is being activated on GetATableSpot. As a founding restaurant you get priority placement as traffic grows.</p><div style="text-align:center;margin-bottom:20px"><a href="${stripeLink}" style="display:inline-block;background:#C9A84C;color:#000;font-weight:700;font-size:.9rem;padding:13px 28px;border-radius:5px;text-decoration:none">Complete Free Trial Setup →</a><div style="font-size:.72rem;color:#6B7A8D;margin-top:8px">7 days free · No charge until day 8 · Cancel anytime</div></div><p style="font-size:.78rem;color:#6B7A8D;text-align:center">Reply to this email anytime.<br><br>Richard & Stephanie<br>GetATableSpot</p></div>`
     });
+
     res.json({ success: true, message: 'Claim received.' });
   } catch (err) {
     console.error('Claim error:', err.message);
