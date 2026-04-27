@@ -24,7 +24,6 @@ const G_BASE = 'https://places.googleapis.com/v1';
 const YELP_BASE = 'https://api.yelp.com/v3';
 const NOTIFY_EMAIL = 'asbellrichard429@gmail.com';
 
-// Map cuisine categories to Google Places types
 const CUISINE_TYPE_MAP = {
   italian: ['italian_restaurant', 'pizza_restaurant'],
   japanese: ['japanese_restaurant', 'sushi_restaurant', 'ramen_restaurant'],
@@ -60,13 +59,9 @@ async function sendEmail({ to, subject, html }) {
   }
 }
 
-async function googleNearbyRestaurants({ lat, lng, radius = 8000, cuisine = 'all' }) {
-  const cacheKey = `gnearby:${lat}:${lng}:${radius}:${cuisine}`;
-  const cached = cache.get(cacheKey);
-  if (cached) return cached;
-
+// Single nearby search call
+async function googleNearbySearch({ lat, lng, radius = 5000, cuisine = 'all' }) {
   const types = CUISINE_TYPE_MAP[cuisine] || ['restaurant'];
-
   const body = {
     locationRestriction: {
       circle: {
@@ -78,7 +73,6 @@ async function googleNearbyRestaurants({ lat, lng, radius = 8000, cuisine = 'all
     maxResultCount: 20,
     rankPreference: 'POPULARITY',
   };
-
   const fields = [
     'places.id', 'places.displayName', 'places.formattedAddress',
     'places.location', 'places.rating', 'places.userRatingCount',
@@ -87,7 +81,6 @@ async function googleNearbyRestaurants({ lat, lng, radius = 8000, cuisine = 'all
     'places.internationalPhoneNumber', 'places.websiteUri',
     'places.dineIn', 'places.reservable', 'places.outdoorSeating',
   ].join(',');
-
   try {
     const { data } = await axios.post(`${G_BASE}/places:searchNearby`, body, {
       headers: {
@@ -96,13 +89,51 @@ async function googleNearbyRestaurants({ lat, lng, radius = 8000, cuisine = 'all
         'X-Goog-FieldMask': fields,
       },
     });
-    const results = data.places || [];
-    cache.set(cacheKey, results, 3600);
-    return results;
+    return data.places || [];
   } catch (err) {
     console.error('Google Places error:', err.response?.data || err.message);
     return [];
   }
+}
+
+// Make multiple calls with offset centers to get more results
+async function googleNearbyRestaurants({ lat, lng, radius = 8000, cuisine = 'all' }) {
+  const cacheKey = `gnearby:${lat}:${lng}:${radius}:${cuisine}`;
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+
+  // Offset distance in degrees (~0.018 degrees = ~2km)
+  const offset = 0.018;
+  const centers = [
+    { lat, lng },                          // center
+    { lat: lat + offset, lng },            // north
+    { lat: lat - offset, lng },            // south
+    { lat, lng: lng + offset },            // east
+    { lat, lng: lng - offset },            // west
+  ];
+
+  // Call all centers in parallel
+  const allResults = await Promise.all(
+    centers.map(c => googleNearbySearch({ lat: c.lat, lng: c.lng, radius: radius * 0.7, cuisine }))
+  );
+
+  // Flatten and deduplicate by place ID
+  const seen = new Set();
+  const combined = [];
+  for (const results of allResults) {
+    for (const place of results) {
+      if (!seen.has(place.id)) {
+        seen.add(place.id);
+        combined.push(place);
+      }
+    }
+  }
+
+  // Sort by rating
+  combined.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+
+  cache.set(cacheKey, combined, 3600);
+  return combined;
 }
 
 async function yelpSearch({ lat, lng, term = 'restaurants', radius = 8000 }) {
@@ -225,7 +256,7 @@ app.get('/api/venues', async (req, res) => {
         lat: parseFloat(lat),
         lng: parseFloat(lng),
         radius: parseInt(radius),
-        cuisine: cuisine
+        cuisine
       }),
       yelpSearch({
         lat: parseFloat(lat),
@@ -331,10 +362,8 @@ app.post('/api/restaurant-claim', async (req, res) => {
   try {
     const { restaurantId, restaurantName, restaurantAddress, ownerName, email, phone, role, plan, stripeLink } = req.body;
     console.log('New restaurant claim:', { restaurantName, ownerName, email, plan });
-
     const planPrices = { basic: '$49/month', pro: '$99/month', elite: '$299/month' };
     const planPrice = planPrices[plan] || '$99/month';
-
     await sendEmail({
       to: NOTIFY_EMAIL,
       subject: `🍽️ New Restaurant Claim — ${restaurantName}`,
@@ -343,23 +372,10 @@ app.post('/api/restaurant-claim', async (req, res) => {
           <h2 style="font-family:Georgia,serif;font-size:1.5rem;margin-bottom:4px">New Restaurant Claim</h2>
           <p style="color:#6B7A8D;margin-bottom:24px">Someone just claimed their restaurant on GetATableSpot</p>
           <div style="background:#F5F0E8;border-radius:8px;padding:20px;margin-bottom:20px">
-            <div style="margin-bottom:12px">
-              <div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Restaurant</div>
-              <div style="font-weight:700;font-size:1rem">${restaurantName}</div>
-              <div style="font-size:.82rem;color:#6B7A8D">${restaurantAddress}</div>
-            </div>
-            <div style="margin-bottom:12px">
-              <div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Owner</div>
-              <div style="font-weight:600">${ownerName} · ${role}</div>
-            </div>
-            <div style="margin-bottom:12px">
-              <div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Contact</div>
-              <div>${email} · ${phone}</div>
-            </div>
-            <div>
-              <div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Plan</div>
-              <div style="font-weight:700;color:#C9A84C">${plan.toUpperCase()} — ${planPrice}</div>
-            </div>
+            <div style="margin-bottom:12px"><div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Restaurant</div><div style="font-weight:700">${restaurantName}</div><div style="font-size:.82rem;color:#6B7A8D">${restaurantAddress}</div></div>
+            <div style="margin-bottom:12px"><div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Owner</div><div style="font-weight:600">${ownerName} · ${role}</div></div>
+            <div style="margin-bottom:12px"><div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Contact</div><div>${email} · ${phone}</div></div>
+            <div><div style="font-size:.72rem;font-weight:700;color:#6B7A8D;text-transform:uppercase;margin-bottom:3px">Plan</div><div style="font-weight:700;color:#C9A84C">${plan.toUpperCase()} — ${planPrice}</div></div>
           </div>
           <div style="background:#0F0D0A;border-radius:8px;padding:16px 20px;margin-bottom:20px">
             <div style="font-size:.72rem;font-weight:700;color:#C9A84C;text-transform:uppercase;margin-bottom:8px">Stripe Payment Link</div>
@@ -377,7 +393,6 @@ app.post('/api/restaurant-claim', async (req, res) => {
         </div>
       `
     });
-
     await sendEmail({
       to: email,
       subject: `Welcome to GetATableSpot — Your restaurant is being activated`,
@@ -393,7 +408,6 @@ app.post('/api/restaurant-claim', async (req, res) => {
         </div>
       `
     });
-
     res.json({ success: true, message: 'Claim received.' });
   } catch (err) {
     console.error('Claim error:', err.message);
