@@ -11,268 +11,299 @@
   --gold:#E8B84B;--gold-l:#F5D98A;--gold-d:#A07820;
   --ember:#FF5533;--sage:#2E9E5B;--slate:#5A6A82;
   --border:#E0D8CC;--border-d:#C4B9A8;
+  --purple:#9B59B6;--purple-d:#6C3483;
   --serif:'Playfair Display',Georgia,serif;
   --sans:'DM Sans',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);min-height:100vh}
+
+/* HEADER */
 header{background:var(--ink);position:sticky;top:0;z-index:200}
-.header-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{font-family:var(--serif);font-size:1.4rem;font-weight:900;color:var(--paper);display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none}
+.header-inner{max-width:1280px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:var(--serif);font-size:1.35rem;font-weight:900;color:var(--paper);display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none;flex-shrink:0}
 .logo-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0}
-.header-links{display:flex;align-items:center;gap:8px}
-.btn-hdr{padding:8px 18px;border-radius:4px;font-family:var(--sans);font-weight:700;font-size:.82rem;cursor:pointer;border:none;white-space:nowrap;transition:all .15s}
+.header-links{display:flex;align-items:center;gap:6px}
+.btn-hdr{padding:7px 14px;border-radius:4px;font-family:var(--sans);font-weight:700;font-size:.78rem;cursor:pointer;border:none;white-space:nowrap;transition:all .15s}
 .btn-find-hdr{background:var(--gold);color:var(--ink)}
 .btn-find-hdr:hover{background:var(--gold-l)}
 .btn-biz-hdr{background:rgba(255,255,255,.1);color:var(--paper);border:1px solid rgba(255,255,255,.2)}
 .btn-biz-hdr:hover{background:rgba(255,255,255,.18)}
-.btn-pro-hdr{background:linear-gradient(135deg,#9B59B6,#6C3483);color:white}
+.pro-hdr-wrap{position:relative}
+.btn-pro-hdr{background:linear-gradient(135deg,var(--purple),var(--purple-d));color:white;padding:7px 14px;border-radius:4px;font-family:var(--sans);font-weight:700;font-size:.78rem;cursor:pointer;border:none;white-space:nowrap;transition:all .15s}
 .btn-pro-hdr:hover{opacity:.9}
+.pro-tooltip{display:none;position:absolute;top:calc(100% + 10px);right:0;background:var(--ink);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:16px;width:260px;z-index:300;box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.pro-hdr-wrap:hover .pro-tooltip{display:block}
+.pro-tooltip::before{content:'';position:absolute;top:-6px;right:20px;width:12px;height:12px;background:var(--ink);border-left:1px solid rgba(255,255,255,.12);border-top:1px solid rgba(255,255,255,.12);transform:rotate(45deg)}
+.pt-title{font-family:var(--serif);font-size:.95rem;font-weight:700;color:white;margin-bottom:4px}
+.pt-price{font-size:.72rem;color:var(--gold);margin-bottom:12px}
+.pt-benefit{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.pt-icon{font-size:.9rem;flex-shrink:0;margin-top:1px}
+.pt-text{font-size:.75rem;color:rgba(255,255,255,.7);line-height:1.4}
+.pt-text strong{color:white;display:block;margin-bottom:1px}
+.pt-cta{display:block;width:100%;padding:9px;background:linear-gradient(135deg,var(--gold),#D4943A);color:var(--ink);border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.8rem;cursor:pointer;margin-top:12px;text-align:center;text-decoration:none}
 
 /* HERO */
 .hero{background:linear-gradient(160deg,#0A0806 0%,#1A1008 50%,#0A0806 100%);padding:72px 24px 0;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 60% at 50% 0%,rgba(232,184,75,.14),transparent)}
 .hero-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:1}
 .hero-eyebrow::before,.hero-eyebrow::after{content:'';flex:1;max-width:60px;height:1px;background:rgba(232,184,75,.3)}
-.hero h1{font-family:var(--serif);font-size:clamp(2.4rem,6vw,4.4rem);font-weight:900;color:#FAF8F4;line-height:1.08;margin-bottom:14px;position:relative;z-index:1}
+.hero h1{font-family:var(--serif);font-size:clamp(2.2rem,6vw,4.4rem);font-weight:900;color:#FAF8F4;line-height:1.08;margin-bottom:14px;position:relative;z-index:1}
 .hero h1 em{font-style:italic;color:var(--gold);text-shadow:0 0 40px rgba(232,184,75,.3)}
-.hero-sub{font-size:1rem;color:rgba(255,255,255,.5);max-width:480px;margin:0 auto 14px;line-height:1.65;position:relative;z-index:1}
-.hero-disclaimer{font-size:.7rem;color:rgba(255,255,255,.25);margin-bottom:40px;position:relative;z-index:1}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.5);max-width:480px;margin:0 auto 10px;line-height:1.65;position:relative;z-index:1}
+.hero-disclaimer{font-size:.68rem;color:rgba(255,255,255,.2);margin-bottom:36px;position:relative;z-index:1;background:rgba(255,255,255,.05);display:inline-block;padding:4px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08)}
 .audience-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:620px;margin:0 auto;position:relative;z-index:1}
-@media(max-width:480px){.audience-split{grid-template-columns:1fr}}
-.ac{border-radius:12px;padding:24px;cursor:pointer;transition:transform .2s,box-shadow .2s;text-align:left;border:none;font-family:var(--sans);display:block;width:100%}
+@media(max-width:520px){.audience-split{grid-template-columns:1fr;max-width:340px}}
+.ac{border-radius:12px;padding:22px;cursor:pointer;transition:transform .2s,box-shadow .2s;text-align:left;border:none;font-family:var(--sans);display:block;width:100%}
 .ac:hover{transform:translateY(-4px)}
 .ac-diner{background:linear-gradient(135deg,var(--gold),#D4943A);color:var(--ink);box-shadow:0 8px 32px rgba(232,184,75,.35)}
 .ac-diner:hover{box-shadow:0 16px 48px rgba(232,184,75,.5)}
 .ac-resto{background:rgba(255,255,255,.07);color:var(--paper);border:1.5px solid rgba(255,255,255,.15)}
 .ac-resto:hover{background:rgba(255,255,255,.12)}
-.ac-tag{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:8px}
-.ac-title{font-family:var(--serif);font-size:1.25rem;font-weight:900;line-height:1.2;margin-bottom:6px}
-.ac-desc{font-size:.78rem;opacity:.75;line-height:1.45;margin-bottom:14px}
-.ac-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:4px;font-weight:700;font-size:.8rem}
+.ac-tag{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.ac-title{font-family:var(--serif);font-size:1.1rem;font-weight:900;line-height:1.2;margin-bottom:5px}
+.ac-desc{font-size:.75rem;opacity:.75;line-height:1.45;margin-bottom:12px}
+.ac-cta{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:4px;font-weight:700;font-size:.77rem}
 .ac-diner .ac-cta{background:var(--ink);color:var(--paper)}
 .ac-resto .ac-cta{background:var(--gold);color:var(--ink)}
-.proof-band{background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.05);padding:12px 24px;position:relative;z-index:1}
-.proof-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
-.proof-item{font-size:.72rem;color:rgba(255,255,255,.35);display:flex;align-items:center;gap:5px;white-space:nowrap}
+.proof-band{background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.05);padding:10px 24px;position:relative;z-index:1;margin-top:32px}
+.proof-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+.proof-item{font-size:.7rem;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:5px;white-space:nowrap}
 .proof-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.7}
 
 /* PRO BANNER */
-.pro-banner{background:linear-gradient(135deg,#1A0A2E,#2D1B4E);border-bottom:1px solid rgba(155,89,182,.3);padding:14px 24px;position:relative}
+.pro-banner{background:linear-gradient(135deg,#1A0A2E,#2D1B4E);border-bottom:1px solid rgba(155,89,182,.3);padding:12px 24px;position:relative}
 .pro-banner-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.pro-banner-left{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.pro-crown{font-size:1.4rem}
-.pro-banner-title{font-weight:700;font-size:.9rem;color:white;margin-bottom:2px}
-.pro-banner-desc{font-size:.78rem;color:rgba(255,255,255,.55)}
-.pro-benefits{display:flex;gap:16px;flex-wrap:wrap}
-.pro-benefit{display:flex;align-items:center;gap:6px;font-size:.76rem;color:rgba(255,255,255,.65)}
-.btn-pro-banner{padding:9px 20px;background:linear-gradient(135deg,var(--gold),#D4943A);color:var(--ink);border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.82rem;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.pro-banner-left{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.pro-banner-title{font-weight:700;font-size:.88rem;color:white;margin-bottom:1px}
+.pro-banner-desc{font-size:.75rem;color:rgba(255,255,255,.5)}
+.pro-benefits-row{display:flex;gap:14px;flex-wrap:wrap}
+.pro-ben{font-size:.74rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:4px}
+.btn-pro-banner{padding:8px 18px;background:linear-gradient(135deg,var(--gold),#D4943A);color:var(--ink);border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.8rem;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
 .btn-pro-banner:hover{background:linear-gradient(135deg,var(--gold-l),var(--gold));transform:translateY(-1px)}
-.btn-dismiss{position:absolute;top:8px;right:8px;background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:1rem;padding:4px}
-.btn-dismiss:hover{color:rgba(255,255,255,.7)}
+.btn-dismiss{position:absolute;top:8px;right:8px;background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:.9rem;padding:4px;line-height:1}
+.btn-dismiss:hover{color:rgba(255,255,255,.6)}
 
 /* SEARCH */
-.search-section{background:var(--ink);border-bottom:1px solid rgba(255,255,255,.08);padding:14px 24px;position:sticky;top:58px;z-index:100}
-.search-inner{max-width:960px;margin:0 auto}
-.search-row-1{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.search-row-2{display:flex;gap:8px;flex-wrap:wrap}
-.s-box{display:flex;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:6px;overflow:hidden;transition:border-color .15s;flex:1;min-width:200px}
+.search-section{background:var(--ink);border-bottom:1px solid rgba(255,255,255,.08);padding:12px 20px;position:sticky;top:58px;z-index:100}
+.search-inner{max-width:980px;margin:0 auto}
+.search-row-1{display:flex;gap:7px;margin-bottom:7px}
+.search-row-2{display:flex;gap:7px}
+.s-box{display:flex;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.13);border-radius:6px;overflow:hidden;transition:border-color .15s;flex:1;min-width:0}
 .s-box:focus-within{border-color:var(--gold)}
-.s-icon{padding:0 12px;color:rgba(255,255,255,.5);font-size:1rem;display:flex;align-items:center;flex-shrink:0}
-.s-box input{flex:1;background:none;border:none;outline:none;padding:11px 12px 11px 0;font-family:var(--sans);font-size:.9rem;color:white}
-.s-box input::placeholder{color:rgba(255,255,255,.35)}
+.s-icon{padding:0 11px;color:rgba(255,255,255,.45);font-size:.95rem;display:flex;align-items:center;flex-shrink:0}
+.s-box input{flex:1;background:none;border:none;outline:none;padding:10px 10px 10px 0;font-family:var(--sans);font-size:.88rem;color:white;min-width:0}
+.s-box input::placeholder{color:rgba(255,255,255,.32)}
 .cuisine-wrap{position:relative;flex-shrink:0}
-.cuisine-sel{padding:11px 36px 11px 14px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:6px;font-family:var(--sans);font-size:.88rem;font-weight:600;color:white;cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;transition:border-color .15s}
+.cuisine-sel{padding:10px 32px 10px 12px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.13);border-radius:6px;font-family:var(--sans);font-size:.85rem;font-weight:600;color:white;cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;transition:border-color .15s;white-space:nowrap;height:100%}
 .cuisine-sel:focus{border-color:var(--gold)}
 .cuisine-sel option{background:#1A1008;color:white}
-.cuisine-arrow{position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--gold);font-size:.75rem}
-.l-box{display:flex;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:6px;overflow:hidden;transition:border-color .15s;flex:1;min-width:200px}
+.cuisine-arrow{position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--gold);font-size:.72rem}
+.l-box{display:flex;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.13);border-radius:6px;overflow:hidden;transition:border-color .15s;flex:1;min-width:0}
 .l-box:focus-within{border-color:var(--gold)}
-.btn-gps{background:none;border:none;border-right:1px solid rgba(255,255,255,.12);padding:0 14px;cursor:pointer;color:rgba(255,255,255,.6);font-size:1.1rem;display:flex;align-items:center;flex-shrink:0;transition:all .15s}
+.btn-gps{background:none;border:none;border-right:1px solid rgba(255,255,255,.1);padding:0 12px;cursor:pointer;color:rgba(255,255,255,.55);font-size:1rem;display:flex;align-items:center;flex-shrink:0;transition:all .15s}
 .btn-gps:hover{color:var(--gold)}
-.l-box input{flex:1;background:none;border:none;outline:none;padding:12px 14px;font-family:var(--sans);font-size:.9rem;color:white}
-.l-box input::placeholder{color:rgba(255,255,255,.35)}
-.btn-find{padding:12px 24px;background:var(--gold);color:var(--ink);border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.9rem;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.l-box input{flex:1;background:none;border:none;outline:none;padding:10px 12px;font-family:var(--sans);font-size:.88rem;color:white;min-width:0}
+.l-box input::placeholder{color:rgba(255,255,255,.32)}
+.btn-find{padding:10px 22px;background:var(--gold);color:var(--ink);border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.88rem;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
 .btn-find:hover{background:var(--gold-l);transform:translateY(-1px)}
-.ai-btn{padding:11px 14px;background:linear-gradient(135deg,#6C3483,#9B59B6);color:white;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.82rem;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;white-space:nowrap;flex-shrink:0}
-.ai-btn:hover{background:linear-gradient(135deg,#7D3C98,#A569BD);transform:translateY(-1px)}
+
+/* AI BTN with tooltip */
+.ai-btn-wrap{position:relative;flex-shrink:0}
+.ai-btn{padding:10px 14px;background:linear-gradient(135deg,var(--purple-d),var(--purple));color:white;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.82rem;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .15s;white-space:nowrap}
+.ai-btn:hover{opacity:.9;transform:translateY(-1px)}
+.ai-tooltip{display:none;position:absolute;top:calc(100% + 10px);right:0;background:white;border:1.5px solid var(--border);border-radius:10px;padding:14px;width:240px;z-index:300;box-shadow:0 12px 40px rgba(10,8,6,.15)}
+.ai-btn-wrap:hover .ai-tooltip{display:block}
+.ai-tooltip::before{content:'';position:absolute;top:-7px;right:18px;width:12px;height:12px;background:white;border-left:1.5px solid var(--border);border-top:1.5px solid var(--border);transform:rotate(45deg)}
+.att-title{font-weight:700;font-size:.82rem;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.att-item{display:flex;align-items:flex-start;gap:7px;margin-bottom:7px;font-size:.76rem;color:var(--slate);line-height:1.4}
+.att-item:last-child{margin-bottom:0}
+.att-icon{flex-shrink:0;margin-top:1px}
 
 /* MAIN */
-.main{max-width:1280px;margin:0 auto;padding:24px}
-.filter-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:10px;flex-wrap:wrap}
-.filter-left{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.f-pill{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--border);background:white;font-size:.76rem;font-weight:700;cursor:pointer;color:var(--slate);transition:all .15s;white-space:nowrap}
+.main{max-width:1280px;margin:0 auto;padding:20px}
+.filter-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:8px;flex-wrap:wrap}
+.filter-left{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.f-pill{display:flex;align-items:center;gap:4px;padding:5px 11px;border-radius:999px;border:1.5px solid var(--border);background:white;font-size:.73rem;font-weight:700;cursor:pointer;color:var(--slate);transition:all .15s;white-space:nowrap}
 .f-pill:hover{border-color:var(--ink);color:var(--ink)}
 .f-pill.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.f-pill select{background:none;border:none;outline:none;font-family:var(--sans);font-size:.76rem;font-weight:700;cursor:pointer;color:inherit}
-.result-meta{font-size:.8rem;color:var(--slate)}
+.f-pill select{background:none;border:none;outline:none;font-family:var(--sans);font-size:.73rem;font-weight:700;cursor:pointer;color:inherit}
+.result-meta{font-size:.78rem;color:var(--slate)}
 .result-meta strong{color:var(--ink);font-weight:700}
-.sort-sel{padding:6px 11px;border:1.5px solid var(--border);border-radius:4px;font-family:var(--sans);font-size:.78rem;background:white;cursor:pointer;outline:none;color:var(--slate)}
+.sort-sel{padding:5px 10px;border:1.5px solid var(--border);border-radius:4px;font-family:var(--sans);font-size:.75rem;background:white;cursor:pointer;outline:none;color:var(--slate)}
 
 /* CARDS */
-.restaurants-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.restaurants-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
 .r-card{background:white;border:1.5px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;animation:fadeUp .3s ease both;position:relative}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.r-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,8,6,.14);border-color:var(--border-d)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.r-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,8,6,.12);border-color:var(--border-d)}
 .r-card.featured{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
-.r-img{height:195px;position:relative;overflow:hidden;background:#1A1008;display:flex;align-items:center;justify-content:center;font-size:4.5rem}
+.r-img{height:185px;position:relative;overflow:hidden;background:#1A1008;display:flex;align-items:center;justify-content:center;font-size:4rem}
 .r-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .5s}
 .r-card:hover .r-img img{transform:scale(1.06)}
 .r-emoji{position:relative;z-index:1}
-.feat-badge{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,var(--gold),#D4943A);color:var(--ink);font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:3px;z-index:2;box-shadow:0 2px 8px rgba(232,184,75,.4)}
-.wait-badge{position:absolute;top:10px;right:10px;border-radius:5px;padding:5px 10px;font-weight:700;font-size:.72rem;display:flex;align-items:center;gap:5px;z-index:2;backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2)}
+.feat-badge{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,var(--gold),#D4943A);color:var(--ink);font-size:.58rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 9px;border-radius:3px;z-index:2;box-shadow:0 2px 8px rgba(232,184,75,.4)}
+.wait-badge{position:absolute;top:10px;right:10px;border-radius:5px;padding:4px 9px;font-weight:700;font-size:.7rem;display:flex;align-items:center;gap:4px;z-index:2;backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2)}
 .wb-none{background:rgba(5,5,5,.75);color:#4ECDA4}
 .wb-low{background:rgba(5,5,5,.75);color:#7EE8B8}
 .wb-med{background:rgba(5,5,5,.75);color:#F5C842}
 .wb-high{background:rgba(5,5,5,.75);color:#FF7055}
-.wb-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 1.3s infinite}
+.wb-dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pulse 1.3s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
-.save-btn{position:absolute;bottom:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;z-index:2;transition:transform .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.save-btn{position:absolute;bottom:9px;right:9px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;z-index:2;transition:transform .15s;box-shadow:0 2px 8px rgba(0,0,0,.12)}
 .save-btn:hover{transform:scale(1.2)}
-.r-body{padding:14px 16px 16px}
-.r-sources{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
-.r-src{font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:2px}
+.r-body{padding:12px 14px 14px}
+.r-sources{display:flex;gap:3px;margin-bottom:6px;flex-wrap:wrap}
+.r-src{font-size:.58rem;font-weight:700;padding:2px 5px;border-radius:2px}
 .rs-yelp{background:#FFF0F0;color:#D01200}
 .rs-google{background:#E8F0FF;color:#1557BF}
 .rs-opentable{background:#E8F8EE;color:#1A6B36}
-.rs-resy{background:#FFF2EA;color:#C44A00}
-.r-cuisine{font-size:.64rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin-bottom:4px}
-.r-name{font-family:var(--serif);font-size:1.15rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--ink)}
-.r-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-.r-stars{color:var(--gold-d);font-size:.82rem}
-.r-rcount{font-size:.72rem;color:var(--slate)}
-.r-price{font-size:.8rem;font-weight:700;color:var(--sage)}
-.r-dist{font-size:.72rem;color:var(--slate)}
-.michelin-badge{font-size:.68rem;color:var(--gold-d);font-weight:700;background:rgba(232,184,75,.1);padding:2px 6px;border-radius:2px;border:1px solid rgba(232,184,75,.3)}
-.r-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
-.r-tag{padding:3px 8px;border-radius:3px;background:var(--warm);border:1px solid var(--border);font-size:.68rem;color:var(--slate);font-weight:500}
-.r-wait-note{font-size:.65rem;color:#A8A094;margin-bottom:12px;font-style:italic}
-.r-actions{display:flex;gap:6px}
-.btn-reserve{flex:1;padding:9px 10px;background:var(--ink);color:var(--paper);border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.78rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:4px}
+.r-cuisine{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin-bottom:3px}
+.r-name{font-family:var(--serif);font-size:1.08rem;font-weight:700;line-height:1.2;margin-bottom:7px;color:var(--ink)}
+.r-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:7px}
+.r-stars{color:var(--gold-d);font-size:.78rem}
+.r-rcount{font-size:.68rem;color:var(--slate)}
+.r-price{font-size:.76rem;font-weight:700;color:var(--sage)}
+.r-dist{font-size:.68rem;color:var(--slate)}
+.michelin-badge{font-size:.65rem;color:var(--gold-d);font-weight:700;background:rgba(232,184,75,.1);padding:2px 5px;border-radius:2px;border:1px solid rgba(232,184,75,.3)}
+.r-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px}
+.r-tag{padding:2px 7px;border-radius:3px;background:var(--warm);border:1px solid var(--border);font-size:.65rem;color:var(--slate);font-weight:500}
+.r-wait-note{font-size:.62rem;color:#B8AFA0;margin-bottom:10px;font-style:italic}
+.r-actions{display:flex;gap:5px}
+.btn-reserve{flex:1;padding:8px 8px;background:var(--ink);color:var(--paper);border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.74rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:3px}
 .btn-reserve:hover{background:#2A1E10;transform:translateY(-1px)}
 .btn-reserve.gold{background:linear-gradient(135deg,var(--gold),#D4943A);color:var(--ink)}
-.btn-order{padding:9px 10px;border-radius:5px;background:linear-gradient(135deg,#1A6B36,#2E9E5B);color:white;border:none;cursor:pointer;font-size:.72rem;font-weight:700;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:4px}
+.btn-order{padding:8px 8px;border-radius:5px;background:linear-gradient(135deg,#1A6B36,#2E9E5B);color:white;border:none;cursor:pointer;font-size:.68rem;font-weight:700;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:3px}
 .btn-order:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(46,158,91,.3)}
-.btn-icon{padding:9px 10px;border-radius:5px;background:var(--warm);border:1.5px solid var(--border);cursor:pointer;font-size:.85rem;transition:all .15s;color:var(--slate);display:flex;align-items:center;justify-content:center}
+.btn-icon{padding:8px 8px;border-radius:5px;background:var(--warm);border:1.5px solid var(--border);cursor:pointer;font-size:.8rem;transition:all .15s;color:var(--slate);display:flex;align-items:center;justify-content:center}
 .btn-icon:hover{background:var(--border)}
 
 /* SKELETON */
 .skel{background:white;border:1.5px solid var(--border);border-radius:10px;overflow:hidden}
-.skel-img{height:195px;background:linear-gradient(90deg,#EEE8DF 25%,#F8F4EE 50%,#EEE8DF 75%);background-size:200% 100%;animation:shim 1.4s infinite}
+.skel-img{height:185px;background:linear-gradient(90deg,#EEE8DF 25%,#F8F4EE 50%,#EEE8DF 75%);background-size:200% 100%;animation:shim 1.4s infinite}
 @keyframes shim{0%{background-position:100%}100%{background-position:-100%}}
-.skel-body{padding:14px 16px}
-.skel-line{height:12px;border-radius:3px;background:linear-gradient(90deg,#EEE8DF 25%,#F8F4EE 50%,#EEE8DF 75%);background-size:200% 100%;animation:shim 1.4s infinite;margin-bottom:10px}
+.skel-body{padding:12px 14px}
+.skel-line{height:11px;border-radius:3px;background:linear-gradient(90deg,#EEE8DF 25%,#F8F4EE 50%,#EEE8DF 75%);background-size:200% 100%;animation:shim 1.4s infinite;margin-bottom:9px}
 .skel-line.s60{width:60%}.skel-line.s40{width:40%}
-.empty{text-align:center;padding:64px 24px;color:var(--slate)}
-.empty-icon{font-size:3rem;margin-bottom:12px}
-.empty-title{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px;color:var(--ink)}
+.empty{text-align:center;padding:60px 24px;color:var(--slate)}
+.empty-icon{font-size:2.8rem;margin-bottom:12px}
+.empty-title{font-family:var(--serif);font-size:1.3rem;margin-bottom:8px;color:var(--ink)}
 
 /* AI PANEL */
-.ai-panel{display:none;position:fixed;bottom:0;right:0;width:100%;max-width:420px;height:70vh;background:white;border-radius:16px 16px 0 0;box-shadow:0 -8px 48px rgba(10,8,6,.2);z-index:300;flex-direction:column}
+.ai-panel{display:none;position:fixed;bottom:0;right:0;width:100%;max-width:400px;height:68vh;background:white;border-radius:16px 16px 0 0;box-shadow:0 -8px 48px rgba(10,8,6,.2);z-index:400;flex-direction:column}
 .ai-panel.open{display:flex}
-@media(min-width:600px){.ai-panel{border-radius:16px;bottom:24px;right:24px;height:520px}}
-.ai-header{background:linear-gradient(135deg,#1A0A2E,#2D1B4E);padding:16px 20px;border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+@media(min-width:600px){.ai-panel{border-radius:16px;bottom:20px;right:20px;height:500px}}
+.ai-header{background:linear-gradient(135deg,#1A0A2E,#2D1B4E);padding:14px 18px;border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .ai-header-left{display:flex;align-items:center;gap:10px}
-.ai-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#D4943A);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-.ai-header-title{font-weight:700;font-size:.9rem;color:white;margin-bottom:2px}
-.ai-header-sub{font-size:.7rem;color:rgba(255,255,255,.5)}
-.ai-close{background:none;border:none;color:rgba(255,255,255,.5);cursor:pointer;font-size:1.2rem;padding:4px;transition:color .15s}
+.ai-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#D4943A);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.ai-header-title{font-weight:700;font-size:.87rem;color:white;margin-bottom:1px}
+.ai-header-sub{font-size:.67rem;color:rgba(255,255,255,.45)}
+.ai-close{background:none;border:none;color:rgba(255,255,255,.45);cursor:pointer;font-size:1.1rem;padding:4px;transition:color .15s;line-height:1}
 .ai-close:hover{color:white}
-.ai-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
-.ai-msg{max-width:85%;border-radius:12px;padding:10px 14px;font-size:.85rem;line-height:1.55}
+.ai-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.ai-msg{max-width:86%;border-radius:12px;padding:9px 13px;font-size:.83rem;line-height:1.55}
 .ai-msg.bot{background:var(--warm);color:var(--ink);border-bottom-left-radius:3px;align-self:flex-start}
-.ai-msg.user{background:linear-gradient(135deg,#6C3483,#9B59B6);color:white;border-bottom-right-radius:3px;align-self:flex-end}
-.ai-dots{display:flex;gap:4px;padding:4px 0}
-.ai-dot{width:7px;height:7px;border-radius:50%;background:var(--slate);animation:dotPulse 1.4s infinite}
-.ai-dot:nth-child(2){animation-delay:.2s}
-.ai-dot:nth-child(3){animation-delay:.4s}
-@keyframes dotPulse{0%,80%,100%{transform:scale(.8);opacity:.4}40%{transform:scale(1);opacity:1}}
-.ai-suggestions{padding:0 16px 10px;display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0}
-.ai-sug{padding:6px 12px;background:var(--warm);border:1px solid var(--border);border-radius:999px;font-size:.74rem;cursor:pointer;color:var(--slate);transition:all .15s;white-space:nowrap}
+.ai-msg.user{background:linear-gradient(135deg,var(--purple-d),var(--purple));color:white;border-bottom-right-radius:3px;align-self:flex-end}
+.ai-dots{display:flex;gap:4px;padding:3px 0}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--slate);animation:dotP 1.4s infinite}
+.ai-dot:nth-child(2){animation-delay:.2s}.ai-dot:nth-child(3){animation-delay:.4s}
+@keyframes dotP{0%,80%,100%{transform:scale(.8);opacity:.4}40%{transform:scale(1);opacity:1}}
+.ai-sugs{padding:0 14px 8px;display:flex;gap:5px;flex-wrap:wrap;flex-shrink:0}
+.ai-sug{padding:5px 11px;background:var(--warm);border:1px solid var(--border);border-radius:999px;font-size:.72rem;cursor:pointer;color:var(--slate);transition:all .15s;white-space:nowrap}
 .ai-sug:hover{background:var(--border);color:var(--ink)}
-.ai-input-row{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;background:white;border-radius:0 0 16px 16px}
-.ai-input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:999px;font-family:var(--sans);font-size:.88rem;outline:none;transition:border-color .15s}
-.ai-input:focus{border-color:#9B59B6}
-.ai-send{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#6C3483,#9B59B6);color:white;border:none;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.ai-input-row{padding:10px 14px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0;background:white;border-radius:0 0 16px 16px}
+.ai-input{flex:1;padding:9px 13px;border:1.5px solid var(--border);border-radius:999px;font-family:var(--sans);font-size:.85rem;outline:none;transition:border-color .15s}
+.ai-input:focus{border-color:var(--purple)}
+.ai-send{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--purple-d),var(--purple));color:white;border:none;cursor:pointer;font-size:.95rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
 .ai-send:hover{transform:scale(1.1)}
-.ai-rc{background:white;border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:6px;cursor:pointer;transition:all .15s}
+.ai-rc{background:white;border:1.5px solid var(--border);border-radius:8px;padding:9px 11px;margin-top:5px;cursor:pointer;transition:all .15s}
 .ai-rc:hover{border-color:var(--gold);background:var(--warm)}
-.ai-rc-name{font-weight:700;font-size:.85rem;margin-bottom:3px}
-.ai-rc-meta{font-size:.74rem;color:var(--slate);display:flex;gap:8px;flex-wrap:wrap}
-.ai-rc-reason{font-size:.74rem;color:var(--sage);margin-top:4px;font-style:italic}
+.ai-rc-name{font-weight:700;font-size:.82rem;margin-bottom:2px}
+.ai-rc-meta{font-size:.71rem;color:var(--slate);display:flex;gap:7px;flex-wrap:wrap}
+.ai-rc-reason{font-size:.71rem;color:var(--sage);margin-top:3px;font-style:italic}
 
 /* MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(10,8,6,.7);backdrop-filter:blur(6px);z-index:500;align-items:flex-end;justify-content:center}
 .overlay.open{display:flex}
 @media(min-width:600px){.overlay{align-items:center}}
-.modal{background:white;width:100%;max-width:580px;max-height:95vh;border-radius:14px 14px 0 0;overflow-y:auto;box-shadow:0 24px 80px rgba(10,8,6,.3);animation:slideUpM .3s ease}
+.modal{background:white;width:100%;max-width:560px;max-height:95vh;border-radius:14px 14px 0 0;overflow-y:auto;box-shadow:0 24px 80px rgba(10,8,6,.3);animation:slideUpM .3s ease}
 @media(min-width:600px){.modal{border-radius:14px;animation:popIn .25s ease}}
 @keyframes slideUpM{from{transform:translateY(100%)}to{transform:translateY(0)}}
-@keyframes popIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
-.m-hero{height:200px;background:#1A1008;position:relative;display:flex;align-items:center;justify-content:center;font-size:5rem;overflow:hidden}
+@keyframes popIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+.m-hero{height:190px;background:#1A1008;position:relative;display:flex;align-items:center;justify-content:center;font-size:4.5rem;overflow:hidden}
 .m-hero img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
 .m-hero-emoji{position:relative;z-index:1}
-.m-close{position:absolute;top:12px;right:12px;z-index:10;width:32px;height:32px;border-radius:50%;background:rgba(10,8,6,.6);border:none;color:white;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+.m-close{position:absolute;top:11px;right:11px;z-index:10;width:30px;height:30px;border-radius:50%;background:rgba(10,8,6,.6);border:none;color:white;cursor:pointer;font-size:.95rem;display:flex;align-items:center;justify-content:center}
 .m-close:hover{background:rgba(10,8,6,.85)}
-.m-body{padding:22px 24px 32px}
-.m-cuisine{font-size:.66rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin-bottom:4px}
-.m-name{font-family:var(--serif);font-size:1.5rem;font-weight:700;margin-bottom:10px;color:var(--ink)}
-.m-sources{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap}
-.m-actions-top{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.btn-m-order{padding:10px 18px;background:linear-gradient(135deg,#1A6B36,#2E9E5B);color:white;border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.82rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+.m-body{padding:20px 22px 28px}
+.m-cuisine{font-size:.63rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin-bottom:3px}
+.m-name{font-family:var(--serif);font-size:1.4rem;font-weight:700;margin-bottom:9px;color:var(--ink)}
+.m-sources{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap}
+.m-actions-top{display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap}
+.btn-m-order{padding:9px 16px;background:linear-gradient(135deg,#1A6B36,#2E9E5B);color:white;border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.8rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
 .btn-m-order:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(46,158,91,.35)}
-.btn-m-dir{padding:10px 16px;background:var(--warm);border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-weight:600;font-size:.82rem;cursor:pointer;color:var(--slate);display:flex;align-items:center;gap:6px;transition:all .15s}
+.btn-m-dir{padding:9px 14px;background:var(--warm);border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-weight:600;font-size:.8rem;cursor:pointer;color:var(--slate);display:flex;align-items:center;gap:5px;transition:all .15s}
 .btn-m-dir:hover{background:var(--border)}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.info-box{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:11px 13px}
-.info-lbl{font-size:.63rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);margin-bottom:3px}
-.info-val{font-size:.84rem;font-weight:500;color:var(--ink);line-height:1.4}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.info-box{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:10px 12px}
+.info-lbl{font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);margin-bottom:2px}
+.info-val{font-size:.82rem;font-weight:500;color:var(--ink);line-height:1.4}
 .info-val a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--border)}
 .info-val a:hover{border-color:var(--ink)}
-.wait-box{background:linear-gradient(135deg,var(--warm),#EDE6D8);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:center;gap:14px;margin-bottom:6px}
-.wb-icon{font-size:1.6rem}
-.wb-lbl{font-size:.63rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);margin-bottom:3px}
-.wb-val{font-size:1rem;font-weight:700}
+.wait-box{background:linear-gradient(135deg,var(--warm),#EDE6D8);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:5px}
+.wb-icon{font-size:1.4rem}
+.wb-lbl{font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);margin-bottom:2px}
+.wb-val{font-size:.95rem;font-weight:700}
 .wb-green{color:#1A8C52}.wb-yellow{color:#A07820}.wb-red{color:var(--ember)}
-.wait-disc{font-size:.67rem;color:#A8A094;font-style:italic;margin-bottom:16px}
-.divider{height:1px;background:var(--border);margin:16px 0}
-.sec-head{font-weight:700;font-size:.92rem;margin-bottom:12px;color:var(--ink)}
-.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}
-.t-btn{padding:9px 4px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.76rem;font-weight:700;cursor:pointer;background:white;text-align:center;transition:all .15s;color:var(--slate)}
+.wait-disc{font-size:.64rem;color:#B8AFA0;font-style:italic;margin-bottom:14px;padding-left:2px}
+.divider{height:1px;background:var(--border);margin:14px 0}
+.sec-head{font-weight:700;font-size:.88rem;margin-bottom:10px;color:var(--ink)}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.t-btn{padding:8px 4px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.73rem;font-weight:700;cursor:pointer;background:white;text-align:center;transition:all .15s;color:var(--slate)}
 .t-btn:hover,.t-btn.sel{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .t-btn.full{background:var(--warm);color:#C4B9A8;cursor:not-allowed;text-decoration:line-through}
-.party-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.party-lbl{font-size:.84rem;font-weight:600;color:var(--slate)}
-.p-ctrl{display:flex;align-items:center;gap:8px}
-.p-btn{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);background:white;cursor:pointer;font-size:1.1rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .15s;color:var(--ink)}
+.party-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.party-lbl{font-size:.82rem;font-weight:600;color:var(--slate)}
+.p-ctrl{display:flex;align-items:center;gap:7px}
+.p-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:white;cursor:pointer;font-size:1rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .15s;color:var(--ink)}
 .p-btn:hover{background:var(--warm)}
-.p-num{font-size:1.1rem;font-weight:700;min-width:28px;text-align:center}
-.field-lbl{display:block;font-size:.74rem;font-weight:700;color:var(--slate);margin-bottom:4px;letter-spacing:.3px;text-transform:uppercase}
-.field-in{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.9rem;margin-bottom:12px;outline:none;transition:border-color .15s;color:var(--ink)}
+.p-num{font-size:1rem;font-weight:700;min-width:26px;text-align:center}
+.field-lbl{display:block;font-size:.7rem;font-weight:700;color:var(--slate);margin-bottom:3px;letter-spacing:.3px;text-transform:uppercase}
+.field-in{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.88rem;margin-bottom:10px;outline:none;transition:border-color .15s;color:var(--ink)}
 .field-in:focus{border-color:var(--ink)}
-.btn-confirm{width:100%;padding:14px;background:var(--ink);color:var(--paper);border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.92rem;cursor:pointer;transition:all .15s;margin-top:4px}
+.btn-confirm{width:100%;padding:13px;background:var(--ink);color:var(--paper);border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.9rem;cursor:pointer;transition:all .15s;margin-top:2px}
 .btn-confirm:hover{background:#2A1E10}
-.yelp-rev{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:8px;background:var(--warm)}
-.yr-stars{color:var(--gold-d);font-size:.8rem;margin-bottom:4px}
-.yr-text{font-size:.8rem;font-family:var(--serif);font-style:italic;line-height:1.55}
-.yr-author{font-size:.7rem;color:var(--slate);margin-top:5px;font-weight:600}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--paper);padding:12px 24px;border-radius:5px;font-size:.84rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap;box-shadow:0 8px 28px rgba(10,8,6,.3)}
+.yelp-rev{border:1px solid var(--border);border-radius:6px;padding:11px 13px;margin-bottom:7px;background:var(--warm)}
+.yr-stars{color:var(--gold-d);font-size:.78rem;margin-bottom:4px}
+.yr-text{font-size:.78rem;font-family:var(--serif);font-style:italic;line-height:1.5}
+.yr-author{font-size:.68rem;color:var(--slate);margin-top:4px;font-weight:600}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--paper);padding:11px 22px;border-radius:5px;font-size:.82rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap;box-shadow:0 8px 28px rgba(10,8,6,.3)}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-@media(max-width:768px){
-  .header-inner{padding:0 16px}
-  .search-row-1,.search-row-2{flex-wrap:wrap}
-  .s-box,.l-box{min-width:0;flex:0 0 100%}
+
+/* MOBILE */
+@media(max-width:640px){
+  .header-inner{padding:0 14px}
+  .btn-biz-hdr{display:none}
+  .search-row-1{flex-wrap:wrap}
+  .search-row-2{flex-wrap:wrap}
+  .s-box{flex:0 0 100%}
   .cuisine-wrap{flex:0 0 100%}
   .cuisine-sel{width:100%}
-  .btn-find,.ai-btn{flex:1}
+  .l-box{flex:0 0 100%}
+  .btn-find{flex:1}
+  .ai-btn{flex:1}
   .restaurants-grid{grid-template-columns:1fr}
   .time-grid{grid-template-columns:repeat(3,1fr)}
   .info-grid{grid-template-columns:1fr}
-  .audience-split{max-width:100%}
+  .audience-split{grid-template-columns:1fr;max-width:100%}
   .m-actions-top{flex-direction:column}
   .pro-banner-left{flex-direction:column;align-items:flex-start;gap:8px}
-  .pro-benefits{display:none}
+  .pro-benefits-row{display:none}
   .ai-panel{max-width:100%}
+  .pro-tooltip{right:-60px;width:240px}
+  .ai-tooltip{right:-40px;width:220px}
 }
 </style>
 </head>
@@ -283,7 +314,19 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
     <a class="logo" href="/"><span class="logo-dot"></span>GetATableSpot</a>
     <div class="header-links">
       <button class="btn-hdr btn-find-hdr" onclick="scrollToSearch()">Find a Table</button>
-      <button class="btn-hdr btn-pro-hdr" onclick="window.location.href='pro-subscription.html'">👑 Go Pro $2.99</button>
+      <div class="pro-hdr-wrap">
+        <button class="btn-pro-hdr" onclick="window.location.href='pro-subscription.html'">👑 Go Pro $2.99</button>
+        <div class="pro-tooltip">
+          <div class="pt-title">GetATableSpot Pro</div>
+          <div class="pt-price">$2.99/month · 7 days free · Cancel anytime</div>
+          <div class="pt-benefit"><span class="pt-icon">⚡</span><div class="pt-text"><strong>Real-Time Wait Alerts</strong>Get notified the moment your favorite restaurant drops below your wait threshold.</div></div>
+          <div class="pt-benefit"><span class="pt-icon">🚀</span><div class="pt-text"><strong>Priority Reservations</strong>Access slots before they open to the public. Always get the table you want.</div></div>
+          <div class="pt-benefit"><span class="pt-icon">🤖</span><div class="pt-text"><strong>AI Dining Concierge</strong>Tell it your mood, budget, occasion. Perfect table in seconds.</div></div>
+          <div class="pt-benefit"><span class="pt-icon">⭐</span><div class="pt-text"><strong>Michelin Radar</strong>Alerts when top restaurants have unexpected openings.</div></div>
+          <div class="pt-benefit"><span class="pt-icon">🎁</span><div class="pt-text"><strong>Exclusive Chef Deals</strong>Special offers from partner restaurants — Pro diners only.</div></div>
+          <a class="pt-cta" href="pro-subscription.html">Start Free 7 Days →</a>
+        </div>
+      </div>
       <button class="btn-hdr btn-biz-hdr" onclick="window.location.href='claim-restaurant.html'">For Restaurants</button>
     </div>
   </div>
@@ -293,7 +336,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
   <div class="hero-eyebrow">Powered by real restaurant data</div>
   <h1>Skip the Wait.<br><em>Know Before You Go.</em></h1>
   <p class="hero-sub">Find a table fast. Check live wait times before you leave the house. Browse real restaurants in any city.</p>
-  <p class="hero-disclaimer">⏱ Wait times are estimated · Updated by restaurants · Powered by Google</p>
+  <div class="hero-disclaimer">⏱ Wait times are estimated · Updated by restaurants · Powered by Google</div>
   <div class="audience-split">
     <button class="ac ac-diner" onclick="scrollToSearch()">
       <div class="ac-tag">For Diners</div>
@@ -311,9 +354,9 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
   <div class="proof-band">
     <div class="proof-inner">
       <span class="proof-item"><span class="proof-dot"></span>Restaurants added daily</span>
-      <span class="proof-item"><span class="proof-dot"></span>Serving diners across 50+ cities</span>
-      <span class="proof-item"><span class="proof-dot"></span>Powered by real restaurant data</span>
-      <span class="proof-item"><span class="proof-dot"></span>No per-reservation fees</span>
+      <span class="proof-item"><span class="proof-dot"></span>50+ cities</span>
+      <span class="proof-item"><span class="proof-dot"></span>Real restaurant data</span>
+      <span class="proof-item"><span class="proof-dot"></span>No reservation fees</span>
       <span class="proof-item"><span class="proof-dot"></span>Order pickup online</span>
     </div>
   </div>
@@ -324,15 +367,16 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
   <button class="btn-dismiss" onclick="document.getElementById('proBanner').style.display='none'">✕</button>
   <div class="pro-banner-inner">
     <div class="pro-banner-left">
-      <div class="pro-crown">👑</div>
+      <div style="font-size:1.3rem">👑</div>
       <div>
         <div class="pro-banner-title">GetATableSpot Pro — Your personal dining concierge</div>
         <div class="pro-banner-desc">Less than your morning coffee · $2.99/month · 7 days free</div>
       </div>
-      <div class="pro-benefits">
-        <div class="pro-benefit">⚡ Real-time wait alerts</div>
-        <div class="pro-benefit">🚀 Priority reservations</div>
-        <div class="pro-benefit">🤖 AI dining concierge</div>
+      <div class="pro-benefits-row">
+        <div class="pro-ben">⚡ Real-time wait alerts</div>
+        <div class="pro-ben">🚀 Priority reservations</div>
+        <div class="pro-ben">🤖 AI dining concierge</div>
+        <div class="pro-ben">⭐ Michelin radar</div>
       </div>
     </div>
     <button class="btn-pro-banner" onclick="window.location.href='pro-subscription.html'">Try Free 7 Days →</button>
@@ -342,7 +386,6 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 <!-- SEARCH -->
 <div class="search-section" id="searchSection">
   <div class="search-inner">
-    <!-- Row 1: Restaurant name + Cuisine -->
     <div class="search-row-1">
       <div class="s-box">
         <span class="s-icon">🍽️</span>
@@ -356,6 +399,8 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
           <option value="mexican">🌮 Mexican</option>
           <option value="american">🍔 American</option>
           <option value="bargrill">🍺 Bar & Grill</option>
+          <option value="barlounge">🍸 Bar & Lounge</option>
+          <option value="cigarbars">🍷 Cigar Lounge</option>
           <option value="chinese">🥡 Chinese</option>
           <option value="indian">🍛 Indian</option>
           <option value="french">🥐 French</option>
@@ -368,14 +413,23 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
         <span class="cuisine-arrow">▼</span>
       </div>
     </div>
-    <!-- Row 2: Location + Find + AI -->
     <div class="search-row-2">
       <div class="l-box">
         <button class="btn-gps" onclick="geolocate()" title="Use my location">📍</button>
-        <input id="locationInput" type="text" placeholder="City, state or zip code…" onkeydown="if(event.key==='Enter')doSearch()">
+        <input id="locationInput" type="text" placeholder="City, state or zip code…" onkeydown="if(event.key==='Enter')doSearch()" oninput="onLocationInput()">
       </div>
       <button class="btn-find" onclick="doSearch()">Find Restaurants</button>
-      <button class="ai-btn" onclick="openAI()">🤖 Ask AI</button>
+      <div class="ai-btn-wrap">
+        <button class="ai-btn" onclick="openAI()">🤖 Ask AI</button>
+        <div class="ai-tooltip">
+          <div class="att-title">🤖 AI Dining Concierge</div>
+          <div class="att-item"><span class="att-icon">💬</span>Tell it your mood, occasion, or budget and it finds the perfect restaurant</div>
+          <div class="att-item"><span class="att-icon">⚡</span>Ask for lowest wait times right now</div>
+          <div class="att-item"><span class="att-icon">👥</span>Find spots for groups, dates, or families</div>
+          <div class="att-item"><span class="att-icon">🍽️</span>Knows all restaurants currently loaded near you</div>
+          <div class="att-item"><span class="att-icon">🌿</span>Filter by outdoor seating, price, cuisine and more</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -399,7 +453,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
         </select>
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:10px">
+    <div style="display:flex;align-items:center;gap:8px">
       <span class="result-meta" id="resultMeta">Loading…</span>
       <select class="sort-sel" onchange="sortBy(this.value)">
         <option value="rating">Top Rated</option>
@@ -429,12 +483,13 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
     <button class="ai-close" onclick="closeAI()">✕</button>
   </div>
   <div class="ai-messages" id="aiMessages"></div>
-  <div class="ai-suggestions" id="aiSuggestions">
+  <div class="ai-sugs" id="aiSugs">
     <button class="ai-sug" onclick="sendSug(this.textContent)">Anniversary dinner for 2 🥂</button>
     <button class="ai-sug" onclick="sendSug(this.textContent)">Best sushi open now 🍣</button>
     <button class="ai-sug" onclick="sendSug(this.textContent)">Group of 8, budget friendly 👥</button>
     <button class="ai-sug" onclick="sendSug(this.textContent)">Lowest wait right now ⚡</button>
     <button class="ai-sug" onclick="sendSug(this.textContent)">Outdoor seating tonight 🌿</button>
+    <button class="ai-sug" onclick="sendSug(this.textContent)">Bar with live music 🎵</button>
   </div>
   <div class="ai-input-row">
     <input class="ai-input" id="aiInput" type="text" placeholder="What are you looking for tonight?" onkeydown="if(event.key==='Enter')sendAI()">
@@ -458,8 +513,8 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
       <div class="info-grid" id="mInfoGrid"></div>
       <div class="wait-box" id="mWaitBox"></div>
       <p class="wait-disc">⏱ Wait times are estimated and updated by restaurants. Actual times may vary.</p>
-      <div id="yelpBox" style="display:none;margin-bottom:14px">
-        <div style="font-size:.68rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Yelp Reviews</div>
+      <div id="yelpBox" style="display:none;margin-bottom:12px">
+        <div style="font-size:.65rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px">Yelp Reviews</div>
         <div id="yelpList"></div>
       </div>
       <div class="divider"></div>
@@ -471,7 +526,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
           <button class="p-btn" onclick="adj(-1)">−</button>
           <div class="p-num" id="pNum">2</div>
           <button class="p-btn" onclick="adj(1)">+</button>
-          <span style="font-size:.78rem;color:var(--slate);margin-left:4px">guests</span>
+          <span style="font-size:.75rem;color:var(--slate);margin-left:4px">guests</span>
         </div>
       </div>
       <label class="field-lbl">Your Name</label>
@@ -493,7 +548,7 @@ const GKEY='AIzaSyB_JOErDDkAiF9PurZXwEQSHGhe_X1-m5I';
 let restaurants=[],savedIds=new Set(),activeFilters=new Set();
 let currentCuisine='all',currentSort='rating';
 let partySize=2,selectedTime=null,currentR=null;
-let currentLat=null,currentLng=null;
+let currentLat=null,currentLng=null,ipLat=null,ipLng=null;
 let aiHistory=[];
 
 const SRCS={yelp:{label:'Yelp',cls:'rs-yelp'},google:{label:'Google',cls:'rs-google'},opentable:{label:'OpenTable',cls:'rs-opentable'},resy:{label:'Resy',cls:'rs-resy'}};
@@ -503,6 +558,7 @@ async function detectIP(){
     const r=await fetch('https://ipapi.co/json/');
     const d=await r.json();
     if(d.latitude&&d.longitude){
+      ipLat=d.latitude;ipLng=d.longitude;
       currentLat=d.latitude;currentLng=d.longitude;
       const city=d.city&&d.region?`${d.city}, ${d.region}`:'your area';
       document.getElementById('locationInput').placeholder=`${city} (auto-detected)`;
@@ -510,6 +566,14 @@ async function detectIP(){
     }
   }catch{}
   return null;
+}
+
+function onLocationInput(){
+  const val=document.getElementById('locationInput').value.trim();
+  if(!val&&ipLat&&ipLng){
+    currentLat=ipLat;currentLng=ipLng;
+    load(currentLat,currentLng,currentCuisine);
+  }
 }
 
 async function geocode(q){
@@ -555,7 +619,7 @@ function getSorted(list){
     if(currentSort==='rating')return(b.rating||0)-(a.rating||0);
     if(currentSort==='wait')return(a.waitMins??999)-(b.waitMins??999);
     if(currentSort==='reviews')return(b.reviews||b.reviewCount||0)-(a.reviews||a.reviewCount||0);
-    if(currentSort==='distance')return parseFloat(a.distance||0)-parseFloat(b.distance||0);
+    if(currentSort==='distance')return parseFloat(a.distance||'0')- parseFloat(b.distance||'0');
     return 0;
   });
 }
@@ -570,11 +634,12 @@ function cardHTML(r,i=0){
   const tags=(r.tags||[]).slice(0,3).map(t=>`<span class="r-tag">${t}</span>`).join('');
   const saved=savedIds.has(r.id);
   const wbc=wbClass(r.waitLevel);
+  const ws=r.website?`'${r.website}'`:'null';
   const bookBtn=r.reservable
     ?`<button class="btn-reserve${r.isFeatured?' gold':''}" onclick="event.stopPropagation();openModal('${r.id}')">📅 Reserve</button>`
     :`<button class="btn-reserve" style="background:var(--warm);color:var(--slate);border:1.5px solid var(--border)" onclick="event.stopPropagation();openModal('${r.id}')">View Details</button>`;
   const orderBtn=r.website?`<button class="btn-order" onclick="event.stopPropagation();window.open('${r.website}','_blank')">🛍️ Order</button>`:'';
-  return`<div class="r-card${r.isFeatured?' featured':''}" onclick="openModal('${r.id}')" style="animation-delay:${i*35}ms">
+  return`<div class="r-card${r.isFeatured?' featured':''}" onclick="openModal('${r.id}')" style="animation-delay:${i*30}ms">
     <div class="r-img" style="background:${r.bg||'linear-gradient(135deg,#1A1008,#333)'}">
       ${r.photoUrl?`<img src="${r.photoUrl.trim()}" alt="${r.name}" onerror="this.style.display='none'">`:''}
       <span class="r-emoji">${r.emoji||'🍽️'}</span>
@@ -592,6 +657,7 @@ function cardHTML(r,i=0){
         <span class="r-price">${r.price||'$$'}</span>
         <span class="r-dist">📍 ${r.distance||'nearby'}</span>
         ${r.michelin?'<span class="michelin-badge">⭐ Michelin</span>':''}
+        ${r.outdoor?'<span class="r-tag">🌿 Outdoor</span>':''}
       </div>
       <div class="r-tags">${tags}</div>
       <div class="r-wait-note">⏱ Estimated wait · Updated by restaurants</div>
@@ -603,17 +669,27 @@ function cardHTML(r,i=0){
   </div>`;
 }
 
-function renderRestaurants(){
-  const filtered=getSorted(getFiltered());
+function renderRestaurants(showLowWait=false){
+  let list=getSorted(getFiltered());
+  if(showLowWait){list=list.filter(r=>r.isOpen&&['low','none'].includes(r.waitLevel));}
   const sel=document.getElementById('cuisineSelect');
-  const cname=sel.options[sel.selectedIndex]?.text||'Restaurants';
-  document.getElementById('resultMeta').innerHTML=`<strong>${filtered.length}</strong> ${cname}`;
-  if(!filtered.length){
-    document.getElementById('gridContainer').innerHTML=`<div class="empty"><div class="empty-icon">🍽️</div><div class="empty-title">No results found</div><p style="color:var(--slate);font-size:.88rem">Try a different cuisine, location, or filter.</p></div>`;
+  const cname=showLowWait?'Low Wait Restaurants':sel.options[sel.selectedIndex]?.text||'Restaurants';
+  document.getElementById('resultMeta').innerHTML=`<strong>${list.length}</strong> ${cname}`;
+  if(!list.length){
+    const msg=showLowWait?'No low-wait restaurants right now. Check back soon!':'Try a different cuisine, location, or filter.';
+    document.getElementById('gridContainer').innerHTML=`<div class="empty"><div class="empty-icon">🍽️</div><div class="empty-title">No results found</div><p style="color:var(--slate);font-size:.85rem">${msg}</p></div>`;
     return;
   }
-  document.getElementById('gridContainer').innerHTML=`<div class="restaurants-grid">${filtered.map((r,i)=>cardHTML(r,i)).join('')}</div>`;
+  document.getElementById('gridContainer').innerHTML=`<div class="restaurants-grid">${list.map((r,i)=>cardHTML(r,i)).join('')}</div>`;
 }
+
+// Wire up "Find a Table Fast" hero button to show low-wait restaurants
+document.querySelector('.ac-diner').onclick=function(){
+  scrollToSearch();
+  setTimeout(()=>{
+    if(restaurants.length>0){renderRestaurants(true);}
+  },400);
+};
 
 async function openModal(id){
   currentR=restaurants.find(r=>r.id===id);
@@ -655,10 +731,10 @@ async function openModal(id){
     if(sd.slots?.length){slots=sd.slots.map(s=>s.time);fullSlots=sd.slots.reduce((a,s,i)=>{if(!s.available)a.push(i);return a;},[]);}
   }catch{}
   if(currentR.reservable&&slots.length){
-    document.getElementById('timeGrid').innerHTML=slots.map((t,i)=>{const full=fullSlots.includes(i);return`<button class="t-btn${full?' full':''}" data-time="${t}" onclick="${full?'':'selectTime(this)'}">${t}${full?'<br><small style="font-size:.6rem">Full</small>':''}</button>`;}).join('');
+    document.getElementById('timeGrid').innerHTML=slots.map((t,i)=>{const full=fullSlots.includes(i);return`<button class="t-btn${full?' full':''}" data-time="${t}" onclick="${full?'':'selectTime(this)'}">${t}${full?'<br><small style="font-size:.58rem">Full</small>':''}</button>`;}).join('');
     document.getElementById('btnConfirm').style.display='block';
   }else{
-    document.getElementById('timeGrid').innerHTML='<div style="color:var(--slate);font-size:.83rem;grid-column:1/-1;padding:6px 0">Walk-in only — no reservation needed.</div>';
+    document.getElementById('timeGrid').innerHTML='<div style="color:var(--slate);font-size:.8rem;grid-column:1/-1;padding:4px 0">Walk-in only — no reservation needed.</div>';
     document.getElementById('btnConfirm').style.display='none';
   }
   document.getElementById('overlay').classList.add('open');
@@ -676,9 +752,29 @@ async function confirmRes(){
   if(!selectedTime){showToast('Please select a time');return;}
   document.getElementById('btnConfirm').textContent='Confirming…';
   document.getElementById('btnConfirm').disabled=true;
-  try{await fetch(`${API}/reservations`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({venueId:currentR.id,time:selectedTime,partySize,guestName:name,guestEmail:email}),signal:AbortSignal.timeout(5000)});}catch{}
+  try{
+    await fetch(`${API}/reservations`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        venueId:currentR.id,
+        time:selectedTime,
+        partySize,
+        guestName:name,
+        guestEmail:email,
+        notes:document.getElementById('gNote').value,
+        restaurantName:currentR.name,
+        restaurantPhone:currentR.phone||''
+      }),
+      signal:AbortSignal.timeout(5000)
+    });
+  }catch{}
   closeModal();
-  setTimeout(()=>{showToast(`✓ Confirmed at ${currentR.name} — ${selectedTime} for ${partySize}`);document.getElementById('btnConfirm').textContent='Confirm Reservation';document.getElementById('btnConfirm').disabled=false;},200);
+  setTimeout(()=>{
+    showToast(`✓ Confirmed at ${currentR.name} — ${selectedTime} for ${partySize}. Check your email!`);
+    document.getElementById('btnConfirm').textContent='Confirm Reservation';
+    document.getElementById('btnConfirm').disabled=false;
+  },200);
 }
 
 function toggleSave(id,btn){
@@ -701,20 +797,14 @@ async function doSearch(){
   const nameQ=document.getElementById('nameInput').value.trim();
   const locQ=document.getElementById('locationInput').value.trim();
   currentCuisine=document.getElementById('cuisineSelect').value;
-
   let lat=currentLat,lng=currentLng,locLabel='';
-
-  // Resolve location if provided
   if(locQ){
     showToast('Searching…');
     const loc=await geocode(locQ);
     if(loc){lat=loc.lat;lng=loc.lng;currentLat=lat;currentLng=lng;locLabel=loc.label.split(',')[0];}
     else{showToast('Location not found. Try city, state or zip.');return;}
   }
-
   if(!lat||!lng){showToast('Please enter a city, state or zip code');document.getElementById('locationInput').focus();return;}
-
-  // Name search — uses Google text search
   if(nameQ){
     showToast(`Searching for "${nameQ}"…`);
     try{
@@ -723,24 +813,17 @@ async function doSearch(){
       const d=await r.json();
       if(d.results?.length){
         restaurants=d.results.slice(0,20).map(p=>({
-          id:p.place_id,
-          name:p.name,
+          id:p.place_id,name:p.name,
           address:p.formatted_address||p.vicinity||'',
           cuisine:(p.types?.[0]||'restaurant').replace(/_/g,' '),
-          rating:p.rating||0,
-          reviews:p.user_ratings_total||0,
-          reviewCount:p.user_ratings_total||0,
+          rating:p.rating||0,reviews:p.user_ratings_total||0,reviewCount:p.user_ratings_total||0,
           price:['$','$$','$$$','$$$$'][p.price_level]||'$$',
           isOpen:p.opening_hours?.open_now??true,
-          hours:[],phone:'',
-          website:'',
+          hours:[],phone:'',website:'',
           photoUrl:p.photos?.[0]?`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${p.photos[0].photo_reference}&key=${GKEY}`:'',
-          types:p.types||[],
-          outdoor:false,reservable:false,
-          waitMins:0,waitLevel:'low',
-          sources:['google'],
-          isFeatured:false,michelin:false,
-          distance:'nearby',emoji:'🍽️',
+          types:p.types||[],outdoor:false,reservable:false,
+          waitMins:0,waitLevel:'low',sources:['google'],
+          isFeatured:false,michelin:false,distance:'nearby',emoji:'🍽️',
           bg:'linear-gradient(135deg,#1A1008,#333)',tags:[],
         }));
         renderRestaurants();
@@ -749,8 +832,6 @@ async function doSearch(){
     }catch{showToast('Search error. Please try again.');}
     return;
   }
-
-  // Cuisine + location search
   await load(lat,lng,currentCuisine);
   const sel=document.getElementById('cuisineSelect');
   const cname=sel.options[sel.selectedIndex]?.text||'Restaurants';
@@ -761,7 +842,7 @@ function geolocate(){
   if(!navigator.geolocation){showToast('Location not available');return;}
   showToast('📍 Finding your location…');
   navigator.geolocation.getCurrentPosition(
-    p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;currentCuisine=document.getElementById('cuisineSelect').value;load(currentLat,currentLng,currentCuisine);showToast('Showing restaurants near you');},
+    p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;ipLat=currentLat;ipLng=currentLng;currentCuisine=document.getElementById('cuisineSelect').value;load(currentLat,currentLng,currentCuisine);showToast('Showing restaurants near you');},
     ()=>showToast('Could not get location. Try entering your city.')
   );
 }
@@ -773,11 +854,10 @@ function sortBy(v){currentSort=v;renderRestaurants();}
 function openAI(){
   document.getElementById('aiPanel').classList.add('open');
   if(aiHistory.length===0){
-    addBot(`Hi! 👋 I'm your AI dining concierge.\n\nI know the restaurants currently loaded near you — including their live wait times, ratings, and cuisines. Tell me what you're looking for and I'll find the perfect table.`);
+    addBot(`Hi! 👋 I'm your AI dining concierge.\n\nI know the restaurants currently loaded near you — including live wait times, ratings, and cuisines. What are you looking for tonight?`);
   }
   setTimeout(()=>document.getElementById('aiInput').focus(),200);
 }
-
 function closeAI(){document.getElementById('aiPanel').classList.remove('open');}
 
 function addBot(text,cards=[]){
@@ -792,18 +872,15 @@ function addBot(text,cards=[]){
     c.onclick=()=>{closeAI();openModal(r.id);};
     div.appendChild(c);
   });
-  msgs.appendChild(div);
-  msgs.scrollTop=msgs.scrollHeight;
+  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
   aiHistory.push({role:'assistant',content:text});
 }
 
 function addUser(text){
   const msgs=document.getElementById('aiMessages');
   const div=document.createElement('div');
-  div.className='ai-msg user';
-  div.textContent=text;
-  msgs.appendChild(div);
-  msgs.scrollTop=msgs.scrollHeight;
+  div.className='ai-msg user';div.textContent=text;
+  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
   aiHistory.push({role:'user',content:text});
 }
 
@@ -814,7 +891,6 @@ function addLoading(){
   div.innerHTML='<div class="ai-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>';
   msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
 }
-
 function removeLoading(){const el=document.getElementById('aiLoad');if(el)el.remove();}
 
 async function sendAI(){
@@ -822,47 +898,47 @@ async function sendAI(){
   const text=input.value.trim();
   if(!text)return;
   input.value='';
-  document.getElementById('aiSuggestions').style.display='none';
-  addUser(text);
-  addLoading();
+  document.getElementById('aiSugs').style.display='none';
+  addUser(text);addLoading();
 
-  const ctx=restaurants.slice(0,25).map(r=>`- ${r.name} | cuisine: ${r.cuisine} | rating: ${r.rating} | price: ${r.price||'$$'} | ${r.isOpen?'OPEN':'CLOSED'} | wait: ${r.waitMins>0?r.waitMins+'min':'none'} | reservable: ${r.reservable} | outdoor: ${r.outdoor} | id: ${r.id}`).join('\n');
+  const ctx=restaurants.slice(0,25).map(r=>`- ${r.name} | cuisine: ${(r.cuisine||'').replace(/_/g,' ')} | rating: ${r.rating} | price: ${r.price||'$$'} | ${r.isOpen?'OPEN':'CLOSED'} | wait: ${r.waitMins>0?r.waitMins+'min':'none'} | reservable: ${r.reservable} | outdoor: ${r.outdoor} | distance: ${r.distance} | id: ${r.id}`).join('\n');
 
-  const system=`You are a warm, helpful AI dining concierge for GetATableSpot. You help diners find the perfect restaurant from those currently loaded nearby.
+  const system=`You are a warm, helpful AI dining concierge for GetATableSpot. You help diners find the perfect restaurant.
 
-RESTAURANTS AVAILABLE RIGHT NOW:
-${ctx||'No restaurants loaded yet — ask the user to search a location first.'}
+RESTAURANTS AVAILABLE RIGHT NOW NEAR THE USER:
+${ctx||'No restaurants loaded yet. Ask the user to search for their city first.'}
 
 INSTRUCTIONS:
 - Recommend 2-3 restaurants that best match the request
-- Explain briefly why each one fits
-- Be conversational and warm, not robotic
-- Always pick from the list above — never invent restaurants
-- If nothing matches, say so honestly
-- Keep responses concise`;
+- Explain briefly and warmly why each one fits
+- Be conversational — not robotic or listy
+- Always pick from the list above only — never invent restaurants
+- If nothing matches well, say so honestly and suggest adjusting filters
+- Keep it concise — 3-4 sentences max before recommendations`;
 
   try{
     const resp=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514',
-        max_tokens:800,
+        max_tokens:600,
         system,
         messages:[...aiHistory.filter(m=>m.role==='user').slice(-4),{role:'user',content:text}]
       })
     });
     const data=await resp.json();
     removeLoading();
-    const reply=data.content?.[0]?.text||"I couldn't find a great match. Try searching a location first!";
+    const reply=data.content?.[0]?.text||"I couldn't find a great match. Try searching your city first!";
     const cards=restaurants.filter(r=>reply.includes(r.name)).slice(0,3).map(r=>({
       ...r,
       reason:(()=>{const i=reply.indexOf(r.name);if(i===-1)return'';const after=reply.substring(i+r.name.length,i+r.name.length+120);return after.replace(/^[:\-–—\s]+/,'').split(/[.!?\n]/)[0];})()
     }));
     addBot(reply,cards);
-  }catch{
+  }catch(e){
     removeLoading();
-    addBot("I'm having trouble right now. Try again in a moment!");
+    addBot("I'm having trouble connecting right now. Please try again in a moment!");
+    console.error('AI error:',e);
   }
 }
 
@@ -871,16 +947,15 @@ function sendSug(text){document.getElementById('aiInput').value=text;sendAI();}
 let _tt;
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3200);}
 
-// INIT
 (async()=>{
   showSkeletons();
   const ip=await detectIP();
   if(ip){load(ip.lat,ip.lng,'all');}
   else{
     navigator.geolocation?.getCurrentPosition(
-      p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;load(currentLat,currentLng,'all');},
+      p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;ipLat=currentLat;ipLng=currentLng;load(currentLat,currentLng,'all');},
       ()=>{
-        document.getElementById('gridContainer').innerHTML='<div class="empty"><div class="empty-icon">📍</div><div class="empty-title">Where are you dining?</div><p style="color:var(--slate);font-size:.88rem">Enter your city, state or zip code above to find restaurants near you.</p></div>';
+        document.getElementById('gridContainer').innerHTML='<div class="empty"><div class="empty-icon">📍</div><div class="empty-title">Where are you dining?</div><p style="color:var(--slate);font-size:.85rem">Enter your city, state or zip code above to find restaurants near you.</p></div>';
         document.getElementById('resultMeta').textContent='Enter a location to get started';
       }
     );
