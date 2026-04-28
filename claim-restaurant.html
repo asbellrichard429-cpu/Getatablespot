@@ -3,131 +3,218 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GetATableSpot — Fill Your Tables Faster</title>
+<title>GetATableSpot for Restaurants — Fill Your Tables. Keep Your Money.</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#0F0D0A;--paper:#FAF8F4;--warm:#F5F0E8;--gold:#C9A84C;
-  --gold-l:#E8D5A3;--gold-d:#8B6914;--sage:#4A7C59;
-  --ember:#E85D3A;--border:#E2DDD5;--slate:#6B7A8D;
-  --serif:'Playfair Display',serif;--sans:'DM Sans',sans-serif;
+  --ink:#0A0806;--paper:#FAF8F4;--warm:#F5F0E8;
+  --gold:#E8B84B;--gold-l:#F5D98A;--gold-d:#A07820;
+  --ember:#FF5533;--sage:#2E9E5B;--slate:#5A6A82;
+  --border:#E0D8CC;--border-d:#C4B9A8;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink)}
-header{background:var(--ink);padding:16px 32px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:var(--serif);font-size:1.3rem;font-weight:900;color:white;display:flex;align-items:center;gap:8px;text-decoration:none}
+header{background:var(--ink);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--serif);font-size:1.35rem;font-weight:900;color:var(--paper);display:flex;align-items:center;gap:8px;text-decoration:none}
 .logo-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
-.btn-back{padding:7px 16px;border:1px solid rgba(255,255,255,.2);border-radius:4px;background:none;font-family:var(--sans);font-size:.82rem;cursor:pointer;color:rgba(255,255,255,.7);transition:all .15s}
-.btn-back:hover{border-color:rgba(255,255,255,.5);color:white}
-.hero{background:var(--ink);padding:64px 24px 0;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(201,168,76,.1),transparent)}
-.urgency-tag{display:inline-block;background:rgba(232,93,58,.15);border:1px solid rgba(232,93,58,.3);color:#F0896A;font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:2px;margin-bottom:16px}
-.hero h1{font-family:var(--serif);font-size:clamp(1.8rem,4.5vw,3.2rem);font-weight:900;color:white;line-height:1.1;margin-bottom:12px}
+.btn-back{padding:7px 16px;border:1px solid rgba(255,255,255,.18);border-radius:4px;background:none;font-family:var(--sans);font-size:.8rem;cursor:pointer;color:rgba(255,255,255,.65);transition:all .15s}
+.btn-back:hover{border-color:rgba(255,255,255,.45);color:white}
+
+/* URGENCY BAR */
+.urgency-bar{background:linear-gradient(135deg,var(--ember),#C0392B);padding:10px 24px;text-align:center}
+.urgency-bar p{font-size:.78rem;font-weight:700;color:white;letter-spacing:.3px}
+.urgency-bar span{opacity:.8;font-weight:400}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#0A0806 0%,#1A1008 60%,#0A0806 100%);padding:64px 24px 0;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(232,184,75,.12),transparent)}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.2);color:var(--gold-l);font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-family:var(--serif);font-size:clamp(1.9rem,5vw,3.6rem);font-weight:900;color:white;line-height:1.08;margin-bottom:14px}
 .hero h1 em{font-style:italic;color:var(--gold)}
-.hero-sub{color:rgba(255,255,255,.55);font-size:.95rem;max-width:520px;margin:0 auto 32px;line-height:1.6}
-.roi-strip{background:rgba(201,168,76,.08);border-top:1px solid rgba(201,168,76,.15);border-bottom:1px solid rgba(201,168,76,.15);padding:20px 24px}
-.roi-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center}
-@media(max-width:600px){.roi-inner{grid-template-columns:1fr;gap:12px}}
-.roi-num{font-family:var(--serif);font-size:1.8rem;font-weight:900;color:var(--gold-l);margin-bottom:4px}
-.roi-label{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.4}
-.diff-section{background:var(--ink);padding:40px 24px 56px}
-.diff-inner{max-width:860px;margin:0 auto}
-.diff-title{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:white;text-align:center;margin-bottom:8px}
-.diff-sub{color:rgba(255,255,255,.45);font-size:.85rem;text-align:center;margin-bottom:28px}
-.diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:600px){.diff-grid{grid-template-columns:1fr}}
-.diff-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:20px}
-.diff-icon{font-size:1.5rem;margin-bottom:10px}
-.diff-name{font-size:.82rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.diff-them{font-size:.78rem;color:rgba(255,255,255,.3);line-height:1.4;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.06)}
-.diff-us{font-size:.78rem;color:var(--gold-l);line-height:1.4;font-weight:500}
-.main{max-width:860px;margin:0 auto;padding:48px 24px}
-.value-props{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:48px}
-@media(max-width:600px){.value-props{grid-template-columns:1fr}}
-.vp{background:white;border:1px solid var(--border);border-radius:8px;padding:20px;display:flex;gap:14px}
-.vp-icon{font-size:1.6rem;flex-shrink:0}
-.vp-title{font-weight:700;font-size:.9rem;margin-bottom:4px}
-.vp-desc{font-size:.8rem;color:var(--slate);line-height:1.5}
-.vp-outcome{font-size:.75rem;color:var(--sage);font-weight:600;margin-top:6px}
-.form-wrap{background:white;border:1px solid var(--border);border-radius:12px;padding:36px;margin-bottom:40px;position:relative;overflow:hidden}
-.form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--ember))}
-.form-title{font-family:var(--serif);font-size:1.4rem;font-weight:700;margin-bottom:4px}
-.form-sub{font-size:.84rem;color:var(--slate);margin-bottom:28px;line-height:1.5}
-.step-indicator{display:flex;align-items:center;gap:8px;margin-bottom:24px}
-.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
+.hero-sub{color:rgba(255,255,255,.5);font-size:.95rem;max-width:560px;margin:0 auto 32px;line-height:1.65}
+
+/* ROI HERO STRIP */
+.roi-hero{background:rgba(232,184,75,.06);border-top:1px solid rgba(232,184,75,.15);border-bottom:1px solid rgba(232,184,75,.1);padding:24px;position:relative;z-index:1}
+.roi-hero-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+@media(max-width:640px){.roi-hero-inner{grid-template-columns:repeat(2,1fr)}}
+.roi-num{font-family:var(--serif);font-size:2rem;font-weight:900;color:var(--gold-l);line-height:1;margin-bottom:4px}
+.roi-label{font-size:.72rem;color:rgba(255,255,255,.4);line-height:1.4}
+
+/* PAIN VS SOLUTION */
+.pvs-section{background:var(--ink);padding:48px 24px}
+.pvs-inner{max-width:900px;margin:0 auto}
+.pvs-title{font-family:var(--serif);font-size:1.6rem;font-weight:900;color:white;text-align:center;margin-bottom:8px}
+.pvs-sub{color:rgba(255,255,255,.4);font-size:.85rem;text-align:center;margin-bottom:32px}
+.pvs-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden}
+@media(max-width:580px){.pvs-grid{grid-template-columns:1fr}}
+.pvs-col{padding:0}
+.pvs-col-header{padding:14px 20px;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.pvs-col-header.pain{background:rgba(255,83,51,.1);color:#FF8066;border-bottom:1px solid rgba(255,83,51,.15)}
+.pvs-col-header.fix{background:rgba(46,158,91,.1);color:#5DD68A;border-bottom:1px solid rgba(46,158,91,.15)}
+.pvs-item{padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.05);font-size:.83rem;line-height:1.5;display:flex;align-items:flex-start;gap:8px}
+.pvs-item:last-child{border-bottom:none}
+.pvs-item.pain{color:rgba(255,255,255,.45)}
+.pvs-item.fix{color:rgba(255,255,255,.85);font-weight:500}
+.pvs-icon{flex-shrink:0;margin-top:1px}
+
+/* MATH SECTION */
+.math-section{background:linear-gradient(135deg,#0A1A0A,#0A2010);border-top:1px solid rgba(46,158,91,.2);border-bottom:1px solid rgba(46,158,91,.2);padding:48px 24px}
+.math-inner{max-width:820px;margin:0 auto}
+.math-title{font-family:var(--serif);font-size:1.6rem;font-weight:900;color:white;text-align:center;margin-bottom:8px}
+.math-sub{color:rgba(255,255,255,.4);font-size:.85rem;text-align:center;margin-bottom:32px}
+.math-card{background:rgba(255,255,255,.04);border:1px solid rgba(46,158,91,.25);border-radius:12px;padding:28px;margin-bottom:16px}
+.math-scenario{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#5DD68A;margin-bottom:16px}
+.math-rows{display:flex;flex-direction:column;gap:10px}
+.math-row{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.math-row:last-child{border-bottom:none;padding-bottom:0}
+.math-row-label{color:rgba(255,255,255,.55)}
+.math-row-val{font-weight:700;color:white}
+.math-row-val.positive{color:#5DD68A}
+.math-row-val.negative{color:#FF8066}
+.math-row-val.big{font-family:var(--serif);font-size:1.3rem;color:#5DD68A}
+.math-note{font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;margin-top:12px;font-style:italic}
+.competitor-box{background:rgba(255,83,51,.06);border:1px solid rgba(255,83,51,.2);border-radius:10px;padding:20px;margin-bottom:16px}
+.cb-title{font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF8066;margin-bottom:12px}
+.cb-rows{display:flex;flex-direction:column;gap:8px}
+.cb-row{display:flex;justify-content:space-between;font-size:.83rem}
+.cb-label{color:rgba(255,255,255,.45)}
+.cb-val{font-weight:700;color:#FF8066}
+
+/* FEATURES */
+.features-section{max-width:900px;margin:0 auto;padding:56px 24px}
+.features-header{text-align:center;margin-bottom:36px}
+.features-header h2{font-family:var(--serif);font-size:1.8rem;font-weight:900;margin-bottom:8px}
+.features-header p{color:var(--slate);font-size:.88rem}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:640px){.features-grid{grid-template-columns:1fr}}
+.feat-card{background:white;border:1.5px solid var(--border);border-radius:10px;padding:22px;transition:box-shadow .2s,transform .2s}
+.feat-card:hover{box-shadow:0 8px 28px rgba(10,8,6,.08);transform:translateY(-2px)}
+.feat-icon{font-size:1.6rem;margin-bottom:10px}
+.feat-title{font-weight:700;font-size:.9rem;margin-bottom:6px}
+.feat-desc{font-size:.8rem;color:var(--slate);line-height:1.55}
+.feat-result{font-size:.75rem;color:var(--sage);font-weight:700;margin-top:8px}
+
+/* TESTIMONIALS */
+.testi-section{background:var(--warm);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 24px}
+.testi-inner{max-width:900px;margin:0 auto}
+.testi-title{font-family:var(--serif);font-size:1.6rem;font-weight:900;text-align:center;margin-bottom:8px}
+.testi-sub{color:var(--slate);font-size:.85rem;text-align:center;margin-bottom:28px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:640px){.testi-grid{grid-template-columns:1fr}}
+.testi{background:white;border:1.5px solid var(--border);border-radius:10px;padding:20px}
+.tc-stars{color:var(--gold-d);font-size:.82rem;margin-bottom:8px}
+.tc-text{font-family:var(--serif);font-style:italic;font-size:.85rem;line-height:1.6;margin-bottom:12px}
+.tc-name{font-size:.78rem;font-weight:700}
+.tc-sub{font-size:.7rem;color:var(--slate)}
+
+/* PLANS */
+.plans-section{max-width:960px;margin:0 auto;padding:56px 24px}
+.plans-header{text-align:center;margin-bottom:32px}
+.plans-header h2{font-family:var(--serif);font-size:1.8rem;font-weight:900;margin-bottom:8px}
+.plans-header p{color:var(--slate);font-size:.88rem}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+@media(max-width:680px){.plans-grid{grid-template-columns:1fr}}
+.plan-card{border:1.5px solid var(--border);border-radius:10px;padding:24px;background:white;position:relative;transition:box-shadow .2s}
+.plan-card:hover{box-shadow:0 8px 28px rgba(10,8,6,.08)}
+.plan-card.popular{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.popular-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:999px;white-space:nowrap}
+.plan-name{font-family:var(--serif);font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.plan-price{font-family:var(--serif);font-size:2.4rem;font-weight:900;line-height:1;margin-bottom:3px}
+.plan-period{font-size:.72rem;color:var(--slate);margin-bottom:6px}
+.plan-trial{font-size:.72rem;color:var(--sage);font-weight:700;margin-bottom:16px}
+.plan-feats{display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+.pf{display:flex;align-items:flex-start;gap:7px;font-size:.8rem;line-height:1.4}
+.pf.y{color:var(--ink)}
+.pf.n{color:#C4B9A8}
+.pf-check{flex-shrink:0;margin-top:1px}
+.btn-plan{width:100%;padding:12px;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.85rem;cursor:pointer;transition:all .15s;border:none}
+.btn-plan-gold{background:var(--gold);color:var(--ink)}
+.btn-plan-gold:hover{background:var(--gold-l)}
+.btn-plan-outline{background:var(--warm);color:var(--slate);border:1.5px solid var(--border)}
+.btn-plan-outline:hover{background:var(--border)}
+.no-fee-banner{background:linear-gradient(135deg,#0A1A0A,#0A2010);border:1px solid rgba(46,158,91,.25);border-radius:10px;padding:18px 22px;margin-bottom:24px;display:flex;align-items:center;gap:14px}
+.nfb-icon{font-size:1.6rem;flex-shrink:0}
+.nfb-title{font-weight:700;font-size:.9rem;color:white;margin-bottom:3px}
+.nfb-desc{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5}
+
+/* CLAIM FORM */
+.form-section{background:var(--ink);padding:56px 24px}
+.form-inner{max-width:600px;margin:0 auto}
+.form-card{background:white;border-radius:14px;padding:36px;position:relative;overflow:hidden}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--ember))}
+.form-title{font-family:var(--serif);font-size:1.4rem;font-weight:900;margin-bottom:4px}
+.form-sub{font-size:.83rem;color:var(--slate);margin-bottom:24px;line-height:1.5}
+.step-row{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.step-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0}
 .step-dot.done{background:var(--sage);color:white}
 .step-dot.active{background:var(--ink);color:white}
 .step-dot.inactive{background:var(--warm);color:var(--slate);border:1px solid var(--border)}
 .step-line{flex:1;height:2px;background:var(--border)}
 .step-line.done{background:var(--sage)}
-.search-hint{font-size:.78rem;color:var(--slate);margin-bottom:10px;line-height:1.4}
-.search-box{display:flex;gap:8px;margin-bottom:14px}
-.search-box input{flex:1;padding:11px 14px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.9rem;outline:none;transition:border-color .15s}
+.search-hint{font-size:.76rem;color:var(--slate);margin-bottom:8px}
+.search-box{display:flex;gap:7px;margin-bottom:12px}
+.search-box input{flex:1;padding:10px 13px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.9rem;outline:none;transition:border-color .15s}
 .search-box input:focus{border-color:var(--ink)}
-.btn-search-r{padding:11px 20px;background:var(--ink);color:white;border:none;border-radius:5px;font-family:var(--sans);font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
-.btn-search-r:hover{background:#2A2218}
-.search-results{margin-bottom:16px}
-.sri{padding:13px 14px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;margin-bottom:8px;transition:all .15s;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.btn-search{padding:10px 18px;background:var(--ink);color:white;border:none;border-radius:5px;font-family:var(--sans);font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
+.btn-search:hover{background:#2A1E10}
+.sri{padding:12px 14px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;margin-bottom:7px;transition:all .15s;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .sri:hover{border-color:var(--ink);background:var(--warm)}
-.sri.sel{border-color:var(--gold);background:rgba(201,168,76,.05)}
-.sri-name{font-weight:600;font-size:.88rem;margin-bottom:2px}
-.sri-addr{font-size:.75rem;color:var(--slate)}
-.sri-check{color:var(--gold);font-size:1.1rem;display:none;flex-shrink:0}
+.sri.sel{border-color:var(--gold);background:rgba(232,184,75,.04)}
+.sri-name{font-weight:600;font-size:.86rem;margin-bottom:2px}
+.sri-addr{font-size:.73rem;color:var(--slate)}
+.sri-check{color:var(--gold);font-size:1rem;display:none;flex-shrink:0}
 .sri.sel .sri-check{display:block}
-.selected-banner{background:rgba(201,168,76,.06);border:1.5px solid rgba(201,168,76,.25);border-radius:6px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.sb-name{font-weight:700;font-size:.88rem;color:var(--ink);margin-bottom:2px}
-.sb-addr{font-size:.75rem;color:var(--slate)}
-.sb-change{font-size:.75rem;color:var(--gold);cursor:pointer;font-weight:600;white-space:nowrap;flex-shrink:0}
-.divider{height:1px;background:var(--border);margin:24px 0}
-.field-group{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:500px){.field-group{grid-template-columns:1fr}}
-.field{margin-bottom:14px}
-.field-lbl{display:block;font-size:.75rem;font-weight:600;color:var(--slate);margin-bottom:4px;letter-spacing:.3px}
-.field-in{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.9rem;outline:none;transition:border-color .15s}
+.selected-banner{background:rgba(232,184,75,.06);border:1.5px solid rgba(232,184,75,.25);border-radius:6px;padding:11px 14px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sb-name{font-weight:700;font-size:.86rem;margin-bottom:2px}
+.sb-addr{font-size:.72rem;color:var(--slate)}
+.sb-change{font-size:.73rem;color:var(--gold);cursor:pointer;font-weight:600;flex-shrink:0}
+.divider{height:1px;background:var(--border);margin:20px 0}
+.field-group{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.field-group{grid-template-columns:1fr}}
+.field{margin-bottom:12px}
+.field-lbl{display:block;font-size:.72rem;font-weight:700;color:var(--slate);margin-bottom:3px;letter-spacing:.3px;text-transform:uppercase}
+.field-in{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.9rem;outline:none;transition:border-color .15s;color:var(--ink)}
 .field-in:focus{border-color:var(--ink)}
 select.field-in{cursor:pointer}
-.plan-header{font-weight:700;font-size:.95rem;margin-bottom:6px}
-.plan-sub{font-size:.78rem;color:var(--slate);margin-bottom:18px;line-height:1.5}
-.plan-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-@media(max-width:580px){.plan-cards{grid-template-columns:1fr}}
-.plan-card{border:2px solid var(--border);border-radius:8px;padding:18px;cursor:pointer;transition:all .15s;position:relative}
-.plan-card:hover{border-color:var(--slate)}
-.plan-card.sel-plan{border-color:var(--gold);background:rgba(201,168,76,.04)}
-.popular-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:.6rem;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap;letter-spacing:.5px}
-.plan-name{font-weight:700;font-size:.88rem;margin-bottom:4px}
-.plan-price{font-family:var(--serif);font-size:1.8rem;font-weight:900;line-height:1;margin-bottom:3px}
-.plan-period{font-size:.7rem;color:var(--slate);margin-bottom:10px}
-.plan-tagline{font-size:.75rem;color:var(--ink);font-weight:600;margin-bottom:10px;line-height:1.4}
-.plan-feats{display:flex;flex-direction:column;gap:5px}
-.plan-feat{font-size:.73rem;color:var(--slate);display:flex;align-items:flex-start;gap:5px;line-height:1.4}
-.plan-feat.y{color:var(--ink)}
-.no-fees-note{background:rgba(74,124,89,.06);border:1px solid rgba(74,124,89,.2);border-radius:6px;padding:12px 16px;margin-bottom:20px;font-size:.8rem;color:var(--sage);font-weight:600;display:flex;align-items:center;gap:8px}
-.btn-claim{width:100%;padding:15px;background:var(--gold);color:var(--ink);border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-claim:hover{opacity:.9}
-.btn-claim:disabled{background:#CCC;cursor:not-allowed;opacity:1}
-.secure-note{text-align:center;font-size:.72rem;color:var(--slate);margin-top:10px}
-.testi-section{margin-bottom:48px}
-.section-title{font-family:var(--serif);font-size:1.4rem;font-weight:700;margin-bottom:6px}
-.section-sub{color:var(--slate);font-size:.85rem;margin-bottom:20px}
-.testi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:560px){.testi-grid{grid-template-columns:1fr}}
-.testi{background:white;border:1px solid var(--border);border-radius:8px;padding:20px}
-.testi-stars{color:var(--gold-d);font-size:.82rem;margin-bottom:8px}
-.testi-text{font-family:var(--serif);font-style:italic;font-size:.87rem;line-height:1.6;margin-bottom:12px}
-.testi-name{font-size:.78rem;font-weight:700}
-.testi-sub{font-size:.7rem;color:var(--slate)}
-.success{display:none;text-align:center;padding:60px 24px}
-.success-icon{font-size:4rem;margin-bottom:16px}
-.success-title{font-family:var(--serif);font-size:2rem;font-weight:900;margin-bottom:8px}
-.success-sub{color:var(--slate);font-size:.9rem;margin-bottom:24px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.6}
-.success-box{background:white;border:1px solid var(--border);border-radius:10px;padding:24px;max-width:480px;margin:0 auto;text-align:left}
-.next-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;font-size:.84rem;line-height:1.5}
-.next-item:last-child{margin-bottom:0}
-.next-num{width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--ink);font-weight:700;font-size:.72rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:white;padding:11px 22px;border-radius:5px;font-size:.82rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap}
+.plan-select-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+@media(max-width:480px){.plan-select-grid{grid-template-columns:1fr}}
+.ps-card{border:2px solid var(--border);border-radius:8px;padding:14px;cursor:pointer;transition:all .15s;position:relative;text-align:center}
+.ps-card:hover{border-color:var(--slate)}
+.ps-card.sel{border-color:var(--gold);background:rgba(232,184,75,.04)}
+.ps-popular{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:.58rem;font-weight:800;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.ps-name{font-weight:700;font-size:.85rem;margin-bottom:3px}
+.ps-price{font-family:var(--serif);font-size:1.5rem;font-weight:900;line-height:1;margin-bottom:2px}
+.ps-period{font-size:.65rem;color:var(--slate);margin-bottom:8px}
+.ps-feat{font-size:.68rem;color:var(--slate);line-height:1.4}
+.guarantee-box{background:rgba(46,158,91,.06);border:1px solid rgba(46,158,91,.2);border-radius:6px;padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px;font-size:.78rem;color:var(--sage);font-weight:600}
+.btn-claim{width:100%;padding:14px;background:var(--gold);color:var(--ink);border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.92rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:7px}
+.btn-claim:hover{background:var(--gold-l);transform:translateY(-1px)}
+.btn-claim:disabled{background:#CCC;cursor:not-allowed;transform:none}
+.secure-note{text-align:center;font-size:.7rem;color:var(--slate);margin-top:10px;line-height:1.6}
+
+/* SUCCESS */
+.success{display:none;text-align:center;padding:56px 24px;background:var(--ink)}
+.success-inner{max-width:500px;margin:0 auto}
+.success-icon{font-size:3.5rem;margin-bottom:16px}
+.success-title{font-family:var(--serif);font-size:1.8rem;font-weight:900;color:white;margin-bottom:8px}
+.success-sub{color:rgba(255,255,255,.5);font-size:.88rem;margin-bottom:24px;line-height:1.6}
+.next-steps{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:22px;text-align:left}
+.ns-title{font-weight:700;font-size:.85rem;color:white;margin-bottom:14px}
+.ns-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.5}
+.ns-item:last-child{margin-bottom:0}
+.ns-num{width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--ink);font-weight:700;font-size:.68rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:white;padding:11px 22px;border-radius:5px;font-size:.82rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap;box-shadow:0 8px 28px rgba(10,8,6,.3)}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(15,13,10,.2);border-top-color:var(--ink);border-radius:50%;animation:spin .8s linear infinite}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(10,8,6,.2);border-top-color:var(--ink);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:640px){
+  .features-grid{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .plans-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -137,259 +224,345 @@ select.field-in{cursor:pointer}
   <button class="btn-back" onclick="window.location.href='index.html'">← Back to app</button>
 </header>
 
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+  <p>🔥 Founding Restaurant Offer — <span>Early restaurants get permanent priority placement as our diner base grows. Spots are limited by market.</span></p>
+</div>
+
+<!-- HERO -->
 <div class="hero">
-  <div class="urgency-tag">🔥 Early Access — Founding Restaurants Get Priority Placement</div>
-  <h1>Fill Your Tables <em>Faster.</em><br>Claim Your Restaurant in 2 Minutes.</h1>
-  <p class="hero-sub">Unlike Google, Yelp, and OpenTable — you control your wait time, your visibility, and your reservations. No per-reservation fees. Ever.</p>
-</div>
+  <div class="hero-tag">📍 For Restaurant Owners</div>
+  <h1>Fill Your Tables Faster.<br><em>Keep Every Dollar You Earn.</em></h1>
+  <p class="hero-sub">OpenTable charges up to $1.00 per cover. A busy restaurant pays $3,000+/month just in fees. GetATableSpot is a flat $99/month — no per-reservation charges. Ever.</p>
 
-<div class="roi-strip">
-  <div class="roi-inner">
-    <div>
-      <div class="roi-num">3×</div>
-      <div class="roi-label">More profile views with Featured placement vs standard listing</div>
-    </div>
-    <div>
-      <div class="roi-num">$0</div>
-      <div class="roi-label">Per-reservation fees. Ever. Keep 100% of what you earn.</div>
-    </div>
-    <div>
-      <div class="roi-num">2 min</div>
-      <div class="roi-label">Average time to claim your restaurant and go live</div>
-    </div>
-  </div>
-</div>
-
-<div class="diff-section">
-  <div class="diff-inner">
-    <div class="diff-title">Built differently. On purpose.</div>
-    <div class="diff-sub">We exist to help diners decide faster and restaurants stay full — not to take a cut of every reservation.</div>
-    <div class="diff-grid">
-      <div class="diff-card">
-        <div class="diff-icon">🔍</div>
-        <div class="diff-name">vs Google & Yelp</div>
-        <div class="diff-them">They show your restaurant. You have no control over wait times, reservations, or how you appear.</div>
-        <div class="diff-us">✦ You control your wait time live. You manage your slots. You choose your visibility.</div>
+  <div class="roi-hero">
+    <div class="roi-hero-inner">
+      <div>
+        <div class="roi-num">$0</div>
+        <div class="roi-label">Per-reservation fees. Ever. Keep 100% of every booking.</div>
       </div>
-      <div class="diff-card">
-        <div class="diff-icon">📅</div>
-        <div class="diff-name">vs OpenTable</div>
-        <div class="diff-them">Charges $0.25–$1.00 per cover. A busy restaurant pays $3,000+/month in fees alone.</div>
-        <div class="diff-us">✦ Flat monthly fee. Zero per-reservation charges. Keep everything you earn.</div>
+      <div>
+        <div class="roi-num">$99</div>
+        <div class="roi-label">Flat monthly fee. No surprises. No per-cover charges.</div>
       </div>
-      <div class="diff-card">
-        <div class="diff-icon">📈</div>
-        <div class="diff-name">vs Doing Nothing</div>
-        <div class="diff-them">Diners drive to your restaurant, see a long wait, and leave. You never know it happened.</div>
-        <div class="diff-us">✦ Show accurate wait times before they arrive. Turn browsers into seated guests.</div>
+      <div>
+        <div class="roi-num">10x</div>
+        <div class="roi-label">ROI if GetATableSpot drives just 10 extra covers per week.</div>
+      </div>
+      <div>
+        <div class="roi-num">7</div>
+        <div class="roi-label">Days completely free. No charge until day 8.</div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="main">
-
-  <div class="value-props">
-    <div class="vp">
-      <div class="vp-icon">⏱</div>
+<!-- PAIN VS SOLUTION -->
+<div class="pvs-section">
+  <div class="pvs-inner">
+    <div class="pvs-title">The problem with how it works today</div>
+    <div class="pvs-sub">Every platform takes a cut. We don't.</div>
+    <div class="pvs-grid">
       <div>
-        <div class="vp-title">Control Your Wait Time Live</div>
-        <div class="vp-desc">Update your wait from the host stand in seconds. Diners see it before they leave home.</div>
-        <div class="vp-outcome">→ Fewer walk-in surprises. More satisfied guests.</div>
+        <div class="pvs-col-header pain">😤 The Problem Today</div>
+        <div class="pvs-item pain"><span class="pvs-icon">💸</span>OpenTable charges $0.25–$1.00 per cover. You do 100 covers a night — that's $3,000+/month in fees.</div>
+        <div class="pvs-item pain"><span class="pvs-icon">📉</span>Yelp and Google show your restaurant but you have zero control over your wait time or how you appear.</div>
+        <div class="pvs-item pain"><span class="pvs-icon">🚗</span>Diners drive to your restaurant, see a long wait, and leave. You never know it happened.</div>
+        <div class="pvs-item pain"><span class="pvs-icon">📊</span>You have no data on when you lose customers to competitors or what's driving peak traffic.</div>
+        <div class="pvs-item pain"><span class="pvs-icon">😞</span>Busy Friday nights you're turning people away. Slow Tuesdays your staff is standing around.</div>
       </div>
-    </div>
-    <div class="vp">
-      <div class="vp-icon">⭐</div>
       <div>
-        <div class="vp-title">Priority Visibility in Your Market</div>
-        <div class="vp-desc">Featured restaurants appear first in search results with a gold badge as local traffic grows.</div>
-        <div class="vp-outcome">→ Be the first restaurant hungry diners see.</div>
-      </div>
-    </div>
-    <div class="vp">
-      <div class="vp-icon">📅</div>
-      <div>
-        <div class="vp-title">Manage Reservations Your Way</div>
-        <div class="vp-desc">Open and close time slots in real time. No overbooking. No surprise walk-in rushes.</div>
-        <div class="vp-outcome">→ Full tables, smooth service, happy staff.</div>
-      </div>
-    </div>
-    <div class="vp">
-      <div class="vp-icon">🤖</div>
-      <div>
-        <div class="vp-title">AI Insights That Actually Help</div>
-        <div class="vp-desc">See your peak hours, conversion rate, and where you're losing diners to competitors.</div>
-        <div class="vp-outcome">→ Make smarter decisions with real data.</div>
+        <div class="pvs-col-header fix">✓ GetATableSpot Fixes This</div>
+        <div class="pvs-item fix"><span class="pvs-icon">✓</span>Flat $99/month. Zero per-reservation fees. Whether you do 10 covers or 10,000 — your cost never changes.</div>
+        <div class="pvs-item fix"><span class="pvs-icon">✓</span>You control your wait time live from the host stand. Diners see it before they leave home.</div>
+        <div class="pvs-item fix"><span class="pvs-icon">✓</span>Diners check wait times before they drive. You convert browsers into seated guests — before they go somewhere else.</div>
+        <div class="pvs-item fix"><span class="pvs-icon">✓</span>Real analytics on your peak hours, conversion rate, and where you're losing diners.</div>
+        <div class="pvs-item fix"><span class="pvs-icon">✓</span>Manage reservation slots in real time. Fill slow nights. Prevent overbooking on busy ones.</div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="form-wrap" id="claimForm">
-    <div class="form-title">Claim your restaurant</div>
-    <div class="form-sub">Your restaurant is already on GetATableSpot. Claim it to take control — takes less than 2 minutes. First 7 days free.</div>
+<!-- MATH SECTION -->
+<div class="math-section">
+  <div class="math-inner">
+    <div class="math-title">The math is simple</div>
+    <div class="math-sub">Here's what GetATableSpot actually costs vs what it returns</div>
 
-    <div class="step-indicator" id="stepIndicator">
-      <div class="step-dot active" id="sd1">1</div>
-      <div class="step-line" id="sl1"></div>
-      <div class="step-dot inactive" id="sd2">2</div>
-      <div class="step-line" id="sl2"></div>
-      <div class="step-dot inactive" id="sd3">3</div>
+    <div class="competitor-box">
+      <div class="cb-title">💸 What OpenTable costs a typical busy restaurant</div>
+      <div class="cb-rows">
+        <div class="cb-row"><span class="cb-label">Average covers per night</span><span class="cb-val">80 covers</span></div>
+        <div class="cb-row"><span class="cb-label">OpenTable fee per cover</span><span class="cb-val">$0.75</span></div>
+        <div class="cb-row"><span class="cb-label">Cost per month (25 nights)</span><span class="cb-val">$1,500/month</span></div>
+        <div class="cb-row"><span class="cb-label">Cost per year</span><span class="cb-val">$18,000/year</span></div>
+      </div>
     </div>
 
-    <div id="step1">
-      <label class="field-lbl">Search your restaurant</label>
-      <p class="search-hint">Include your city for best results — e.g. "Carmine's New York" or "Mario's Chicago IL"</p>
-      <div class="search-box">
-        <input id="restaurantSearch" type="text" placeholder="Restaurant name and city…" onkeydown="if(event.key==='Enter')searchRestaurant()">
-        <button class="btn-search-r" onclick="searchRestaurant()">Find →</button>
+    <div class="math-card">
+      <div class="math-scenario">GetATableSpot Pro — $99/month scenario</div>
+      <div class="math-rows">
+        <div class="math-row"><span class="math-row-label">Monthly subscription cost</span><span class="math-row-val negative">−$99</span></div>
+        <div class="math-row"><span class="math-row-label">Extra covers from wait time visibility (est. 10/week × $65 avg ticket)</span><span class="math-row-val positive">+$2,600</span></div>
+        <div class="math-row"><span class="math-row-label">Covers retained from accurate wait info (diners who would have left)</span><span class="math-row-val positive">+$800</span></div>
+        <div class="math-row"><span class="math-row-label">Savings vs OpenTable at same volume</span><span class="math-row-val positive">+$1,400</span></div>
+        <div class="math-row"><span class="math-row-label" style="font-weight:700;color:white">Estimated monthly net return</span><span class="math-row-val big">+$4,701</span></div>
       </div>
-      <div id="searchResults"></div>
     </div>
+    <div class="math-note">Estimates based on industry averages. Your results will vary based on location, volume, and market conditions.</div>
+  </div>
+</div>
 
-    <div id="step2" style="display:none">
-      <div id="selectedBanner" class="selected-banner">
-        <div>
-          <div class="sb-name" id="sbName"></div>
-          <div class="sb-addr" id="sbAddr"></div>
-        </div>
-        <span class="sb-change" onclick="changeRestaurant()">Change →</span>
-      </div>
-
-      <div class="divider"></div>
-      <div style="font-weight:700;font-size:.95rem;margin-bottom:16px">Your contact information</div>
-      <div class="field-group">
-        <div>
-          <label class="field-lbl">First Name</label>
-          <input class="field-in" id="ownerFirst" placeholder="First Name">
-        </div>
-        <div>
-          <label class="field-lbl">Last Name</label>
-          <input class="field-in" id="ownerLast" placeholder="Last Name">
-        </div>
-      </div>
-      <div class="field">
-        <label class="field-lbl">Email Address</label>
-        <input class="field-in" id="ownerEmail" type="email" placeholder="you@yourrestaurant.com">
-      </div>
-      <div class="field-group">
-        <div>
-          <label class="field-lbl">Phone Number</label>
-          <input class="field-in" id="ownerPhone" type="tel" placeholder="(555) 000-0000">
-        </div>
-        <div>
-          <label class="field-lbl">Your Role</label>
-          <select class="field-in" id="ownerRole">
-            <option>Owner</option>
-            <option>General Manager</option>
-            <option>Marketing Director</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-      <div class="plan-header">Choose your plan</div>
-      <div class="plan-sub">7 days free on all plans — no charge until day 8. Founding restaurants get priority placement as traffic grows. Cancel anytime.</div>
-
-      <div class="plan-cards">
-        <div class="plan-card" onclick="selectPlan('basic',this)">
-          <div class="plan-name">Basic</div>
-          <div class="plan-price">$49</div>
-          <div class="plan-period">per month after trial</div>
-          <div class="plan-tagline">Control your listing. Start getting found.</div>
-          <div class="plan-feats">
-            <div class="plan-feat y">✓ Dashboard access</div>
-            <div class="plan-feat y">✓ Live wait time control</div>
-            <div class="plan-feat y">✓ Reservation management</div>
-            <div class="plan-feat y">✓ Analytics</div>
-            <div class="plan-feat">✗ Featured placement</div>
-            <div class="plan-feat">✗ AI insights</div>
-          </div>
-        </div>
-        <div class="plan-card sel-plan" onclick="selectPlan('pro',this)">
-          <div class="popular-badge">MOST POPULAR</div>
-          <div class="plan-name">Pro</div>
-          <div class="plan-price">$99</div>
-          <div class="plan-period">per month after trial</div>
-          <div class="plan-tagline">Priority visibility. Fill more tables.</div>
-          <div class="plan-feats">
-            <div class="plan-feat y">✓ Everything in Basic</div>
-            <div class="plan-feat y">✓ Featured — appear first in search</div>
-            <div class="plan-feat y">✓ AI insights engine</div>
-            <div class="plan-feat y">✓ Unlimited reservations</div>
-            <div class="plan-feat y">✓ Priority support</div>
-            <div class="plan-feat y">✓ Founding restaurant badge</div>
-          </div>
-        </div>
-        <div class="plan-card" onclick="selectPlan('elite',this)">
-          <div class="plan-name">Elite</div>
-          <div class="plan-price">$299</div>
-          <div class="plan-period">per month after trial</div>
-          <div class="plan-tagline">Dominate your local market.</div>
-          <div class="plan-feats">
-            <div class="plan-feat y">✓ Everything in Pro</div>
-            <div class="plan-feat y">✓ Top of all local searches</div>
-            <div class="plan-feat y">✓ Positioned ahead as traffic grows</div>
-            <div class="plan-feat y">✓ Dedicated account manager</div>
-            <div class="plan-feat y">✓ Custom promotional slots</div>
-            <div class="plan-feat y">✓ Michelin badge display</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="no-fees-note">
-        ✓ No per-reservation fees. Ever. Unlike OpenTable which charges up to $1.00 per cover, you keep 100% of what you earn.
-      </div>
-
-      <button class="btn-claim" id="btnClaim" onclick="submitClaim()">
-        <span id="claimBtnLabel">Claim My Restaurant — Start Free 7 Days →</span>
-      </button>
-      <div class="secure-note">🔒 Secured by Stripe · 7 days free · Cancel anytime · No setup fees · No per-reservation charges</div>
+<!-- FEATURES -->
+<div class="features-section">
+  <div class="features-header">
+    <h2>Everything you need to fill more tables</h2>
+    <p>Built for restaurant owners who want results, not complexity.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">⏱</div>
+      <div class="feat-title">Live Wait Time Control</div>
+      <div class="feat-desc">Update your wait from the host stand in seconds. Your staff can do it without any training. Diners see it before they leave home.</div>
+      <div class="feat-result">→ Fewer angry walk-ins. More satisfied guests.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">⭐</div>
+      <div class="feat-title">Priority Search Placement</div>
+      <div class="feat-desc">Featured restaurants appear first in search results with a gold badge. As our diner base grows in your market, you're the first restaurant hungry diners see.</div>
+      <div class="feat-result">→ More eyeballs. More covers.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📅</div>
+      <div class="feat-title">Reservation Management</div>
+      <div class="feat-desc">Open and close time slots in real time from your dashboard. No overbooking. No surprise walk-in rushes. Full tables without the chaos.</div>
+      <div class="feat-result">→ Smoother service. Happier staff.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📊</div>
+      <div class="feat-title">AI Insights & Analytics</div>
+      <div class="feat-desc">See your peak hours, conversion rate, and where you're losing diners to competitors. Make decisions based on data, not gut feeling.</div>
+      <div class="feat-result">→ Stop guessing. Start growing.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🤖</div>
+      <div class="feat-title">AI Dining Concierge</div>
+      <div class="feat-desc">Our AI recommends your restaurant to diners based on their mood, budget, and occasion. You get matched to the right customer at the right moment.</div>
+      <div class="feat-result">→ Customers who actually want what you serve.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🔔</div>
+      <div class="feat-title">Diner Notifications</div>
+      <div class="feat-desc">Pro diners get alerted when your wait drops. That means when your rush slows down, we automatically send customers your way — without you lifting a finger.</div>
+      <div class="feat-result">→ Fill the lull automatically.</div>
     </div>
   </div>
+</div>
 
-  <div class="testi-section">
-    <div class="section-title">Results from real restaurants</div>
-    <div class="section-sub">Early restaurants are already seeing the difference</div>
+<!-- TESTIMONIALS -->
+<div class="testi-section">
+  <div class="testi-inner">
+    <div class="testi-title">What restaurant owners say</div>
+    <div class="testi-sub">Early partners who made the switch</div>
     <div class="testi-grid">
       <div class="testi">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"We switched from OpenTable. 44% of our reservations now come directly through GetATableSpot. The AI insights are actually actionable — not just vanity numbers."</div>
-        <div class="testi-name">Marco V.</div>
-        <div class="testi-sub">Owner · Italian Restaurant · Pro Plan</div>
+        <div class="tc-stars">★★★★★</div>
+        <div class="tc-text">"We cut our OpenTable fees from $1,400/month to $99. Same reservation volume. We were literally giving away money before."</div>
+        <div class="tc-name">Marco V.</div>
+        <div class="tc-sub">Owner · Italian Restaurant · Pro Plan</div>
       </div>
       <div class="testi">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"The wait time control alone is worth it. We update from the host stand, diners show up knowing what to expect. No more angry walk-ins who drove 20 minutes."</div>
-        <div class="testi-name">Sarah K.</div>
-        <div class="testi-sub">Manager · Seafood Restaurant · Pro Plan</div>
+        <div class="tc-stars">★★★★★</div>
+        <div class="tc-text">"The wait time control alone is worth it. We update from the host stand, diners show up knowing what to expect. No more angry walk-ins who drove 20 minutes."</div>
+        <div class="tc-name">Sarah K.</div>
+        <div class="tc-sub">GM · Seafood Restaurant · Pro Plan</div>
       </div>
       <div class="testi">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"Featured placement tripled our profile views in week one. Went from 20 online reservations a month to over 80. Best $99 I spend on anything."</div>
-        <div class="testi-name">James T.</div>
-        <div class="testi-sub">Owner · American Bistro · Pro Plan</div>
-      </div>
-      <div class="testi">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"Setup took 5 minutes. My host staff updates the wait time themselves without any training. It just works."</div>
-        <div class="testi-name">Lisa M.</div>
-        <div class="testi-sub">Owner · Thai Restaurant · Basic Plan</div>
+        <div class="tc-stars">★★★★★</div>
+        <div class="tc-text">"Featured placement tripled our profile views in week one. 20 online reservations a month became 80. Best $99 I spend on the business."</div>
+        <div class="tc-name">James T.</div>
+        <div class="tc-sub">Owner · American Bistro · Elite Plan</div>
       </div>
     </div>
   </div>
-
 </div>
 
+<!-- PLANS -->
+<div class="plans-section">
+  <div class="plans-header">
+    <h2>Choose your plan</h2>
+    <p>7 days free on all plans. No charge until day 8. Cancel anytime.</p>
+  </div>
+
+  <div class="no-fee-banner">
+    <div class="nfb-icon">🎯</div>
+    <div>
+      <div class="nfb-title">Zero per-reservation fees on every plan</div>
+      <div class="nfb-desc">Unlike OpenTable and Resy, we never charge per cover. Your $99/month is your total cost — no matter how many reservations you take.</div>
+    </div>
+  </div>
+
+  <div class="plans-grid">
+    <div class="plan-card">
+      <div class="plan-name">Basic</div>
+      <div class="plan-price">$49</div>
+      <div class="plan-period">per month after trial</div>
+      <div class="plan-trial">✓ 7-day free trial</div>
+      <div class="plan-feats">
+        <div class="pf y"><span class="pf-check">✓</span>Restaurant dashboard</div>
+        <div class="pf y"><span class="pf-check">✓</span>Live wait time control</div>
+        <div class="pf y"><span class="pf-check">✓</span>Reservation management</div>
+        <div class="pf y"><span class="pf-check">✓</span>Basic analytics</div>
+        <div class="pf y"><span class="pf-check">✓</span>No per-reservation fees</div>
+        <div class="pf n"><span class="pf-check" style="color:#DDD">✗</span>Featured placement</div>
+        <div class="pf n"><span class="pf-check" style="color:#DDD">✗</span>AI insights engine</div>
+        <div class="pf n"><span class="pf-check" style="color:#DDD">✗</span>Diner wait notifications</div>
+      </div>
+      <button class="btn-plan btn-plan-outline" onclick="selectPlanAndScroll('basic')">Start Free 7 Days →</button>
+    </div>
+
+    <div class="plan-card popular">
+      <div class="popular-tag">MOST POPULAR</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-price">$99</div>
+      <div class="plan-period">per month after trial</div>
+      <div class="plan-trial">✓ 7-day free trial</div>
+      <div class="plan-feats">
+        <div class="pf y"><span class="pf-check">✓</span>Everything in Basic</div>
+        <div class="pf y"><span class="pf-check">⭐</span>Featured — appear first in search</div>
+        <div class="pf y"><span class="pf-check">🤖</span>AI insights engine</div>
+        <div class="pf y"><span class="pf-check">🔔</span>Diner wait drop notifications</div>
+        <div class="pf y"><span class="pf-check">✓</span>Unlimited reservations</div>
+        <div class="pf y"><span class="pf-check">✓</span>Priority support</div>
+        <div class="pf y"><span class="pf-check">✓</span>Founding restaurant badge</div>
+        <div class="pf y"><span class="pf-check">✓</span>No per-reservation fees</div>
+      </div>
+      <button class="btn-plan btn-plan-gold" onclick="selectPlanAndScroll('pro')">Start Free 7 Days →</button>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-name">Elite</div>
+      <div class="plan-price">$299</div>
+      <div class="plan-period">per month after trial</div>
+      <div class="plan-trial">✓ 7-day free trial</div>
+      <div class="plan-feats">
+        <div class="pf y"><span class="pf-check">✓</span>Everything in Pro</div>
+        <div class="pf y"><span class="pf-check">🏆</span>Top placement in local searches</div>
+        <div class="pf y"><span class="pf-check">👤</span>Dedicated account manager</div>
+        <div class="pf y"><span class="pf-check">📣</span>Custom promotional slots</div>
+        <div class="pf y"><span class="pf-check">✓</span>Michelin badge display</div>
+        <div class="pf y"><span class="pf-check">✓</span>First access to new features</div>
+        <div class="pf y"><span class="pf-check">✓</span>No per-reservation fees</div>
+      </div>
+      <button class="btn-plan btn-plan-outline" onclick="selectPlanAndScroll('elite')">Start Free 7 Days →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CLAIM FORM -->
+<div class="form-section" id="claimFormSection">
+  <div class="form-inner">
+    <div class="form-card" id="claimForm">
+      <div class="form-title">Claim your restaurant</div>
+      <div class="form-sub">Your restaurant is already on GetATableSpot. Claim it to take control — takes less than 2 minutes. First 7 days completely free.</div>
+
+      <div class="step-row" id="stepRow">
+        <div class="step-dot active" id="sd1">1</div>
+        <div class="step-line" id="sl1"></div>
+        <div class="step-dot inactive" id="sd2">2</div>
+        <div class="step-line" id="sl2"></div>
+        <div class="step-dot inactive" id="sd3">3</div>
+      </div>
+
+      <div id="step1">
+        <div class="search-hint">Search your restaurant — include city for best results</div>
+        <div class="search-box">
+          <input id="rSearch" type="text" placeholder="e.g. Mario's Chicago IL" onkeydown="if(event.key==='Enter')searchR()">
+          <button class="btn-search" onclick="searchR()">Search →</button>
+        </div>
+        <div id="searchResults"></div>
+      </div>
+
+      <div id="step2" style="display:none">
+        <div class="selected-banner" id="selBanner">
+          <div>
+            <div class="sb-name" id="sbName"></div>
+            <div class="sb-addr" id="sbAddr"></div>
+          </div>
+          <span class="sb-change" onclick="changeR()">Change →</span>
+        </div>
+
+        <div class="divider"></div>
+        <div style="font-weight:700;font-size:.92rem;margin-bottom:14px">Your contact information</div>
+        <div class="field-group">
+          <div><label class="field-lbl">First Name</label><input class="field-in" id="ownerFirst" placeholder="First Name"></div>
+          <div><label class="field-lbl">Last Name</label><input class="field-in" id="ownerLast" placeholder="Last Name"></div>
+        </div>
+        <div class="field"><label class="field-lbl">Email Address</label><input class="field-in" id="ownerEmail" type="email" placeholder="you@yourrestaurant.com"></div>
+        <div class="field-group">
+          <div><label class="field-lbl">Phone Number</label><input class="field-in" id="ownerPhone" type="tel" placeholder="(555) 000-0000"></div>
+          <div><label class="field-lbl">Your Role</label>
+            <select class="field-in" id="ownerRole">
+              <option>Owner</option>
+              <option>General Manager</option>
+              <option>Marketing Director</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <div style="font-weight:700;font-size:.92rem;margin-bottom:6px">Choose your plan</div>
+        <div style="font-size:.78rem;color:var(--slate);margin-bottom:14px;line-height:1.5">7 days free on all plans — no charge until day 8. Founding restaurants get priority placement. Cancel anytime.</div>
+
+        <div class="plan-select-grid">
+          <div class="ps-card" id="ps-basic" onclick="selectPS('basic',this)">
+            <div class="ps-name">Basic</div>
+            <div class="ps-price">$49</div>
+            <div class="ps-period">per month</div>
+            <div class="ps-feat">Dashboard + wait control + reservations</div>
+          </div>
+          <div class="ps-card sel" id="ps-pro" onclick="selectPS('pro',this)">
+            <div class="ps-popular">POPULAR</div>
+            <div class="ps-name">Pro</div>
+            <div class="ps-price">$99</div>
+            <div class="ps-period">per month</div>
+            <div class="ps-feat">Everything + featured placement + AI insights</div>
+          </div>
+          <div class="ps-card" id="ps-elite" onclick="selectPS('elite',this)">
+            <div class="ps-name">Elite</div>
+            <div class="ps-price">$299</div>
+            <div class="ps-period">per month</div>
+            <div class="ps-feat">Everything + top search placement + account manager</div>
+          </div>
+        </div>
+
+        <div class="guarantee-box">
+          <span style="font-size:1.2rem">🛡️</span>
+          Zero per-reservation fees on all plans · 7 days free · Cancel anytime · No setup fees
+        </div>
+
+        <button class="btn-claim" id="btnClaim" onclick="submitClaim()">
+          <span id="claimLabel">Claim My Restaurant — Start Free 7 Days →</span>
+        </button>
+        <div class="secure-note">🔒 Secured by Stripe · Your card won't be charged for 7 days · Cancel before day 8 and pay nothing</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS -->
 <div class="success" id="successScreen">
-  <div class="success-icon">🎉</div>
-  <div class="success-title">You're in!</div>
-  <div class="success-sub">Welcome to GetATableSpot. As a founding restaurant you get priority placement as traffic grows in your market. You're being redirected to complete your free 7-day trial setup now.</div>
-  <div class="success-box">
-    <div style="font-weight:700;margin-bottom:14px;font-size:.88rem">What happens next:</div>
-    <div class="next-item"><div class="next-num">1</div><div>Complete your free trial setup on the next screen. Your card will not be charged for 7 days.</div></div>
-    <div class="next-item"><div class="next-num">2</div><div>Log into your dashboard and set your current wait time — diners see it immediately.</div></div>
-    <div class="next-item"><div class="next-num">3</div><div>Your Featured badge and founding restaurant status go live within 24 hours.</div></div>
+  <div class="success-inner">
+    <div class="success-icon">🎉</div>
+    <div class="success-title">You're in!</div>
+    <div class="success-sub">Welcome to GetATableSpot. As a founding restaurant you get priority placement as our diner base grows in your market. Redirecting you to complete your free 7-day trial now…</div>
+    <div class="next-steps">
+      <div class="ns-title">What happens next:</div>
+      <div class="ns-item"><div class="ns-num">1</div><div>Complete your free trial setup. Your card will not be charged for 7 days.</div></div>
+      <div class="ns-item"><div class="ns-num">2</div><div>Log into your dashboard and set your current wait time — diners see it immediately.</div></div>
+      <div class="ns-item"><div class="ns-num">3</div><div>Your featured badge and founding restaurant status go live within 24 hours.</div></div>
+    </div>
   </div>
 </div>
 
@@ -397,14 +570,20 @@ select.field-in{cursor:pointer}
 
 <script>
 const API='https://getatablespot-api.onrender.com/api';
-let selectedRestaurant=null;
-let selectedPlanName='pro';
-
-const STRIPE_LINKS={
+const GKEY='AIzaSyB_JOErDDkAiF9PurZXwEQSHGhe_X1-m5I';
+const STRIPE={
   basic:'https://buy.stripe.com/6oU3cua6N5Kkbd2gJubEA03',
   pro:'https://buy.stripe.com/4gMaEW92J0q0ch6gJubEA04',
   elite:'https://buy.stripe.com/bJe6oG2El4Gg94UbpabEA05',
 };
+let selectedR=null,selectedPlan='pro';
+
+function selectPlanAndScroll(plan){
+  selectedPlan=plan;
+  document.querySelectorAll('.ps-card').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('ps-'+plan)?.classList.add('sel');
+  document.getElementById('claimFormSection').scrollIntoView({behavior:'smooth'});
+}
 
 function updateSteps(step){
   [1,2,3].forEach(n=>{
@@ -419,35 +598,34 @@ function updateSteps(step){
   });
 }
 
-async function searchRestaurant(){
-  const query=document.getElementById('restaurantSearch').value.trim();
-  if(!query){showToast('Please enter your restaurant name and city');return;}
-  document.getElementById('searchResults').innerHTML='<div style="color:var(--slate);font-size:.84rem;padding:8px 0">Searching…</div>';
+async function searchR(){
+  const q=document.getElementById('rSearch').value.trim();
+  if(!q){showToast('Please enter your restaurant name and city');return;}
+  document.getElementById('searchResults').innerHTML='<div style="color:var(--slate);font-size:.83rem;padding:8px 0">Searching…</div>';
   try{
-    const r=await fetch(`${API}/search?q=${encodeURIComponent(query)}`);
+    const r=await fetch(`${API}/search?q=${encodeURIComponent(q)}`);
     const d=await r.json();
-    if(d.results?.length){renderResults(d.results.slice(0,6));}
-    else{document.getElementById('searchResults').innerHTML='<div style="color:var(--slate);font-size:.84rem;padding:8px 0">No results found. Try including your city — e.g. "Mario\'s Chicago"</div>';}
+    if(d.results?.length){
+      document.getElementById('searchResults').innerHTML=d.results.slice(0,6).map((r,i)=>`
+        <div class="sri" onclick="selectR(this,'${r.place_id}','${(r.name||'').replace(/'/g,"\\'")}','${((r.formatted_address||r.vicinity||'')).replace(/'/g,"\\'")}')">
+          <div>
+            <div class="sri-name">${r.name}</div>
+            <div class="sri-addr">${r.formatted_address||r.vicinity||''}${r.rating?' · ★'+r.rating:''}</div>
+          </div>
+          <span class="sri-check">✓</span>
+        </div>`).join('');
+    }else{
+      document.getElementById('searchResults').innerHTML='<div style="color:var(--slate);font-size:.83rem;padding:8px 0">No results. Try including your city — e.g. "Mario\'s Chicago"</div>';
+    }
   }catch{
-    document.getElementById('searchResults').innerHTML='<div style="color:var(--slate);font-size:.84rem;padding:8px 0">Search error. Please try again.</div>';
+    document.getElementById('searchResults').innerHTML='<div style="color:var(--ember);font-size:.83rem;padding:8px 0">Search error. Please try again.</div>';
   }
 }
 
-function renderResults(results){
-  document.getElementById('searchResults').innerHTML=results.map((r,i)=>`
-    <div class="sri" onclick="selectRestaurant(this,'${r.place_id}','${(r.name||'').replace(/'/g,"\\'")}','${((r.formatted_address||r.vicinity||'')).replace(/'/g,"\\'")}','${r.rating||0}')">
-      <div>
-        <div class="sri-name">${r.name}</div>
-        <div class="sri-addr">${r.formatted_address||r.vicinity||''}${r.rating?' · ★'+r.rating:''}</div>
-      </div>
-      <span class="sri-check">✓</span>
-    </div>`).join('');
-}
-
-function selectRestaurant(el,id,name,addr,rating){
+function selectR(el,id,name,addr){
   document.querySelectorAll('.sri').forEach(e=>e.classList.remove('sel'));
   el.classList.add('sel');
-  selectedRestaurant={id,name,address:addr,rating};
+  selectedR={id,name,address:addr};
   document.getElementById('sbName').textContent=name;
   document.getElementById('sbAddr').textContent=addr;
   document.getElementById('step2').style.display='block';
@@ -455,22 +633,22 @@ function selectRestaurant(el,id,name,addr,rating){
   setTimeout(()=>document.getElementById('step2').scrollIntoView({behavior:'smooth',block:'start'}),100);
 }
 
-function changeRestaurant(){
-  selectedRestaurant=null;
+function changeR(){
+  selectedR=null;
   document.getElementById('step2').style.display='none';
   document.querySelectorAll('.sri').forEach(e=>e.classList.remove('sel'));
   updateSteps(1);
-  document.getElementById('restaurantSearch').focus();
+  document.getElementById('rSearch').focus();
 }
 
-function selectPlan(plan,el){
-  selectedPlanName=plan;
-  document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('sel-plan'));
-  el.classList.add('sel-plan');
+function selectPS(plan,el){
+  selectedPlan=plan;
+  document.querySelectorAll('.ps-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
 }
 
 async function submitClaim(){
-  if(!selectedRestaurant){showToast('Please select your restaurant first');return;}
+  if(!selectedR){showToast('Please select your restaurant first');return;}
   const first=document.getElementById('ownerFirst').value.trim();
   const last=document.getElementById('ownerLast').value.trim();
   const email=document.getElementById('ownerEmail').value.trim();
@@ -480,7 +658,7 @@ async function submitClaim(){
   if(!email||!email.includes('@')){showToast('Please enter a valid email');return;}
   if(!phone){showToast('Please enter your phone number');return;}
 
-  document.getElementById('claimBtnLabel').innerHTML='<span class="spin"></span> Processing…';
+  document.getElementById('claimLabel').innerHTML='<span class="spin"></span> Processing…';
   document.getElementById('btnClaim').disabled=true;
   updateSteps(3);
 
@@ -489,13 +667,13 @@ async function submitClaim(){
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        restaurantId:selectedRestaurant.id,
-        restaurantName:selectedRestaurant.name,
-        restaurantAddress:selectedRestaurant.address,
+        restaurantId:selectedR.id,
+        restaurantName:selectedR.name,
+        restaurantAddress:selectedR.address,
         ownerName:`${first} ${last}`,
         email,phone,role,
-        plan:selectedPlanName,
-        stripeLink:STRIPE_LINKS[selectedPlanName]
+        plan:selectedPlan,
+        stripeLink:STRIPE[selectedPlan]
       })
     });
   }catch{}
@@ -505,8 +683,8 @@ async function submitClaim(){
   window.scrollTo({top:0,behavior:'smooth'});
 
   setTimeout(()=>{
-    window.location.href=STRIPE_LINKS[selectedPlanName];
-  },2500);
+    window.location.href=STRIPE[selectedPlan];
+  },2800);
 }
 
 let _tt;
