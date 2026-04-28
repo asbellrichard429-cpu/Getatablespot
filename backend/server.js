@@ -402,6 +402,47 @@ app.post('/api/subscribe', async (req, res) => {
   }
 });
 
+// AI Concierge proxy — routes browser requests through backend to Anthropic
+app.post('/api/ai-concierge', async (req, res) => {
+  try {
+    const { messages, restaurantContext } = req.body;
+    if (!messages || !restaurantContext) {
+      return res.status(400).json({ error: 'Missing messages or context' });
+    }
+
+    const system = `You are a warm helpful AI dining concierge for GetATableSpot. Help diners find the perfect restaurant.
+
+RESTAURANTS AVAILABLE RIGHT NOW NEAR THE USER:
+${restaurantContext}
+
+RULES:
+- Recommend 2-3 restaurants that best match the request
+- Be warm and conversational, not robotic
+- Only recommend from the list above — never invent restaurants
+- Explain briefly why each one fits
+- If nothing matches well, say so honestly and suggest adjusting filters
+- Keep responses concise — 3-4 sentences then recommendations`;
+
+    const response = await axios.post('https://api.anthropic.com/v1/messages', {
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 600,
+      system,
+      messages,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+      },
+    });
+
+    res.json(response.data);
+  } catch (err) {
+    console.error('AI proxy error:', err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
 app.get('/health', (_, res) => res.json({ status: 'ok', timestamp: new Date() }));
 
 const PORT = process.env.PORT || 10000;
