@@ -19,10 +19,10 @@ app.use('/api/', rateLimit({ windowMs: 60_000, max: 120 }));
 
 const G_KEY = process.env.GOOGLE_PLACES_API_KEY;
 const RESEND_KEY = process.env.RESEND_API_KEY;
+const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
 const G_BASE = 'https://places.googleapis.com/v1';
 const NOTIFY_EMAIL = 'asbellrichard429@gmail.com';
 
-// All verified valid Google Places API types only
 const CUISINE_TYPE_MAP = {
   all:        ['restaurant'],
   italian:    ['italian_restaurant'],
@@ -79,12 +79,12 @@ async function googleNearbySearch({ lat, lng, radius, types }) {
     rankPreference: 'POPULARITY',
   };
   const fields = [
-    'places.id', 'places.displayName', 'places.formattedAddress',
-    'places.location', 'places.rating', 'places.userRatingCount',
-    'places.priceLevel', 'places.currentOpeningHours',
-    'places.photos', 'places.types', 'places.primaryType',
-    'places.internationalPhoneNumber', 'places.websiteUri',
-    'places.dineIn', 'places.reservable', 'places.outdoorSeating',
+    'places.id','places.displayName','places.formattedAddress',
+    'places.location','places.rating','places.userRatingCount',
+    'places.priceLevel','places.currentOpeningHours',
+    'places.photos','places.types','places.primaryType',
+    'places.internationalPhoneNumber','places.websiteUri',
+    'places.dineIn','places.reservable','places.outdoorSeating',
   ].join(',');
   try {
     const { data } = await axios.post(`${G_BASE}/places:searchNearby`, body, {
@@ -172,7 +172,6 @@ function mergeRestaurant(gPlace, userLat, userLng) {
   const distance = (userLat && userLng && placeLat && placeLng)
     ? `${calcDistance(userLat, userLng, placeLat, placeLng)} mi`
     : 'nearby';
-
   return {
     id: gPlace.id,
     name: gPlace.displayName?.text || 'Unknown',
@@ -204,7 +203,7 @@ function mergeRestaurant(gPlace, userLat, userLng) {
 }
 
 function generateMockSlots() {
-  const times = ['5:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM', '8:00 PM', '8:30 PM', '9:00 PM'];
+  const times = ['5:30 PM','6:00 PM','6:30 PM','7:00 PM','7:30 PM','8:00 PM','8:30 PM','9:00 PM'];
   return times.map((time, i) => ({
     time, available: Math.random() > 0.35,
     remaining: Math.floor(Math.random() * 6) + 1,
@@ -265,6 +264,47 @@ app.get('/api/search', async (req, res) => {
   }
 });
 
+app.post('/api/ai-concierge', async (req, res) => {
+  try {
+    const { messages, restaurantContext } = req.body;
+    if (!messages || !restaurantContext) {
+      return res.status(400).json({ error: 'Missing messages or context' });
+    }
+    if (!ANTHROPIC_KEY) {
+      return res.status(500).json({ error: 'AI not configured — ANTHROPIC_API_KEY missing' });
+    }
+    const system = `You are a warm helpful AI dining concierge for GetATableSpot. Help diners find the perfect restaurant.
+
+RESTAURANTS AVAILABLE RIGHT NOW NEAR THE USER:
+${restaurantContext}
+
+RULES:
+- Recommend 2-3 restaurants that best match the request
+- Be warm and conversational, not robotic
+- Only recommend from the list above — never invent restaurants
+- Explain briefly why each one fits
+- If nothing matches well, say so honestly
+- Keep responses concise`;
+
+    const response = await axios.post('https://api.anthropic.com/v1/messages', {
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 600,
+      system,
+      messages,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+      },
+    });
+    res.json(response.data);
+  } catch (err) {
+    console.error('AI proxy error:', err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
 app.post('/api/reservations', async (req, res) => {
   try {
     const { venueId, time, date, partySize, guestName, guestEmail, restaurantName, restaurantPhone, notes } = req.body;
@@ -273,36 +313,32 @@ app.post('/api/reservations', async (req, res) => {
     }
     const id = `GATS-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
     reservations.set(id, { id, venueId, time, date, partySize, guestName, guestEmail, notes, status: 'confirmed', createdAt: new Date() });
-
     await sendEmail({
       to: guestEmail,
-      subject: `✓ Reservation Confirmed — ${restaurantName || 'Your Restaurant'} at ${time}`,
+      subject: `✓ Reservation Request Sent — ${restaurantName || 'Restaurant'} at ${time}`,
       html: `
         <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;background:#FAF8F4">
-          <div style="text-align:center;margin-bottom:24px">
+          <div style="text-align:center;margin-bottom:20px">
             <div style="font-family:Georgia,serif;font-size:1.4rem;font-weight:900">GetATableSpot</div>
           </div>
           <div style="background:white;border:1px solid #E0D8CC;border-radius:10px;padding:24px;margin-bottom:16px">
-            <div style="font-size:1.6rem;text-align:center;margin-bottom:10px">🎉</div>
-            <h2 style="font-family:Georgia,serif;font-size:1.2rem;text-align:center;margin-bottom:4px">Reservation Confirmed!</h2>
-            <p style="color:#5A6A82;font-size:.85rem;text-align:center;margin-bottom:18px">See you there, ${(guestName||'').split(' ')[0]}!</p>
-            <div style="background:#F5F0E8;border-radius:8px;padding:16px;font-size:.85rem">
-              <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:#5A6A82">Restaurant</span><span style="font-weight:700">${restaurantName||'Your Restaurant'}</span></div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:#5A6A82">Time</span><span style="font-weight:700">${time}</span></div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:#5A6A82">Party Size</span><span style="font-weight:700">${partySize} guests</span></div>
-              <div style="display:flex;justify-content:space-between"><span style="color:#5A6A82">Confirmation #</span><span style="font-weight:700;color:#E8B84B">${id}</span></div>
+            <div style="font-size:1.5rem;text-align:center;margin-bottom:10px">📋</div>
+            <h2 style="font-family:Georgia,serif;font-size:1.1rem;text-align:center;margin-bottom:4px">Reservation Request Sent</h2>
+            <p style="color:#5A6A82;font-size:.83rem;text-align:center;margin-bottom:18px">Hi ${(guestName||'').split(' ')[0]}! Your request has been sent to ${restaurantName||'the restaurant'}. They will confirm by phone or email.</p>
+            <div style="background:#F5F0E8;border-radius:8px;padding:14px;font-size:.83rem">
+              <div style="display:flex;justify-content:space-between;margin-bottom:7px"><span style="color:#5A6A82">Restaurant</span><span style="font-weight:700">${restaurantName||'Restaurant'}</span></div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:7px"><span style="color:#5A6A82">Requested Time</span><span style="font-weight:700">${time}</span></div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:7px"><span style="color:#5A6A82">Party Size</span><span style="font-weight:700">${partySize} guests</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:#5A6A82">Reference #</span><span style="font-weight:700;color:#E8B84B">${id}</span></div>
             </div>
           </div>
-          ${notes ? `<div style="background:white;border:1px solid #E0D8CC;border-radius:8px;padding:12px;margin-bottom:14px;font-size:.83rem"><strong>Special Requests:</strong> ${notes}</div>` : ''}
-          <div style="background:#1A0A2E;border-radius:8px;padding:12px;text-align:center;margin-bottom:14px">
-            <div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-bottom:5px">Check wait times before you head out</div>
-            <a href="https://getatablespot.com" style="color:#E8B84B;font-weight:700;font-size:.82rem;text-decoration:none">getatablespot.com →</a>
+          <div style="background:#FFF8E8;border:1px solid #E8D5A3;border-radius:8px;padding:12px;margin-bottom:14px;font-size:.78rem;color:#A07820">
+            <strong>⏱ Please note:</strong> This is a reservation request. The restaurant will confirm your booking directly. If you need immediate confirmation, please call them directly.${restaurantPhone ? ` Phone: <strong>${restaurantPhone}</strong>` : ''}
           </div>
-          <p style="font-size:.7rem;color:#A8A094;text-align:center">Need to cancel? Contact the restaurant.${restaurantPhone ? ` Phone: ${restaurantPhone}` : ''}</p>
+          <a href="https://getatablespot.com" style="display:block;background:#1A0A2E;border-radius:8px;padding:12px;text-align:center;color:#E8B84B;font-weight:700;font-size:.82rem;text-decoration:none">Check wait times at getatablespot.com →</a>
         </div>
       `
     });
-
     res.json({ success: true, confirmationNumber: id });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -338,54 +374,16 @@ app.post('/api/restaurant-claim', async (req, res) => {
     console.log('New restaurant claim:', { restaurantName, ownerName, email, plan });
     const planPrices = { basic: '$49/month', pro: '$99/month', elite: '$299/month' };
     const planPrice = planPrices[plan] || '$99/month';
-
     await sendEmail({
       to: NOTIFY_EMAIL,
       subject: `🍽️ New Restaurant Claim — ${restaurantName}`,
-      html: `
-        <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:32px 24px">
-          <h2 style="font-family:Georgia,serif;margin-bottom:8px">New Restaurant Claim</h2>
-          <p style="color:#6B7A8D;margin-bottom:20px">Someone just claimed on GetATableSpot</p>
-          <div style="background:#F5F0E8;border-radius:8px;padding:20px;margin-bottom:14px">
-            <p style="font-weight:700;font-size:1rem;margin-bottom:4px">${restaurantName}</p>
-            <p style="color:#6B7A8D;font-size:.85rem;margin-bottom:12px">${restaurantAddress}</p>
-            <p style="font-size:.85rem;margin-bottom:4px"><strong>${ownerName}</strong> · ${role}</p>
-            <p style="font-size:.85rem;margin-bottom:12px">${email} · ${phone}</p>
-            <p style="font-weight:700;color:#C9A84C">${(plan||'pro').toUpperCase()} — ${planPrice}</p>
-          </div>
-          <div style="background:#0F0D0A;border-radius:8px;padding:14px;margin-bottom:14px">
-            <p style="color:#C9A84C;font-size:.7rem;font-weight:700;margin-bottom:6px">STRIPE PAYMENT LINK</p>
-            <a href="${stripeLink}" style="color:#E8D5A3;font-size:.82rem;word-break:break-all">${stripeLink}</a>
-          </div>
-          <div style="background:#EDF8F1;border:1px solid #B8E0C4;border-radius:6px;padding:14px">
-            <p style="font-weight:700;color:#1D6B3A;margin-bottom:8px">Next steps:</p>
-            <ol style="color:#1D6B3A;font-size:.82rem;padding-left:18px;line-height:1.8;margin:0">
-              <li>Email ${email} to introduce yourself</li>
-              <li>Send Stripe payment link above</li>
-              <li>Send dashboard link: getatablespot.com/restaurant-dashboard.html</li>
-              <li>Add to tracking spreadsheet</li>
-            </ol>
-          </div>
-        </div>
-      `
+      html: `<div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:32px 24px"><h2 style="font-family:Georgia,serif;margin-bottom:8px">New Restaurant Claim</h2><p style="color:#6B7A8D;margin-bottom:20px">Someone just claimed on GetATableSpot</p><div style="background:#F5F0E8;border-radius:8px;padding:20px;margin-bottom:14px"><p style="font-weight:700;font-size:1rem;margin-bottom:4px">${restaurantName}</p><p style="color:#6B7A8D;font-size:.85rem;margin-bottom:12px">${restaurantAddress}</p><p style="font-size:.85rem;margin-bottom:4px"><strong>${ownerName}</strong> · ${role}</p><p style="font-size:.85rem;margin-bottom:12px">${email} · ${phone}</p><p style="font-weight:700;color:#C9A84C">${(plan||'pro').toUpperCase()} — ${planPrice}</p></div><div style="background:#0F0D0A;border-radius:8px;padding:14px;margin-bottom:14px"><p style="color:#C9A84C;font-size:.7rem;font-weight:700;margin-bottom:6px">STRIPE PAYMENT LINK</p><a href="${stripeLink}" style="color:#E8D5A3;font-size:.82rem;word-break:break-all">${stripeLink}</a></div><div style="background:#EDF8F1;border:1px solid #B8E0C4;border-radius:6px;padding:14px"><p style="font-weight:700;color:#1D6B3A;margin-bottom:8px">Next steps:</p><ol style="color:#1D6B3A;font-size:.82rem;padding-left:18px;line-height:1.8;margin:0"><li>Email ${email}</li><li>Send Stripe payment link</li><li>Send dashboard: getatablespot.com/restaurant-dashboard.html</li><li>Add to spreadsheet</li></ol></div></div>`
     });
-
     await sendEmail({
       to: email,
       subject: `Welcome to GetATableSpot — Your restaurant is being activated`,
-      html: `
-        <div style="font-family:sans-serif;max-width:520px;margin:0 auto;padding:32px 24px">
-          <h2 style="font-family:Georgia,serif;margin-bottom:8px">Welcome, ${(ownerName||'there').split(' ')[0]}! 🎉</h2>
-          <p style="color:#6B7A8D;line-height:1.6;margin-bottom:20px">Your restaurant <strong>${restaurantName}</strong> is being activated on GetATableSpot. As a founding restaurant you get priority placement as our diner base grows in your market.</p>
-          <div style="text-align:center;margin-bottom:18px">
-            <a href="${stripeLink}" style="display:inline-block;background:#C9A84C;color:#000;font-weight:700;font-size:.9rem;padding:13px 28px;border-radius:5px;text-decoration:none">Complete Your Free Trial Setup →</a>
-            <p style="font-size:.72rem;color:#6B7A8D;margin-top:8px">7 days free · No charge until day 8 · Cancel anytime</p>
-          </div>
-          <p style="font-size:.78rem;color:#6B7A8D;text-align:center">Reply to this email anytime with questions.<br><br>— Richard & Stephanie, GetATableSpot</p>
-        </div>
-      `
+      html: `<div style="font-family:sans-serif;max-width:520px;margin:0 auto;padding:32px 24px"><h2 style="font-family:Georgia,serif;margin-bottom:8px">Welcome, ${(ownerName||'there').split(' ')[0]}! 🎉</h2><p style="color:#6B7A8D;line-height:1.6;margin-bottom:20px">Your restaurant <strong>${restaurantName}</strong> is being activated on GetATableSpot.</p><div style="text-align:center;margin-bottom:18px"><a href="${stripeLink}" style="display:inline-block;background:#C9A84C;color:#000;font-weight:700;font-size:.9rem;padding:13px 28px;border-radius:5px;text-decoration:none">Complete Your Free Trial Setup →</a><p style="font-size:.72rem;color:#6B7A8D;margin-top:8px">7 days free · No charge until day 8 · Cancel anytime</p></div><p style="font-size:.78rem;color:#6B7A8D;text-align:center">Reply to this email anytime.<br><br>— Richard & Stephanie, GetATableSpot</p></div>`
     });
-
     res.json({ success: true, message: 'Claim received.' });
   } catch (err) {
     console.error('Claim error:', err.message);
@@ -399,47 +397,6 @@ app.post('/api/subscribe', async (req, res) => {
     res.json({ success: true, message: `Subscription started for ${email}` });
   } catch (err) {
     res.status(500).json({ error: err.message });
-  }
-});
-
-// AI Concierge proxy — routes browser requests through backend to Anthropic
-app.post('/api/ai-concierge', async (req, res) => {
-  try {
-    const { messages, restaurantContext } = req.body;
-    if (!messages || !restaurantContext) {
-      return res.status(400).json({ error: 'Missing messages or context' });
-    }
-
-    const system = `You are a warm helpful AI dining concierge for GetATableSpot. Help diners find the perfect restaurant.
-
-RESTAURANTS AVAILABLE RIGHT NOW NEAR THE USER:
-${restaurantContext}
-
-RULES:
-- Recommend 2-3 restaurants that best match the request
-- Be warm and conversational, not robotic
-- Only recommend from the list above — never invent restaurants
-- Explain briefly why each one fits
-- If nothing matches well, say so honestly and suggest adjusting filters
-- Keep responses concise — 3-4 sentences then recommendations`;
-
-    const response = await axios.post('https://api.anthropic.com/v1/messages', {
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 600,
-      system,
-      messages,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-      },
-    });
-
-    res.json(response.data);
-  } catch (err) {
-    console.error('AI proxy error:', err.response?.data || err.message);
-    res.status(500).json({ error: err.response?.data || err.message });
   }
 });
 
