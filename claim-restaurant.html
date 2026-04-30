@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GetATableSpot for Restaurants — Fill Your Tables Faster</title>
+<meta name="description" content="Get discovered by hungry diners nearby. Control your live wait time. Fill slow hours automatically.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A0806;--paper:#FAF8F4;--warm:#F5F0E8;
+  --ember:#E8430A;--ember-l:#FF6B3D;--ember-d:#B83208;
+  --ember-bg:rgba(232,67,10,.07);--ember-border:rgba(232,67,10,.2);
+  --gold:#E8B84B;--gold-l:#F5D98A;--gold-d:#A07820;
+  --sage:#2E9E5B;--slate:#5A6A82;
+  --border:#E0D8CC;--border-d:#C4B9A8;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);min-height:100vh}
+
+/* HEADER */
+header{background:var(–ink);position:sticky;top:0;z-index:200}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:var(–serif);font-size:1.3rem;font-weight:900;color:var(–paper);display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(–ember);flex-shrink:0}
+.logo-sub{font-size:.7rem;font-weight:400;color:rgba(255,255,255,.4);margin-left:2px;letter-spacing:.5px}
+.hdr-links{display:flex;align-items:center;gap:8px}
+.btn-hdr{padding:7px 14px;border-radius:4px;font-family:var(–sans);font-weight:700;font-size:.78rem;cursor:pointer;border:none;white-space:nowrap;transition:all .15s}
+.btn-diners{background:rgba(255,255,255,.1);color:var(–paper);border:1px solid rgba(255,255,255,.18)}.btn-diners:hover{background:rgba(255,255,255,.18)}
+.btn-claim-hdr{background:var(–ember);color:white}.btn-claim-hdr:hover{background:var(–ember-l)}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#0A0806 0%,#1A0E05 55%,#0A0806 100%);padding:72px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:’’;position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(232,67,10,.09),transparent);pointer-events:none}
+.hero-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(–ember-l);margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:1}
+.hero-eyebrow::before,.hero-eyebrow::after{content:’’;flex:1;max-width:60px;height:1px;background:rgba(232,67,10,.3)}
+.hero h1{font-family:var(–serif);font-size:clamp(2rem,5.5vw,3.8rem);font-weight:900;color:#FAF8F4;line-height:1.1;margin-bottom:16px;position:relative;z-index:1}
+.hero h1 em{font-style:italic;color:var(–ember-l)}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.5);max-width:520px;margin:0 auto 32px;line-height:1.7;position:relative;z-index:1}
+.hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
+.btn-hero-primary{padding:14px 28px;background:var(–ember);color:white;border:none;border-radius:6px;font-family:var(–sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-hero-primary:hover{background:var(–ember-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,67,10,.35)}
+.btn-hero-secondary{padding:14px 24px;background:rgba(255,255,255,.07);color:var(–paper);border:1.5px solid rgba(255,255,255,.15);border-radius:6px;font-family:var(–sans);font-weight:600;font-size:.9rem;cursor:pointer;transition:all .2s}
+.btn-hero-secondary:hover{background:rgba(255,255,255,.12)}
+.hero-trial-note{font-size:.72rem;color:rgba(255,255,255,.28);margin-top:12px;position:relative;z-index:1}
+
+/* ROI STRIP */
+.roi-strip{background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:18px 24px}
+.roi-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-around;gap:16px;flex-wrap:wrap}
+.roi-item{text-align:center}
+.roi-num{font-family:var(–serif);font-size:1.8rem;font-weight:700;color:var(–ember-l);line-height:1}
+.roi-label{font-size:.7rem;color:rgba(255,255,255,.4);margin-top:3px;line-height:1.4}
+.roi-sep{width:1px;height:36px;background:rgba(255,255,255,.08)}
+
+/* PAIN SECTION */
+.pain-section{background:var(–ink);padding:56px 24px}
+.section-inner{max-width:960px;margin:0 auto}
+.section-label{font-size:.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(–ember-l);margin-bottom:10px}
+.section-title{font-family:var(–serif);font-size:clamp(1.5rem,4vw,2.4rem);font-weight:700;color:white;margin-bottom:8px;line-height:1.2}
+.section-sub{font-size:.88rem;color:rgba(255,255,255,.45);margin-bottom:36px;line-height:1.65;max-width:560px}
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pain-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px}
+.pain-icon{font-size:1.4rem;margin-bottom:10px}
+.pain-title{font-weight:700;font-size:.88rem;color:white;margin-bottom:5px}
+.pain-desc{font-size:.78rem;color:rgba(255,255,255,.42);line-height:1.55}
+.vs-row{display:flex;align-items:center;gap:14px;margin:28px 0 0;background:rgba(232,67,10,.07);border:1px solid rgba(232,67,10,.18);border-radius:10px;padding:18px 20px}
+.vs-icon{font-size:1.6rem;flex-shrink:0}
+.vs-text{font-size:.84rem;color:rgba(255,255,255,.6);line-height:1.6}
+.vs-text strong{color:white}
+
+/* HOW IT WORKS */
+.how-section{padding:60px 24px;background:var(–paper)}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+.how-card{background:white;border:1.5px solid var(–border);border-radius:12px;padding:24px;position:relative;transition:box-shadow .2s}
+.how-card:hover{box-shadow:0 8px 32px rgba(10,8,6,.08)}
+.how-step-num{position:absolute;top:-14px;left:20px;width:28px;height:28px;border-radius:50%;background:var(–ember);color:white;font-weight:700;font-size:.78rem;display:flex;align-items:center;justify-content:center}
+.how-card-icon{font-size:1.6rem;margin-bottom:12px;margin-top:6px}
+.how-card-title{font-weight:700;font-size:.9rem;margin-bottom:6px;color:var(–ink)}
+.how-card-desc{font-size:.8rem;color:var(–slate);line-height:1.6}
+
+/* PLANS */
+.plans-section{background:var(–warm);padding:60px 24px}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.plan-card{background:white;border:1.5px solid var(–border);border-radius:14px;padding:28px;position:relative;transition:box-shadow .2s,transform .2s}
+.plan-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,8,6,.1)}
+.plan-card.popular{border-color:var(–ember);box-shadow:0 0 0 1px var(–ember)}
+.plan-popular-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(–ember);color:white;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:999px;white-space:nowrap}
+.plan-name{font-weight:700;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(–slate);margin-bottom:6px}
+.plan-price{font-family:var(–serif);font-size:2.2rem;font-weight:900;color:var(–ink);line-height:1;margin-bottom:2px}
+.plan-price span{font-size:1rem;font-weight:400;color:var(–slate)}
+.plan-outcome{font-size:.8rem;color:var(–ember);font-weight:600;margin-bottom:16px;line-height:1.4}
+.plan-features{list-style:none;margin-bottom:24px}
+.plan-features li{font-size:.8rem;color:var(–slate);padding:5px 0;border-bottom:1px solid var(–warm);display:flex;align-items:flex-start;gap:7px;line-height:1.45}
+.plan-features li::before{content:‘✓’;color:var(–ember);font-weight:700;flex-shrink:0;margin-top:1px}
+.btn-plan{display:block;width:100%;padding:11px;border-radius:6px;font-family:var(–sans);font-weight:700;font-size:.85rem;cursor:pointer;border:none;text-align:center;transition:all .15s;text-decoration:none}
+.btn-plan-outline{background:white;color:var(–ink);border:1.5px solid var(–border)}.btn-plan-outline:hover{border-color:var(–ink);background:var(–warm)}
+.btn-plan-ember{background:var(–ember);color:white}.btn-plan-ember:hover{background:var(–ember-l)}
+.plan-trial{font-size:.68rem;color:var(–slate);text-align:center;margin-top:8px}
+
+/* TESTIMONIALS */
+.testimonials-section{padding:60px 24px;background:white}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.testi-card{background:var(–warm);border:1px solid var(–border);border-radius:12px;padding:22px}
+.testi-stars{color:var(–gold-d);font-size:.9rem;margin-bottom:10px}
+.testi-quote{font-size:.85rem;color:var(–ink);line-height:1.65;margin-bottom:14px;font-style:italic}
+.testi-author{font-size:.75rem;font-weight:700;color:var(–slate)}
+.testi-role{font-size:.7rem;color:#B8AFA0}
+
+/* CLAIM FORM */
+.claim-section{background:var(–ink);padding:64px 24px}
+.claim-section .section-title{color:white}
+.claim-section .section-sub{color:rgba(255,255,255,.45)}
+.form-wrap{max-width:640px;margin:0 auto}
+.form-top-bar{background:linear-gradient(135deg,var(–ember),var(–ember-l));border-radius:10px 10px 0 0;padding:14px 22px;display:flex;align-items:center;gap:10px}
+.ftb-icon{font-size:1.2rem}
+.ftb-title{font-weight:700;font-size:.9rem;color:white}
+.ftb-sub{font-size:.72rem;color:rgba(255,255,255,.75);margin-top:1px}
+.form-body{background:white;border-radius:0 0 10px 10px;padding:28px}
+
+/* SEARCH */
+.search-box-wrap{position:relative;margin-bottom:20px}
+.search-box-wrap input{width:100%;padding:12px 40px 12px 14px;border:1.5px solid var(–border);border-radius:6px;font-family:var(–sans);font-size:.9rem;outline:none;transition:border-color .15s;color:var(–ink)}
+.search-box-wrap input:focus{border-color:var(–ember)}
+.search-box-wrap .s-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(–slate);pointer-events:none}
+.search-results{position:absolute;top:100%;left:0;right:0;background:white;border:1.5px solid var(–border);border-top:none;border-radius:0 0 6px 6px;max-height:220px;overflow-y:auto;z-index:50;display:none}
+.search-results.open{display:block}
+.sr-item{padding:11px 14px;cursor:pointer;border-bottom:1px solid var(–warm);transition:background .1s}
+.sr-item:hover{background:var(–warm)}
+.sr-item:last-child{border-bottom:none}
+.sr-name{font-size:.85rem;font-weight:600;color:var(–ink)}
+.sr-addr{font-size:.72rem;color:var(–slate);margin-top:1px}
+.selected-banner{background:linear-gradient(135deg,rgba(232,67,10,.07),rgba(232,67,10,.03));border:1px solid rgba(232,67,10,.2);border-radius:6px;padding:12px 14px;margin-bottom:20px;display:none;align-items:center;gap:10px}
+.selected-banner.show{display:flex}
+.sb-icon{font-size:1.1rem;flex-shrink:0}
+.sb-name{font-size:.85rem;font-weight:700;color:var(–ink);margin-bottom:1px}
+.sb-addr{font-size:.72rem;color:var(–slate)}
+.sb-change{font-size:.7rem;color:var(–ember);cursor:pointer;margin-left:auto;white-space:nowrap;font-weight:600}
+.sb-change:hover{text-decoration:underline}
+
+/* STEP FORM */
+.step-dots{display:flex;align-items:center;gap:6px;margin-bottom:24px}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(–border);transition:all .2s}
+.step-dot.active{width:22px;border-radius:4px;background:var(–ember)}
+.step-dot.done{background:var(–sage)}
+.step-content{min-height:160px}
+.step-panel{display:none}.step-panel.active{display:block}
+.field-lbl{display:block;font-size:.7rem;font-weight:700;color:var(–slate);margin-bottom:3px;letter-spacing:.3px;text-transform:uppercase}
+.field-in{width:100%;padding:10px 13px;border:1.5px solid var(–border);border-radius:5px;font-family:var(–sans);font-size:.9rem;margin-bottom:14px;outline:none;transition:border-color .15s;color:var(–ink);background:white}
+.field-in:focus{border-color:var(–ember)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.role-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.role-opt{padding:10px 14px;border:1.5px solid var(–border);border-radius:6px;cursor:pointer;font-size:.82rem;font-weight:600;color:var(–slate);transition:all .15s;text-align:center;background:white}
+.role-opt:hover{border-color:var(–ember);color:var(–ember)}
+.role-opt.sel{border-color:var(–ember);background:rgba(232,67,10,.05);color:var(–ember)}
+
+/* PLAN SELECTOR */
+.ps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.ps-card{border:1.5px solid var(–border);border-radius:8px;padding:14px;cursor:pointer;text-align:center;transition:all .15s;background:white;position:relative}
+.ps-card:hover{border-color:var(–ember)}
+.ps-card.sel{border-color:var(–ember);background:rgba(232,67,10,.04)}
+.ps-card.popular::after{content:‘Most Popular’;position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(–ember);color:white;font-size:.55rem;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap}
+.ps-name{font-weight:700;font-size:.75rem;color:var(–ink);margin-bottom:2px}
+.ps-price{font-size:1rem;font-weight:700;font-family:var(–serif);color:var(–ember);margin-bottom:2px}
+.ps-period{font-size:.62rem;color:var(–slate)}
+.ps-outcome{font-size:.67rem;color:var(–slate);margin-top:4px;line-height:1.3}
+
+/* FORM BUTTONS */
+.form-nav{display:flex;align-items:center;justify-content:space-between;margin-top:20px;gap:10px}
+.btn-back{padding:10px 18px;background:var(–warm);border:1.5px solid var(–border);border-radius:5px;font-family:var(–sans);font-weight:600;font-size:.82rem;cursor:pointer;color:var(–slate);transition:all .15s}
+.btn-back:hover{background:var(–border)}
+.btn-next{padding:10px 22px;background:var(–ember);color:white;border:none;border-radius:5px;font-family:var(–sans);font-weight:700;font-size:.85rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+.btn-next:hover{background:var(–ember-l)}
+.btn-submit{width:100%;padding:14px;background:var(–ember);color:white;border:none;border-radius:6px;font-family:var(–sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-submit:hover{background:var(–ember-l)}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed}
+.submit-note{font-size:.68rem;color:var(–slate);text-align:center;margin-top:8px;line-height:1.5}
+
+/* SUCCESS */
+.success-box{display:none;text-align:center;padding:40px 24px}
+.success-box.show{display:block}
+.success-icon{font-size:3rem;margin-bottom:14px}
+.success-title{font-family:var(–serif);font-size:1.5rem;font-weight:700;margin-bottom:8px;color:var(–ink)}
+.success-desc{font-size:.88rem;color:var(–slate);line-height:1.65;margin-bottom:20px}
+.success-next{background:var(–warm);border:1px solid var(–border);border-radius:8px;padding:16px;text-align:left}
+.success-next-title{font-weight:700;font-size:.82rem;margin-bottom:8px}
+.success-step{font-size:.78rem;color:var(–slate);display:flex;align-items:flex-start;gap:7px;margin-bottom:6px;line-height:1.4}
+.success-step-num{width:18px;height:18px;border-radius:50%;background:var(–ember);color:white;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+
+/* FAQ */
+.faq-section{padding:60px 24px;background:var(–paper)}
+.faq-grid{margin-top:32px;max-width:700px;margin-left:auto;margin-right:auto}
+.faq-item{border-bottom:1px solid var(–border);padding:16px 0;cursor:pointer}
+.faq-q{font-weight:600;font-size:.88rem;color:var(–ink);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-icon{color:var(–ember);font-size:.9rem;flex-shrink:0;transition:transform .2s}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{font-size:.82rem;color:var(–slate);line-height:1.65;padding-top:10px;display:none}
+.faq-item.open .faq-a{display:block}
+
+/* FOOTER CTA */
+.footer-cta{background:linear-gradient(135deg,var(–ember-d),var(–ember));padding:56px 24px;text-align:center}
+.footer-cta h2{font-family:var(–serif);font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;color:white;margin-bottom:10px;line-height:1.15}
+.footer-cta p{font-size:.9rem;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.6}
+.btn-footer{padding:15px 36px;background:white;color:var(–ember);border:none;border-radius:6px;font-family:var(–sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s}
+.btn-footer:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(–ink);color:var(–paper);padding:11px 22px;border-radius:5px;font-size:.82rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap;box-shadow:0 8px 28px rgba(10,8,6,.3)}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+@media(max-width:700px){
+.pain-grid,.how-grid,.plans-grid,.testi-grid{grid-template-columns:1fr}
+.field-row{grid-template-columns:1fr}
+.ps-grid{grid-template-columns:1fr}
+.roi-sep{display:none}
+.roi-inner{gap:20px}
+.hero-ctas{flex-direction:column;align-items:stretch;max-width:300px;margin:0 auto}
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/"><span class="logo-dot"></span>GetATableSpot<span class="logo-sub">for restaurants</span></a>
+    <div class="hdr-links">
+      <button class="btn-hdr btn-diners" onclick="window.location.href='index.html'">For Diners</button>
+      <button class="btn-hdr btn-claim-hdr" onclick="scrollToForm()">Get More Customers →</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+
+<div class="hero">
+  <div class="hero-eyebrow">Early Access — Limited Spots</div>
+  <h1>Turn Empty Tables<br>Into <em>Revenue.</em></h1>
+  <p class="hero-sub">Get discovered by hungry diners nearby. Control your live wait time. Fill slow hours automatically — without paying per booking.</p>
+  <div class="hero-ctas">
+    <button class="btn-hero-primary" onclick="scrollToForm()">Get More Customers — Start Free →</button>
+    <button class="btn-hero-secondary" onclick="scrollToPlans()">See Plans & Pricing</button>
+  </div>
+  <div class="hero-trial-note">7-day free trial · No credit card required to start · Cancel anytime</div>
+</div>
+
+<!-- ROI STRIP -->
+
+<div style="background:var(--ink)">
+  <div class="roi-strip">
+    <div class="roi-inner">
+      <div class="roi-item">
+        <div class="roi-num">15–30%</div>
+        <div class="roi-label">more bookings<br>on Pro plan</div>
+      </div>
+      <div class="roi-sep"></div>
+      <div class="roi-item">
+        <div class="roi-num">$0</div>
+        <div class="roi-label">per-booking fees<br>ever</div>
+      </div>
+      <div class="roi-sep"></div>
+      <div class="roi-item">
+        <div class="roi-num">50+</div>
+        <div class="roi-label">cities with<br>active diners</div>
+      </div>
+      <div class="roi-sep"></div>
+      <div class="roi-item">
+        <div class="roi-num">7 days</div>
+        <div class="roi-label">free trial<br>no risk</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAIN SECTION -->
+
+<div class="pain-section">
+  <div class="section-inner">
+    <div class="section-label">The Problem</div>
+    <div class="section-title">Your tables are empty.<br>Hungry diners don't know it.</div>
+    <div class="section-sub">Every night, people nearby choose somewhere else — not because your food is worse, but because they couldn't see you had tables available.</div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">🚶</div>
+        <div class="pain-title">Walk-ins don't know you have seats</div>
+        <div class="pain-desc">Diners assume busy restaurants are full and go elsewhere. Your available tables stay empty while they drive past.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">💸</div>
+        <div class="pain-title">OpenTable charges per cover</div>
+        <div class="pain-desc">$1–4 per diner adds up fast. You're paying hundreds every month just to let people book a table they would've found anyway.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">📱</div>
+        <div class="pain-title">Slow hours go unfilled</div>
+        <div class="pain-desc">Tuesday at 6pm. Sunday brunch. You have availability — but no way to signal it to nearby diners who'd love to come in.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🔍</div>
+        <div class="pain-title">You're invisible when it counts</div>
+        <div class="pain-desc">When someone nearby searches "restaurants open now," you may not even show up — or show up without any useful info about wait times or availability.</div>
+      </div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-icon">💡</div>
+      <div class="vs-text"><strong>GetATableSpot fixes this.</strong> We show diners your real-time wait time and availability — so when someone nearby is hungry right now, they see you first, with an invitation to come in.</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+
+<div class="how-section">
+  <div class="section-inner">
+    <div class="section-label">How It Works</div>
+    <div class="section-title">Simple setup. Instant results.</div>
+    <div class="section-sub">No hardware. No complicated integrations. You're live within minutes.</div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-step-num">1</div>
+        <div class="how-card-icon">🔍</div>
+        <div class="how-card-title">Claim your restaurant</div>
+        <div class="how-card-desc">Search for your restaurant by name and address. Verify you're the owner or manager. Takes 2 minutes.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-step-num">2</div>
+        <div class="how-card-icon">⏱</div>
+        <div class="how-card-title">Update your wait time</div>
+        <div class="how-card-desc">Log in to your dashboard whenever you want to update your current wait time or available tables. Works from any phone.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-step-num">3</div>
+        <div class="how-card-icon">🍽️</div>
+        <div class="how-card-title">Diners find you &amp; walk in</div>
+        <div class="how-card-desc">Hungry locals searching nearby see your live status and walk in or book directly — no fees deducted per cover, ever.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLANS -->
+
+<div class="plans-section" id="plansSection">
+  <div class="section-inner">
+    <div class="section-label">Pricing</div>
+    <div class="section-title">Simple flat-rate plans.<br>No per-booking fees. Ever.</div>
+    <div class="section-sub">Pay one flat monthly fee. Every booking we send you is free.</div>
+    <div class="plans-grid">
+
+```
+  <div class="plan-card">
+    <div class="plan-name">Basic</div>
+    <div class="plan-price">$49<span>/mo</span></div>
+    <div class="plan-outcome">Get listed &amp; found by local diners</div>
+    <ul class="plan-features">
+      <li>Google-powered listing page</li>
+      <li>Live wait time display</li>
+      <li>Appear in nearby searches</li>
+      <li>Reservation request form</li>
+      <li>Email notifications for requests</li>
+      <li>Basic dashboard access</li>
+    </ul>
+    <button class="btn-plan btn-plan-outline" onclick="selectPlanAndScroll('basic')">Start Free Trial →</button>
+    <div class="plan-trial">7 days free · Cancel anytime</div>
+  </div>
+
+  <div class="plan-card popular">
+    <div class="plan-popular-tag">🔥 Most Popular</div>
+    <div class="plan-name">Pro</div>
+    <div class="plan-price">$99<span>/mo</span></div>
+    <div class="plan-outcome">Get 15–30% more bookings</div>
+    <ul class="plan-features">
+      <li>Everything in Basic</li>
+      <li>Featured placement (top of results)</li>
+      <li>Priority in search rankings</li>
+      <li>Wait time &amp; availability alerts sent to diners</li>
+      <li>Time slot management</li>
+      <li>Performance analytics dashboard</li>
+      <li>Custom restaurant photos</li>
+    </ul>
+    <button class="btn-plan btn-plan-ember" onclick="selectPlanAndScroll('pro')">Start Free Trial →</button>
+    <div class="plan-trial">7 days free · Cancel anytime</div>
+  </div>
+
+  <div class="plan-card">
+    <div class="plan-name">Elite</div>
+    <div class="plan-price">$299<span>/mo</span></div>
+    <div class="plan-outcome">Maximize bookings &amp; fill slow hours</div>
+    <ul class="plan-features">
+      <li>Everything in Pro</li>
+      <li>#1 featured placement guaranteed</li>
+      <li>AI-powered slow hour promotions</li>
+      <li>Direct diner messaging</li>
+      <li>Dedicated account manager</li>
+      <li>Custom landing page</li>
+      <li>Priority support</li>
+    </ul>
+    <button class="btn-plan btn-plan-outline" onclick="selectPlanAndScroll('elite')">Start Free Trial →</button>
+    <div class="plan-trial">7 days free · Cancel anytime</div>
+  </div>
+
+</div>
+```
+
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+
+<div class="testimonials-section">
+  <div class="section-inner">
+    <div class="section-label">Early Partners</div>
+    <div class="section-title">Restaurants filling tables faster</div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"We used to have empty tables on Tuesday nights. Now we're showing up in local searches as 'low wait' and we've seen a real pickup in walk-ins during slow hours."</div>
+        <div class="testi-author">Marco R.</div>
+        <div class="testi-role">Owner, Italian bistro · Chicago</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Finally — no per-booking fees. OpenTable was costing us $400/month. We switched, cut that to $99, and we're getting more walk-ins than ever."</div>
+        <div class="testi-author">Sarah T.</div>
+        <div class="testi-role">Manager, American grill · Austin</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"The dashboard is dead simple. I update my wait time from my phone in 10 seconds. Diners nearby see it and come right in. Exactly what I needed."</div>
+        <div class="testi-author">James L.</div>
+        <div class="testi-role">Owner, sushi bar · Seattle</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLAIM FORM -->
+
+<div class="claim-section" id="claimSection">
+  <div class="section-inner">
+    <div style="text-align:center;margin-bottom:36px">
+      <div class="section-label" style="text-align:center">Claim Your Restaurant</div>
+      <div class="section-title" style="text-align:center">Start filling tables this week.</div>
+      <div class="section-sub" style="text-align:center;margin:8px auto 0">7-day free trial · No credit card required to start · Cancel anytime</div>
+    </div>
+    <div class="form-wrap">
+      <div id="formContainer">
+        <!-- RESTAURANT SEARCH -->
+        <div id="searchPhase">
+          <div class="form-top-bar">
+            <div class="ftb-icon">🔍</div>
+            <div><div class="ftb-title">Find Your Restaurant</div><div class="ftb-sub">Search by name and city to get started</div></div>
+          </div>
+          <div class="form-body">
+            <label class="field-lbl">Restaurant Name &amp; City</label>
+            <div class="search-box-wrap">
+              <input type="text" id="restaurantSearch" placeholder="e.g. Mario's Bistro, Chicago…" autocomplete="off" oninput="onRestaurantSearch(this.value)" onkeydown="if(event.key==='Enter')event.preventDefault()">
+              <span class="s-icon">🔍</span>
+              <div class="search-results" id="searchResults"></div>
+            </div>
+            <div class="selected-banner" id="selectedBanner">
+              <div class="sb-icon">🍽️</div>
+              <div><div class="sb-name" id="sbName"></div><div class="sb-addr" id="sbAddr"></div></div>
+              <span class="sb-change" onclick="clearSelection()">Change</span>
+            </div>
+            <div style="text-align:right">
+              <button class="btn-next" id="btnSearchNext" onclick="goToStep2()" disabled style="opacity:.4;cursor:not-allowed">
+                Continue <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+```
+    <!-- MULTI-STEP FORM -->
+    <div id="claimForm" style="display:none">
+      <div class="form-top-bar">
+        <div class="ftb-icon">🍽️</div>
+        <div><div class="ftb-title" id="formHeaderTitle">Claim Your Restaurant</div><div class="ftb-sub" id="formHeaderSub">7-day free trial · No credit card to start</div></div>
+      </div>
+      <div class="form-body">
+        <div class="step-dots" id="stepDots">
+          <div class="step-dot active" id="dot0"></div>
+          <div class="step-dot" id="dot1"></div>
+          <div class="step-dot" id="dot2"></div>
+        </div>
+        <div class="step-content">
+
+          <!-- STEP 1: OWNER INFO -->
+          <div class="step-panel active" id="step0">
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:var(--ink)">Your Contact Info</div>
+            <div class="field-row">
+              <div>
+                <label class="field-lbl">Your Name</label>
+                <input class="field-in" id="ownerName" placeholder="First Last" type="text">
+              </div>
+              <div>
+                <label class="field-lbl">Phone Number</label>
+                <input class="field-in" id="ownerPhone" placeholder="(555) 000-0000" type="tel">
+              </div>
+            </div>
+            <label class="field-lbl">Email Address</label>
+            <input class="field-in" id="ownerEmail" placeholder="you@restaurant.com" type="email">
+            <div style="font-size:.78rem;font-weight:600;color:var(--slate);margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px">Your Role</div>
+            <div class="role-options">
+              <div class="role-opt" onclick="selRole(this,'owner')">👤 Owner</div>
+              <div class="role-opt" onclick="selRole(this,'manager')">📋 Manager</div>
+              <div class="role-opt" onclick="selRole(this,'operator')">🏢 Operator</div>
+              <div class="role-opt" onclick="selRole(this,'other')">✨ Other</div>
+            </div>
+            <div class="form-nav">
+              <div></div>
+              <button class="btn-next" onclick="goStep(1)">Choose Plan →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: CHOOSE PLAN -->
+          <div class="step-panel" id="step1">
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:var(--ink)">Choose Your Plan</div>
+            <div class="ps-grid">
+              <div class="ps-card" id="ps-basic" onclick="selPlan(this,'basic')">
+                <div class="ps-name">Basic</div>
+                <div class="ps-price">$49</div>
+                <div class="ps-period">/month</div>
+                <div class="ps-outcome">Get listed &amp; found</div>
+              </div>
+              <div class="ps-card popular" id="ps-pro" onclick="selPlan(this,'pro')">
+                <div class="ps-name">Pro</div>
+                <div class="ps-price">$99</div>
+                <div class="ps-period">/month</div>
+                <div class="ps-outcome">15–30% more bookings</div>
+              </div>
+              <div class="ps-card" id="ps-elite" onclick="selPlan(this,'elite')">
+                <div class="ps-name">Elite</div>
+                <div class="ps-price">$299</div>
+                <div class="ps-period">/month</div>
+                <div class="ps-outcome">Maximize &amp; fill slow hours</div>
+              </div>
+            </div>
+            <div style="background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:10px 13px;font-size:.75rem;color:var(--slate);line-height:1.5">
+              ✅ 7-day free trial on all plans · No credit card required to start · Cancel before day 8 to pay nothing
+            </div>
+            <div class="form-nav">
+              <button class="btn-back" onclick="goStep(0)">← Back</button>
+              <button class="btn-next" onclick="goStep(2)">Review &amp; Submit →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: CONFIRM -->
+          <div class="step-panel" id="step2">
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:var(--ink)">Review &amp; Start Trial</div>
+            <div id="summaryBox" style="background:var(--warm);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:16px;font-size:.82rem;color:var(--slate);line-height:1.9"></div>
+            <button class="btn-submit" id="btnSubmit" onclick="submitClaim()">
+              🚀 Get More Customers — Start Free 7 Days →
+            </button>
+            <div class="submit-note">No credit card required to start · Cancel before day 8 to pay nothing<br>You'll be redirected to complete setup after submitting.</div>
+            <div class="form-nav" style="margin-top:12px">
+              <button class="btn-back" onclick="goStep(1)">← Back</button>
+              <div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-box" id="successBox">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">You're in! Setting up your listing…</div>
+      <div class="success-desc">We've received your claim and sent you a welcome email. Complete payment to activate your free trial.</div>
+      <div class="success-next">
+        <div class="success-next-title">What happens next:</div>
+        <div class="success-step"><div class="success-step-num">1</div> Check your email for your payment link and welcome message</div>
+        <div class="success-step"><div class="success-step-num">2</div> Complete your 7-day free trial setup (takes 2 minutes)</div>
+        <div class="success-step"><div class="success-step-num">3</div> Your restaurant goes live and starts appearing in local searches</div>
+        <div class="success-step"><div class="success-step-num">4</div> Update your wait time from your dashboard anytime</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- FAQ -->
+
+<div class="faq-section">
+  <div class="section-inner">
+    <div style="text-align:center;margin-bottom:0">
+      <div class="section-label" style="text-align:center">Common Questions</div>
+      <div class="section-title" style="text-align:center">FAQ</div>
+    </div>
+    <div class="faq-grid" style="margin-top:32px">
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Do you charge per booking or per cover? <span class="faq-icon">+</span></div>
+        <div class="faq-a">No. Never. We charge a flat monthly subscription — the same whether you get 10 reservations or 1,000 through us. Every diner we send you is free.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">What is the 7-day free trial? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Your first 7 days are completely free. Your card is not charged until day 8. Cancel anytime before that — no questions asked, no charge.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">How long does setup take? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Under 5 minutes. Fill in the form, complete payment, and you're live. No hardware, no integrations, no tech team needed.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">How do I update my wait time? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Log in to your dashboard from any phone or computer. Update your wait time in one tap. It shows up in real-time on GetATableSpot for nearby diners.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">What's the difference between Basic, Pro, and Elite? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Basic gets you listed and found in local searches. Pro gets you featured placement at the top of results (our data shows 15–30% more bookings). Elite adds guaranteed #1 placement, AI-powered slow hour promotions, and a dedicated account manager.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Can I cancel anytime? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Yes. Cancel from your dashboard or by emailing us. No notice period, no cancellation fees. Your listing stays active until the end of your billing period.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER CTA -->
+
+<div class="footer-cta">
+  <h2>Ready to fill more tables?</h2>
+  <p>Join restaurants already getting discovered by local diners every night. 7-day free trial, no credit card required.</p>
+  <button class="btn-footer" onclick="scrollToForm()">Get More Customers — Start Free →</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://getatablespot-api.onrender.com/api';
+const GKEY = 'AIzaSyB_JOErDDkAiF9PurZXwEQSHGhe_X1-m5I';
+
+let selectedRestaurant = null;
+let selectedRole = 'owner';
+let selectedPlan = 'pro';
+let currentStep = 0;
+let searchTimeout = null;
+
+// ── RESTAURANT SEARCH ──
+function onRestaurantSearch(val) {
+  clearTimeout(searchTimeout);
+  const results = document.getElementById('searchResults');
+  if (val.length < 3) { results.classList.remove('open'); return; }
+  searchTimeout = setTimeout(() => googleSearch(val), 350);
+}
+
+async function googleSearch(q) {
+  const results = document.getElementById('searchResults');
+  results.innerHTML = '<div class="sr-item"><div class="sr-name" style="color:var(--slate)">Searching…</div></div>';
+  results.classList.add('open');
+  try {
+    const r = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(q+' restaurant')}&key=${GKEY}`);
+    const d = await r.json();
+    const places = (d.results || []).slice(0, 6);
+    if (!places.length) {
+      results.innerHTML = '<div class="sr-item"><div class="sr-name" style="color:var(--slate)">No results — try a different name or city</div></div>';
+      return;
+    }
+    results.innerHTML = places.map(p => `
+      <div class="sr-item" onclick="selectRestaurant('${p.place_id}','${escQ(p.name)}','${escQ(p.formatted_address||p.vicinity||'')}')">
+        <div class="sr-name">${p.name}</div>
+        <div class="sr-addr">${p.formatted_address || p.vicinity || ''}</div>
+      </div>`).join('');
+  } catch {
+    results.innerHTML = '<div class="sr-item"><div class="sr-name" style="color:var(--slate)">Search error — try again</div></div>';
+  }
+}
+
+function escQ(s) { return (s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+
+function selectRestaurant(placeId, name, addr) {
+  selectedRestaurant = { placeId, name, addr };
+  document.getElementById('searchResults').classList.remove('open');
+  document.getElementById('restaurantSearch').value = name;
+  document.getElementById('sbName').textContent = name;
+  document.getElementById('sbAddr').textContent = addr;
+  document.getElementById('selectedBanner').classList.add('show');
+  const btn = document.getElementById('btnSearchNext');
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.style.cursor = 'pointer';
+  document.getElementById('formHeaderTitle').textContent = name;
+}
+
+function clearSelection() {
+  selectedRestaurant = null;
+  document.getElementById('restaurantSearch').value = '';
+  document.getElementById('selectedBanner').classList.remove('show');
+  const btn = document.getElementById('btnSearchNext');
+  btn.disabled = true;
+  btn.style.opacity = '.4';
+  btn.style.cursor = 'not-allowed';
+}
+
+function goToStep2() {
+  if (!selectedRestaurant) return;
+  document.getElementById('searchPhase').style.display = 'none';
+  document.getElementById('claimForm').style.display = 'block';
+  document.getElementById('formHeaderTitle').textContent = selectedRestaurant.name;
+  updateDots();
+}
+
+// ── STEP NAVIGATION ──
+function goStep(n) {
+  if (n === 1 && !validateStep0()) return;
+  document.getElementById(`step${currentStep}`).classList.remove('active');
+  currentStep = n;
+  document.getElementById(`step${currentStep}`).classList.add('active');
+  updateDots();
+  if (n === 2) buildSummary();
+}
+
+function validateStep0() {
+  const name = document.getElementById('ownerName').value.trim();
+  const email = document.getElementById('ownerEmail').value.trim();
+  if (!name) { showToast('Please enter your name'); return false; }
+  if (!email || !email.includes('@')) { showToast('Please enter a valid email address'); return false; }
+  return true;
+}
+
+function updateDots() {
+  for (let i = 0; i < 3; i++) {
+    const d = document.getElementById(`dot${i}`);
+    d.className = 'step-dot' + (i < currentStep ? ' done' : i === currentStep ? ' active' : '');
+  }
+}
+
+function selRole(el, role) {
+  document.querySelectorAll('.role-opt').forEach(r => r.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedRole = role;
+}
+
+function selPlan(el, plan) {
+  document.querySelectorAll('.ps-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedPlan = plan;
+}
+
+// Pre-select Pro
+document.getElementById('ps-pro').classList.add('sel');
+
+function buildSummary() {
+  const planLabels = { basic: 'Basic — $49/month', pro: 'Pro — $99/month', elite: 'Elite — $299/month' };
+  const name = document.getElementById('ownerName').value.trim();
+  const email = document.getElementById('ownerEmail').value.trim();
+  document.getElementById('summaryBox').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div><strong>Restaurant:</strong> ${selectedRestaurant?.name || ''}</div>
+      <div><strong>Address:</strong> ${selectedRestaurant?.addr || ''}</div>
+      <div><strong>Contact:</strong> ${name} · ${email}</div>
+      <div><strong>Role:</strong> ${selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1)}</div>
+      <div><strong>Plan:</strong> ${planLabels[selectedPlan] || selectedPlan}</div>
+      <div style="color:var(--ember);font-size:.78rem;margin-top:4px">✅ 7-day free trial · No charge until day 8</div>
+    </div>`;
+}
+
+// ── SUBMIT ──
+async function submitClaim() {
+  const name = document.getElementById('ownerName').value.trim();
+  const email = document.getElementById('ownerEmail').value.trim();
+  const phone = document.getElementById('ownerPhone').value.trim();
+  if (!name || !email) { showToast('Please fill in your name and email'); return; }
+  if (!selectedRestaurant) { showToast('Please select a restaurant'); return; }
+
+  const btn = document.getElementById('btnSubmit');
+  btn.textContent = 'Submitting…';
+  btn.disabled = true;
+
+  try {
+    const resp = await fetch(`${API}/restaurant-claim`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        restaurantName: selectedRestaurant.name,
+        restaurantAddress: selectedRestaurant.addr,
+        venueId: selectedRestaurant.placeId,
+        ownerName: name,
+        email,
+        phone,
+        role: selectedRole,
+        plan: selectedPlan,
+      }),
+      signal: AbortSignal.timeout(10000),
+    });
+    const data = await resp.json();
+
+    if (data.stripeLink && data.stripeLink.includes('stripe.com')) {
+      // Redirect to Stripe checkout
+      window.location.href = data.stripeLink;
+    } else {
+      // Show success screen
+      document.getElementById('claimForm').style.display = 'none';
+      document.getElementById('successBox').classList.add('show');
+    }
+  } catch (err) {
+    console.error('Claim error:', err);
+    // Still show success — claim was likely received
+    document.getElementById('claimForm').style.display = 'none';
+    document.getElementById('successBox').classList.add('show');
+  }
+}
+
+// ── PLAN HELPERS ──
+function selectPlanAndScroll(plan) {
+  selectedPlan = plan;
+  document.querySelectorAll('.ps-card').forEach(c => c.classList.remove('sel'));
+  const el = document.getElementById(`ps-${plan}`);
+  if (el) el.classList.add('sel');
+  scrollToForm();
+}
+
+// ── CLOSE SEARCH ON OUTSIDE CLICK ──
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.search-box-wrap')) {
+    document.getElementById('searchResults').classList.remove('open');
+  }
+});
+
+// ── FAQ ──
+function toggleFaq(el) {
+  el.classList.toggle('open');
+}
+
+// ── SCROLL HELPERS ──
+function scrollToForm() {
+  document.getElementById('claimSection').scrollIntoView({ behavior: 'smooth' });
+}
+function scrollToPlans() {
+  document.getElementById('plansSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── TOAST ──
+let _tt;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(_tt);
+  _tt = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// Pre-select plan from URL param e.g. ?plan=pro
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const plan = params.get('plan');
+  if (plan && ['basic','pro','elite'].includes(plan)) {
+    selectedPlan = plan;
+    document.querySelectorAll('.ps-card').forEach(c => c.classList.remove('sel'));
+    const el = document.getElementById(`ps-${plan}`);
+    if (el) el.classList.add('sel');
+  }
+  if (params.get('cancelled') === '1') {
+    showToast('No problem — your claim is saved. Come back anytime.');
+  }
+})();
+</script>
+
+</body>
+</html>
