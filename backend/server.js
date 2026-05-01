@@ -1,3 +1,4 @@
+cat > backend/server.js << 'ENDOFFILE'
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -513,3 +514,4 @@ app.get('/health', async function(_, res) {
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', function() { console.log('GetATableSpot API on :' + PORT); });
 module.exports = app;
+ENDOFFILE
