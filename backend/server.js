@@ -1,4 +1,3 @@
-cat > backend/server.js << 'ENDOFFILE'
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -130,7 +129,7 @@ function buildVenue(gp, uLat, uLng) {
     isFeatured: false,
     plan: 'free',
     tonightMsg: null,
-    emoji: '🍽️',
+    emoji: 'ðŸ½ï¸',
     bg: 'linear-gradient(135deg,#1A1A1A,#333)',
   };
 }
@@ -268,7 +267,7 @@ app.post('/api/auth/forgot-password', async function(req, res) {
     if (!owner) return res.json({ success: true });
     const token = crypto.randomBytes(32).toString('hex');
     await db.createPasswordReset(owner.id, token);
-    await sendEmail({ to: owner.email, subject: 'Reset your password', html: '<p><a href="' + APP_URL + '/restaurant-auth.html?reset=' + token + '">Reset Password</a> — expires in 1 hour.</p>' });
+    await sendEmail({ to: owner.email, subject: 'Reset your password', html: '<p><a href="' + APP_URL + '/restaurant-auth.html?reset=' + token + '">Reset Password</a> â€” expires in 1 hour.</p>' });
     res.json({ success: true });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
@@ -330,7 +329,7 @@ app.patch('/api/dashboard/reservations/:ref', requireAuth, async function(req, r
     const updated = await db.updateReservationStatus(req.params.ref, status, ownerNote);
     await db.trackEvent(reservation.restaurant_id, 'reservation_' + status, { ref: req.params.ref }).catch(function() {});
     if (status === 'confirmed') {
-      await sendEmail({ to: reservation.guest_email, subject: 'Confirmed — ' + reservation.restaurant_name + ' at ' + reservation.requested_time, html: '<p>Hi ' + reservation.guest_name.split(' ')[0] + '! Your table is confirmed at ' + reservation.restaurant_name + ' at ' + reservation.requested_time + ' for ' + reservation.party_size + ' guests. Ref: ' + reservation.ref + '</p>' + (ownerNote ? '<p>' + ownerNote + '</p>' : '') });
+      await sendEmail({ to: reservation.guest_email, subject: 'Confirmed â€” ' + reservation.restaurant_name + ' at ' + reservation.requested_time, html: '<p>Hi ' + reservation.guest_name.split(' ')[0] + '! Your table is confirmed at ' + reservation.restaurant_name + ' at ' + reservation.requested_time + ' for ' + reservation.party_size + ' guests. Ref: ' + reservation.ref + '</p>' + (ownerNote ? '<p>' + ownerNote + '</p>' : '') });
       await sendSMS(reservation.guest_phone, 'Confirmed! ' + reservation.restaurant_name + ' at ' + reservation.requested_time + ', party of ' + reservation.party_size + '. Ref: ' + reservation.ref);
     }
     if (status === 'declined') {
@@ -416,12 +415,12 @@ app.post('/api/reservations', async function(req, res) {
     const profile = await db.getRestaurantByPlaceId(b.venueId).catch(function() { return null; });
     const owner = profile && profile.owner_id ? await db.getOwnerById(profile.owner_id).catch(function() { return null; }) : null;
     if (owner) {
-      if (owner.notify_email) await sendEmail({ to: owner.email, subject: 'New Reservation — ' + b.guestName + ' x' + b.partySize + ' at ' + b.time, html: '<p>' + b.guestName + ' · ' + b.guestEmail + (b.guestPhone ? ' · ' + b.guestPhone : '') + '<br>Party of ' + b.partySize + ' at ' + b.time + '<br>Ref: ' + ref + '</p><a href="' + APP_URL + '/restaurant-dashboard.html">Confirm or Decline</a>' });
+      if (owner.notify_email) await sendEmail({ to: owner.email, subject: 'New Reservation â€” ' + b.guestName + ' x' + b.partySize + ' at ' + b.time, html: '<p>' + b.guestName + ' Â· ' + b.guestEmail + (b.guestPhone ? ' Â· ' + b.guestPhone : '') + '<br>Party of ' + b.partySize + ' at ' + b.time + '<br>Ref: ' + ref + '</p><a href="' + APP_URL + '/restaurant-dashboard.html">Confirm or Decline</a>' });
       if (owner.notify_sms && owner.phone) await sendSMS(owner.phone, 'GetATableSpot: New reservation! ' + b.guestName + ', party of ' + b.partySize + ' at ' + b.time + '. Ref: ' + ref);
     } else {
-      await sendEmail({ to: NOTIFY_EMAIL, subject: 'Reservation — ' + b.restaurantName + ' · ' + b.guestName, html: '<p>' + b.guestName + ' · ' + b.guestEmail + '<br>x' + b.partySize + ' at ' + b.time + '<br>Ref: ' + ref + '</p>' });
+      await sendEmail({ to: NOTIFY_EMAIL, subject: 'Reservation â€” ' + b.restaurantName + ' Â· ' + b.guestName, html: '<p>' + b.guestName + ' Â· ' + b.guestEmail + '<br>x' + b.partySize + ' at ' + b.time + '<br>Ref: ' + ref + '</p>' });
     }
-    await sendEmail({ to: b.guestEmail, subject: 'Request Sent — ' + b.restaurantName + ' at ' + b.time, html: '<p>Hi ' + b.guestName.split(' ')[0] + '! Your request has been sent to ' + b.restaurantName + '. They will confirm shortly. Ref: ' + ref + '</p>' });
+    await sendEmail({ to: b.guestEmail, subject: 'Request Sent â€” ' + b.restaurantName + ' at ' + b.time, html: '<p>Hi ' + b.guestName.split(' ')[0] + '! Your request has been sent to ' + b.restaurantName + '. They will confirm shortly. Ref: ' + ref + '</p>' });
     res.json({ success: true, confirmationNumber: ref });
   } catch (e) { console.error('Reservation:', e.message); res.status(500).json({ error: e.message }); }
 });
@@ -453,7 +452,7 @@ app.post('/api/restaurant-claim', async function(req, res) {
       } catch (e) { console.error('Stripe:', e.message); }
     }
     if (!stripeLink) { stripeLink = process.env['STRIPE_LINK_' + b.plan.toUpperCase()] || APP_URL + '/restaurant-auth.html'; }
-    await sendEmail({ to: NOTIFY_EMAIL, subject: 'New Claim — ' + b.restaurantName, html: '<p>' + b.restaurantName + ' · ' + b.email + ' · ' + pi.label + '</p><a href="' + stripeLink + '">' + stripeLink + '</a>' });
+    await sendEmail({ to: NOTIFY_EMAIL, subject: 'New Claim â€” ' + b.restaurantName, html: '<p>' + b.restaurantName + ' Â· ' + b.email + ' Â· ' + pi.label + '</p><a href="' + stripeLink + '">' + stripeLink + '</a>' });
     await sendEmail({ to: b.email, subject: 'Welcome to GetATableSpot!', html: '<p>Welcome! Complete your setup: <a href="' + stripeLink + '">Start Free Trial</a></p>' });
     res.json({ success: true, stripeLink });
   } catch (e) { res.status(500).json({ error: e.message }); }
@@ -487,7 +486,7 @@ app.post('/api/subscribe', async function(req, res) {
   try {
     if (!req.body.email) return res.status(400).json({ error: 'email required' });
     let checkoutUrl = process.env.STRIPE_LINK_DINER || APP_URL + '/pro-subscription.html';
-    if (STRIPE_PRICES.diner && !process.env.STRIPE_SECRET_KEY.includes('placeholder')) {
+    if (STRIPE_PRICES.diner && process.env.STRIPE_SECRET_KEY && !process.env.STRIPE_SECRET_KEY.includes('placeholder')) {
       try {
         const s = await stripe.checkout.sessions.create({ mode: 'subscription', payment_method_types: ['card'], line_items: [{ price: STRIPE_PRICES.diner, quantity: 1 }], subscription_data: { trial_period_days: 7 }, customer_email: req.body.email, success_url: APP_URL + '/index.html?pro=1', cancel_url: APP_URL + '/pro-subscription.html' });
         checkoutUrl = s.url;
@@ -500,7 +499,7 @@ app.post('/api/subscribe', async function(req, res) {
 app.post('/api/waitlist', async function(req, res) {
   try {
     if (!req.body.email) return res.status(400).json({ error: 'email required' });
-    await sendEmail({ to: NOTIFY_EMAIL, subject: 'Waitlist: ' + req.body.feature, html: '<p>' + req.body.email + ' — ' + req.body.feature + '</p>' });
+    await sendEmail({ to: NOTIFY_EMAIL, subject: 'Waitlist: ' + req.body.feature, html: '<p>' + req.body.email + ' â€” ' + req.body.feature + '</p>' });
     res.json({ success: true });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
@@ -514,4 +513,3 @@ app.get('/health', async function(_, res) {
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', function() { console.log('GetATableSpot API on :' + PORT); });
 module.exports = app;
-ENDOFFILE
