@@ -154,7 +154,7 @@ async function googleNearbySearch(lat, lng, radius, types) {
   const body = {
     locationRestriction: { circle: { center: { latitude: lat, longitude: lng }, radius: radius } },
     includedTypes: Array.isArray(types) ? types : [types],
-    maxResultCount: 80,
+    maxResultCount: 50,
     rankPreference: 'POPULARITY',
   };
   const fields = 'places.id,places.displayName,places.formattedAddress,places.location,places.rating,places.userRatingCount,places.priceLevel,places.currentOpeningHours,places.photos,places.types,places.primaryType,places.internationalPhoneNumber,places.websiteUri,places.dineIn,places.reservable,places.outdoorSeating';
