@@ -524,4 +524,12 @@ app.get('/health', async function(_, res) {
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', function() { console.log('GetATableSpot API on :' + PORT); });
+setInterval(function() {
+  const https = require('https');
+  https.get('https://getatablespot-api.onrender.com/health', function() {
+    console.log('Keep-alive ping sent');
+  }).on('error', function() {});
+}, 840000);
+
+module.exports = app;
 module.exports = app;
