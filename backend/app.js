@@ -504,6 +504,18 @@ app.post('/api/waitlist', async function(req, res) {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+app.post('/api/ai-concierge', async function(req, res) {
+  try {
+    const messages = req.body.messages, restaurantContext = req.body.restaurantContext;
+    if (!messages || !restaurantContext) return res.status(400).json({ error: 'Missing messages or context' });
+    if (!process.env.ANTHROPIC_API_KEY) return res.status(500).json({ error: 'AI not configured' });
+    const result = await axios.post('https://api.anthropic.com/v1/messages',
+      { model: 'claude-opus-4-5-20251101', max_tokens: 600, system: 'You are a helpful AI dining concierge for GetATableSpot.\n\nRESTAURANTS:\n' + restaurantContext + '\n\nRecommend 2-3 restaurants that best match. Be warm and concise. Only recommend from the list.', messages },
+      { headers: { 'Content-Type': 'application/json', 'x-api-key': process.env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' } }
+    );
+    res.json(result.data);
+  } catch (e) { console.error('AI error:', e.response ? e.response.data : e.message); res.status(500).json({ error: e.message }); }
+});
 app.get('/health', async function(_, res) {
   let dbOk = false;
   try { await db.query('SELECT 1'); dbOk = true; } catch (e) {}
