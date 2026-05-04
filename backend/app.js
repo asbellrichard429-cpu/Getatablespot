@@ -497,7 +497,7 @@ app.post('/api/ai-concierge', async function(req, res) {
     if (!messages || !restaurantContext) return res.status(400).json({ error: 'Missing messages or context' });
     if (!process.env.ANTHROPIC_API_KEY) return res.status(500).json({ error: 'AI not configured' });
     const result = await axios.post('https://api.anthropic.com/v1/messages',
-      { model: 'claude-haiku-4-5-20240307', max_tokens: 600, system: 'You are a helpful AI dining concierge for GetATableSpot.\n\nRESTAURANTS:\n' + restaurantContext + '\n\nRecommend 2-3 restaurants that best match. Be warm and concise. Only recommend from the list.', messages },
+      { model: 'claude-opus-4-7-20240307', max_tokens: 600, system: 'You are a helpful AI dining concierge for GetATableSpot.\n\nRESTAURANTS:\n' + restaurantContext + '\n\nRecommend 2-3 restaurants that best match. Be warm and concise. Only recommend from the list.', messages },
       { headers: { 'Content-Type': 'application/json', 'x-api-key': process.env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' } }
     );
     res.json(result.data);
