@@ -425,19 +425,6 @@ app.post('/api/reservations', async function(req, res) {
   } catch (e) { console.error('Reservation:', e.message); res.status(500).json({ error: e.message }); }
 });
 
-app.post('/api/ai-concierge', async function(req, res) {
-  try {
-    const messages = req.body.messages, restaurantContext = req.body.restaurantContext;
-    if (!messages || !restaurantContext) return res.status(400).json({ error: 'Missing messages or context' });
-    if (!ANTHROPIC_KEY) return res.status(500).json({ error: 'AI not configured' });
-    const result = await axios.post('https://api.anthropic.com/v1/messages',
-      { model: 'claude-sonnet-4-20250514', max_tokens: 600, system: 'You are a helpful AI dining concierge for GetATableSpot.\n\nRESTAURANTS:\n' + restaurantContext + '\n\nRecommend 2-3 restaurants that best match. Be warm and concise. Only recommend from the list.', messages },
-      { headers: { 'Content-Type': 'application/json', 'x-api-key': ANTHROPIC_KEY, 'anthropic-version': '2023-06-01' } }
-    );
-    res.json(result.data);
-  } catch (e) { res.status(500).json({ error: e.message }); }
-});
-
 app.post('/api/restaurant-claim', async function(req, res) {
   try {
     const b = req.body;
