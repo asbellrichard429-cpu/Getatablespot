@@ -534,7 +534,7 @@ header{background:var(–ink);position:sticky;top:0;z-index:200}
               </div>
               <div class="ps-card" id="ps-elite" onclick="selPlan(this,'elite')">
                 <div class="ps-name">Elite</div>
-                <div class="ps-price">$299</div>
+                <div class="ps-price">$199</div>
                 <div class="ps-period">/month</div>
                 <div class="ps-outcome">Maximize &amp; fill slow hours</div>
               </div>
@@ -748,7 +748,7 @@ function selPlan(el, plan) {
 document.getElementById('ps-pro').classList.add('sel');
 
 function buildSummary() {
-  const planLabels = { basic: 'Basic — $49/month', pro: 'Pro — $99/month', elite: 'Elite — $299/month' };
+  const planLabels = { basic: 'Basic — $49/month', pro: 'Pro — $99/month', elite: 'Elite — $199/month' };
   const name = document.getElementById('ownerName').value.trim();
   const email = document.getElementById('ownerEmail').value.trim();
   document.getElementById('summaryBox').innerHTML = `
