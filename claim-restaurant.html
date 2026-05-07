@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -19,207 +18,206 @@
   --sans:'DM Sans',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--sans);background:var(--paper);color:var(--ink);min-height:100vh}
+body{font-family:var(--sans);background:#FAF8F4;color:#0A0806;min-height:100vh}
 
 /* HEADER */
-header{background:var(–ink);position:sticky;top:0;z-index:200}
+header{background:#0A0806;position:sticky;top:0;z-index:200}
 .header-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo{font-family:var(–serif);font-size:1.3rem;font-weight:900;color:var(–paper);display:flex;align-items:center;gap:8px;text-decoration:none}
-.logo-dot{width:8px;height:8px;border-radius:50%;background:var(–ember);flex-shrink:0}
-.logo-sub{font-size:.7rem;font-weight:400;color:rgba(255,255,255,.4);margin-left:2px;letter-spacing:.5px}
+.logo{font-family:var(--serif);font-size:1.3rem;font-weight:900;color:#FAF8F4;display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:#E8430A;flex-shrink:0}
+.logo-sub{font-size:.7rem;font-weight:400;color:rgba(255,255,255,.8);margin-left:2px;letter-spacing:.5px}
 .hdr-links{display:flex;align-items:center;gap:8px}
-.btn-hdr{padding:7px 14px;border-radius:4px;font-family:var(–sans);font-weight:700;font-size:.78rem;cursor:pointer;border:none;white-space:nowrap;transition:all .15s}
-.btn-diners{background:rgba(255,255,255,.1);color:var(–paper);border:1px solid rgba(255,255,255,.18)}.btn-diners:hover{background:rgba(255,255,255,.18)}
-.btn-claim-hdr{background:var(–ember);color:white}.btn-claim-hdr:hover{background:var(–ember-l)}
+.btn-hdr{padding:7px 14px;border-radius:4px;font-family:var(--sans);font-weight:700;font-size:.78rem;cursor:pointer;border:none;white-space:nowrap;transition:all .15s}
+.btn-diners{background:rgba(255,255,255,.1);color:#FAF8F4;border:1px solid rgba(255,255,255,.18)}.btn-diners:hover{background:rgba(255,255,255,.18)}
+.btn-claim-hdr{background:#E8430A;color:#FFFFFF}.btn-claim-hdr:hover{background:#FF6B3D}
 
 /* HERO */
 .hero{background:linear-gradient(160deg,#0A0806 0%,#1A0E05 55%,#0A0806 100%);padding:72px 24px 60px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:’’;position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(232,67,10,.09),transparent);pointer-events:none}
-.hero-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(–ember-l);margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:1}
-.hero-eyebrow::before,.hero-eyebrow::after{content:’’;flex:1;max-width:60px;height:1px;background:rgba(232,67,10,.3)}
-.hero h1{font-family:var(–serif);font-size:clamp(2rem,5.5vw,3.8rem);font-weight:900;color:#FAF8F4;line-height:1.1;margin-bottom:16px;position:relative;z-index:1}
-.hero h1 em{font-style:italic;color:var(–ember-l)}
-.hero-sub{font-size:.95rem;color:rgba(255,255,255,.5);max-width:520px;margin:0 auto 32px;line-height:1.7;position:relative;z-index:1}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(232,67,10,.09),transparent);pointer-events:none}
+.hero-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FF6B3D;margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:1}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';flex:1;max-width:60px;height:1px;background:rgba(232,67,10,.3)}
+.hero h1{font-family:var(--serif);font-size:clamp(2rem,5.5vw,3.8rem);font-weight:900;color:#FAF8F4;line-height:1.1;margin-bottom:16px;position:relative;z-index:1}
+.hero h1 em{font-style:italic;color:#FF6B3D}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.85);max-width:520px;margin:0 auto 32px;line-height:1.7;position:relative;z-index:1}
 .hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
-.btn-hero-primary{padding:14px 28px;background:var(–ember);color:white;border:none;border-radius:6px;font-family:var(–sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
-.btn-hero-primary:hover{background:var(–ember-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,67,10,.35)}
-.btn-hero-secondary{padding:14px 24px;background:rgba(255,255,255,.07);color:var(–paper);border:1.5px solid rgba(255,255,255,.15);border-radius:6px;font-family:var(–sans);font-weight:600;font-size:.9rem;cursor:pointer;transition:all .2s}
+.btn-hero-primary{padding:14px 28px;background:#E8430A;color:#FFFFFF;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-hero-primary:hover{background:#FF6B3D;transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,67,10,.35)}
+.btn-hero-secondary{padding:14px 24px;background:rgba(255,255,255,.07);color:#FAF8F4;border:1.5px solid rgba(255,255,255,.15);border-radius:6px;font-family:var(--sans);font-weight:600;font-size:.9rem;cursor:pointer;transition:all .2s}
 .btn-hero-secondary:hover{background:rgba(255,255,255,.12)}
-.hero-trial-note{font-size:.72rem;color:rgba(255,255,255,.28);margin-top:12px;position:relative;z-index:1}
+.hero-trial-note{font-size:.72rem;color:rgba(255,255,255,.75);margin-top:12px;position:relative;z-index:1}
 
 /* ROI STRIP */
 .roi-strip{background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:18px 24px}
 .roi-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-around;gap:16px;flex-wrap:wrap}
 .roi-item{text-align:center}
-.roi-num{font-family:var(–serif);font-size:1.8rem;font-weight:700;color:var(–ember-l);line-height:1}
-.roi-label{font-size:.7rem;color:rgba(255,255,255,.4);margin-top:3px;line-height:1.4}
+.roi-num{font-family:var(--serif);font-size:1.8rem;font-weight:700;color:#FF6B3D;line-height:1}
+.roi-label{font-size:.7rem;color:rgba(255,255,255,.8);margin-top:3px;line-height:1.4}
 .roi-sep{width:1px;height:36px;background:rgba(255,255,255,.08)}
 
 /* PAIN SECTION */
-.pain-section{background:var(–ink);padding:56px 24px}
+.pain-section{background:#0A0806;padding:56px 24px}
 .section-inner{max-width:960px;margin:0 auto}
-.section-label{font-size:.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(–ember-l);margin-bottom:10px}
-.section-title{font-family:var(–serif);font-size:clamp(1.5rem,4vw,2.4rem);font-weight:700;color:white;margin-bottom:8px;line-height:1.2}
-.section-sub{font-size:.88rem;color:rgba(255,255,255,.45);margin-bottom:36px;line-height:1.65;max-width:560px}
+.section-label{font-size:.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FF6B3D;margin-bottom:10px}
+.section-title{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2.4rem);font-weight:700;color:#FFFFFF;margin-bottom:8px;line-height:1.2}
+.section-sub{font-size:.88rem;color:rgba(255,255,255,.8);margin-bottom:36px;line-height:1.65;max-width:560px}
 .pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .pain-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px}
 .pain-icon{font-size:1.4rem;margin-bottom:10px}
-.pain-title{font-weight:700;font-size:.88rem;color:white;margin-bottom:5px}
-.pain-desc{font-size:.78rem;color:rgba(255,255,255,.42);line-height:1.55}
+.pain-title{font-weight:700;font-size:.88rem;color:#FFFFFF;margin-bottom:5px}
+.pain-desc{font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.55}
 .vs-row{display:flex;align-items:center;gap:14px;margin:28px 0 0;background:rgba(232,67,10,.07);border:1px solid rgba(232,67,10,.18);border-radius:10px;padding:18px 20px}
 .vs-icon{font-size:1.6rem;flex-shrink:0}
-.vs-text{font-size:.84rem;color:rgba(255,255,255,.6);line-height:1.6}
-.vs-text strong{color:white}
+.vs-text{font-size:.84rem;color:rgba(255,255,255,.9);line-height:1.6}
+.vs-text strong{color:#FFFFFF}
 
 /* HOW IT WORKS */
-.how-section{padding:60px 24px;background:var(–paper)}
+.how-section{padding:60px 24px;background:#FAF8F4}
 .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
-.how-card{background:white;border:1.5px solid var(–border);border-radius:12px;padding:24px;position:relative;transition:box-shadow .2s}
+.how-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:24px;position:relative;transition:box-shadow .2s}
 .how-card:hover{box-shadow:0 8px 32px rgba(10,8,6,.08)}
-.how-step-num{position:absolute;top:-14px;left:20px;width:28px;height:28px;border-radius:50%;background:var(–ember);color:white;font-weight:700;font-size:.78rem;display:flex;align-items:center;justify-content:center}
+.how-step-num{position:absolute;top:-14px;left:20px;width:28px;height:28px;border-radius:50%;background:#E8430A;color:#FFFFFF;font-weight:700;font-size:.78rem;display:flex;align-items:center;justify-content:center}
 .how-card-icon{font-size:1.6rem;margin-bottom:12px;margin-top:6px}
-.how-card-title{font-weight:700;font-size:.9rem;margin-bottom:6px;color:var(–ink)}
-.how-card-desc{font-size:.8rem;color:var(–slate);line-height:1.6}
+.how-card-title{font-weight:700;font-size:.9rem;margin-bottom:6px;color:#0A0806}
+.how-card-desc{font-size:.8rem;color:#5A6A82;line-height:1.6}
 
 /* PLANS */
-.plans-section{background:var(–warm);padding:60px 24px}
+.plans-section{background:#F5F0E8;padding:60px 24px}
 .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
-.plan-card{background:white;border:1.5px solid var(–border);border-radius:14px;padding:28px;position:relative;transition:box-shadow .2s,transform .2s}
+.plan-card{background:white;border:1.5px solid var(--border);border-radius:14px;padding:28px;position:relative;transition:box-shadow .2s,transform .2s}
 .plan-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,8,6,.1)}
-.plan-card.popular{border-color:var(–ember);box-shadow:0 0 0 1px var(–ember)}
-.plan-popular-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(–ember);color:white;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:999px;white-space:nowrap}
-.plan-name{font-weight:700;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(–slate);margin-bottom:6px}
-.plan-price{font-family:var(–serif);font-size:2.2rem;font-weight:900;color:var(–ink);line-height:1;margin-bottom:2px}
-.plan-price span{font-size:1rem;font-weight:400;color:var(–slate)}
-.plan-outcome{font-size:.8rem;color:var(–ember);font-weight:600;margin-bottom:16px;line-height:1.4}
+.plan-card.popular{border-color:#E8430A;box-shadow:0 0 0 1px var(--ember)}
+.plan-popular-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#E8430A;color:#FFFFFF;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:999px;white-space:nowrap}
+.plan-name{font-weight:700;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:#5A6A82;margin-bottom:6px}
+.plan-price{font-family:var(--serif);font-size:2.2rem;font-weight:900;color:#0A0806;line-height:1;margin-bottom:2px}
+.plan-price span{font-size:1rem;font-weight:400;color:#5A6A82}
+.plan-outcome{font-size:.8rem;color:#E8430A;font-weight:600;margin-bottom:16px;line-height:1.4}
 .plan-features{list-style:none;margin-bottom:24px}
-.plan-features li{font-size:.8rem;color:var(–slate);padding:5px 0;border-bottom:1px solid var(–warm);display:flex;align-items:flex-start;gap:7px;line-height:1.45}
-.plan-features li::before{content:‘✓’;color:var(–ember);font-weight:700;flex-shrink:0;margin-top:1px}
-.btn-plan{display:block;width:100%;padding:11px;border-radius:6px;font-family:var(–sans);font-weight:700;font-size:.85rem;cursor:pointer;border:none;text-align:center;transition:all .15s;text-decoration:none}
-.btn-plan-outline{background:white;color:var(–ink);border:1.5px solid var(–border)}.btn-plan-outline:hover{border-color:var(–ink);background:var(–warm)}
-.btn-plan-ember{background:var(–ember);color:white}.btn-plan-ember:hover{background:var(–ember-l)}
-.plan-trial{font-size:.68rem;color:var(–slate);text-align:center;margin-top:8px}
+.plan-features li{font-size:.8rem;color:#5A6A82;padding:5px 0;border-bottom:1px solid var(--warm);display:flex;align-items:flex-start;gap:7px;line-height:1.45}
+.plan-features li::before{content:'✓';color:#E8430A;font-weight:700;flex-shrink:0;margin-top:1px}
+.btn-plan{display:block;width:100%;padding:11px;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.85rem;cursor:pointer;border:none;text-align:center;transition:all .15s;text-decoration:none}
+.btn-plan-outline{background:white;color:#0A0806;border:1.5px solid var(--border)}.btn-plan-outline:hover{border-color:#0A0806;background:#F5F0E8}
+.btn-plan-ember{background:#E8430A;color:#FFFFFF}.btn-plan-ember:hover{background:#FF6B3D}
+.plan-trial{font-size:.68rem;color:#5A6A82;text-align:center;margin-top:8px}
 
 /* TESTIMONIALS */
 .testimonials-section{padding:60px 24px;background:white}
 .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
-.testi-card{background:var(–warm);border:1px solid var(–border);border-radius:12px;padding:22px}
-.testi-stars{color:var(–gold-d);font-size:.9rem;margin-bottom:10px}
-.testi-quote{font-size:.85rem;color:var(–ink);line-height:1.65;margin-bottom:14px;font-style:italic}
-.testi-author{font-size:.75rem;font-weight:700;color:var(–slate)}
+.testi-card{background:#F5F0E8;border:1px solid var(--border);border-radius:12px;padding:22px}
+.testi-stars{color:var(--gold-d);font-size:.9rem;margin-bottom:10px}
+.testi-quote{font-size:.85rem;color:#0A0806;line-height:1.65;margin-bottom:14px;font-style:italic}
+.testi-author{font-size:.75rem;font-weight:700;color:#5A6A82}
 .testi-role{font-size:.7rem;color:#B8AFA0}
 
 /* CLAIM FORM */
-.claim-section{background:var(–ink);padding:64px 24px}
-.claim-section .section-title{color:white}
-.claim-section .section-sub{color:rgba(255,255,255,.45)}
+.claim-section{background:#0A0806;padding:64px 24px}
+.claim-section .section-title{color:#FFFFFF}
+.claim-section .section-sub{color:rgba(255,255,255,.8)}
 .form-wrap{max-width:640px;margin:0 auto}
-.form-top-bar{background:linear-gradient(135deg,var(–ember),var(–ember-l));border-radius:10px 10px 0 0;padding:14px 22px;display:flex;align-items:center;gap:10px}
+.form-top-bar{background:linear-gradient(135deg,var(--ember),var(--ember-l));border-radius:10px 10px 0 0;padding:14px 22px;display:flex;align-items:center;gap:10px}
 .ftb-icon{font-size:1.2rem}
-.ftb-title{font-weight:700;font-size:.9rem;color:white}
+.ftb-title{font-weight:700;font-size:.9rem;color:#FFFFFF}
 .ftb-sub{font-size:.72rem;color:rgba(255,255,255,.75);margin-top:1px}
 .form-body{background:white;border-radius:0 0 10px 10px;padding:28px}
 
 /* SEARCH */
 .search-box-wrap{position:relative;margin-bottom:20px}
-.search-box-wrap input{width:100%;padding:12px 40px 12px 14px;border:1.5px solid var(–border);border-radius:6px;font-family:var(–sans);font-size:.9rem;outline:none;transition:border-color .15s;color:var(–ink)}
-.search-box-wrap input:focus{border-color:var(–ember)}
-.search-box-wrap .s-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(–slate);pointer-events:none}
-.search-results{position:absolute;top:100%;left:0;right:0;background:white;border:1.5px solid var(–border);border-top:none;border-radius:0 0 6px 6px;max-height:220px;overflow-y:auto;z-index:50;display:none}
+.search-box-wrap input{width:100%;padding:12px 40px 12px 14px;border:1.5px solid var(--border);border-radius:6px;font-family:var(--sans);font-size:.9rem;outline:none;transition:border-color .15s;color:#0A0806}
+.search-box-wrap input:focus{border-color:#E8430A}
+.search-box-wrap .s-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#5A6A82;pointer-events:none}
+.search-results{position:absolute;top:100%;left:0;right:0;background:white;border:1.5px solid var(--border);border-top:none;border-radius:0 0 6px 6px;max-height:220px;overflow-y:auto;z-index:50;display:none}
 .search-results.open{display:block}
-.sr-item{padding:11px 14px;cursor:pointer;border-bottom:1px solid var(–warm);transition:background .1s}
-.sr-item:hover{background:var(–warm)}
+.sr-item{padding:11px 14px;cursor:pointer;border-bottom:1px solid var(--warm);transition:background .1s}
+.sr-item:hover{background:#F5F0E8}
 .sr-item:last-child{border-bottom:none}
-.sr-name{font-size:.85rem;font-weight:600;color:var(–ink)}
-.sr-addr{font-size:.72rem;color:var(–slate);margin-top:1px}
+.sr-name{font-size:.85rem;font-weight:600;color:#0A0806}
+.sr-addr{font-size:.72rem;color:#5A6A82;margin-top:1px}
 .selected-banner{background:linear-gradient(135deg,rgba(232,67,10,.07),rgba(232,67,10,.03));border:1px solid rgba(232,67,10,.2);border-radius:6px;padding:12px 14px;margin-bottom:20px;display:none;align-items:center;gap:10px}
 .selected-banner.show{display:flex}
 .sb-icon{font-size:1.1rem;flex-shrink:0}
-.sb-name{font-size:.85rem;font-weight:700;color:var(–ink);margin-bottom:1px}
-.sb-addr{font-size:.72rem;color:var(–slate)}
-.sb-change{font-size:.7rem;color:var(–ember);cursor:pointer;margin-left:auto;white-space:nowrap;font-weight:600}
+.sb-name{font-size:.85rem;font-weight:700;color:#0A0806;margin-bottom:1px}
+.sb-addr{font-size:.72rem;color:#5A6A82}
+.sb-change{font-size:.7rem;color:#E8430A;cursor:pointer;margin-left:auto;white-space:nowrap;font-weight:600}
 .sb-change:hover{text-decoration:underline}
 
 /* STEP FORM */
 .step-dots{display:flex;align-items:center;gap:6px;margin-bottom:24px}
-.step-dot{width:8px;height:8px;border-radius:50%;background:var(–border);transition:all .2s}
-.step-dot.active{width:22px;border-radius:4px;background:var(–ember)}
-.step-dot.done{background:var(–sage)}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:all .2s}
+.step-dot.active{width:22px;border-radius:4px;background:#E8430A}
+.step-dot.done{background:var(--sage)}
 .step-content{min-height:160px}
 .step-panel{display:none}.step-panel.active{display:block}
-.field-lbl{display:block;font-size:.7rem;font-weight:700;color:var(–slate);margin-bottom:3px;letter-spacing:.3px;text-transform:uppercase}
-.field-in{width:100%;padding:10px 13px;border:1.5px solid var(–border);border-radius:5px;font-family:var(–sans);font-size:.9rem;margin-bottom:14px;outline:none;transition:border-color .15s;color:var(–ink);background:white}
-.field-in:focus{border-color:var(–ember)}
+.field-lbl{display:block;font-size:.7rem;font-weight:700;color:#5A6A82;margin-bottom:3px;letter-spacing:.3px;text-transform:uppercase}
+.field-in{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.9rem;margin-bottom:14px;outline:none;transition:border-color .15s;color:#0A0806;background:white}
+.field-in:focus{border-color:#E8430A}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .role-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.role-opt{padding:10px 14px;border:1.5px solid var(–border);border-radius:6px;cursor:pointer;font-size:.82rem;font-weight:600;color:var(–slate);transition:all .15s;text-align:center;background:white}
-.role-opt:hover{border-color:var(–ember);color:var(–ember)}
-.role-opt.sel{border-color:var(–ember);background:rgba(232,67,10,.05);color:var(–ember)}
+.role-opt{padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;font-size:.82rem;font-weight:600;color:#5A6A82;transition:all .15s;text-align:center;background:white}
+.role-opt:hover{border-color:#E8430A;color:#E8430A}
+.role-opt.sel{border-color:#E8430A;background:rgba(232,67,10,.05);color:#E8430A}
 
 /* PLAN SELECTOR */
 .ps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-.ps-card{border:1.5px solid var(–border);border-radius:8px;padding:14px;cursor:pointer;text-align:center;transition:all .15s;background:white;position:relative}
-.ps-card:hover{border-color:var(–ember)}
-.ps-card.sel{border-color:var(–ember);background:rgba(232,67,10,.04)}
-.ps-card.popular::after{content:‘Most Popular’;position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(–ember);color:white;font-size:.55rem;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap}
-.ps-name{font-weight:700;font-size:.75rem;color:var(–ink);margin-bottom:2px}
-.ps-price{font-size:1rem;font-weight:700;font-family:var(–serif);color:var(–ember);margin-bottom:2px}
-.ps-period{font-size:.62rem;color:var(–slate)}
-.ps-outcome{font-size:.67rem;color:var(–slate);margin-top:4px;line-height:1.3}
+.ps-card{border:1.5px solid var(--border);border-radius:8px;padding:14px;cursor:pointer;text-align:center;transition:all .15s;background:white;position:relative}
+.ps-card:hover{border-color:#E8430A}
+.ps-card.sel{border-color:#E8430A;background:rgba(232,67,10,.04)}
+.ps-card.popular::after{content:'Most Popular';position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#E8430A;color:#FFFFFF;font-size:.55rem;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap}
+.ps-name{font-weight:700;font-size:.75rem;color:#0A0806;margin-bottom:2px}
+.ps-price{font-size:1rem;font-weight:700;font-family:var(--serif);color:#E8430A;margin-bottom:2px}
+.ps-period{font-size:.62rem;color:#5A6A82}
+.ps-outcome{font-size:.67rem;color:#5A6A82;margin-top:4px;line-height:1.3}
 
 /* FORM BUTTONS */
 .form-nav{display:flex;align-items:center;justify-content:space-between;margin-top:20px;gap:10px}
-.btn-back{padding:10px 18px;background:var(–warm);border:1.5px solid var(–border);border-radius:5px;font-family:var(–sans);font-weight:600;font-size:.82rem;cursor:pointer;color:var(–slate);transition:all .15s}
-.btn-back:hover{background:var(–border)}
-.btn-next{padding:10px 22px;background:var(–ember);color:white;border:none;border-radius:5px;font-family:var(–sans);font-weight:700;font-size:.85rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
-.btn-next:hover{background:var(–ember-l)}
-.btn-submit{width:100%;padding:14px;background:var(–ember);color:white;border:none;border-radius:6px;font-family:var(–sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-submit:hover{background:var(–ember-l)}
+.btn-back{padding:10px 18px;background:#F5F0E8;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-weight:600;font-size:.82rem;cursor:pointer;color:#5A6A82;transition:all .15s}
+.btn-back:hover{background:var(--border)}
+.btn-next{padding:10px 22px;background:#E8430A;color:#FFFFFF;border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.85rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+.btn-next:hover{background:#FF6B3D}
+.btn-submit{width:100%;padding:14px;background:#E8430A;color:#FFFFFF;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-submit:hover{background:#FF6B3D}
 .btn-submit:disabled{opacity:.6;cursor:not-allowed}
-.submit-note{font-size:.68rem;color:var(–slate);text-align:center;margin-top:8px;line-height:1.5}
+.submit-note{font-size:.68rem;color:#5A6A82;text-align:center;margin-top:8px;line-height:1.5}
 
 /* SUCCESS */
 .success-box{display:none;text-align:center;padding:40px 24px}
 .success-box.show{display:block}
 .success-icon{font-size:3rem;margin-bottom:14px}
-.success-title{font-family:var(–serif);font-size:1.5rem;font-weight:700;margin-bottom:8px;color:var(–ink)}
-.success-desc{font-size:.88rem;color:var(–slate);line-height:1.65;margin-bottom:20px}
-.success-next{background:var(–warm);border:1px solid var(–border);border-radius:8px;padding:16px;text-align:left}
+.success-title{font-family:var(--serif);font-size:1.5rem;font-weight:700;margin-bottom:8px;color:#0A0806}
+.success-desc{font-size:.88rem;color:#5A6A82;line-height:1.65;margin-bottom:20px}
+.success-next{background:#F5F0E8;border:1px solid var(--border);border-radius:8px;padding:16px;text-align:left}
 .success-next-title{font-weight:700;font-size:.82rem;margin-bottom:8px}
-.success-step{font-size:.78rem;color:var(–slate);display:flex;align-items:flex-start;gap:7px;margin-bottom:6px;line-height:1.4}
-.success-step-num{width:18px;height:18px;border-radius:50%;background:var(–ember);color:white;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.success-step{font-size:.78rem;color:#5A6A82;display:flex;align-items:flex-start;gap:7px;margin-bottom:6px;line-height:1.4}
+.success-step-num{width:18px;height:18px;border-radius:50%;background:#E8430A;color:#FFFFFF;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 
 /* FAQ */
-.faq-section{padding:60px 24px;background:var(–paper)}
+.faq-section{padding:60px 24px;background:#FAF8F4}
 .faq-grid{margin-top:32px;max-width:700px;margin-left:auto;margin-right:auto}
-.faq-item{border-bottom:1px solid var(–border);padding:16px 0;cursor:pointer}
-.faq-q{font-weight:600;font-size:.88rem;color:var(–ink);display:flex;justify-content:space-between;align-items:center;gap:12px}
-.faq-icon{color:var(–ember);font-size:.9rem;flex-shrink:0;transition:transform .2s}
+.faq-item{border-bottom:1px solid var(--border);padding:16px 0;cursor:pointer}
+.faq-q{font-weight:600;font-size:.88rem;color:#0A0806;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-icon{color:#E8430A;font-size:.9rem;flex-shrink:0;transition:transform .2s}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
-.faq-a{font-size:.82rem;color:var(–slate);line-height:1.65;padding-top:10px;display:none}
+.faq-a{font-size:.82rem;color:#5A6A82;line-height:1.65;padding-top:10px;display:none}
 .faq-item.open .faq-a{display:block}
 
 /* FOOTER CTA */
-.footer-cta{background:linear-gradient(135deg,var(–ember-d),var(–ember));padding:56px 24px;text-align:center}
-.footer-cta h2{font-family:var(–serif);font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;color:white;margin-bottom:10px;line-height:1.15}
+.footer-cta{background:linear-gradient(135deg,var(--ember-d),var(--ember));padding:56px 24px;text-align:center}
+.footer-cta h2{font-family:var(--serif);font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;color:#FFFFFF;margin-bottom:10px;line-height:1.15}
 .footer-cta p{font-size:.9rem;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.6}
-.btn-footer{padding:15px 36px;background:white;color:var(–ember);border:none;border-radius:6px;font-family:var(–sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s}
+.btn-footer{padding:15px 36px;background:white;color:#E8430A;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s}
 .btn-footer:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
 
 /* TOAST */
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(–ink);color:var(–paper);padding:11px 22px;border-radius:5px;font-size:.82rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap;box-shadow:0 8px 28px rgba(10,8,6,.3)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#0A0806;color:#FAF8F4;padding:11px 22px;border-radius:5px;font-size:.82rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap;box-shadow:0 8px 28px rgba(10,8,6,.3)}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
 @media(max-width:700px){
-.pain-grid,.how-grid,.plans-grid,.testi-grid{grid-template-columns:1fr}
-.field-row{grid-template-columns:1fr}
-.ps-grid{grid-template-columns:1fr}
-.roi-sep{display:none}
-.roi-inner{gap:20px}
-.hero-ctas{flex-direction:column;align-items:stretch;max-width:300px;margin:0 auto}
+  .pain-grid,.how-grid,.plans-grid,.testi-grid{grid-template-columns:1fr}
+  .field-row{grid-template-columns:1fr}
+  .ps-grid{grid-template-columns:1fr}
+  .roi-sep{display:none}
+  .roi-inner{gap:20px}
+  .hero-ctas{flex-direction:column;align-items:stretch;max-width:300px;margin:0 auto}
 }
 </style>
-
 </head>
 <body>
 
@@ -234,7 +232,6 @@ header{background:var(–ink);position:sticky;top:0;z-index:200}
 </header>
 
 <!-- HERO -->
-
 <div class="hero">
   <div class="hero-eyebrow">Early Access — Limited Spots</div>
   <h1>Turn Empty Tables<br>Into <em>Revenue.</em></h1>
@@ -247,8 +244,7 @@ header{background:var(–ink);position:sticky;top:0;z-index:200}
 </div>
 
 <!-- ROI STRIP -->
-
-<div style="background:var(--ink)">
+<div style="background:#0A0806">
   <div class="roi-strip">
     <div class="roi-inner">
       <div class="roi-item">
@@ -275,7 +271,6 @@ header{background:var(–ink);position:sticky;top:0;z-index:200}
 </div>
 
 <!-- PAIN SECTION -->
-
 <div class="pain-section">
   <div class="section-inner">
     <div class="section-label">The Problem</div>
@@ -311,7 +306,6 @@ header{background:var(–ink);position:sticky;top:0;z-index:200}
 </div>
 
 <!-- HOW IT WORKS -->
-
 <div class="how-section">
   <div class="section-inner">
     <div class="section-label">How It Works</div>
@@ -341,7 +335,6 @@ header{background:var(–ink);position:sticky;top:0;z-index:200}
 </div>
 
 <!-- PLANS -->
-
 <div class="plans-section" id="plansSection">
   <div class="section-inner">
     <div class="section-label">Pricing</div>
@@ -349,66 +342,62 @@ header{background:var(–ink);position:sticky;top:0;z-index:200}
     <div class="section-sub">Pay one flat monthly fee. Every booking we send you is free.</div>
     <div class="plans-grid">
 
-```
-  <div class="plan-card">
-    <div class="plan-name">Basic</div>
-    <div class="plan-price">$49<span>/mo</span></div>
-    <div class="plan-outcome">Get listed &amp; found by local diners</div>
-    <ul class="plan-features">
-      <li>Google-powered listing page</li>
-      <li>Live wait time display</li>
-      <li>Appear in nearby searches</li>
-      <li>Reservation request form</li>
-      <li>Email notifications for requests</li>
-      <li>Basic dashboard access</li>
-    </ul>
-    <button class="btn-plan btn-plan-outline" onclick="selectPlanAndScroll('basic')">Start Free Trial →</button>
-    <div class="plan-trial">7 days free · Cancel anytime</div>
-  </div>
+      <div class="plan-card">
+        <div class="plan-name">Basic</div>
+        <div class="plan-price">$49<span>/mo</span></div>
+        <div class="plan-outcome">Get listed &amp; found by local diners</div>
+        <ul class="plan-features">
+          <li>Google-powered listing page</li>
+          <li>Live wait time display</li>
+          <li>Appear in nearby searches</li>
+          <li>Reservation request form</li>
+          <li>Email notifications for requests</li>
+          <li>Basic dashboard access</li>
+        </ul>
+        <button class="btn-plan btn-plan-outline" onclick="selectPlanAndScroll('basic')">Start Free Trial →</button>
+        <div class="plan-trial">7 days free · Cancel anytime</div>
+      </div>
 
-  <div class="plan-card popular">
-    <div class="plan-popular-tag">🔥 Most Popular</div>
-    <div class="plan-name">Pro</div>
-    <div class="plan-price">$99<span>/mo</span></div>
-    <div class="plan-outcome">Get 15–30% more bookings</div>
-    <ul class="plan-features">
-      <li>Everything in Basic</li>
-      <li>Featured placement (top of results)</li>
-      <li>Priority in search rankings</li>
-      <li>Wait time &amp; availability alerts sent to diners</li>
-      <li>Time slot management</li>
-      <li>Performance analytics dashboard</li>
-      <li>Custom restaurant photos</li>
-    </ul>
-    <button class="btn-plan btn-plan-ember" onclick="selectPlanAndScroll('pro')">Start Free Trial →</button>
-    <div class="plan-trial">7 days free · Cancel anytime</div>
-  </div>
+      <div class="plan-card popular">
+        <div class="plan-popular-tag">🔥 Most Popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$99<span>/mo</span></div>
+        <div class="plan-outcome">Get 15–30% more bookings</div>
+        <ul class="plan-features">
+          <li>Everything in Basic</li>
+          <li>Featured placement (top of results)</li>
+          <li>Priority in search rankings</li>
+          <li>Wait time &amp; availability alerts sent to diners</li>
+          <li>Time slot management</li>
+          <li>Performance analytics dashboard</li>
+          <li>Custom restaurant photos</li>
+        </ul>
+        <button class="btn-plan btn-plan-ember" onclick="selectPlanAndScroll('pro')">Start Free Trial →</button>
+        <div class="plan-trial">7 days free · Cancel anytime</div>
+      </div>
 
-  <div class="plan-card">
-    <div class="plan-name">Elite</div>
-    <div class="plan-price">$199<span>/mo</span></div>
-    <div class="plan-outcome">Maximize bookings &amp; fill slow hours</div>
-    <ul class="plan-features">
-      <li>Everything in Pro</li>
-      <li>#1 featured placement guaranteed</li>
-      <li>AI-powered slow hour promotions</li>
-      <li>Direct diner messaging</li>
-      <li>Dedicated account manager</li>
-      <li>Custom landing page</li>
-      <li>Priority support</li>
-    </ul>
-    <button class="btn-plan btn-plan-outline" onclick="selectPlanAndScroll('elite')">Start Free Trial →</button>
-    <div class="plan-trial">7 days free · Cancel anytime</div>
-  </div>
+      <div class="plan-card">
+        <div class="plan-name">Elite</div>
+        <div class="plan-price">$199<span>/mo</span></div>
+        <div class="plan-outcome">Maximize bookings &amp; fill slow hours</div>
+        <ul class="plan-features">
+          <li>Everything in Pro</li>
+          <li>#1 featured placement guaranteed</li>
+          <li>AI-powered slow hour promotions</li>
+          <li>Direct diner messaging</li>
+          <li>Dedicated account manager</li>
+          <li>Custom landing page</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="btn-plan btn-plan-outline" onclick="selectPlanAndScroll('elite')">Start Free Trial →</button>
+        <div class="plan-trial">7 days free · Cancel anytime</div>
+      </div>
 
-</div>
-```
-
+    </div>
   </div>
 </div>
 
 <!-- TESTIMONIALS -->
-
 <div class="testimonials-section">
   <div class="section-inner">
     <div class="section-label">Early Partners</div>
@@ -437,7 +426,6 @@ header{background:var(–ink);position:sticky;top:0;z-index:200}
 </div>
 
 <!-- CLAIM FORM -->
-
 <div class="claim-section" id="claimSection">
   <div class="section-inner">
     <div style="text-align:center;margin-bottom:36px">
@@ -473,121 +461,117 @@ header{background:var(–ink);position:sticky;top:0;z-index:200}
           </div>
         </div>
 
-```
-    <!-- MULTI-STEP FORM -->
-    <div id="claimForm" style="display:none">
-      <div class="form-top-bar">
-        <div class="ftb-icon">🍽️</div>
-        <div><div class="ftb-title" id="formHeaderTitle">Claim Your Restaurant</div><div class="ftb-sub" id="formHeaderSub">7-day free trial · No credit card to start</div></div>
-      </div>
-      <div class="form-body">
-        <div class="step-dots" id="stepDots">
-          <div class="step-dot active" id="dot0"></div>
-          <div class="step-dot" id="dot1"></div>
-          <div class="step-dot" id="dot2"></div>
+        <!-- MULTI-STEP FORM -->
+        <div id="claimForm" style="display:none">
+          <div class="form-top-bar">
+            <div class="ftb-icon">🍽️</div>
+            <div><div class="ftb-title" id="formHeaderTitle">Claim Your Restaurant</div><div class="ftb-sub" id="formHeaderSub">7-day free trial · No credit card to start</div></div>
+          </div>
+          <div class="form-body">
+            <div class="step-dots" id="stepDots">
+              <div class="step-dot active" id="dot0"></div>
+              <div class="step-dot" id="dot1"></div>
+              <div class="step-dot" id="dot2"></div>
+            </div>
+            <div class="step-content">
+
+              <!-- STEP 1: OWNER INFO -->
+              <div class="step-panel active" id="step0">
+                <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:#0A0806">Your Contact Info</div>
+                <div class="field-row">
+                  <div>
+                    <label class="field-lbl">Your Name</label>
+                    <input class="field-in" id="ownerName" placeholder="First Last" type="text">
+                  </div>
+                  <div>
+                    <label class="field-lbl">Phone Number</label>
+                    <input class="field-in" id="ownerPhone" placeholder="(555) 000-0000" type="tel">
+                  </div>
+                </div>
+                <label class="field-lbl">Email Address</label>
+                <input class="field-in" id="ownerEmail" placeholder="you@restaurant.com" type="email">
+                <div style="font-size:.78rem;font-weight:600;color:#5A6A82;margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px">Your Role</div>
+                <div class="role-options">
+                  <div class="role-opt" onclick="selRole(this,'owner')">👤 Owner</div>
+                  <div class="role-opt" onclick="selRole(this,'manager')">📋 Manager</div>
+                  <div class="role-opt" onclick="selRole(this,'operator')">🏢 Operator</div>
+                  <div class="role-opt" onclick="selRole(this,'other')">✨ Other</div>
+                </div>
+                <div class="form-nav">
+                  <div></div>
+                  <button class="btn-next" onclick="goStep(1)">Choose Plan →</button>
+                </div>
+              </div>
+
+              <!-- STEP 2: CHOOSE PLAN -->
+              <div class="step-panel" id="step1">
+                <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:#0A0806">Choose Your Plan</div>
+                <div class="ps-grid">
+                  <div class="ps-card" id="ps-basic" onclick="selPlan(this,'basic')">
+                    <div class="ps-name">Basic</div>
+                    <div class="ps-price">$49</div>
+                    <div class="ps-period">/month</div>
+                    <div class="ps-outcome">Get listed &amp; found</div>
+                  </div>
+                  <div class="ps-card popular" id="ps-pro" onclick="selPlan(this,'pro')">
+                    <div class="ps-name">Pro</div>
+                    <div class="ps-price">$99</div>
+                    <div class="ps-period">/month</div>
+                    <div class="ps-outcome">15–30% more bookings</div>
+                  </div>
+                  <div class="ps-card" id="ps-elite" onclick="selPlan(this,'elite')">
+                    <div class="ps-name">Elite</div>
+                    <div class="ps-price">$199</div>
+                    <div class="ps-period">/month</div>
+                    <div class="ps-outcome">Maximize &amp; fill slow hours</div>
+                  </div>
+                </div>
+                <div style="background:#F5F0E8;border:1px solid var(--border);border-radius:6px;padding:10px 13px;font-size:.75rem;color:#5A6A82;line-height:1.5">
+                  ✅ 7-day free trial on all plans · No credit card required to start · Cancel before day 8 to pay nothing
+                </div>
+                <div class="form-nav">
+                  <button class="btn-back" onclick="goStep(0)">← Back</button>
+                  <button class="btn-next" onclick="goStep(2)">Review &amp; Submit →</button>
+                </div>
+              </div>
+
+              <!-- STEP 3: CONFIRM -->
+              <div class="step-panel" id="step2">
+                <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:#0A0806">Review &amp; Start Trial</div>
+                <div id="summaryBox" style="background:#F5F0E8;border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:16px;font-size:.82rem;color:#5A6A82;line-height:1.9"></div>
+                <button class="btn-submit" id="btnSubmit" onclick="submitClaim()">
+                  🚀 Get More Customers — Start Free 7 Days →
+                </button>
+                <div class="submit-note">No credit card required to start · Cancel before day 8 to pay nothing<br>You'll be redirected to complete setup after submitting.</div>
+                <div class="form-nav" style="margin-top:12px">
+                  <button class="btn-back" onclick="goStep(1)">← Back</button>
+                  <div></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
-        <div class="step-content">
 
-          <!-- STEP 1: OWNER INFO -->
-          <div class="step-panel active" id="step0">
-            <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:var(--ink)">Your Contact Info</div>
-            <div class="field-row">
-              <div>
-                <label class="field-lbl">Your Name</label>
-                <input class="field-in" id="ownerName" placeholder="First Last" type="text">
-              </div>
-              <div>
-                <label class="field-lbl">Phone Number</label>
-                <input class="field-in" id="ownerPhone" placeholder="(555) 000-0000" type="tel">
-              </div>
-            </div>
-            <label class="field-lbl">Email Address</label>
-            <input class="field-in" id="ownerEmail" placeholder="you@restaurant.com" type="email">
-            <div style="font-size:.78rem;font-weight:600;color:var(--slate);margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px">Your Role</div>
-            <div class="role-options">
-              <div class="role-opt" onclick="selRole(this,'owner')">👤 Owner</div>
-              <div class="role-opt" onclick="selRole(this,'manager')">📋 Manager</div>
-              <div class="role-opt" onclick="selRole(this,'operator')">🏢 Operator</div>
-              <div class="role-opt" onclick="selRole(this,'other')">✨ Other</div>
-            </div>
-            <div class="form-nav">
-              <div></div>
-              <button class="btn-next" onclick="goStep(1)">Choose Plan →</button>
-            </div>
+        <!-- SUCCESS -->
+        <div class="success-box" id="successBox">
+          <div class="success-icon">🎉</div>
+          <div class="success-title">You're in! Setting up your listing…</div>
+          <div class="success-desc">We've received your claim and sent you a welcome email. Complete payment to activate your free trial.</div>
+          <div class="success-next">
+            <div class="success-next-title">What happens next:</div>
+            <div class="success-step"><div class="success-step-num">1</div> Check your email for your payment link and welcome message</div>
+            <div class="success-step"><div class="success-step-num">2</div> Complete your 7-day free trial setup (takes 2 minutes)</div>
+            <div class="success-step"><div class="success-step-num">3</div> Your restaurant goes live and starts appearing in local searches</div>
+            <div class="success-step"><div class="success-step-num">4</div> Update your wait time from your dashboard anytime</div>
           </div>
-
-          <!-- STEP 2: CHOOSE PLAN -->
-          <div class="step-panel" id="step1">
-            <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:var(--ink)">Choose Your Plan</div>
-            <div class="ps-grid">
-              <div class="ps-card" id="ps-basic" onclick="selPlan(this,'basic')">
-                <div class="ps-name">Basic</div>
-                <div class="ps-price">$49</div>
-                <div class="ps-period">/month</div>
-                <div class="ps-outcome">Get listed &amp; found</div>
-              </div>
-              <div class="ps-card popular" id="ps-pro" onclick="selPlan(this,'pro')">
-                <div class="ps-name">Pro</div>
-                <div class="ps-price">$99</div>
-                <div class="ps-period">/month</div>
-                <div class="ps-outcome">15–30% more bookings</div>
-              </div>
-              <div class="ps-card" id="ps-elite" onclick="selPlan(this,'elite')">
-                <div class="ps-name">Elite</div>
-                <div class="ps-price">$199</div>
-                <div class="ps-period">/month</div>
-                <div class="ps-outcome">Maximize &amp; fill slow hours</div>
-              </div>
-            </div>
-            <div style="background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:10px 13px;font-size:.75rem;color:var(--slate);line-height:1.5">
-              ✅ 7-day free trial on all plans · No credit card required to start · Cancel before day 8 to pay nothing
-            </div>
-            <div class="form-nav">
-              <button class="btn-back" onclick="goStep(0)">← Back</button>
-              <button class="btn-next" onclick="goStep(2)">Review &amp; Submit →</button>
-            </div>
-          </div>
-
-          <!-- STEP 3: CONFIRM -->
-          <div class="step-panel" id="step2">
-            <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:var(--ink)">Review &amp; Start Trial</div>
-            <div id="summaryBox" style="background:var(--warm);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:16px;font-size:.82rem;color:var(--slate);line-height:1.9"></div>
-            <button class="btn-submit" id="btnSubmit" onclick="submitClaim()">
-              🚀 Get More Customers — Start Free 7 Days →
-            </button>
-            <div class="submit-note">No credit card required to start · Cancel before day 8 to pay nothing<br>You'll be redirected to complete setup after submitting.</div>
-            <div class="form-nav" style="margin-top:12px">
-              <button class="btn-back" onclick="goStep(1)">← Back</button>
-              <div></div>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
-
-    <!-- SUCCESS -->
-    <div class="success-box" id="successBox">
-      <div class="success-icon">🎉</div>
-      <div class="success-title">You're in! Setting up your listing…</div>
-      <div class="success-desc">We've received your claim and sent you a welcome email. Complete payment to activate your free trial.</div>
-      <div class="success-next">
-        <div class="success-next-title">What happens next:</div>
-        <div class="success-step"><div class="success-step-num">1</div> Check your email for your payment link and welcome message</div>
-        <div class="success-step"><div class="success-step-num">2</div> Complete your 7-day free trial setup (takes 2 minutes)</div>
-        <div class="success-step"><div class="success-step-num">3</div> Your restaurant goes live and starts appearing in local searches</div>
-        <div class="success-step"><div class="success-step-num">4</div> Update your wait time from your dashboard anytime</div>
-      </div>
-    </div>
-  </div>
-</div>
-```
-
   </div>
 </div>
 
 <!-- FAQ -->
-
 <div class="faq-section">
   <div class="section-inner">
     <div style="text-align:center;margin-bottom:0">
@@ -624,7 +608,6 @@ header{background:var(–ink);position:sticky;top:0;z-index:200}
 </div>
 
 <!-- FOOTER CTA -->
-
 <div class="footer-cta">
   <h2>Ready to fill more tables?</h2>
   <p>Join restaurants already getting discovered by local diners every night. 7-day free trial, no credit card required.</p>
@@ -653,14 +636,14 @@ function onRestaurantSearch(val) {
 
 async function googleSearch(q) {
   const results = document.getElementById('searchResults');
-  results.innerHTML = '<div class="sr-item"><div class="sr-name" style="color:var(--slate)">Searching…</div></div>';
+  results.innerHTML = '<div class="sr-item"><div class="sr-name" style="color:#5A6A82">Searching…</div></div>';
   results.classList.add('open');
   try {
     const r = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(q+' restaurant')}&key=${GKEY}`);
     const d = await r.json();
     const places = (d.results || []).slice(0, 6);
     if (!places.length) {
-      results.innerHTML = '<div class="sr-item"><div class="sr-name" style="color:var(--slate)">No results — try a different name or city</div></div>';
+      results.innerHTML = '<div class="sr-item"><div class="sr-name" style="color:#5A6A82">No results — try a different name or city</div></div>';
       return;
     }
     results.innerHTML = places.map(p => `
@@ -669,7 +652,7 @@ async function googleSearch(q) {
         <div class="sr-addr">${p.formatted_address || p.vicinity || ''}</div>
       </div>`).join('');
   } catch {
-    results.innerHTML = '<div class="sr-item"><div class="sr-name" style="color:var(--slate)">Search error — try again</div></div>';
+    results.innerHTML = '<div class="sr-item"><div class="sr-name" style="color:#5A6A82">Search error — try again</div></div>';
   }
 }
 
@@ -758,7 +741,7 @@ function buildSummary() {
       <div><strong>Contact:</strong> ${name} · ${email}</div>
       <div><strong>Role:</strong> ${selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1)}</div>
       <div><strong>Plan:</strong> ${planLabels[selectedPlan] || selectedPlan}</div>
-      <div style="color:var(--ember);font-size:.78rem;margin-top:4px">✅ 7-day free trial · No charge until day 8</div>
+      <div style="color:#E8430A;font-size:.78rem;margin-top:4px">✅ 7-day free trial · No charge until day 8</div>
     </div>`;
 }
 
@@ -862,6 +845,5 @@ function showToast(msg) {
   }
 })();
 </script>
-
 </body>
 </html>
