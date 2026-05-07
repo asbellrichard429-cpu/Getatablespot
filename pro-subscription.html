@@ -156,7 +156,7 @@ header{padding:18px 32px;display:flex;align-items:center;justify-content:space-b
       <div class="plan-name">Pro Diner</div>
       <div class="plan-desc">For anyone who takes their dining seriously.</div>
       <div class="plan-price">
-        <div class="amount" id="pro-amount">$7.99</div>
+        <div class="amount" id="pro-amount">$2.99</div>
         <div class="period" id="pro-period">per month</div>
       </div>
       <div class="feat-list">
@@ -219,7 +219,7 @@ header{padding:18px 32px;display:flex;align-items:center;justify-content:space-b
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="plan-badge" id="mBadge">Pro Diner</div>
     <h2 id="mTitle">Start your free trial</h2>
-    <p class="sub" id="mSub">7 days free, then $7.99/month. Cancel anytime.</p>
+    <p class="sub" id="mSub">7 days free, then $2.99/month. Cancel anytime.</p>
 =======
 <title>GetATableSpot Pro — Never Wait Again</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -742,8 +742,8 @@ header{background:var(--ink);padding:0 24px;height:58px;display:flex;align-items
 const API='http://localhost:3001/api';
 let annual=false,plan='pro';
 const PLANS={
-  pro:{badge:'✦ GetATableSpot Pro',title:'Start your free trial',sub:'7 days free, then $7.99/month. Cancel anytime.',btn:'Start Free Trial →',
-    order:[['GetATableSpot Pro Diner','$7.99/mo'],['7-day free trial','$0.00 today'],['Due today','$0.00']]},
+  pro:{badge:'✦ GetATableSpot Pro',title:'Start your free trial',sub:'7 days free, then $2.99/month. Cancel anytime.',btn:'Start Free Trial →',
+    order:[['GetATableSpot Pro Diner','$2.99/mo'],['7-day free trial','$0.00 today'],['Due today','$0.00']]},
   venue:{badge:'Restaurant Plan',title:'Claim your restaurant',sub:'30-day money-back guarantee.',btn:'Activate Dashboard →',
     order:[['GetATableSpot Restaurant Pro','$99/mo'],['30-day money back','guaranteed'],['Due today','$99.00']]},
 };
@@ -751,7 +751,7 @@ function toggleBilling(el){
   annual=!annual;
   document.getElementById('mo-opt').classList.toggle('on',!annual);
   document.getElementById('yr-opt').classList.toggle('on',annual);
-  document.getElementById('pro-amount').textContent=annual?'$5.99':'$7.99';
+  document.getElementById('pro-amount').textContent=annual?'$5.99':'$2.99';
   document.getElementById('pro-period').textContent=annual?'per month, billed annually':'per month';
   document.getElementById('venue-amount').textContent=annual?'$74':'$99';
   document.getElementById('venue-period').textContent=annual?'per month, billed annually':'per month';
