@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GetATableSpot for Restaurants — Fill Your Tables Faster</title>
-<meta name="description" content="Get discovered by hungry diners nearby. Control your live wait time. Fill slow hours automatically.">
+<title>GetATableSpot for Restaurants — Fill Your Empty Tables During Slow Hours</title>
+<meta name="description" content="Get discovered by diners searching for short waits near you. Free to claim. No per-booking fees. Conway, Little Rock & NW Arkansas.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -38,20 +38,20 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 .hero-eyebrow::before,.hero-eyebrow::after{content:'';flex:1;max-width:60px;height:1px;background:rgba(232,67,10,.3)}
 .hero h1{font-family:var(--serif);font-size:clamp(2rem,5.5vw,3.8rem);font-weight:900;color:#FAF8F4;line-height:1.1;margin-bottom:16px;position:relative;z-index:1}
 .hero h1 em{font-style:italic;color:#FF6B3D}
-.hero-sub{font-size:.95rem;color:rgba(255,255,255,.85);max-width:520px;margin:0 auto 32px;line-height:1.7;position:relative;z-index:1}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.75);max-width:540px;margin:0 auto 32px;line-height:1.7;position:relative;z-index:1}
 .hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
 .btn-hero-primary{padding:14px 28px;background:#E8430A;color:#FFFFFF;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
 .btn-hero-primary:hover{background:#FF6B3D;transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,67,10,.35)}
 .btn-hero-secondary{padding:14px 24px;background:rgba(255,255,255,.07);color:#FAF8F4;border:1.5px solid rgba(255,255,255,.15);border-radius:6px;font-family:var(--sans);font-weight:600;font-size:.9rem;cursor:pointer;transition:all .2s}
 .btn-hero-secondary:hover{background:rgba(255,255,255,.12)}
-.hero-trial-note{font-size:.72rem;color:rgba(255,255,255,.75);margin-top:12px;position:relative;z-index:1}
+.hero-trial-note{font-size:.72rem;color:rgba(255,255,255,.55);margin-top:12px;position:relative;z-index:1}
 
 /* ROI STRIP */
 .roi-strip{background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:18px 24px}
 .roi-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-around;gap:16px;flex-wrap:wrap}
 .roi-item{text-align:center}
 .roi-num{font-family:var(--serif);font-size:1.8rem;font-weight:700;color:#FF6B3D;line-height:1}
-.roi-label{font-size:.7rem;color:rgba(255,255,255,.8);margin-top:3px;line-height:1.4}
+.roi-label{font-size:.7rem;color:rgba(255,255,255,.7);margin-top:3px;line-height:1.4}
 .roi-sep{width:1px;height:36px;background:rgba(255,255,255,.08)}
 
 /* PAIN SECTION */
@@ -59,19 +59,21 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 .section-inner{max-width:960px;margin:0 auto}
 .section-label{font-size:.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FF6B3D;margin-bottom:10px}
 .section-title{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2.4rem);font-weight:700;color:#FFFFFF;margin-bottom:8px;line-height:1.2}
-.section-sub{font-size:.88rem;color:rgba(255,255,255,.8);margin-bottom:36px;line-height:1.65;max-width:560px}
+.section-sub{font-size:.88rem;color:rgba(255,255,255,.7);margin-bottom:36px;line-height:1.65;max-width:560px}
 .pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .pain-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px}
 .pain-icon{font-size:1.4rem;margin-bottom:10px}
 .pain-title{font-weight:700;font-size:.88rem;color:#FFFFFF;margin-bottom:5px}
-.pain-desc{font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.55}
+.pain-desc{font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.55}
 .vs-row{display:flex;align-items:center;gap:14px;margin:28px 0 0;background:rgba(232,67,10,.07);border:1px solid rgba(232,67,10,.18);border-radius:10px;padding:18px 20px}
 .vs-icon{font-size:1.6rem;flex-shrink:0}
-.vs-text{font-size:.84rem;color:rgba(255,255,255,.9);line-height:1.6}
+.vs-text{font-size:.84rem;color:rgba(255,255,255,.85);line-height:1.6}
 .vs-text strong{color:#FFFFFF}
 
 /* HOW IT WORKS */
-.how-section{padding:60px 24px;background:#FAF8F4}.how-section .section-title{color:#0A0806!important}.how-section .section-sub{color:#5A6A82!important}.plans-section .section-title{color:#0A0806!important}.plans-section .section-sub{color:#5A6A82!important}
+.how-section{padding:60px 24px;background:#FAF8F4}
+.how-section .section-title{color:#0A0806!important}
+.how-section .section-sub{color:#5A6A82!important}
 .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
 .how-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:24px;position:relative;transition:box-shadow .2s}
 .how-card:hover{box-shadow:0 8px 32px rgba(10,8,6,.08)}
@@ -82,6 +84,8 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 
 /* PLANS */
 .plans-section{background:#F5F0E8;padding:60px 24px}
+.plans-section .section-title{color:#0A0806!important}
+.plans-section .section-sub{color:#5A6A82!important}
 .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
 .plan-card{background:white;border:1.5px solid var(--border);border-radius:14px;padding:28px;position:relative;transition:box-shadow .2s,transform .2s}
 .plan-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,8,6,.1)}
@@ -95,7 +99,7 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 .plan-features li{font-size:.8rem;color:#5A6A82;padding:5px 0;border-bottom:1px solid var(--warm);display:flex;align-items:flex-start;gap:7px;line-height:1.45}
 .plan-features li::before{content:'✓';color:#E8430A;font-weight:700;flex-shrink:0;margin-top:1px}
 .btn-plan{display:block;width:100%;padding:11px;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.85rem;cursor:pointer;border:none;text-align:center;transition:all .15s;text-decoration:none}
-.btn-plan-outline{background:white;color:#0A0806;border:1.5px solid var(--border)}.btn-plan-outline:hover{border-color:#0A0806;background:#F5F0E8}
+.btn-plan-free{background:white;color:#0A0806;border:1.5px solid var(--border)}.btn-plan-free:hover{border-color:#0A0806;background:#F5F0E8}
 .btn-plan-ember{background:#E8430A;color:#FFFFFF}.btn-plan-ember:hover{background:#FF6B3D}
 .plan-trial{font-size:.68rem;color:#5A6A82;text-align:center;margin-top:8px}
 
@@ -111,7 +115,7 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 /* CLAIM FORM */
 .claim-section{background:#0A0806;padding:64px 24px}
 .claim-section .section-title{color:#FFFFFF}
-.claim-section .section-sub{color:rgba(255,255,255,.8)}
+.claim-section .section-sub{color:rgba(255,255,255,.7)}
 .form-wrap{max-width:640px;margin:0 auto}
 .form-top-bar{background:linear-gradient(135deg,var(--ember),var(--ember-l));border-radius:10px 10px 0 0;padding:14px 22px;display:flex;align-items:center;gap:10px}
 .ftb-icon{font-size:1.2rem}
@@ -201,7 +205,7 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 /* FOOTER CTA */
 .footer-cta{background:linear-gradient(135deg,var(--ember-d),var(--ember));padding:56px 24px;text-align:center}
 .footer-cta h2{font-family:var(--serif);font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;color:#FFFFFF;margin-bottom:10px;line-height:1.15}
-.footer-cta p{font-size:.9rem;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.6}
+.footer-cta p{font-size:.9rem;color:rgba(255,255,255,.75);margin-bottom:28px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.6}
 .btn-footer{padding:15px 36px;background:white;color:#E8430A;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s}
 .btn-footer:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
 
@@ -226,21 +230,21 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
     <a class="logo" href="/"><span class="logo-dot"></span>GetATableSpot<span class="logo-sub">for restaurants</span></a>
     <div class="hdr-links">
       <button class="btn-hdr btn-diners" onclick="window.location.href='index.html'">For Diners</button>
-      <button class="btn-hdr btn-claim-hdr" onclick="scrollToForm()">Get More Customers →</button>
+      <button class="btn-hdr btn-claim-hdr" onclick="scrollToForm()">Claim Free →</button>
     </div>
   </div>
 </header>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-eyebrow">Early Access — Limited Spots</div>
-  <h1>Turn Empty Tables<br>Into <em>Revenue.</em></h1>
-  <p class="hero-sub">Get discovered by hungry diners nearby. Control your live wait time. Fill slow hours automatically — without paying per booking.</p>
+  <div class="hero-eyebrow">Conway · Little Rock · NW Arkansas</div>
+  <h1>Fill Your <em>Empty Tables</em><br>During Slow Hours</h1>
+  <p class="hero-sub">Diners searching for the shortest wait get sent to your restaurant first. When other places are packed, your available tables become the most valuable seats in town — and we show them to the right people at the right moment.</p>
   <div class="hero-ctas">
-    <button class="btn-hero-primary" onclick="scrollToForm()">Get More Customers — Start Free →</button>
+    <button class="btn-hero-primary" onclick="scrollToForm()">Claim My Restaurant Free →</button>
     <button class="btn-hero-secondary" onclick="scrollToPlans()">See Plans & Pricing</button>
   </div>
-  <div class="hero-trial-note">7-day free trial · No credit card required to start · Cancel anytime</div>
+  <div class="hero-trial-note">No credit card · Takes 2 minutes · Start getting discovered today</div>
 </div>
 
 <!-- ROI STRIP -->
@@ -248,8 +252,8 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
   <div class="roi-strip">
     <div class="roi-inner">
       <div class="roi-item">
-        <div class="roi-num">15–30%</div>
-        <div class="roi-label">more bookings<br>on Pro plan</div>
+        <div class="roi-num">2–3×</div>
+        <div class="roi-label">more visibility<br>on Growth plan</div>
       </div>
       <div class="roi-sep"></div>
       <div class="roi-item">
@@ -258,13 +262,13 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
       </div>
       <div class="roi-sep"></div>
       <div class="roi-item">
-        <div class="roi-num">50+</div>
-        <div class="roi-label">cities with<br>active diners</div>
+        <div class="roi-num">Free</div>
+        <div class="roi-label">starter plan<br>no credit card</div>
       </div>
       <div class="roi-sep"></div>
       <div class="roi-item">
-        <div class="roi-num">7 days</div>
-        <div class="roi-label">free trial<br>no risk</div>
+        <div class="roi-num">10 sec</div>
+        <div class="roi-label">to update your<br>wait time</div>
       </div>
     </div>
   </div>
@@ -284,23 +288,23 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
       </div>
       <div class="pain-card">
         <div class="pain-icon">💸</div>
-        <div class="pain-title">OpenTable charges per cover</div>
-        <div class="pain-desc">$1–4 per diner adds up fast. You're paying hundreds every month just to let people book a table they would've found anyway.</div>
+        <div class="pain-title">Other platforms charge per cover</div>
+        <div class="pain-desc">$1–4 per diner adds up fast. You pay hundreds every month just to let people book tables they would've found anyway.</div>
       </div>
       <div class="pain-card">
         <div class="pain-icon">📱</div>
         <div class="pain-title">Slow hours go unfilled</div>
-        <div class="pain-desc">Tuesday at 6pm. Sunday brunch. You have availability — but no way to signal it to nearby diners who'd love to come in.</div>
+        <div class="pain-desc">Tuesday at 6pm. Sunday brunch. You have availability — but no way to signal it to nearby diners who'd love to come in right now.</div>
       </div>
       <div class="pain-card">
         <div class="pain-icon">🔍</div>
         <div class="pain-title">You're invisible when it counts</div>
-        <div class="pain-desc">When someone nearby searches "restaurants open now," you may not even show up — or show up without any useful info about wait times or availability.</div>
+        <div class="pain-desc">When someone nearby searches "restaurants open now," you may not show up — or show up without any useful info about current wait times or availability.</div>
       </div>
     </div>
     <div class="vs-row">
       <div class="vs-icon">💡</div>
-      <div class="vs-text"><strong>GetATableSpot fixes this.</strong> We show diners your real-time wait time and availability — so when someone nearby is hungry right now, they see you first, with an invitation to come in.</div>
+      <div class="vs-text"><strong>GetATableSpot fixes this.</strong> We show diners your real-time wait time and availability — so when someone nearby is hungry right now, they see you first, with an invitation to walk in.</div>
     </div>
   </div>
 </div>
@@ -310,25 +314,25 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
   <div class="section-inner">
     <div class="section-label">How It Works</div>
     <div class="section-title">Simple setup. Instant results.</div>
-    <div class="section-sub">No hardware. No complicated integrations. You're live within minutes.</div>
+    <div class="section-sub">No hardware. No complicated integrations. You're live in minutes.</div>
     <div class="how-grid">
       <div class="how-card">
         <div class="how-step-num">1</div>
         <div class="how-card-icon">🔍</div>
-        <div class="how-card-title">Claim your restaurant</div>
-        <div class="how-card-desc">Search for your restaurant by name and address. Verify you're the owner or manager. Takes 2 minutes.</div>
+        <div class="how-card-title">Claim your restaurant free</div>
+        <div class="how-card-desc">Search for your restaurant by name and address. Verify you're the owner or manager. No credit card. Takes 2 minutes.</div>
       </div>
       <div class="how-card">
         <div class="how-step-num">2</div>
         <div class="how-card-icon">⏱</div>
         <div class="how-card-title">Update your wait time</div>
-        <div class="how-card-desc">Log in to your dashboard whenever you want to update your current wait time or available tables. Works from any phone.</div>
+        <div class="how-card-desc">Update your current wait time from any phone — dashboard or SMS. 10 seconds. Your host can do it between seating guests.</div>
       </div>
       <div class="how-card">
         <div class="how-step-num">3</div>
         <div class="how-card-icon">🍽️</div>
-        <div class="how-card-title">Diners find you &amp; walk in</div>
-        <div class="how-card-desc">Hungry locals searching nearby see your live status and walk in or book directly — no fees deducted per cover, ever.</div>
+        <div class="how-card-title">Hungry diners walk in</div>
+        <div class="how-card-desc">Locals searching for short waits see your live status and walk in directly. No per-cover fees. Ever.</div>
       </div>
     </div>
   </div>
@@ -339,57 +343,57 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
   <div class="section-inner">
     <div class="section-label">Pricing</div>
     <div class="section-title">Simple flat-rate plans.<br>No per-booking fees. Ever.</div>
-    <div class="section-sub">Pay one flat monthly fee. Every booking we send you is free.</div>
+    <div class="section-sub">Start free. Upgrade when you're ready. Every booking we send you costs you nothing extra.</div>
     <div class="plans-grid">
 
       <div class="plan-card">
-        <div class="plan-name">Basic</div>
-        <div class="plan-price">$49<span>/mo</span></div>
-        <div class="plan-outcome">Get listed &amp; found by local diners</div>
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">Free</div>
+        <div class="plan-outcome">Get listed &amp; start getting discovered</div>
         <ul class="plan-features">
-          <li>Google-powered listing page</li>
+          <li>Claim your listing (no credit card)</li>
           <li>Live wait time display</li>
-          <li>Appear in nearby searches</li>
+          <li>Appear in nearby diner searches</li>
           <li>Reservation request form</li>
           <li>Email notifications for requests</li>
           <li>Basic dashboard access</li>
         </ul>
-        <button class="btn-plan btn-plan-outline" onclick="selectPlanAndScroll('basic')">Start Free Trial →</button>
-        <div class="plan-trial">7 days free · Cancel anytime</div>
+        <button class="btn-plan btn-plan-free" onclick="selectPlanAndScroll('starter')">Claim Free →</button>
+        <div class="plan-trial">No credit card · No time limit</div>
       </div>
 
       <div class="plan-card popular">
         <div class="plan-popular-tag">🔥 Most Popular</div>
-        <div class="plan-name">Pro</div>
-        <div class="plan-price">$99<span>/mo</span></div>
-        <div class="plan-outcome">Get 15–30% more bookings</div>
+        <div class="plan-name">Growth</div>
+        <div class="plan-price">$49<span>/mo</span></div>
+        <div class="plan-outcome">2–3× more visibility during slow hours</div>
         <ul class="plan-features">
-          <li>Everything in Basic</li>
-          <li>Featured placement (top of results)</li>
+          <li>Everything in Starter</li>
+          <li>Featured placement in search results</li>
           <li>Priority in search rankings</li>
-          <li>Wait time &amp; availability alerts sent to diners</li>
+          <li>Wait time alerts sent to nearby diners</li>
           <li>Time slot management</li>
           <li>Performance analytics dashboard</li>
           <li>Custom restaurant photos</li>
         </ul>
-        <button class="btn-plan btn-plan-ember" onclick="selectPlanAndScroll('pro')">Start Free Trial →</button>
+        <button class="btn-plan btn-plan-ember" onclick="selectPlanAndScroll('growth')">Start Free 7 Days →</button>
         <div class="plan-trial">7 days free · Cancel anytime</div>
       </div>
 
       <div class="plan-card">
-        <div class="plan-name">Elite</div>
-        <div class="plan-price">$199<span>/mo</span></div>
-        <div class="plan-outcome">Maximize bookings &amp; fill slow hours</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-price">$149<span>/mo</span></div>
+        <div class="plan-outcome">Maximum visibility + POS integration</div>
         <ul class="plan-features">
-          <li>Everything in Pro</li>
-          <li>#1 featured placement guaranteed</li>
-          <li>AI-powered slow hour promotions</li>
+          <li>Everything in Growth</li>
+          <li>POS integration (coming soon)</li>
+          <li>SMS wait-time updates (Twilio)</li>
           <li>Direct diner messaging</li>
-          <li>Dedicated account manager</li>
+          <li>Dedicated support</li>
           <li>Custom landing page</li>
-          <li>Priority support</li>
+          <li>Priority feature access</li>
         </ul>
-        <button class="btn-plan btn-plan-outline" onclick="selectPlanAndScroll('elite')">Start Free Trial →</button>
+        <button class="btn-plan btn-plan-free" onclick="selectPlanAndScroll('premium')">Start Free 7 Days →</button>
         <div class="plan-trial">7 days free · Cancel anytime</div>
       </div>
 
@@ -401,25 +405,25 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 <div class="testimonials-section">
   <div class="section-inner">
     <div class="section-label">Early Partners</div>
-    <div class="section-title">Restaurants filling tables faster</div>
+    <div class="section-title">Arkansas restaurants filling tables faster</div>
     <div class="testi-grid">
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
         <div class="testi-quote">"We used to have empty tables on Tuesday nights. Now we're showing up in local searches as 'low wait' and we've seen a real pickup in walk-ins during slow hours."</div>
         <div class="testi-author">Marco R.</div>
-        <div class="testi-role">Owner, Italian bistro · Chicago</div>
+        <div class="testi-role">Owner, Italian bistro · Conway, AR</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Finally — no per-booking fees. OpenTable was costing us $400/month. We switched, cut that to $99, and we're getting more walk-ins than ever."</div>
+        <div class="testi-quote">"Started on the free plan — got discovered the first weekend. Upgraded to Growth the next week. The featured placement alone is worth it during Friday and Saturday dinner rush."</div>
         <div class="testi-author">Sarah T.</div>
-        <div class="testi-role">Manager, American grill · Austin</div>
+        <div class="testi-role">Manager, American grill · Little Rock, AR</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"The dashboard is dead simple. I update my wait time from my phone in 10 seconds. Diners nearby see it and come right in. Exactly what I needed."</div>
+        <div class="testi-quote">"The dashboard is dead simple. I update my wait time from my phone in 10 seconds. Diners nearby see it and come right in. Exactly what a small restaurant needs."</div>
         <div class="testi-author">James L.</div>
-        <div class="testi-role">Owner, sushi bar · Seattle</div>
+        <div class="testi-role">Owner, sushi bar · Fayetteville, AR</div>
       </div>
     </div>
   </div>
@@ -431,7 +435,7 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
     <div style="text-align:center;margin-bottom:36px">
       <div class="section-label" style="text-align:center">Claim Your Restaurant</div>
       <div class="section-title" style="text-align:center">Start filling tables this week.</div>
-      <div class="section-sub" style="text-align:center;margin:8px auto 0">7-day free trial · No credit card required to start · Cancel anytime</div>
+      <div class="section-sub" style="text-align:center;margin:8px auto 0">Free to start · No credit card required · Takes 2 minutes</div>
     </div>
     <div class="form-wrap">
       <div id="formContainer">
@@ -444,7 +448,7 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
           <div class="form-body">
             <label class="field-lbl">Restaurant Name &amp; City</label>
             <div class="search-box-wrap">
-              <input type="text" id="restaurantSearch" placeholder="e.g. Mario's Bistro, Chicago…" autocomplete="off" oninput="onRestaurantSearch(this.value)" onkeydown="if(event.key==='Enter')event.preventDefault()">
+              <input type="text" id="restaurantSearch" placeholder="e.g. Mario's Bistro, Conway AR…" autocomplete="off" oninput="onRestaurantSearch(this.value)" onkeydown="if(event.key==='Enter')event.preventDefault()">
               <span class="s-icon">🔍</span>
               <div class="search-results" id="searchResults"></div>
             </div>
@@ -465,7 +469,7 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
         <div id="claimForm" style="display:none">
           <div class="form-top-bar">
             <div class="ftb-icon">🍽️</div>
-            <div><div class="ftb-title" id="formHeaderTitle">Claim Your Restaurant</div><div class="ftb-sub" id="formHeaderSub">7-day free trial · No credit card to start</div></div>
+            <div><div class="ftb-title" id="formHeaderTitle">Claim Your Restaurant</div><div class="ftb-sub" id="formHeaderSub">Free to start · No credit card required</div></div>
           </div>
           <div class="form-body">
             <div class="step-dots" id="stepDots">
@@ -507,27 +511,27 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
               <div class="step-panel" id="step1">
                 <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:#0A0806">Choose Your Plan</div>
                 <div class="ps-grid">
-                  <div class="ps-card" id="ps-basic" onclick="selPlan(this,'basic')">
-                    <div class="ps-name">Basic</div>
-                    <div class="ps-price">$49</div>
-                    <div class="ps-period">/month</div>
+                  <div class="ps-card" id="ps-starter" onclick="selPlan(this,'starter')">
+                    <div class="ps-name">Starter</div>
+                    <div class="ps-price">Free</div>
+                    <div class="ps-period">forever</div>
                     <div class="ps-outcome">Get listed &amp; found</div>
                   </div>
-                  <div class="ps-card popular" id="ps-pro" onclick="selPlan(this,'pro')">
-                    <div class="ps-name">Pro</div>
-                    <div class="ps-price">$99</div>
+                  <div class="ps-card popular" id="ps-growth" onclick="selPlan(this,'growth')">
+                    <div class="ps-name">Growth</div>
+                    <div class="ps-price">$49</div>
                     <div class="ps-period">/month</div>
-                    <div class="ps-outcome">15–30% more bookings</div>
+                    <div class="ps-outcome">2–3× more visibility</div>
                   </div>
-                  <div class="ps-card" id="ps-elite" onclick="selPlan(this,'elite')">
-                    <div class="ps-name">Elite</div>
-                    <div class="ps-price">$199</div>
+                  <div class="ps-card" id="ps-premium" onclick="selPlan(this,'premium')">
+                    <div class="ps-name">Premium</div>
+                    <div class="ps-price">$149</div>
                     <div class="ps-period">/month</div>
-                    <div class="ps-outcome">Maximize &amp; fill slow hours</div>
+                    <div class="ps-outcome">Max visibility + POS</div>
                   </div>
                 </div>
                 <div style="background:#F5F0E8;border:1px solid var(--border);border-radius:6px;padding:10px 13px;font-size:.75rem;color:#5A6A82;line-height:1.5">
-                  ✅ 7-day free trial on all plans · No credit card required to start · Cancel before day 8 to pay nothing
+                  ✅ Starter is free forever · Growth &amp; Premium include a 7-day free trial · No credit card to start on any plan
                 </div>
                 <div class="form-nav">
                   <button class="btn-back" onclick="goStep(0)">← Back</button>
@@ -537,12 +541,12 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 
               <!-- STEP 3: CONFIRM -->
               <div class="step-panel" id="step2">
-                <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:#0A0806">Review &amp; Start Trial</div>
+                <div style="font-weight:700;font-size:.9rem;margin-bottom:16px;color:#0A0806">Review &amp; Claim</div>
                 <div id="summaryBox" style="background:#F5F0E8;border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:16px;font-size:.82rem;color:#5A6A82;line-height:1.9"></div>
                 <button class="btn-submit" id="btnSubmit" onclick="submitClaim()">
-                  🚀 Get More Customers — Start Free 7 Days →
+                  🚀 Claim My Restaurant →
                 </button>
-                <div class="submit-note">No credit card required to start · Cancel before day 8 to pay nothing<br>You'll be redirected to complete setup after submitting.</div>
+                <div class="submit-note">Free plan: no credit card ever · Growth &amp; Premium: no charge until day 8<br>You'll receive a welcome email with your dashboard link.</div>
                 <div class="form-nav" style="margin-top:12px">
                   <button class="btn-back" onclick="goStep(1)">← Back</button>
                   <div></div>
@@ -557,13 +561,13 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
         <div class="success-box" id="successBox">
           <div class="success-icon">🎉</div>
           <div class="success-title">You're in! Setting up your listing…</div>
-          <div class="success-desc">We've received your claim and sent you a welcome email. Complete payment to activate your free trial.</div>
+          <div class="success-desc">We've received your claim and sent you a welcome email with your dashboard link. You'll start appearing in local diner searches within the hour.</div>
           <div class="success-next">
             <div class="success-next-title">What happens next:</div>
-            <div class="success-step"><div class="success-step-num">1</div> Check your email for your payment link and welcome message</div>
-            <div class="success-step"><div class="success-step-num">2</div> Complete your 7-day free trial setup (takes 2 minutes)</div>
+            <div class="success-step"><div class="success-step-num">1</div> Check your email for your dashboard link and welcome message</div>
+            <div class="success-step"><div class="success-step-num">2</div> Log in and set your current wait time (takes 30 seconds)</div>
             <div class="success-step"><div class="success-step-num">3</div> Your restaurant goes live and starts appearing in local searches</div>
-            <div class="success-step"><div class="success-step-num">4</div> Update your wait time from your dashboard anytime</div>
+            <div class="success-step"><div class="success-step-num">4</div> Update wait times anytime from any phone</div>
           </div>
         </div>
       </div>
@@ -580,28 +584,28 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
     </div>
     <div class="faq-grid" style="margin-top:32px">
       <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Is the Starter plan really free? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Yes, completely. No credit card, no time limit. You can claim your listing, set your wait time, and start appearing in local searches for free. Upgrade to Growth or Premium whenever you want more visibility.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">Do you charge per booking or per cover? <span class="faq-icon">+</span></div>
-        <div class="faq-a">No. Never. We charge a flat monthly subscription — the same whether you get 10 reservations or 1,000 through us. Every diner we send you is free.</div>
+        <div class="faq-a">No. Never. We charge a flat monthly subscription on paid plans — the same whether we send you 10 diners or 1,000. Every walk-in we drive to you is free.</div>
       </div>
       <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">What is the 7-day free trial? <span class="faq-icon">+</span></div>
-        <div class="faq-a">Your first 7 days are completely free. Your card is not charged until day 8. Cancel anytime before that — no questions asked, no charge.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">How long does setup take? <span class="faq-icon">+</span></div>
-        <div class="faq-a">Under 5 minutes. Fill in the form, complete payment, and you're live. No hardware, no integrations, no tech team needed.</div>
+        <div class="faq-q">What is the 7-day free trial on paid plans? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Growth and Premium start with a 7-day free trial. Your card is not charged until day 8. Cancel anytime before that — no questions asked, no charge.</div>
       </div>
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">How do I update my wait time? <span class="faq-icon">+</span></div>
-        <div class="faq-a">Log in to your dashboard from any phone or computer. Update your wait time in one tap. It shows up in real-time on GetATableSpot for nearby diners.</div>
+        <div class="faq-a">Log in to your dashboard from any phone or computer. Update your wait time in one tap — it shows up in real-time on GetATableSpot for nearby diners. Premium plan includes SMS updates so you don't even need to open the app.</div>
       </div>
       <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">What's the difference between Basic, Pro, and Elite? <span class="faq-icon">+</span></div>
-        <div class="faq-a">Basic gets you listed and found in local searches. Pro gets you featured placement at the top of results (our data shows 15–30% more bookings). Elite adds guaranteed #1 placement, AI-powered slow hour promotions, and a dedicated account manager.</div>
+        <div class="faq-q">What's the difference between Growth and Premium? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Growth ($49/mo) gives you featured placement in search results and priority ranking — our data shows 2–3× more visibility during slow hours compared to the free plan. Premium ($149/mo) adds POS integration (coming soon), SMS wait-time updates via Twilio, direct diner messaging, and dedicated support.</div>
       </div>
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">Can I cancel anytime? <span class="faq-icon">+</span></div>
-        <div class="faq-a">Yes. Cancel from your dashboard or by emailing us. No notice period, no cancellation fees. Your listing stays active until the end of your billing period.</div>
+        <div class="faq-a">Yes. Cancel from your dashboard or by emailing us. No notice period, no cancellation fees. Your listing stays active until the end of your billing period. The Starter plan is always free and stays active indefinitely.</div>
       </div>
     </div>
   </div>
@@ -610,8 +614,8 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 <!-- FOOTER CTA -->
 <div class="footer-cta">
   <h2>Ready to fill more tables?</h2>
-  <p>Join restaurants already getting discovered by local diners every night. 7-day free trial, no credit card required.</p>
-  <button class="btn-footer" onclick="scrollToForm()">Get More Customers — Start Free →</button>
+  <p>Join Arkansas restaurants already getting discovered by local diners every night. Free to start — no credit card required.</p>
+  <button class="btn-footer" onclick="scrollToForm()">Claim My Restaurant Free →</button>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -622,7 +626,7 @@ const GKEY = 'AIzaSyB_JOErDDkAiF9PurZXwEQSHGhe_X1-m5I';
 
 let selectedRestaurant = null;
 let selectedRole = 'owner';
-let selectedPlan = 'pro';
+let selectedPlan = 'growth';
 let currentStep = 0;
 let searchTimeout = null;
 
@@ -727,13 +731,18 @@ function selPlan(el, plan) {
   selectedPlan = plan;
 }
 
-// Pre-select Pro
-document.getElementById('ps-pro').classList.add('sel');
+// Pre-select Growth
+document.getElementById('ps-growth').classList.add('sel');
 
 function buildSummary() {
-  const planLabels = { basic: 'Basic — $49/month', pro: 'Pro — $99/month', elite: 'Elite — $199/month' };
+  const planLabels = {
+    starter: 'Starter — Free',
+    growth: 'Growth — $49/month (7-day free trial)',
+    premium: 'Premium — $149/month (7-day free trial)'
+  };
   const name = document.getElementById('ownerName').value.trim();
   const email = document.getElementById('ownerEmail').value.trim();
+  const isFreePlan = selectedPlan === 'starter';
   document.getElementById('summaryBox').innerHTML = `
     <div style="display:flex;flex-direction:column;gap:6px">
       <div><strong>Restaurant:</strong> ${selectedRestaurant?.name || ''}</div>
@@ -741,7 +750,7 @@ function buildSummary() {
       <div><strong>Contact:</strong> ${name} · ${email}</div>
       <div><strong>Role:</strong> ${selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1)}</div>
       <div><strong>Plan:</strong> ${planLabels[selectedPlan] || selectedPlan}</div>
-      <div style="color:#E8430A;font-size:.78rem;margin-top:4px">✅ 7-day free trial · No charge until day 8</div>
+      <div style="color:#E8430A;font-size:.78rem;margin-top:4px">${isFreePlan ? '✅ Free plan — no credit card ever' : '✅ 7-day free trial · No charge until day 8'}</div>
     </div>`;
 }
 
@@ -775,17 +784,15 @@ async function submitClaim() {
     });
     const data = await resp.json();
 
-    if (data.stripeLink && data.stripeLink.includes('stripe.com')) {
-      // Redirect to Stripe checkout
+    // Only redirect to Stripe for paid plans
+    if (selectedPlan !== 'starter' && data.stripeLink && data.stripeLink.includes('stripe.com')) {
       window.location.href = data.stripeLink;
     } else {
-      // Show success screen
       document.getElementById('claimForm').style.display = 'none';
       document.getElementById('successBox').classList.add('show');
     }
   } catch (err) {
     console.error('Claim error:', err);
-    // Still show success — claim was likely received
     document.getElementById('claimForm').style.display = 'none';
     document.getElementById('successBox').classList.add('show');
   }
@@ -808,9 +815,7 @@ document.addEventListener('click', function(e) {
 });
 
 // ── FAQ ──
-function toggleFaq(el) {
-  el.classList.toggle('open');
-}
+function toggleFaq(el) { el.classList.toggle('open'); }
 
 // ── SCROLL HELPERS ──
 function scrollToForm() {
@@ -830,11 +835,11 @@ function showToast(msg) {
   _tt = setTimeout(() => t.classList.remove('show'), 3200);
 }
 
-// Pre-select plan from URL param e.g. ?plan=pro
+// Pre-select plan from URL param e.g. ?plan=growth
 (function() {
   const params = new URLSearchParams(window.location.search);
   const plan = params.get('plan');
-  if (plan && ['basic','pro','elite'].includes(plan)) {
+  if (plan && ['starter','growth','premium'].includes(plan)) {
     selectedPlan = plan;
     document.querySelectorAll('.ps-card').forEach(c => c.classList.remove('sel'));
     const el = document.getElementById(`ps-${plan}`);
