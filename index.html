@@ -920,7 +920,7 @@ const CS_FEATURES={
 };
 function showCS(feature){const f=CS_FEATURES[feature];if(!f)return;document.getElementById('csIcon').textContent=f.icon;document.getElementById('csTitle').textContent=f.title;document.getElementById('csDesc').textContent=f.desc;document.getElementById('csNote').textContent=f.note;document.getElementById('csEmail').value='';document.getElementById('csOverlay').classList.add('open');}
 function closeCS(e){if(e&&e.target!==document.getElementById('csOverlay'))return;document.getElementById('csOverlay').classList.remove('open');}
-function csSignup(){const email=document.getElementById('csEmail').value.trim();if(!email||!email.includes('@')){showToast('Please enter a valid email');return;}fetch(`${API}/waitlist`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,feature:document.getElementById('csTitle').textContent})}).catch(()=>{});document.getElementById('csOverlay').classList.remove('open');showToast(`✓ We'll email ${email} when this launches!`);}
+function csSignup(){const email=document.getElementById('csEmail').value.trim();if(!email||!email.includes('@')){showToast('Please enter a valid email');return;}fetch(`${API}/waitlist`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,feature:document.getElementById('csTitle').textContent,source:'coming_soon_modal'})}).catch(()=>{});document.getElementById('csOverlay').classList.remove('open');showToast(`✓ We'll email ${email} when this launches!`);}
 async function detectIP(){try{const r=await fetch('https://ipapi.co/json/');const d=await r.json();if(d.latitude&&d.longitude){ipLat=d.latitude;ipLng=d.longitude;currentLat=d.latitude;currentLng=d.longitude;const city=d.city&&d.region?`${d.city}, ${d.region}`:'your area';document.getElementById('locationInput').placeholder=`${city} (auto-detected)`;return{lat:d.latitude,lng:d.longitude};}}catch{}return null;}
 function onLocationInput(){const val=document.getElementById('locationInput').value.trim();if(!val&&ipLat&&ipLng){currentLat=ipLat;currentLng=ipLng;load(currentLat,currentLng,currentCuisine);}}
 async function geocode(q){try{const r=await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(q)}&key=${GKEY}`);const d=await r.json();if(d.results?.length){const l=d.results[0].geometry.location;return{lat:l.lat,lng:l.lng,label:d.results[0].formatted_address};}}catch{}return null;}
@@ -982,7 +982,7 @@ async function ecSubmit(type) {
   const successId = type === 'diner' ? 'ecDinerSuccess' : 'ecRestoSuccess';
   const email = document.getElementById(inputId).value.trim();
   if (!email || !email.includes('@')) { showToast('Please enter a valid email'); return; }
-  await captureEmail(email, type === 'diner' ? EC_DINER_TAG : EC_RESTO_TAG);
+  await captureEmail(email, type === 'diner' ? EC_DINER_TAG : EC_RESTO_TAG, 'inline_section');
   document.getElementById(inputId).value = '';
   document.getElementById(successId).classList.add('show');
 }
@@ -1013,7 +1013,7 @@ async function sbSubmit() {
   const btn = document.getElementById('sbBtn');
   btn.textContent = '✓ Done!';
   btn.style.background = 'var(--sage)';
-  await captureEmail(email, EC_DINER_TAG);
+  await captureEmail(email, EC_DINER_TAG, 'sticky_bar');
   document.getElementById('sbEmail').value = '';
   setTimeout(() => sbDismiss(), 2000);
 }
@@ -1057,19 +1057,19 @@ async function exitSubmit(type) {
   const successId = type === 'diner' ? 'exitDinerSuccess' : 'exitRestoSuccess';
   const email = document.getElementById(inputId).value.trim();
   if (!email || !email.includes('@')) { showToast('Please enter a valid email'); return; }
-  await captureEmail(email, type === 'diner' ? EC_DINER_TAG : EC_RESTO_TAG);
+  await captureEmail(email, type === 'diner' ? EC_DINER_TAG : EC_RESTO_TAG, 'exit_popup');
   document.getElementById(inputId).value = '';
   document.getElementById(successId).classList.add('show');
   setTimeout(() => exitClose(), 2500);
 }
 
 // ── Shared email submit (hits /api/waitlist) ──────────────
-async function captureEmail(email, feature) {
+async function captureEmail(email, feature, source) {
   try {
     await fetch(`${API}/waitlist`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, feature })
+      body: JSON.stringify({ email, feature, source })
     });
   } catch {}
 }
