@@ -1,147 +1,189 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GetATableSpot — Restaurant Login</title>
+<meta name="description" content="Log in or create your GetATableSpot restaurant dashboard account.">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://getatablespot.com/restaurant-auth.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getatablespot.com/restaurant-auth.html">
+<meta property="og:title" content="GetATableSpot — Restaurant Dashboard Login">
+<meta property="og:description" content="Manage your live wait time, reservations, and analytics. Log in to your restaurant dashboard.">
+<meta property="og:image" content="https://getatablespot.com/og-image-restaurants.png">
+<meta property="og:site_name" content="GetATableSpot">
+
+<!-- Font preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0A0806;--paper:#FAF8F4;--warm:#F5F0E8;--ember:#E8430A;--ember-l:#FF6B3D;--sage:#2E9E5B;--slate:#5A6A82;--border:#E0D8CC;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;}
+:root{
+  --ink:#0A0806;--paper:#FAF8F4;--warm:#F5F0E8;
+  --ember:#E8430A;--ember-l:#FF6B3D;
+  --sage:#2E9E5B;--slate:#5A6A82;
+  --border:#E0D8CC;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:var(--ink);color:var(--paper);min-height:100vh;display:flex;flex-direction:column}
+
+/* Skip nav */
+.skip-nav{position:absolute;top:-100px;left:16px;background:var(--ember);color:white;padding:8px 16px;border-radius:4px;font-weight:700;font-size:.85rem;text-decoration:none;z-index:9999;transition:top .15s}
+.skip-nav:focus{top:8px}
+
 .page{flex:1;display:flex;align-items:center;justify-content:center;padding:24px;min-height:100vh}
 .card{background:white;border-radius:14px;width:100%;max-width:440px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.4)}
 .card-header{background:linear-gradient(135deg,#0A0806,#1A0E05);padding:28px 32px;text-align:center;position:relative}
 .card-header::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(232,67,10,.12),transparent);pointer-events:none}
-.logo{font-family:var(--serif);font-size:1.3rem;font-weight:900;color:white;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:16px}
+.logo{font-family:var(--serif);font-size:1.3rem;font-weight:900;color:white;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:16px;text-decoration:none}
 .logo-dot{width:8px;height:8px;border-radius:50%;background:var(--ember)}
 .card-title{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:white;margin-bottom:4px;position:relative;z-index:1}
 .card-sub{font-size:.78rem;color:rgba(255,255,255,.4);position:relative;z-index:1}
 .card-body{padding:28px 32px}
+
 .tabs{display:flex;background:var(--warm);border-radius:6px;padding:3px;margin-bottom:22px}
-.tab{flex:1;padding:8px;text-align:center;border-radius:4px;font-size:.8rem;font-weight:700;cursor:pointer;color:var(--slate);transition:all .15s;border:none;background:none;font-family:var(--sans)}
+.tab{flex:1;padding:8px;text-align:center;border-radius:4px;font-size:.8rem;font-weight:700;cursor:pointer;color:var(--slate);transition:background .15s,color .15s,box-shadow .15s;border:none;background:none;font-family:var(--sans)}
 .tab.active{background:white;color:var(--ink);box-shadow:0 1px 4px rgba(10,8,6,.1)}
+
 .field-lbl{display:block;font-size:.68rem;font-weight:700;color:var(--slate);margin-bottom:3px;letter-spacing:.3px;text-transform:uppercase}
 .field-in{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.9rem;margin-bottom:14px;outline:none;transition:border-color .15s;color:var(--ink);background:white}
 .field-in:focus{border-color:var(--ember)}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.btn-main{width:100%;padding:13px;background:var(--ember);color:white;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.92rem;cursor:pointer;transition:all .15s;margin-top:2px}
+
+.btn-main{width:100%;padding:13px;background:var(--ember);color:white;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.92rem;cursor:pointer;transition:background .15s;margin-top:2px}
 .btn-main:hover{background:var(--ember-l)}
 .btn-main:disabled{opacity:.6;cursor:not-allowed}
-.divider{height:1px;background:var(--border);margin:16px 0;position:relative}
-.divider span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:white;padding:0 10px;font-size:.72rem;color:#B8AFA0}
+
 .error-box{background:#FFF0EE;border:1px solid rgba(232,67,10,.25);border-radius:6px;padding:10px 13px;font-size:.8rem;color:#A03008;margin-bottom:14px;display:none}
 .error-box.show{display:block}
 .success-box{background:#EDF8F1;border:1px solid #B8E0C4;border-radius:6px;padding:10px 13px;font-size:.8rem;color:#1D6B3A;margin-bottom:14px;display:none}
 .success-box.show{display:block}
-.forgot-link{font-size:.75rem;color:var(--ember);cursor:pointer;text-align:right;display:block;margin-top:-10px;margin-bottom:14px}
+
+.forgot-link{font-size:.75rem;color:var(--ember);cursor:pointer;text-align:right;display:block;margin-top:-10px;margin-bottom:14px;background:none;border:none;font-family:var(--sans);padding:0;width:100%}
 .forgot-link:hover{text-decoration:underline}
 .switch-text{font-size:.75rem;color:var(--slate);text-align:center;margin-top:14px}
 .switch-text a{color:var(--ember);cursor:pointer;font-weight:600}
 .switch-text a:hover{text-decoration:underline}
-.back-link{font-size:.75rem;color:rgba(255,255,255,.4);text-align:center;margin-top:20px;cursor:pointer}
+.back-link{font-size:.75rem;color:rgba(255,255,255,.4);text-align:center;margin-top:20px;cursor:pointer;background:none;border:none;font-family:var(--sans);padding:4px}
 .back-link:hover{color:rgba(255,255,255,.7)}
+
 .panel{display:none}.panel.active{display:block}
+
 .pw-wrap{position:relative}
-.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--slate);font-size:.85rem;padding:0;line-height:1;margin-top:-7px}
-@media(max-width:480px){.card-body{padding:22px 20px}.field-row{grid-template-columns:1fr}}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--slate);font-size:.85rem;padding:4px;line-height:1;margin-top:-7px}
+.pw-toggle:hover{color:var(--ink)}
+
+@media(max-width:480px){
+  .card-body{padding:22px 20px}
+  .field-row{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
+<a href="#auth-main" class="skip-nav">Skip to main content</a>
+
 <div class="page">
-  <div>
-    <div class="card">
+  <div style="width:100%;max-width:440px">
+    <div class="card" id="auth-main">
       <div class="card-header">
-        <div class="logo"><span class="logo-dot"></span>GetATableSpot</div>
+        <a class="logo" href="index.html"><span class="logo-dot"></span>GetATableSpot</a>
         <div class="card-title" id="cardTitle">Restaurant Dashboard</div>
         <div class="card-sub" id="cardSub">Manage reservations, wait times &amp; more</div>
       </div>
       <div class="card-body">
 
-```
-    <!-- LOGIN / REGISTER TABS -->
-    <div id="mainPanel" class="panel active">
-      <div class="tabs" id="tabs">
-        <button class="tab active" id="tab-login" onclick="switchTab('login')">Log In</button>
-        <button class="tab" id="tab-register" onclick="switchTab('register')">Create Account</button>
-      </div>
-      <div class="error-box" id="mainError"></div>
-      <div class="success-box" id="mainSuccess"></div>
+        <!-- LOGIN / REGISTER TABS -->
+        <div id="mainPanel" class="panel active">
+          <div class="tabs" role="tablist" aria-label="Login or create account">
+            <button class="tab active" id="tab-login" role="tab" aria-selected="true" aria-controls="loginForm" onclick="switchTab('login')">Log In</button>
+            <button class="tab" id="tab-register" role="tab" aria-selected="false" aria-controls="registerForm" onclick="switchTab('register')">Create Account</button>
+          </div>
+          <div class="error-box" id="mainError" role="alert" aria-live="assertive"></div>
+          <div class="success-box" id="mainSuccess" role="status" aria-live="polite"></div>
 
-      <!-- LOGIN -->
-      <div id="loginForm" class="panel active">
-        <label class="field-lbl">Email Address</label>
-        <input class="field-in" id="loginEmail" type="email" placeholder="you@restaurant.com" onkeydown="if(event.key==='Enter')doLogin()">
-        <label class="field-lbl">Password</label>
-        <div class="pw-wrap">
-          <input class="field-in" id="loginPw" type="password" placeholder="Your password" onkeydown="if(event.key==='Enter')doLogin()" style="padding-right:40px">
-          <button class="pw-toggle" onclick="togglePw('loginPw',this)">👁</button>
-        </div>
-        <span class="forgot-link" onclick="showPanel('forgotPanel')">Forgot password?</span>
-        <button class="btn-main" id="btnLogin" onclick="doLogin()">Log In →</button>
-        <div class="switch-text">Don't have an account? <a onclick="switchTab('register')">Create one</a></div>
-      </div>
+          <!-- LOGIN -->
+          <div id="loginForm" class="panel active" role="tabpanel" aria-labelledby="tab-login">
+            <label class="field-lbl" for="loginEmail">Email Address</label>
+            <input class="field-in" id="loginEmail" type="email" placeholder="you@restaurant.com" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()">
+            <label class="field-lbl" for="loginPw">Password</label>
+            <div class="pw-wrap">
+              <input class="field-in" id="loginPw" type="password" placeholder="Your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()" style="padding-right:40px">
+              <button class="pw-toggle" aria-label="Show password" onclick="togglePw('loginPw',this)">👁</button>
+            </div>
+            <button class="forgot-link" onclick="showPanel('forgotPanel')">Forgot password?</button>
+            <button class="btn-main" id="btnLogin" onclick="doLogin()">Log In →</button>
+            <div class="switch-text">Don't have an account? <a onclick="switchTab('register')">Create one</a></div>
+          </div>
 
-      <!-- REGISTER -->
-      <div id="registerForm" class="panel">
-        <div class="field-row">
-          <div><label class="field-lbl">Your Name</label><input class="field-in" id="regName" type="text" placeholder="Full name"></div>
-          <div><label class="field-lbl">Phone (for SMS alerts)</label><input class="field-in" id="regPhone" type="tel" placeholder="(555) 000-0000"></div>
+          <!-- REGISTER -->
+          <div id="registerForm" class="panel" role="tabpanel" aria-labelledby="tab-register">
+            <div class="field-row">
+              <div>
+                <label class="field-lbl" for="regName">Your Name</label>
+                <input class="field-in" id="regName" type="text" placeholder="Full name" autocomplete="name">
+              </div>
+              <div>
+                <label class="field-lbl" for="regPhone">Phone (for SMS alerts)</label>
+                <input class="field-in" id="regPhone" type="tel" placeholder="(555) 000-0000" autocomplete="tel">
+              </div>
+            </div>
+            <label class="field-lbl" for="regEmail">Email Address</label>
+            <input class="field-in" id="regEmail" type="email" placeholder="you@restaurant.com" autocomplete="email">
+            <label class="field-lbl" for="regPw">Password</label>
+            <div class="pw-wrap">
+              <input class="field-in" id="regPw" type="password" placeholder="At least 8 characters" autocomplete="new-password" style="padding-right:40px">
+              <button class="pw-toggle" aria-label="Show password" onclick="togglePw('regPw',this)">👁</button>
+            </div>
+            <label class="field-lbl" for="regRestaurantName">Restaurant Name</label>
+            <input class="field-in" id="regRestaurantName" type="text" placeholder="Your restaurant name" autocomplete="organization">
+            <button class="btn-main" id="btnRegister" onclick="doRegister()">Create Account &amp; Go to Dashboard →</button>
+            <div class="switch-text">Already have an account? <a onclick="switchTab('login')">Log in</a></div>
+          </div>
         </div>
-        <label class="field-lbl">Email Address</label>
-        <input class="field-in" id="regEmail" type="email" placeholder="you@restaurant.com">
-        <label class="field-lbl">Password</label>
-        <div class="pw-wrap">
-          <input class="field-in" id="regPw" type="password" placeholder="At least 8 characters" style="padding-right:40px">
-          <button class="pw-toggle" onclick="togglePw('regPw',this)">👁</button>
+
+        <!-- FORGOT PASSWORD -->
+        <div id="forgotPanel" class="panel">
+          <div style="text-align:center;margin-bottom:18px">
+            <div style="font-size:2rem;margin-bottom:8px" aria-hidden="true">🔑</div>
+            <div style="font-weight:700;font-size:.95rem;color:var(--ink);margin-bottom:4px">Reset your password</div>
+            <div style="font-size:.78rem;color:var(--slate)">We'll email you a reset link</div>
+          </div>
+          <div class="error-box" id="forgotError" role="alert" aria-live="assertive"></div>
+          <div class="success-box" id="forgotSuccess" role="status" aria-live="polite"></div>
+          <label class="field-lbl" for="forgotEmail">Email Address</label>
+          <input class="field-in" id="forgotEmail" type="email" placeholder="you@restaurant.com" autocomplete="email" onkeydown="if(event.key==='Enter')doForgot()">
+          <button class="btn-main" id="btnForgot" onclick="doForgot()">Send Reset Link →</button>
+          <div class="switch-text"><a onclick="showPanel('mainPanel')">← Back to login</a></div>
         </div>
-        <label class="field-lbl">Restaurant Name</label>
-        <input class="field-in" id="regRestaurantName" type="text" placeholder="Your restaurant name">
-        <button class="btn-main" id="btnRegister" onclick="doRegister()">Create Account &amp; Go to Dashboard →</button>
-        <div class="switch-text">Already have an account? <a onclick="switchTab('login')">Log in</a></div>
+
+        <!-- RESET PASSWORD -->
+        <div id="resetPanel" class="panel">
+          <div style="text-align:center;margin-bottom:18px">
+            <div style="font-size:2rem;margin-bottom:8px" aria-hidden="true">🔒</div>
+            <div style="font-weight:700;font-size:.95rem;color:var(--ink);margin-bottom:4px">Set a new password</div>
+            <div style="font-size:.78rem;color:var(--slate)">Choose something strong and memorable</div>
+          </div>
+          <div class="error-box" id="resetError" role="alert" aria-live="assertive"></div>
+          <div class="success-box" id="resetSuccess" role="status" aria-live="polite"></div>
+          <label class="field-lbl" for="resetPw">New Password</label>
+          <div class="pw-wrap">
+            <input class="field-in" id="resetPw" type="password" placeholder="At least 8 characters" autocomplete="new-password" style="padding-right:40px">
+            <button class="pw-toggle" aria-label="Show password" onclick="togglePw('resetPw',this)">👁</button>
+          </div>
+          <label class="field-lbl" for="resetPw2">Confirm Password</label>
+          <input class="field-in" id="resetPw2" type="password" placeholder="Repeat password" autocomplete="new-password" onkeydown="if(event.key==='Enter')doReset()">
+          <button class="btn-main" id="btnReset" onclick="doReset()">Set New Password →</button>
+        </div>
+
       </div>
     </div>
-
-    <!-- FORGOT PASSWORD -->
-    <div id="forgotPanel" class="panel">
-      <div style="text-align:center;margin-bottom:18px">
-        <div style="font-size:2rem;margin-bottom:8px">🔑</div>
-        <div style="font-weight:700;font-size:.95rem;color:var(--ink);margin-bottom:4px">Reset your password</div>
-        <div style="font-size:.78rem;color:var(--slate)">We'll email you a reset link</div>
-      </div>
-      <div class="error-box" id="forgotError"></div>
-      <div class="success-box" id="forgotSuccess"></div>
-      <label class="field-lbl">Email Address</label>
-      <input class="field-in" id="forgotEmail" type="email" placeholder="you@restaurant.com" onkeydown="if(event.key==='Enter')doForgot()">
-      <button class="btn-main" id="btnForgot" onclick="doForgot()">Send Reset Link →</button>
-      <div class="switch-text"><a onclick="showPanel('mainPanel')">← Back to login</a></div>
-    </div>
-
-    <!-- RESET PASSWORD -->
-    <div id="resetPanel" class="panel">
-      <div style="text-align:center;margin-bottom:18px">
-        <div style="font-size:2rem;margin-bottom:8px">🔒</div>
-        <div style="font-weight:700;font-size:.95rem;color:var(--ink);margin-bottom:4px">Set a new password</div>
-        <div style="font-size:.78rem;color:var(--slate)">Choose something strong and memorable</div>
-      </div>
-      <div class="error-box" id="resetError"></div>
-      <div class="success-box" id="resetSuccess"></div>
-      <label class="field-lbl">New Password</label>
-      <div class="pw-wrap">
-        <input class="field-in" id="resetPw" type="password" placeholder="At least 8 characters" style="padding-right:40px">
-        <button class="pw-toggle" onclick="togglePw('resetPw',this)">👁</button>
-      </div>
-      <label class="field-lbl">Confirm Password</label>
-      <input class="field-in" id="resetPw2" type="password" placeholder="Repeat password" onkeydown="if(event.key==='Enter')doReset()">
-      <button class="btn-main" id="btnReset" onclick="doReset()">Set New Password →</button>
-    </div>
-
-  </div>
-</div>
-<div class="back-link" onclick="window.location.href='index.html'">← Back to GetATableSpot</div>
-```
-
+    <button class="back-link" onclick="window.location.href='index.html'">← Back to GetATableSpot</button>
   </div>
 </div>
 
@@ -149,41 +191,56 @@ body{font-family:var(--sans);background:var(--ink);color:var(--paper);min-height
 const API = 'https://getatablespot-api.onrender.com/api';
 let resetToken = null;
 
-// ── Panel & tab helpers ──
+// ── Panel & tab helpers ────────────────────────────────────
 function showPanel(id) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   clearMessages();
 }
+
 function switchTab(tab) {
   ['login','register'].forEach(t => {
-    document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
-    document.getElementById(`${t}Form`).classList.toggle('active', t === tab);
+    const isActive = t === tab;
+    document.getElementById(`tab-${t}`).classList.toggle('active', isActive);
+    document.getElementById(`tab-${t}`).setAttribute('aria-selected', isActive);
+    document.getElementById(`${t}Form`).classList.toggle('active', isActive);
   });
   clearMessages();
+  // Focus first input in active tab
+  const firstInput = document.getElementById(tab === 'login' ? 'loginEmail' : 'regName');
+  setTimeout(() => firstInput?.focus(), 50);
 }
+
 function clearMessages() {
-  document.querySelectorAll('.error-box,.success-box').forEach(el => { el.textContent=''; el.classList.remove('show'); });
+  document.querySelectorAll('.error-box,.success-box').forEach(el => {
+    el.textContent = ''; el.classList.remove('show');
+  });
 }
+
 function showError(id, msg) {
   const el = document.getElementById(id); el.textContent = msg; el.classList.add('show');
 }
+
 function showSuccess(id, msg) {
   const el = document.getElementById(id); el.textContent = msg; el.classList.add('show');
 }
+
 function togglePw(fieldId, btn) {
   const f = document.getElementById(fieldId);
-  f.type = f.type === 'password' ? 'text' : 'password';
-  btn.textContent = f.type === 'password' ? '👁' : '🙈';
+  const isText = f.type === 'text';
+  f.type = isText ? 'password' : 'text';
+  btn.textContent = isText ? '👁' : '🙈';
+  btn.setAttribute('aria-label', isText ? 'Show password' : 'Hide password');
 }
+
 function setLoading(btnId, loading, label) {
   const btn = document.getElementById(btnId);
   btn.disabled = loading; btn.textContent = loading ? 'Please wait…' : label;
 }
 
-// ── Login ──
+// ── Login ──────────────────────────────────────────────────
 async function doLogin() {
-  const email = document.getElementById('loginEmail').value.trim();
+  const email    = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPw').value;
   if (!email || !password) { showError('mainError', 'Please enter your email and password'); return; }
   setLoading('btnLogin', true, 'Log In →');
@@ -198,28 +255,33 @@ async function doLogin() {
     localStorage.setItem('gats_token', d.token);
     localStorage.setItem('gats_owner', JSON.stringify(d.owner));
     window.location.href = 'restaurant-dashboard.html';
-  } catch (e) {
+  } catch {
     showError('mainError', 'Connection error — please try again');
   } finally {
     setLoading('btnLogin', false, 'Log In →');
   }
 }
 
-// ── Register ──
+// ── Register ───────────────────────────────────────────────
 async function doRegister() {
-  const name = document.getElementById('regName').value.trim();
-  const phone = document.getElementById('regPhone').value.trim();
-  const email = document.getElementById('regEmail').value.trim();
-  const password = document.getElementById('regPw').value;
+  const name           = document.getElementById('regName').value.trim();
+  const phone          = document.getElementById('regPhone').value.trim();
+  const email          = document.getElementById('regEmail').value.trim();
+  const password       = document.getElementById('regPw').value;
   const restaurantName = document.getElementById('regRestaurantName').value.trim();
+
   if (!name || !email || !password) { showError('mainError', 'Please fill in all required fields'); return; }
   if (password.length < 8) { showError('mainError', 'Password must be at least 8 characters'); return; }
 
-  // Pull placeId/plan from URL params (set when redirected from Stripe)
-  const params = new URLSearchParams(window.location.search);
+  // Pull placeId/plan from URL params (set when redirected from claim flow or Stripe)
+  const params  = new URLSearchParams(window.location.search);
   const placeId = params.get('placeId') || '';
-  const rName = restaurantName || params.get('restaurantName') || '';
-  const plan = params.get('plan') || 'free';
+  const rName   = restaurantName || params.get('restaurantName') || '';
+
+  // Map any legacy plan names to new tiers
+  const rawPlan = params.get('plan') || 'starter';
+  const PLAN_MAP = { free:'starter', basic:'growth', pro:'growth', elite:'premium' };
+  const plan = PLAN_MAP[rawPlan] || rawPlan;
 
   setLoading('btnRegister', true, 'Create Account →');
   clearMessages();
@@ -233,14 +295,14 @@ async function doRegister() {
     localStorage.setItem('gats_token', d.token);
     localStorage.setItem('gats_owner', JSON.stringify(d.owner));
     window.location.href = 'restaurant-dashboard.html';
-  } catch (e) {
+  } catch {
     showError('mainError', 'Connection error — please try again');
   } finally {
     setLoading('btnRegister', false, 'Create Account →');
   }
 }
 
-// ── Forgot password ──
+// ── Forgot password ────────────────────────────────────────
 async function doForgot() {
   const email = document.getElementById('forgotEmail').value.trim();
   if (!email) { showError('forgotError', 'Please enter your email'); return; }
@@ -251,17 +313,18 @@ async function doForgot() {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email })
     });
+    // Always show success regardless (prevents email enumeration)
     showSuccess('forgotSuccess', `If ${email} is in our system, you'll get a reset link within a minute. Check your spam folder too.`);
-  } catch (e) {
+  } catch {
     showError('forgotError', 'Connection error — please try again');
   } finally {
     setLoading('btnForgot', false, 'Send Reset Link →');
   }
 }
 
-// ── Reset password ──
+// ── Reset password ─────────────────────────────────────────
 async function doReset() {
-  const pw = document.getElementById('resetPw').value;
+  const pw  = document.getElementById('resetPw').value;
   const pw2 = document.getElementById('resetPw2').value;
   if (!pw || pw.length < 8) { showError('resetError', 'Password must be at least 8 characters'); return; }
   if (pw !== pw2) { showError('resetError', 'Passwords do not match'); return; }
@@ -276,14 +339,14 @@ async function doReset() {
     if (!r.ok) { showError('resetError', d.error || 'Reset failed'); return; }
     showSuccess('resetSuccess', 'Password updated! Redirecting to login…');
     setTimeout(() => { showPanel('mainPanel'); switchTab('login'); }, 2000);
-  } catch (e) {
+  } catch {
     showError('resetError', 'Connection error — please try again');
   } finally {
     setLoading('btnReset', false, 'Set New Password →');
   }
 }
 
-// ── Init: handle URL params ──
+// ── Init: handle URL params ────────────────────────────────
 (function() {
   const params = new URLSearchParams(window.location.search);
 
@@ -298,19 +361,20 @@ async function doReset() {
   }
 
   // Already logged in — redirect
-  const token = localStorage.getItem('gats_token');
-  if (token) { window.location.href = 'restaurant-dashboard.html'; return; }
+  if (localStorage.getItem('gats_token')) {
+    window.location.href = 'restaurant-dashboard.html';
+    return;
+  }
 
-  // Pre-fill email from URL (after Stripe checkout)
+  // Pre-fill from URL (after Stripe checkout or free claim flow)
   const email = params.get('email');
   if (email) {
     document.getElementById('regEmail').value = email;
     switchTab('register');
     const rName = params.get('restaurantName');
-    if (rName) document.getElementById('regRestaurantName').value = rName;
+    if (rName) document.getElementById('regRestaurantName').value = decodeURIComponent(rName);
   }
 })();
 </script>
-
 </body>
 </html>
