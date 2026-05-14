@@ -5,6 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GetATableSpot for Restaurants — Fill Your Empty Tables During Slow Hours</title>
 <meta name="description" content="Get discovered by diners searching for short waits near you. Free to claim. No per-booking fees. Conway, Little Rock & NW Arkansas.">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://getatablespot.com/claim-restaurant.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getatablespot.com/claim-restaurant.html">
+<meta property="og:title" content="Fill Your Empty Tables During Slow Hours — GetATableSpot for Restaurants">
+<meta property="og:description" content="Get discovered by diners searching for the shortest wait near you. Free to claim. No per-booking fees ever. Conway, Little Rock & NW Arkansas.">
+<meta property="og:image" content="https://getatablespot.com/og-image-restaurants.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="GetATableSpot">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fill Your Empty Tables During Slow Hours — GetATableSpot">
+<meta name="twitter:description" content="Free to claim. No per-booking fees. Get discovered by diners searching for short waits near you.">
+<meta name="twitter:image" content="https://getatablespot.com/og-image-restaurants.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "GetATableSpot for Restaurants",
+  "url": "https://getatablespot.com/claim-restaurant.html",
+  "description": "Restaurant listing and wait-time management platform. Free starter plan. Conway, Little Rock and NW Arkansas.",
+  "isPartOf": { "@type": "WebSite", "name": "GetATableSpot", "url": "https://getatablespot.com" },
+  "offers": [
+    { "@type": "Offer", "name": "Starter", "price": "0", "priceCurrency": "USD" },
+    { "@type": "Offer", "name": "Growth",  "price": "49", "priceCurrency": "USD" },
+    { "@type": "Offer", "name": "Premium", "price": "149", "priceCurrency": "USD" }
+  ]
+}
+</script>
+
+<!-- Font preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -20,6 +60,9 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:#FAF8F4;color:#0A0806;min-height:100vh}
 
+/* Skip nav */
+.skip-nav{position:absolute;top:-100px;left:16px;background:#E8430A;color:white;padding:8px 16px;border-radius:4px;font-weight:700;font-size:.85rem;text-decoration:none;z-index:9999;transition:top .15s}
+.skip-nav:focus{top:8px}
 /* HEADER */
 header{background:#0A0806;position:sticky;top:0;z-index:200}
 .header-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -87,7 +130,7 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 .plans-section .section-title{color:#0A0806!important}
 .plans-section .section-sub{color:#5A6A82!important}
 .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
-.plan-card{background:white;border:1.5px solid var(--border);border-radius:14px;padding:28px;position:relative;transition:box-shadow .2s,transform .2s}
+.plan-card{background:white;border:1.5px solid var(--border);border-radius:14px;padding:28px;position:relative;transition:transform .2s ease,box-shadow .2s ease;will-change:transform}
 .plan-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,8,6,.1)}
 .plan-card.popular{border-color:#E8430A;box-shadow:0 0 0 1px var(--ember)}
 .plan-popular-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#E8430A;color:#FFFFFF;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:999px;white-space:nowrap}
@@ -155,13 +198,13 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 .field-in:focus{border-color:#E8430A}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .role-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.role-opt{padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;font-size:.82rem;font-weight:600;color:#5A6A82;transition:all .15s;text-align:center;background:white}
+.role-opt{padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;font-size:.82rem;font-weight:600;color:#5A6A82;transition:border-color .15s,color .15s,background .15s;text-align:center;background:white}
 .role-opt:hover{border-color:#E8430A;color:#E8430A}
 .role-opt.sel{border-color:#E8430A;background:rgba(232,67,10,.05);color:#E8430A}
 
 /* PLAN SELECTOR */
 .ps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-.ps-card{border:1.5px solid var(--border);border-radius:8px;padding:14px;cursor:pointer;text-align:center;transition:all .15s;background:white;position:relative}
+.ps-card{border:1.5px solid var(--border);border-radius:8px;padding:14px;cursor:pointer;text-align:center;transition:border-color .15s,background .15s;background:white;position:relative}
 .ps-card:hover{border-color:#E8430A}
 .ps-card.sel{border-color:#E8430A;background:rgba(232,67,10,.04)}
 .ps-card.popular::after{content:'Most Popular';position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#E8430A;color:#FFFFFF;font-size:.55rem;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap}
@@ -224,6 +267,7 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 </style>
 </head>
 <body>
+<a href="#claim-main" class="skip-nav">Skip to main content</a>
 
 <header>
   <div class="header-inner">
@@ -275,6 +319,7 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
 </div>
 
 <!-- PAIN SECTION -->
+<main id="claim-main">
 <div class="pain-section">
   <div class="section-inner">
     <div class="section-label">The Problem</div>
@@ -438,7 +483,7 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
       <div class="section-sub" style="text-align:center;margin:8px auto 0">Free to start · No credit card required · Takes 2 minutes</div>
     </div>
     <div class="form-wrap">
-      <div id="formContainer">
+      <div id="formContainer" aria-live="polite" aria-atomic="false">
         <!-- RESTAURANT SEARCH -->
         <div id="searchPhase">
           <div class="form-top-bar">
@@ -448,9 +493,9 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
           <div class="form-body">
             <label class="field-lbl">Restaurant Name &amp; City</label>
             <div class="search-box-wrap">
-              <input type="text" id="restaurantSearch" placeholder="e.g. Mario's Bistro, Conway AR…" autocomplete="off" oninput="onRestaurantSearch(this.value)" onkeydown="if(event.key==='Enter')event.preventDefault()">
+              <input type="text" id="restaurantSearch" aria-label="Search for your restaurant by name and city" aria-autocomplete="list" aria-controls="searchResults" placeholder="e.g. Mario's Bistro, Conway AR…" autocomplete="off" oninput="onRestaurantSearch(this.value)" onkeydown="if(event.key==='Enter')event.preventDefault()">
               <span class="s-icon">🔍</span>
-              <div class="search-results" id="searchResults"></div>
+              <div class="search-results" id="searchResults" role="listbox" aria-label="Restaurant search results"></div>
             </div>
             <div class="selected-banner" id="selectedBanner">
               <div class="sb-icon">🍽️</div>
@@ -472,7 +517,7 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
             <div><div class="ftb-title" id="formHeaderTitle">Claim Your Restaurant</div><div class="ftb-sub" id="formHeaderSub">Free to start · No credit card required</div></div>
           </div>
           <div class="form-body">
-            <div class="step-dots" id="stepDots">
+            <div class="step-dots" id="stepDots" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" aria-label="Step 1 of 3">
               <div class="step-dot active" id="dot0"></div>
               <div class="step-dot" id="dot1"></div>
               <div class="step-dot" id="dot2"></div>
@@ -494,13 +539,15 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
                 </div>
                 <label class="field-lbl">Email Address</label>
                 <input class="field-in" id="ownerEmail" placeholder="you@restaurant.com" type="email">
-                <div style="font-size:.78rem;font-weight:600;color:#5A6A82;margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px">Your Role</div>
-                <div class="role-options">
-                  <div class="role-opt" onclick="selRole(this,'owner')">👤 Owner</div>
-                  <div class="role-opt" onclick="selRole(this,'manager')">📋 Manager</div>
-                  <div class="role-opt" onclick="selRole(this,'operator')">🏢 Operator</div>
-                  <div class="role-opt" onclick="selRole(this,'other')">✨ Other</div>
-                </div>
+                <fieldset style="border:none;padding:0;margin:0">
+                  <legend class="field-lbl" style="margin-bottom:8px">Your Role</legend>
+                  <div class="role-options">
+                    <div class="role-opt" role="radio" aria-checked="false" tabindex="0" onclick="selRole(this,'owner')" onkeydown="if(event.key==='Enter'||event.key===' ')selRole(this,'owner')">👤 Owner</div>
+                    <div class="role-opt" role="radio" aria-checked="false" tabindex="0" onclick="selRole(this,'manager')" onkeydown="if(event.key==='Enter'||event.key===' ')selRole(this,'manager')">📋 Manager</div>
+                    <div class="role-opt" role="radio" aria-checked="false" tabindex="0" onclick="selRole(this,'operator')" onkeydown="if(event.key==='Enter'||event.key===' ')selRole(this,'operator')">🏢 Operator</div>
+                    <div class="role-opt" role="radio" aria-checked="false" tabindex="0" onclick="selRole(this,'other')" onkeydown="if(event.key==='Enter'||event.key===' ')selRole(this,'other')">✨ Other</div>
+                  </div>
+                </fieldset>
                 <div class="form-nav">
                   <div></div>
                   <button class="btn-next" onclick="goStep(1)">Choose Plan →</button>
@@ -618,6 +665,8 @@ header{background:#0A0806;position:sticky;top:0;z-index:200}
   <button class="btn-footer" onclick="scrollToForm()">Claim My Restaurant Free →</button>
 </div>
 
+</main>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -717,11 +766,14 @@ function updateDots() {
     const d = document.getElementById(`dot${i}`);
     d.className = 'step-dot' + (i < currentStep ? ' done' : i === currentStep ? ' active' : '');
   }
+  const bar = document.getElementById('stepDots');
+  if (bar) { bar.setAttribute('aria-valuenow', currentStep + 1); bar.setAttribute('aria-label', `Step ${currentStep + 1} of 3`); }
 }
 
 function selRole(el, role) {
-  document.querySelectorAll('.role-opt').forEach(r => r.classList.remove('sel'));
+  document.querySelectorAll('.role-opt').forEach(r => { r.classList.remove('sel'); r.setAttribute('aria-checked','false'); });
   el.classList.add('sel');
+  el.setAttribute('aria-checked','true');
   selectedRole = role;
 }
 
