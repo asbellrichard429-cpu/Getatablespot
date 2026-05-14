@@ -652,9 +652,28 @@ app.post('/api/subscribe', async(req,res)=>{
 
 app.post('/api/waitlist', async(req,res)=>{
   try{
-    const{email,feature}=req.body;
+    const{email,feature,source}=req.body;
     if(!email) return res.status(400).json({error:'email required'});
-    await sendEmail({to:NOTIFY_EMAIL,subject:`📬 Waitlist: ${feature}`,html:`<p><strong>${email}</strong> — ${feature}</p>`});
+
+    // Log to DB — ignore duplicate email+type combos silently
+    try{
+      await db.query(
+        `INSERT INTO waitlist (email, type, source)
+         VALUES ($1, $2, $3)
+         ON CONFLICT DO NOTHING`,
+        [email.toLowerCase().trim(), feature||'unknown', source||null]
+      );
+    }catch(dbErr){ console.warn('Waitlist DB insert (non-fatal):', dbErr.message); }
+
+    // Always notify via email
+    const typeLabel = feature==='diner_waitlist' ? '🍽️ Diner' : feature==='restaurant_interest' ? '🏪 Restaurant Owner' : feature;
+    const sourceLabel = source ? ` via ${source}` : '';
+    await sendEmail({
+      to: NOTIFY_EMAIL,
+      subject: `📬 New signup: ${typeLabel}${sourceLabel}`,
+      html: `<div style="font-family:sans-serif;padding:20px"><p><strong>${email}</strong></p><p>Type: ${typeLabel}</p><p>Source: ${source||'unknown'}</p></div>`
+    });
+
     res.json({success:true});
   }catch(e){ res.status(500).json({error:e.message}); }
 });
