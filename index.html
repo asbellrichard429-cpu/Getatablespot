@@ -5,6 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GetATableSpot — Find Restaurants With the Shortest Waits Near You</title>
 <meta name="description" content="See live restaurant wait times before you leave home. Conway, Little Rock & Northwest Arkansas. No guessing, no wasted trips.">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://getatablespot.com/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getatablespot.com/">
+<meta property="og:title" content="GetATableSpot — Find Restaurants With the Shortest Waits Near You">
+<meta property="og:description" content="See live restaurant wait times before you leave home. Conway, Little Rock & NW Arkansas. No guessing, no wasted trips.">
+<meta property="og:image" content="https://getatablespot.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="GetATableSpot">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GetATableSpot — Find Restaurants With the Shortest Waits Near You">
+<meta name="twitter:description" content="See live restaurant wait times before you leave home. No guessing, no wasted trips.">
+<meta name="twitter:image" content="https://getatablespot.com/og-image.png">
+
+<!-- Structured Data — WebSite + SearchAction -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "GetATableSpot",
+  "url": "https://getatablespot.com",
+  "description": "Find restaurants with live wait times near you in Conway, Little Rock and NW Arkansas.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://getatablespot.com/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- Font preconnect — eliminates render-blocking DNS lookup -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -43,7 +85,75 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 .pt-badge.live{background:var(--sage);color:white}.pt-badge.soon{background:var(--slate);color:white}
 .pt-cta{display:block;width:100%;padding:9px;background:var(--ember);color:white;border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.8rem;cursor:pointer;margin-top:12px;text-align:center;text-decoration:none}
 
-/* ── HERO ── */
+/* ── EMAIL CAPTURE ── */
+.email-capture-section{background:linear-gradient(135deg,#1A0A2E,#0A0806);padding:52px 24px;border-top:1px solid rgba(255,255,255,.05)}
+.email-capture-inner{max-width:680px;margin:0 auto;text-align:center}
+.ec-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ember-l);margin-bottom:10px}
+.ec-title{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.1rem);font-weight:900;color:white;margin-bottom:10px;line-height:1.2}
+.ec-sub{font-size:.88rem;color:rgba(255,255,255,.45);margin-bottom:28px;line-height:1.6}
+.ec-tabs{display:flex;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:3px;gap:2px;width:fit-content;margin:0 auto 24px}
+.ec-tab{padding:7px 20px;border-radius:999px;font-family:var(--sans);font-size:.78rem;font-weight:700;cursor:pointer;border:none;color:rgba(255,255,255,.45);background:none;transition:background .15s,color .15s}
+.ec-tab.on{background:var(--ember);color:white}
+.ec-form{display:flex;gap:8px;max-width:460px;margin:0 auto}
+.ec-input{flex:1;padding:12px 16px;border:1.5px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.07);font-family:var(--sans);font-size:.9rem;color:white;outline:none;transition:border-color .15s}
+.ec-input::placeholder{color:rgba(255,255,255,.3)}
+.ec-input:focus{border-color:var(--ember)}
+.ec-btn{padding:12px 22px;background:var(--ember);color:white;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.88rem;cursor:pointer;white-space:nowrap;transition:background .15s}
+.ec-btn:hover{background:var(--ember-l)}
+.ec-note{font-size:.68rem;color:rgba(255,255,255,.2);margin-top:10px}
+.ec-success{font-size:.85rem;color:var(--sage);margin-top:12px;font-weight:600;display:none}
+.ec-success.show{display:block}
+.ec-panel{display:none}.ec-panel.active{display:block}
+/* Sticky footer bar */
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;background:var(--ink);border-top:1px solid rgba(255,255,255,.1);padding:10px 20px;z-index:250;display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(100%);transition:transform .35s ease;box-shadow:0 -4px 24px rgba(0,0,0,.3)}
+.sticky-bar.visible{transform:translateY(0)}
+.sb-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.sb-text{font-size:.8rem;color:rgba(255,255,255,.65);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-text strong{color:white}
+.sb-form{display:flex;gap:6px;flex-shrink:0}
+.sb-input{padding:8px 13px;border:1.5px solid rgba(255,255,255,.15);border-radius:5px;background:rgba(255,255,255,.07);font-family:var(--sans);font-size:.82rem;color:white;outline:none;width:210px;transition:border-color .15s}
+.sb-input::placeholder{color:rgba(255,255,255,.3)}
+.sb-input:focus{border-color:var(--ember)}
+.sb-btn{padding:8px 16px;background:var(--ember);color:white;border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.78rem;cursor:pointer;white-space:nowrap;transition:background .15s}
+.sb-btn:hover{background:var(--ember-l)}
+.sb-dismiss{background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:.9rem;padding:4px;flex-shrink:0;line-height:1}
+.sb-dismiss:hover{color:rgba(255,255,255,.6)}
+/* Exit-intent popup */
+.exit-overlay{display:none;position:fixed;inset:0;background:rgba(10,8,6,.75);backdrop-filter:blur(8px);z-index:700;align-items:center;justify-content:center;padding:20px}
+.exit-overlay.open{display:flex}
+.exit-modal{background:white;border-radius:16px;max-width:460px;width:100%;padding:36px;position:relative;animation:exitPop .25s ease}
+@keyframes exitPop{from{transform:scale(.93);opacity:0}to{transform:scale(1);opacity:1}}
+.exit-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:var(--warm);border:1px solid var(--border);cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;color:var(--slate)}
+.exit-close:hover{background:var(--border)}
+.exit-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ember);margin-bottom:8px}
+.exit-title{font-family:var(--serif);font-size:1.4rem;font-weight:900;color:var(--ink);margin-bottom:8px;line-height:1.2}
+.exit-sub{font-size:.83rem;color:var(--slate);margin-bottom:20px;line-height:1.6}
+.exit-tabs{display:flex;background:var(--warm);border-radius:6px;padding:3px;gap:2px;margin-bottom:18px}
+.exit-tab{flex:1;padding:7px;text-align:center;border-radius:4px;font-family:var(--sans);font-size:.76rem;font-weight:700;cursor:pointer;border:none;background:none;color:var(--slate);transition:background .15s,color .15s}
+.exit-tab.on{background:white;color:var(--ink);box-shadow:0 1px 4px rgba(10,8,6,.1)}
+.exit-form-row{display:flex;gap:8px}
+.exit-input{flex:1;padding:11px 14px;border:1.5px solid var(--border);border-radius:6px;font-family:var(--sans);font-size:.9rem;outline:none;transition:border-color .15s;color:var(--ink)}
+.exit-input:focus{border-color:var(--ember)}
+.exit-submit{padding:11px 20px;background:var(--ember);color:white;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.85rem;cursor:pointer;white-space:nowrap;transition:background .15s}
+.exit-submit:hover{background:var(--ember-l)}
+.exit-note{font-size:.68rem;color:var(--slate);margin-top:9px;text-align:center}
+.exit-success{font-size:.85rem;color:var(--sage);font-weight:600;text-align:center;margin-top:12px;display:none}
+.exit-success.show{display:block}
+.exit-panel{display:none}.exit-panel.active{display:block}
+@media(max-width:640px){
+  .ec-form{flex-direction:column}
+  .sticky-bar{flex-wrap:wrap;padding:10px 14px}
+  .sb-input{width:100%}
+  .sb-left{display:none}
+  .sb-form{width:100%}
+  .exit-form-row{flex-direction:column}
+}
+/* Skip nav — visually hidden until focused */
+.skip-nav{position:absolute;top:-100px;left:16px;background:var(--ember);color:white;padding:8px 16px;border-radius:4px;font-weight:700;font-size:.85rem;text-decoration:none;z-index:9999;transition:top .15s}
+.skip-nav:focus{top:8px}
+/* Scroll margin so anchor targets clear the sticky header+search bar */
+#searchSection,#main-content{scroll-margin-top:116px}
+
 .hero{background:linear-gradient(160deg,#0A0806 0%,#1A0E05 55%,#0A0806 100%);padding:72px 24px 0;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(232,67,10,.09),transparent);pointer-events:none}
 .hero-live-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,67,10,.1);border:1px solid rgba(232,67,10,.22);border-radius:999px;padding:6px 16px;font-size:.7rem;font-weight:600;color:#FF8C6A;letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1}
@@ -203,7 +313,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 
 /* ── CARDS ── */
 .restaurants-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
-.r-card{background:white;border:1.5px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;animation:fadeUp .3s ease both;position:relative}
+.r-card{background:white;border:1.5px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;animation:fadeUp .3s ease both;position:relative;will-change:transform}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .r-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,8,6,.12);border-color:var(--border-d)}
 .r-card.featured{border-color:var(--ember);box-shadow:0 0 0 1px var(--ember)}
@@ -382,10 +492,17 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
   .restaurant-inner{grid-template-columns:1fr}
   .proof-cards{grid-template-columns:1fr}
   .acc-grid{grid-template-columns:1fr}
+  /* Mobile sticky search: hide name input row to save 50px of screen */
+  .search-row-1{display:none}
+  #searchSection{padding:8px 12px}
+  #searchSection.expanded .search-row-1{display:flex}
+  .search-expand-btn{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.13);border-radius:6px;padding:8px 12px;color:rgba(255,255,255,.5);font-size:.75rem;cursor:pointer;font-family:var(--sans);font-weight:600;flex-shrink:0}
+  .search-expand-btn:hover{background:rgba(255,255,255,.12)}
 }
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-nav">Skip to main content</a>
 
 <header>
   <div class="header-inner">
@@ -415,7 +532,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
   <p class="hero-sub">See live restaurant wait times before you leave home. No guessing, no wasted trips, no 90-minute surprises.</p>
   <div class="hero-search">
     <div class="hero-loc-box">
-      <button class="btn-hero-gps" onclick="heroGeolocate()" title="Use my location">📍</button>
+      <button class="btn-hero-gps" aria-label="Use my location" onclick="heroGeolocate()" title="Use my location">📍</button>
       <input id="heroLocationInput" type="text" placeholder="City, state or zip code…" onkeydown="if(event.key==='Enter')heroSearch()">
     </div>
     <button class="btn-hero-find" onclick="heroSearch()">Find a Table Now</button>
@@ -524,6 +641,37 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
   </div>
 </div>
 
+<!-- ── EMAIL CAPTURE (inline) ── -->
+<section class="email-capture-section" aria-label="Stay in the loop">
+  <div class="email-capture-inner">
+    <div class="ec-eyebrow">Stay connected</div>
+    <h2 class="ec-title">Want to hear from us?</h2>
+    <p class="ec-sub">Drop your email and we'll keep you in the loop as we add more restaurants and features across Arkansas.</p>
+    <div class="ec-tabs" role="tablist" aria-label="Diner or restaurant">
+      <button class="ec-tab on" id="ec-tab-diner" role="tab" aria-selected="true" onclick="ecSwitch('diner')">🍽️ I'm a Diner</button>
+      <button class="ec-tab" id="ec-tab-resto" role="tab" aria-selected="false" onclick="ecSwitch('resto')">🏪 I Own a Restaurant</button>
+    </div>
+    <div id="ec-panel-diner" class="ec-panel active" role="tabpanel">
+      <div class="ec-form">
+        <label for="ecDinerEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Email address</label>
+        <input class="ec-input" id="ecDinerEmail" type="email" placeholder="your@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')ecSubmit('diner')">
+        <button class="ec-btn" onclick="ecSubmit('diner')">Keep Me Posted</button>
+      </div>
+      <div class="ec-note">No spam. Unsubscribe anytime.</div>
+      <div class="ec-success" id="ecDinerSuccess">✓ You're in! We'll be in touch.</div>
+    </div>
+    <div id="ec-panel-resto" class="ec-panel" role="tabpanel">
+      <div class="ec-form">
+        <label for="ecRestoEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Email address</label>
+        <input class="ec-input" id="ecRestoEmail" type="email" placeholder="you@restaurant.com" autocomplete="email" onkeydown="if(event.key==='Enter')ecSubmit('resto')">
+        <button class="ec-btn" onclick="ecSubmit('resto')">Keep Me Posted</button>
+      </div>
+      <div class="ec-note">No spam. Unsubscribe anytime.</div>
+      <div class="ec-success" id="ecRestoSuccess">✓ You're in! We'll reach out soon.</div>
+    </div>
+  </div>
+</section>
+
 <!-- ── RESTAURANT CTA ── -->
 <section class="restaurant-section">
   <div class="restaurant-inner">
@@ -561,7 +709,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 
 <!-- ── PRO BANNER ── -->
 <div class="pro-banner" id="proBanner">
-  <button class="btn-dismiss" onclick="document.getElementById('proBanner').style.display='none'">✕</button>
+  <button class="btn-dismiss" aria-label="Dismiss banner" onclick="document.getElementById('proBanner').style.display='none'">✕</button>
   <div class="pro-banner-inner">
     <div class="pro-banner-left">
       <div style="font-size:1.3rem">👑</div>
@@ -610,10 +758,11 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
     </div>
     <div class="search-row-2">
       <div class="l-box">
-        <button class="btn-gps" onclick="geolocate()" title="Use my location">📍</button>
+        <button class="btn-gps" aria-label="Use my location" onclick="geolocate()" title="Use my location">📍</button>
         <input id="locationInput" type="text" placeholder="City, state or zip code…" onkeydown="if(event.key==='Enter')doSearch()" oninput="onLocationInput()">
       </div>
       <button class="btn-find" onclick="doSearch()">Find Restaurants</button>
+      <button class="search-expand-btn" aria-label="More filters" onclick="toggleSearchExpand()">⚙️ Filters</button>
       <div class="ai-btn-wrap">
         <button class="ai-btn" onclick="openAI()">🤖 Ask AI</button>
         <div class="ai-tooltip">
@@ -628,6 +777,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
   </div>
 </div>
 
+<main id="main-content">
 <!-- ── RESULTS ── -->
 <div class="main">
   <div class="filter-row">
@@ -669,6 +819,8 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
   </div>
 </div>
 
+</main>
+
 <!-- ── AI PANEL ── -->
 <div class="ai-panel" id="aiPanel">
   <div class="ai-header">
@@ -676,7 +828,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
       <div class="ai-avatar">🤖</div>
       <div><div class="ai-header-title">AI Dining Concierge</div><div class="ai-header-sub">Powered by Claude · Knows restaurants near you</div></div>
     </div>
-    <button class="ai-close" onclick="closeAI()">✕</button>
+    <button class="ai-close" aria-label="Close AI panel" onclick="closeAI()">✕</button>
   </div>
   <div class="ai-messages" id="aiMessages"></div>
   <div class="ai-sugs" id="aiSugs">
@@ -696,7 +848,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 <!-- ── COMING SOON MODAL ── -->
 <div class="cs-overlay" id="csOverlay" onclick="closeCS(event)">
   <div class="cs-modal">
-    <button class="cs-close" onclick="closeCS()">✕</button>
+    <button class="cs-close" aria-label="Close" onclick="closeCS()">✕</button>
     <div class="cs-icon" id="csIcon">⚡</div>
     <div class="cs-badge">Coming Soon — Pro Feature</div>
     <div class="cs-title" id="csTitle">Feature Coming Soon</div>
@@ -712,7 +864,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:200}
 <!-- ── RESTAURANT MODAL ── -->
 <div class="overlay" id="overlay" onclick="closeModal(event)">
   <div class="modal">
-    <button class="m-close" onclick="closeModal()">✕</button>
+    <button class="m-close" aria-label="Close" onclick="closeModal()">✕</button>
     <div class="m-hero" id="mHero">
       <img id="mHeroImg" src="" alt="" style="display:none" onerror="this.style.display='none'">
       <span class="m-hero-emoji" id="mEmoji">🍽️</span>
@@ -778,10 +930,16 @@ function showSkeletons(){document.getElementById('gridContainer').innerHTML='<di
 function getFiltered(){const priceF=document.getElementById('priceFilter').value;return restaurants.filter(r=>{if(activeFilters.has('open')&&!r.isOpen)return false;if(activeFilters.has('lowwait')&&!['low','none'].includes(r.waitLevel))return false;if(activeFilters.has('reservable')&&!r.reservable)return false;if(activeFilters.has('outdoor')&&!r.outdoor)return false;if(activeFilters.has('order')&&!r.website)return false;if(priceF&&r.price!==priceF)return false;return true;});}
 function getSorted(list){return[...list].sort((a,b)=>{if(b.isFeatured!==a.isFeatured)return b.isFeatured-a.isFeatured;if(currentSort==='rating')return(b.rating||0)-(a.rating||0);if(currentSort==='wait')return(a.waitMins??999)-(b.waitMins??999);if(currentSort==='reviews')return(b.reviews||0)-(a.reviews||0);if(currentSort==='distance')return parseFloat(a.distance||'0')-parseFloat(b.distance||'0');return 0;});}
 function wbClass(lv){return{none:'wb-none',low:'wb-low',med:'wb-med',high:'wb-high'}[lv]||'wb-low';}
-function wtText(r){if(!r.isOpen)return'Closed';if(r.waitMins===0||r.waitLevel==='none')return'✓ Walk Right In';if(r.waitMins<=5)return`⚡ ${r.waitMins}m wait`;return`~${r.waitMins} min wait`;}
+function wtText(r){
+  if(!r.isOpen)return'Closed';
+  const ago=r.waitUpdatedAt?` · ${timeAgo(r.waitUpdatedAt)}`:'';
+  if(r.waitMins===0||r.waitLevel==='none')return`✓ Walk Right In${ago}`;
+  if(r.waitMins<=5)return`⚡ ${r.waitMins}m wait${ago}`;
+  return`~${r.waitMins} min wait${ago}`;
+}
 function starsStr(n){const f=Math.floor(n||0);return'★'.repeat(f)+(n%1>=.5?'½':'')+'☆'.repeat(Math.max(0,5-f-(n%1>=.5?1:0)));}
 function mapsUrl(a){return`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a)}`;}
-function cardHTML(r,i=0){const srcs=(r.sources||[]).map(s=>SRCS[s]?`<span class="r-src ${SRCS[s].cls}">${SRCS[s].label}</span>`:'').join('');const tags=(r.tags||[]).slice(0,3).map(t=>`<span class="r-tag">${t}</span>`).join('');const saved=savedIds.has(r.id);const wbc=wbClass(r.waitLevel);const bookBtn=r.reservable?`<button class="btn-reserve${r.isFeatured?' ember':''}" onclick="event.stopPropagation();openModal('${r.id}')">📅 Reserve</button>`:`<button class="btn-reserve" style="background:var(--warm);color:var(--slate);border:1.5px solid var(--border)" onclick="event.stopPropagation();openModal('${r.id}')">View Details</button>`;const orderBtn=r.website?`<button class="btn-order" onclick="event.stopPropagation();window.open('${r.website}','_blank')">🛍️ Order</button>`:'';return`<div class="r-card${r.isFeatured?' featured':''}" onclick="openModal('${r.id}')" style="animation-delay:${i*30}ms"><div class="r-img" style="background:${r.bg||'linear-gradient(135deg,#1A1008,#333)'}">${r.photoUrl?`<img src="${r.photoUrl.trim()}" alt="${r.name}" onerror="this.style.display='none'">`:''}${r.isFeatured?'<div class="feat-badge">✦ Featured</div>':''}${!r.photoUrl?`<span class="r-emoji">${r.emoji||'🍽️'}</span>`:''}<div class="wait-badge ${wbc}"><span class="wb-dot"></span>${wtText(r)}</div><button class="save-btn" onclick="event.stopPropagation();toggleSave('${r.id}',this)">${saved?'♥':'♡'}</button></div><div class="r-body"><div class="r-sources">${srcs}</div><div class="r-cuisine">${(r.cuisine||'restaurant').toUpperCase()}</div><div class="r-name">${r.name}</div><div class="r-meta"><span class="r-stars">${starsStr(r.rating)}</span><span class="r-rcount">(${(r.reviews||0).toLocaleString()})</span><span class="r-price">${r.price||'$$'}</span><span class="r-dist">📍 ${r.distance||'nearby'}</span>${r.outdoor?'<span class="r-tag">🌿 Outdoor</span>':''}</div>${tags?`<div class="r-tags">${tags}</div>`:''}<div class="r-wait-note">⏱ Estimated wait · Updated by restaurants</div><div class="r-actions" onclick="event.stopPropagation()">${bookBtn}${orderBtn}<button class="btn-icon" onclick="window.open('${mapsUrl(r.address||r.name)}','_blank')">🗺️</button></div></div></div>`;}
+function cardHTML(r,i=0){const srcs=(r.sources||[]).map(s=>SRCS[s]?`<span class="r-src ${SRCS[s].cls}">${SRCS[s].label}</span>`:'').join('');const tags=(r.tags||[]).slice(0,3).map(t=>`<span class="r-tag">${t}</span>`).join('');const saved=savedIds.has(r.id);const wbc=wbClass(r.waitLevel);const bookBtn=r.reservable?`<button class="btn-reserve${r.isFeatured?' ember':''}" onclick="event.stopPropagation();openModal('${r.id}')">📅 Reserve</button>`:`<button class="btn-reserve" style="background:var(--warm);color:var(--slate);border:1.5px solid var(--border)" onclick="event.stopPropagation();openModal('${r.id}')">View Details</button>`;const orderBtn=r.website?`<button class="btn-order" onclick="event.stopPropagation();window.open('${r.website}','_blank')">🛍️ Order</button>`:'';return`<div class="r-card${r.isFeatured?' featured':''}" onclick="openModal('${r.id}')" style="animation-delay:${i*30}ms"><div class="r-img" style="background:${r.bg||'linear-gradient(135deg,#1A1008,#333)'}">${r.photoUrl?`<img src="${r.photoUrl.trim()}" alt="${r.name}" loading="lazy" decoding="async" onerror="this.style.display='none'">`:''}${r.isFeatured?'<div class="feat-badge">✦ Featured</div>':''}${!r.photoUrl?`<span class="r-emoji">${r.emoji||'🍽️'}</span>`:''}<div class="wait-badge ${wbc}"><span class="wb-dot"></span>${wtText(r)}</div><button class="save-btn" aria-label="Save ${r.name}" onclick="event.stopPropagation();toggleSave('${r.id}',this)">${saved?'♥':'♡'}</button></div><div class="r-body"><div class="r-sources">${srcs}</div><div class="r-cuisine">${(r.cuisine||'restaurant').toUpperCase()}</div><div class="r-name">${r.name}</div><div class="r-meta"><span class="r-stars">${starsStr(r.rating)}</span><span class="r-rcount">(${(r.reviews||0).toLocaleString()})</span><span class="r-price">${r.price||'$$'}</span><span class="r-dist">📍 ${r.distance||'nearby'}</span>${r.outdoor?'<span class="r-tag">🌿 Outdoor</span>':''}</div>${tags?`<div class="r-tags">${tags}</div>`:''}<div class="r-wait-note">⏱ Estimated wait · Updated by restaurants</div><div class="r-actions" onclick="event.stopPropagation()">${bookBtn}${orderBtn}<button class="btn-icon" onclick="window.open('${mapsUrl(r.address||r.name)}','_blank')">🗺️</button></div></div></div>`;}
 function renderRestaurants(showLowWait=false){let list=getSorted(getFiltered());if(showLowWait)list=list.filter(r=>r.isOpen&&['low','none'].includes(r.waitLevel));const sel=document.getElementById('cuisineSelect');const cname=showLowWait?'Low Wait Restaurants':sel.options[sel.selectedIndex]?.text||'Restaurants';document.getElementById('resultMeta').innerHTML=`<strong>${list.length}</strong> ${cname}`;if(!list.length){const msg=showLowWait?'No low-wait restaurants right now — try again soon.':'Try a different cuisine, location, or remove a filter.';document.getElementById('gridContainer').innerHTML=`<div class="empty"><div class="empty-icon">🍽️</div><div class="empty-title">No results found</div><p style="color:var(--slate);font-size:.85rem">${msg}</p></div>`;return;}document.getElementById('gridContainer').innerHTML=`<div class="restaurants-grid">${list.map((r,i)=>cardHTML(r,i)).join('')}</div>`;}
 async function openModal(id){currentR=restaurants.find(r=>r.id===id);if(!currentR)return;selectedTime=null;partySize=2;const heroImg=document.getElementById('mHeroImg');const heroEmoji=document.getElementById('mEmoji');document.getElementById('mHero').style.background=currentR.bg||'linear-gradient(135deg,#1A1008,#333)';if(currentR.photoUrl){heroImg.src=currentR.photoUrl.trim();heroImg.style.display='block';heroEmoji.style.display='none';}else{heroImg.style.display='none';heroEmoji.style.display='block';heroEmoji.textContent=currentR.emoji||'🍽️';}document.getElementById('mCuisine').textContent=(currentR.cuisine||'restaurant').toUpperCase();document.getElementById('mName').textContent=currentR.name;document.getElementById('mSources').innerHTML=(currentR.sources||[]).map(s=>SRCS[s]?`<span class="r-src ${SRCS[s].cls}">${SRCS[s].label}</span>`:'').join('');document.getElementById('pNum').textContent=partySize;['gName','gEmail','gNote'].forEach(id=>document.getElementById(id).value='');let topBtns='';if(currentR.website)topBtns+=`<button class="btn-m-order" onclick="window.open('${currentR.website}','_blank')">🛍️ Order Pickup Online</button>`;topBtns+=`<button class="btn-m-dir" onclick="window.open('${mapsUrl(currentR.address||currentR.name)}','_blank')">🗺️ Get Directions</button>`;document.getElementById('mActionsTop').innerHTML=topBtns;const addr=currentR.address||currentR.name;const hrs=Array.isArray(currentR.hours)?currentR.hours.slice(0,2).join(' · ')||'See Google Maps':currentR.hours||'See Google Maps';document.getElementById('mInfoGrid').innerHTML=[{label:'Address',val:`<a href="${mapsUrl(addr)}" target="_blank">📍 ${addr}</a>`},{label:'Hours',val:`🕐 ${hrs}`},{label:'Phone',val:`📞 ${currentR.phone||'Not listed'}`},{label:'Rating',val:`${starsStr(currentR.rating)} ${currentR.rating} (${(currentR.reviews||0).toLocaleString()})`}].map(({label,val})=>`<div class="info-box"><div class="info-lbl">${label}</div><div class="info-val">${val}</div></div>`).join('');const wbc2={none:'wb-green',low:'wb-green',med:'wb-yellow',high:'wb-red'}[currentR.waitLevel]||'wb-yellow';const wt=!currentR.isOpen?'Currently closed':currentR.waitMins===0?'No wait — walk right in':`~${currentR.waitMins} minute wait`;document.getElementById('mWaitBox').innerHTML=`<div class="wb-icon">⏱</div><div><div class="wb-lbl">Current Wait Time</div><div class="wb-val ${wbc2}">${wt}</div></div>`;let slots=[],fullSlots=[];try{const sr=await fetch(`${API}/venues/${currentR.id}/slots?date=${new Date().toISOString().split('T')[0]}`,{signal:AbortSignal.timeout(3000)});const sd=await sr.json();if(sd.slots?.length){slots=sd.slots.map(s=>s.time);fullSlots=sd.slots.reduce((a,s,i)=>{if(!s.available)a.push(i);return a;},[]);}}catch{}if(slots.length){document.getElementById('timeGrid').innerHTML=slots.map((t,i)=>{const full=fullSlots.includes(i);return`<button class="t-btn${full?' full':''}" data-time="${t}" onclick="${full?'':'selectTime(this)'}">${t}${full?'<br><small style="font-size:.58rem">Full</small>':''}</button>`;}).join('');document.getElementById('btnConfirm').style.display='block';}else{document.getElementById('timeGrid').innerHTML='<div style="color:var(--slate);font-size:.8rem;grid-column:1/-1;padding:4px 0">No time slots — call or visit their website to book.</div>';document.getElementById('btnConfirm').style.display='none';}document.getElementById('overlay').classList.add('open');}
 function selectTime(btn){document.querySelectorAll('.t-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');selectedTime=btn.dataset.time;}
@@ -795,7 +953,9 @@ async function doSearch(){const nameQ=document.getElementById('nameInput').value
 async function heroSearch(){const locQ=document.getElementById('heroLocationInput').value.trim();if(locQ)document.getElementById('locationInput').value=locQ;scrollToSearch();setTimeout(async()=>{if(locQ){await doSearch();}else if(currentLat&&currentLng){renderRestaurants(true);}},300);}
 function heroGeolocate(){if(!navigator.geolocation){showToast('Location not available');return;}showToast('📍 Finding your location…');navigator.geolocation.getCurrentPosition(p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;ipLat=currentLat;ipLng=currentLng;load(currentLat,currentLng,'all');scrollToSearch();showToast('Showing restaurants near you');},()=>showToast('Could not get location. Try entering your city.'));}
 function geolocate(){if(!navigator.geolocation){showToast('Location not available');return;}showToast('📍 Finding your location…');navigator.geolocation.getCurrentPosition(p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;ipLat=currentLat;ipLng=currentLng;load(currentLat,currentLng,document.getElementById('cuisineSelect').value);showToast('Showing restaurants near you');},()=>showToast('Could not get location. Try entering your city.'));}
-function scrollToSearch(){document.getElementById('searchSection').scrollIntoView({behavior:'smooth'});}
+function toggleSearchExpand(){document.getElementById('searchSection').classList.toggle('expanded');}
+function timeAgo(ts){if(!ts)return null;const m=Math.round((Date.now()-new Date(ts))/60000);if(m<1)return'just now';if(m<60)return`${m}m ago`;const h=Math.round(m/60);return`${h}h ago`;}
+document.getElementById('searchSection').scrollIntoView({behavior:'smooth'});}
 function sortBy(v){currentSort=v;renderRestaurants();}
 function openAI(){document.getElementById('aiPanel').classList.add('open');if(!aiInitialized){aiInitialized=true;addBot('Hi! 👋 I\'m your AI dining concierge.\n\nI know every restaurant currently loaded near you — including live wait times, ratings, and cuisine types. What are you looking for tonight?');}setTimeout(()=>document.getElementById('aiInput').focus(),200);}
 function closeAI(){document.getElementById('aiPanel').classList.remove('open');}
@@ -805,9 +965,161 @@ function addLoading(){const msgs=document.getElementById('aiMessages');const div
 function removeLoading(){const el=document.getElementById('aiLoad');if(el)el.remove();}
 async function sendAI(){const input=document.getElementById('aiInput');const text=input.value.trim();if(!text)return;input.value='';document.getElementById('aiSugs').style.display='none';addUser(text);addLoading();if(!restaurants.length){removeLoading();addBot("I don't have any restaurants loaded yet. Please search for your city first using the location bar above, then ask me again!");document.getElementById('aiSugs').style.display='flex';return;}const restaurantContext=restaurants.slice(0,40).map(r=>`- ${r.name} | cuisine: ${(r.cuisine||'').replace(/_/g,' ')} | rating: ${r.rating} | price: ${r.price||'$$'} | ${r.isOpen?'OPEN':'CLOSED'} | wait: ${r.waitMins>0?r.waitMins+'min':'none'} | reservable: ${r.reservable} | outdoor: ${r.outdoor} | distance: ${r.distance} | id: ${r.id}`).join('\n');const userMessages=aiHistory.filter(m=>m.role==='user').slice(-4).concat([{role:'user',content:text}]);try{const resp=await fetch(`${API}/ai-concierge`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:userMessages,restaurantContext})});const data=await resp.json();removeLoading();if(data.error){addBot("I'm having trouble right now — please try again in a moment!");document.getElementById('aiSugs').style.display='flex';return;}const reply=data.content?.[0]?.text||"I couldn't find a great match. Try adjusting your search!";const cards=restaurants.filter(r=>reply.includes(r.name)).slice(0,3).map(r=>({...r,reason:(()=>{const i=reply.indexOf(r.name);if(i===-1)return'';const after=reply.substring(i+r.name.length,i+r.name.length+120);return after.replace(/^[:\-–—\s]+/,'').split(/[.!?\n]/)[0];})()}));addBot(reply,cards);document.getElementById('aiSugs').style.display='flex';}catch(e){removeLoading();addBot("I'm having trouble connecting. Please try again!");document.getElementById('aiSugs').style.display='flex';}}
 function sendSug(text){document.getElementById('aiInput').value=text;sendAI();}
-let _tt;
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3200);}
+// ── EMAIL CAPTURE ─────────────────────────────────────────
+const EC_DINER_TAG = 'diner_waitlist';
+const EC_RESTO_TAG = 'restaurant_interest';
+
+function ecSwitch(tab) {
+  ['diner','resto'].forEach(t => {
+    document.getElementById(`ec-tab-${t}`).classList.toggle('on', t === tab);
+    document.getElementById(`ec-tab-${t}`).setAttribute('aria-selected', t === tab);
+    document.getElementById(`ec-panel-${t}`).classList.toggle('active', t === tab);
+  });
+}
+
+async function ecSubmit(type) {
+  const inputId = type === 'diner' ? 'ecDinerEmail' : 'ecRestoEmail';
+  const successId = type === 'diner' ? 'ecDinerSuccess' : 'ecRestoSuccess';
+  const email = document.getElementById(inputId).value.trim();
+  if (!email || !email.includes('@')) { showToast('Please enter a valid email'); return; }
+  await captureEmail(email, type === 'diner' ? EC_DINER_TAG : EC_RESTO_TAG);
+  document.getElementById(inputId).value = '';
+  document.getElementById(successId).classList.add('show');
+}
+
+// ── STICKY BAR ────────────────────────────────────────────
+let sbShown = false;
+let sbDismissed = sessionStorage.getItem('sb_dismissed');
+
+function sbCheck() {
+  if (sbDismissed || sbShown) return;
+  const scrolled = window.scrollY > 400;
+  if (scrolled) {
+    document.getElementById('stickyBar').classList.add('visible');
+    sbShown = true;
+  }
+}
+window.addEventListener('scroll', sbCheck, { passive: true });
+
+function sbDismiss() {
+  document.getElementById('stickyBar').classList.remove('visible');
+  sessionStorage.setItem('sb_dismissed', '1');
+  sbDismissed = true;
+}
+
+async function sbSubmit() {
+  const email = document.getElementById('sbEmail').value.trim();
+  if (!email || !email.includes('@')) { showToast('Please enter a valid email'); return; }
+  const btn = document.getElementById('sbBtn');
+  btn.textContent = '✓ Done!';
+  btn.style.background = 'var(--sage)';
+  await captureEmail(email, EC_DINER_TAG);
+  document.getElementById('sbEmail').value = '';
+  setTimeout(() => sbDismiss(), 2000);
+}
+
+// ── EXIT INTENT ───────────────────────────────────────────
+let exitShown = sessionStorage.getItem('exit_shown');
+
+document.addEventListener('mouseleave', e => {
+  if (exitShown) return;
+  if (e.clientY <= 0) {
+    // Only show if user has been on page > 8 seconds
+    if (performance.now() < 8000) return;
+    document.getElementById('exitOverlay').classList.add('open');
+    sessionStorage.setItem('exit_shown', '1');
+    exitShown = true;
+    setTimeout(() => document.getElementById('exitDinerEmail').focus(), 200);
+  }
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('exitOverlay').classList.remove('open');
+});
+
+function exitClose(e) {
+  if (e && e.target !== document.getElementById('exitOverlay')) return;
+  document.getElementById('exitOverlay').classList.remove('open');
+}
+
+function exitSwitch(tab) {
+  ['diner','resto'].forEach(t => {
+    document.getElementById(`exit-tab-${t}`).classList.toggle('on', t === tab);
+    document.getElementById(`exit-tab-${t}`).setAttribute('aria-selected', t === tab);
+    document.getElementById(`exit-panel-${t}`).classList.toggle('active', t === tab);
+  });
+  const focusId = tab === 'diner' ? 'exitDinerEmail' : 'exitRestoEmail';
+  setTimeout(() => document.getElementById(focusId).focus(), 50);
+}
+
+async function exitSubmit(type) {
+  const inputId   = type === 'diner' ? 'exitDinerEmail' : 'exitRestoEmail';
+  const successId = type === 'diner' ? 'exitDinerSuccess' : 'exitRestoSuccess';
+  const email = document.getElementById(inputId).value.trim();
+  if (!email || !email.includes('@')) { showToast('Please enter a valid email'); return; }
+  await captureEmail(email, type === 'diner' ? EC_DINER_TAG : EC_RESTO_TAG);
+  document.getElementById(inputId).value = '';
+  document.getElementById(successId).classList.add('show');
+  setTimeout(() => exitClose(), 2500);
+}
+
+// ── Shared email submit (hits /api/waitlist) ──────────────
+async function captureEmail(email, feature) {
+  try {
+    await fetch(`${API}/waitlist`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, feature })
+    });
+  } catch {}
+}
+(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3200);}
 (async()=>{showSkeletons();const ip=await detectIP();if(ip){load(ip.lat,ip.lng,'all');}else{navigator.geolocation?.getCurrentPosition(p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;ipLat=currentLat;ipLng=currentLng;load(currentLat,currentLng,'all');showToast('Showing restaurants near you');},()=>{document.getElementById('gridContainer').innerHTML='<div class="empty"><div class="empty-icon">📍</div><div class="empty-title">Where are you dining?</div><p style="color:var(--slate);font-size:.85rem">Enter your city, state or zip code above to find restaurants near you.</p></div>';document.getElementById('resultMeta').textContent='Enter a location to get started';});}})();
 </script>
+<!-- ── STICKY FOOTER BAR ── -->
+<div class="sticky-bar" id="stickyBar" role="complementary" aria-label="Stay updated">
+  <div class="sb-left">
+    <div class="sb-text" id="sbText"><strong>GetATableSpot</strong> — be the first to know as we add more restaurants in Arkansas.</div>
+  </div>
+  <div class="sb-form">
+    <label for="sbEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Email address</label>
+    <input class="sb-input" id="sbEmail" type="email" placeholder="your@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')sbSubmit()">
+    <button class="sb-btn" onclick="sbSubmit()" id="sbBtn">Notify Me</button>
+  </div>
+  <button class="sb-dismiss" aria-label="Dismiss" onclick="sbDismiss()">✕</button>
+</div>
+
+<!-- ── EXIT-INTENT POPUP ── -->
+<div class="exit-overlay" id="exitOverlay" onclick="exitClose(event)" role="dialog" aria-modal="true" aria-labelledby="exitTitle">
+  <div class="exit-modal">
+    <button class="exit-close" aria-label="Close" onclick="exitClose()">✕</button>
+    <div class="exit-eyebrow">Before you go</div>
+    <h2 class="exit-title" id="exitTitle">Want us to keep you in the loop?</h2>
+    <p class="exit-sub">We're growing fast across Conway, Little Rock and NW Arkansas. Drop your email and we'll reach out when there's something worth knowing.</p>
+    <div class="exit-tabs" role="tablist">
+      <button class="exit-tab on" id="exit-tab-diner" role="tab" aria-selected="true" onclick="exitSwitch('diner')">🍽️ I'm a Diner</button>
+      <button class="exit-tab" id="exit-tab-resto" role="tab" aria-selected="false" onclick="exitSwitch('resto')">🏪 I Own a Restaurant</button>
+    </div>
+    <div id="exit-panel-diner" class="exit-panel active" role="tabpanel">
+      <div class="exit-form-row">
+        <label for="exitDinerEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Email address</label>
+        <input class="exit-input" id="exitDinerEmail" type="email" placeholder="your@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')exitSubmit('diner')">
+        <button class="exit-submit" onclick="exitSubmit('diner')">Stay in Touch</button>
+      </div>
+      <div class="exit-note">No spam. Unsubscribe anytime.</div>
+      <div class="exit-success" id="exitDinerSuccess">✓ Got it! We'll be in touch.</div>
+    </div>
+    <div id="exit-panel-resto" class="exit-panel" role="tabpanel">
+      <div class="exit-form-row">
+        <label for="exitRestoEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Email address</label>
+        <input class="exit-input" id="exitRestoEmail" type="email" placeholder="you@restaurant.com" autocomplete="email" onkeydown="if(event.key==='Enter')exitSubmit('resto')">
+        <button class="exit-submit" onclick="exitSubmit('resto')">Stay in Touch</button>
+      </div>
+      <div class="exit-note">No spam. Unsubscribe anytime.</div>
+      <div class="exit-success" id="exitRestoSuccess">✓ Got it! We'll reach out soon.</div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
