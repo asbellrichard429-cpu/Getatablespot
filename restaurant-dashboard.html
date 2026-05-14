@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GetATableSpot — Restaurant Dashboard</title>
+
+<!-- Font preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -20,151 +23,159 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:#F0EDE8;color:var(--ink);min-height:100vh}
 
+/* Skip nav */
+.skip-nav{position:absolute;top:-100px;left:16px;background:var(--ember);color:white;padding:8px 16px;border-radius:4px;font-weight:700;font-size:.85rem;text-decoration:none;z-index:9999;transition:top .15s}
+.skip-nav:focus{top:8px}
+
 /* SIDEBAR */
 .layout{display:flex;min-height:100vh}
-.sidebar{width:220px;background:var(–ink);flex-shrink:0;position:fixed;top:0;left:0;height:100vh;z-index:100;display:flex;flex-direction:column;transition:transform .25s}
+.sidebar{width:220px;background:var(--ink);flex-shrink:0;position:fixed;top:0;left:0;height:100vh;z-index:100;display:flex;flex-direction:column;transition:transform .25s}
 .sidebar-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
-.logo{font-family:var(–serif);font-size:1.1rem;font-weight:900;color:white;display:flex;align-items:center;gap:6px;text-decoration:none}
-.logo-dot{width:7px;height:7px;border-radius:50%;background:var(–ember);flex-shrink:0}
+.logo{font-family:var(--serif);font-size:1.1rem;font-weight:900;color:white;display:flex;align-items:center;gap:6px;text-decoration:none}
+.logo-dot{width:7px;height:7px;border-radius:50%;background:var(--ember);flex-shrink:0}
 .logo-sub{font-size:.62rem;color:rgba(255,255,255,.35);margin-left:2px}
 .restaurant-info{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.07)}
 .ri-name{font-weight:700;font-size:.8rem;color:white;margin-bottom:2px;line-height:1.3}
-.ri-plan{font-size:.65rem;color:var(–ember-l);font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.ri-plan{font-size:.65rem;color:var(--ember-l);font-weight:600;text-transform:uppercase;letter-spacing:1px}
 .nav{flex:1;padding:12px 0;overflow-y:auto}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .15s;border:none;background:none;width:100%;text-align:left;font-family:var(–sans)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:color .15s,background .15s;border:none;background:none;width:100%;text-align:left;font-family:var(--sans)}
 .nav-item:hover{color:white;background:rgba(255,255,255,.05)}
-.nav-item.active{color:white;background:rgba(232,67,10,.15);border-right:2px solid var(–ember)}
+.nav-item.active{color:white;background:rgba(232,67,10,.15);border-right:2px solid var(--ember)}
 .nav-item .ni-icon{font-size:1rem;flex-shrink:0}
-.nav-badge{margin-left:auto;background:var(–ember);color:white;font-size:.58rem;font-weight:700;padding:2px 6px;border-radius:999px;min-width:18px;text-align:center}
+.nav-badge{margin-left:auto;background:var(--ember);color:white;font-size:.58rem;font-weight:700;padding:2px 6px;border-radius:999px;min-width:18px;text-align:center}
 .sidebar-footer{padding:14px 18px;border-top:1px solid rgba(255,255,255,.07)}
-.btn-logout{width:100%;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;color:rgba(255,255,255,.5);font-size:.75rem;font-weight:600;cursor:pointer;font-family:var(–sans);transition:all .15s;text-align:center}
+.btn-logout{width:100%;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;color:rgba(255,255,255,.5);font-size:.75rem;font-weight:600;cursor:pointer;font-family:var(--sans);transition:background .15s,color .15s;text-align:center}
 .btn-logout:hover{background:rgba(255,255,255,.1);color:white}
 
 /* MOBILE HEADER */
-.mobile-header{display:none;background:var(–ink);padding:0 16px;height:54px;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
-.mob-logo{font-family:var(–serif);font-size:1rem;font-weight:900;color:white;display:flex;align-items:center;gap:6px}
+.mobile-header{display:none;background:var(--ink);padding:0 16px;height:54px;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.mob-logo{font-family:var(--serif);font-size:1rem;font-weight:900;color:white;display:flex;align-items:center;gap:6px}
 .mob-menu{background:none;border:none;color:rgba(255,255,255,.6);font-size:1.4rem;cursor:pointer;padding:4px}
 
 /* MAIN */
 .main{margin-left:220px;flex:1;padding:24px;min-height:100vh}
 .page{display:none}.page.active{display:block}
 .page-header{margin-bottom:22px}
-.page-title{font-family:var(–serif);font-size:1.5rem;font-weight:700;margin-bottom:3px}
-.page-sub{font-size:.82rem;color:var(–slate)}
+.page-title{font-family:var(--serif);font-size:1.5rem;font-weight:700;margin-bottom:3px}
+.page-sub{font-size:.82rem;color:var(--slate)}
 
 /* CARDS */
-.card{background:white;border:1.5px solid var(–border);border-radius:10px;padding:20px;margin-bottom:16px}
-.card-title{font-weight:700;font-size:.88rem;margin-bottom:14px;color:var(–ink);display:flex;align-items:center;gap:6px}
+.card{background:white;border:1.5px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.card-title{font-weight:700;font-size:.88rem;margin-bottom:14px;color:var(--ink);display:flex;align-items:center;gap:6px}
 
 /* LIVE CONTROL */
-.live-status-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:8px;margin-bottom:16px;border:1.5px solid var(–border)}
-.ls-open{background:#EDF8F1;border-color:var(–sage-border)}
-.ls-closed{background:var(–warm);border-color:var(–border)}
+.live-status-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:8px;margin-bottom:16px;border:1.5px solid var(--border)}
+.ls-open{background:#EDF8F1;border-color:var(--sage-border)}
+.ls-closed{background:var(--warm);border-color:var(--border)}
 .ls-label{font-weight:700;font-size:.9rem}
 .ls-open .ls-label{color:#1D6B3A}
-.ls-closed .ls-label{color:var(–slate)}
-.ls-sub{font-size:.75rem;margin-top:2px;color:var(–slate)}
+.ls-closed .ls-label{color:var(--slate)}
+.ls-sub{font-size:.75rem;margin-top:2px;color:var(--slate)}
 .toggle-wrap{display:flex;align-items:center;gap:8px}
 .toggle{position:relative;width:46px;height:26px;cursor:pointer}
 .toggle input{opacity:0;width:0;height:0;position:absolute}
 .toggle-track{position:absolute;inset:0;border-radius:999px;background:#C4B9A8;transition:background .2s}
-.toggle input:checked~.toggle-track{background:var(–sage)}
+.toggle input:checked~.toggle-track{background:var(--sage)}
 .toggle-thumb{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:white;box-shadow:0 1px 4px rgba(0,0,0,.2);transition:left .2s}
 .toggle input:checked~.toggle-thumb{left:23px}
-.toggle-lbl{font-size:.8rem;font-weight:600;color:var(–slate)}
+.toggle-lbl{font-size:.8rem;font-weight:600;color:var(--slate)}
 .wait-control{display:flex;align-items:center;gap:14px;margin-bottom:20px;flex-wrap:wrap}
-.wait-display{font-size:2.8rem;font-weight:700;font-family:var(–serif);color:var(–ink);min-width:70px;text-align:center}
-.wait-display.none-wait{color:var(–sage);font-size:1.8rem}
+.wait-display{font-size:2.8rem;font-weight:700;font-family:var(--serif);color:var(--ink);min-width:70px;text-align:center}
+.wait-display.none-wait{color:var(--sage);font-size:1.8rem}
 .wait-slider{flex:1;min-width:180px}
-.wait-slider input[type=range]{width:100%;height:6px;appearance:none;-webkit-appearance:none;background:var(–border);border-radius:3px;outline:none;cursor:pointer}
-.wait-slider input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(–ember);cursor:pointer;box-shadow:0 1px 4px rgba(232,67,10,.4)}
-.wait-labels{display:flex;justify-content:space-between;font-size:.65rem;color:var(–slate);margin-top:4px}
+.wait-slider input[type=range]{width:100%;height:6px;appearance:none;-webkit-appearance:none;background:var(--border);border-radius:3px;outline:none;cursor:pointer}
+.wait-slider input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--ember);cursor:pointer;box-shadow:0 1px 4px rgba(232,67,10,.4)}
+.wait-labels{display:flex;justify-content:space-between;font-size:.65rem;color:var(--slate);margin-top:4px}
 .wait-level-badge{padding:4px 10px;border-radius:999px;font-size:.7rem;font-weight:700}
 .wlb-none,.wlb-low{background:#EDF8F1;color:#1D6B3A}
 .wlb-med{background:#FFF8E8;color:#A07820}
-.wlb-high{background:var(–red-bg);color:var(–red)}
-.tonight-msg{width:100%;padding:10px 13px;border:1.5px solid var(–border);border-radius:6px;font-family:var(–sans);font-size:.88rem;resize:none;outline:none;transition:border-color .15s;color:var(–ink)}
-.tonight-msg:focus{border-color:var(–ember)}
-.btn-save{padding:10px 22px;background:var(–ember);color:white;border:none;border-radius:6px;font-family:var(–sans);font-weight:700;font-size:.85rem;cursor:pointer;transition:all .15s}
-.btn-save:hover{background:var(–ember-l)}
+.wlb-high{background:var(--red-bg);color:var(--red)}
+.tonight-msg{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:6px;font-family:var(--sans);font-size:.88rem;resize:none;outline:none;transition:border-color .15s;color:var(--ink)}
+.tonight-msg:focus{border-color:var(--ember)}
+.btn-save{padding:10px 22px;background:var(--ember);color:white;border:none;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:.85rem;cursor:pointer;transition:background .15s}
+.btn-save:hover{background:var(--ember-l)}
 .btn-save:disabled{opacity:.6;cursor:not-allowed}
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
-.stat-box{background:var(–warm);border:1px solid var(–border);border-radius:8px;padding:14px;text-align:center}
-.stat-num{font-family:var(–serif);font-size:1.6rem;font-weight:700;color:var(–ink)}
-.stat-label{font-size:.68rem;color:var(–slate);margin-top:2px}
+.stat-box{background:var(--warm);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.stat-num{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--ink)}
+.stat-label{font-size:.68rem;color:var(--slate);margin-top:2px}
 
 /* RESERVATIONS */
 .res-filters{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
-.res-filter{padding:5px 12px;border-radius:999px;border:1.5px solid var(–border);background:white;font-size:.73rem;font-weight:700;cursor:pointer;color:var(–slate);transition:all .15s}
-.res-filter:hover{border-color:var(–ember);color:var(–ember)}
-.res-filter.on{background:var(–ember);color:white;border-color:var(–ember)}
-.res-card{border:1.5px solid var(–border);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:white;transition:border-color .2s}
-.res-card.pending{border-left:3px solid var(–gold)}
-.res-card.confirmed{border-left:3px solid var(–sage)}
+.res-filter{padding:5px 12px;border-radius:999px;border:1.5px solid var(--border);background:white;font-size:.73rem;font-weight:700;cursor:pointer;color:var(--slate);transition:border-color .15s,color .15s,background .15s}
+.res-filter:hover{border-color:var(--ember);color:var(--ember)}
+.res-filter.on{background:var(--ember);color:white;border-color:var(--ember)}
+.res-card{border:1.5px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:white;transition:border-color .2s}
+.res-card.pending{border-left:3px solid var(--gold)}
+.res-card.confirmed{border-left:3px solid var(--sage)}
 .res-card.declined{border-left:3px solid #C4B9A8;opacity:.7}
-.res-card.seated{border-left:3px solid var(–ember)}
+.res-card.seated{border-left:3px solid var(--ember)}
 .res-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}
 .res-guest{font-weight:700;font-size:.9rem}
-.res-detail{font-size:.78rem;color:var(–slate);margin-top:2px;line-height:1.5}
+.res-detail{font-size:.78rem;color:var(--slate);margin-top:2px;line-height:1.5}
 .res-ref{font-size:.65rem;color:#B8AFA0;margin-top:3px}
 .res-status{font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
 .rs-pending{background:#FFF8E8;color:#A07820}
-.rs-confirmed{background:var(–sage-bg);color:#1D6B3A}
-.rs-declined{background:var(–warm);color:var(–slate)}
-.rs-seated{background:rgba(232,67,10,.08);color:var(–ember)}
+.rs-confirmed{background:var(--sage-bg);color:#1D6B3A}
+.rs-declined{background:var(--warm);color:var(--slate)}
+.rs-seated{background:rgba(232,67,10,.08);color:var(--ember)}
 .res-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.btn-res{padding:7px 14px;border-radius:5px;font-family:var(–sans);font-weight:700;font-size:.75rem;cursor:pointer;border:none;transition:all .15s}
-.btn-confirm{background:var(–sage);color:white}.btn-confirm:hover{filter:brightness(1.1)}
-.btn-decline{background:var(–red-bg);color:var(–red);border:1px solid var(–red-border)}.btn-decline:hover{background:rgba(232,67,10,.15)}
-.btn-seated{background:var(–ember);color:white}.btn-seated:hover{background:var(–ember-l)}
-.btn-noshow{background:var(–warm);color:var(–slate);border:1px solid var(–border)}.btn-noshow:hover{background:var(–border)}
-.owner-note-in{width:100%;padding:7px 10px;border:1.5px solid var(–border);border-radius:5px;font-family:var(–sans);font-size:.8rem;outline:none;margin-top:8px;transition:border-color .15s;color:var(–ink)}
-.owner-note-in:focus{border-color:var(–ember)}
+.btn-res{padding:7px 14px;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.75rem;cursor:pointer;border:none;transition:filter .15s,background .15s}
+.btn-confirm{background:var(--sage);color:white}.btn-confirm:hover{filter:brightness(1.1)}
+.btn-decline{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}.btn-decline:hover{background:rgba(232,67,10,.15)}
+.btn-seated{background:var(--ember);color:white}.btn-seated:hover{background:var(--ember-l)}
+.btn-noshow{background:var(--warm);color:var(--slate);border:1px solid var(--border)}.btn-noshow:hover{background:var(--border)}
+.owner-note-in{width:100%;padding:7px 10px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.8rem;outline:none;margin-top:8px;transition:border-color .15s;color:var(--ink)}
+.owner-note-in:focus{border-color:var(--ember)}
 .owner-note-in::placeholder{color:#B8AFA0}
-.empty-state{text-align:center;padding:40px 20px;color:var(–slate)}
+.empty-state{text-align:center;padding:40px 20px;color:var(--slate)}
 .empty-icon{font-size:2.4rem;margin-bottom:10px}
-.empty-title{font-weight:700;font-size:.9rem;color:var(–ink);margin-bottom:4px}
+.empty-title{font-weight:700;font-size:.9rem;color:var(--ink);margin-bottom:4px}
 
 /* TIME SLOTS */
 .date-picker{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
-.date-in{padding:9px 13px;border:1.5px solid var(–border);border-radius:6px;font-family:var(–sans);font-size:.88rem;outline:none;color:var(–ink);transition:border-color .15s}
-.date-in:focus{border-color:var(–ember)}
+.date-in{padding:9px 13px;border:1.5px solid var(--border);border-radius:6px;font-family:var(--sans);font-size:.88rem;outline:none;color:var(--ink);transition:border-color .15s}
+.date-in:focus{border-color:var(--ember)}
 .slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:16px}
-.slot-item{border:1.5px solid var(–border);border-radius:7px;padding:12px;background:white;transition:all .15s}
-.slot-item.unavailable{background:var(–warm);opacity:.6}
+.slot-item{border:1.5px solid var(--border);border-radius:7px;padding:12px;background:white;transition:opacity .15s,background .15s}
+.slot-item.unavailable{background:var(--warm);opacity:.6}
 .slot-time{font-weight:700;font-size:.85rem;margin-bottom:6px}
-.slot-cap{display:flex;align-items:center;gap:5px;font-size:.75rem;color:var(–slate);margin-bottom:6px}
-.slot-cap input{width:40px;padding:3px 5px;border:1px solid var(–border);border-radius:3px;font-size:.75rem;text-align:center;outline:none}
-.slot-avail{display:flex;align-items:center;gap:5px;font-size:.73rem;color:var(–slate)}
-.slot-avail input[type=checkbox]{accent-color:var(–ember)}
-.btn-add-slot{padding:8px 16px;background:var(–warm);border:1.5px solid var(–border);border-radius:5px;font-family:var(–sans);font-weight:600;font-size:.8rem;cursor:pointer;color:var(–slate);transition:all .15s}
-.btn-add-slot:hover{border-color:var(–ember);color:var(–ember)}
+.slot-cap{display:flex;align-items:center;gap:5px;font-size:.75rem;color:var(--slate);margin-bottom:6px}
+.slot-cap input{width:40px;padding:3px 5px;border:1px solid var(--border);border-radius:3px;font-size:.75rem;text-align:center;outline:none}
+.slot-avail{display:flex;align-items:center;gap:5px;font-size:.73rem;color:var(--slate)}
+.slot-avail input[type=checkbox]{accent-color:var(--ember)}
+.btn-add-slot{padding:8px 16px;background:var(--warm);border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-weight:600;font-size:.8rem;cursor:pointer;color:var(--slate);transition:border-color .15s,color .15s}
+.btn-add-slot:hover{border-color:var(--ember);color:var(--ember)}
 
 /* ANALYTICS */
 .analytics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:16px}
-.analytics-card{background:white;border:1.5px solid var(–border);border-radius:10px;padding:18px}
-.ac-label{font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(–slate);margin-bottom:8px}
-.ac-big{font-family:var(–serif);font-size:2.2rem;font-weight:700;color:var(–ink);line-height:1}
-.ac-sub{font-size:.72rem;color:var(–slate);margin-top:4px}
+.analytics-card{background:white;border:1.5px solid var(--border);border-radius:10px;padding:18px}
+.ac-label{font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--slate);margin-bottom:8px}
+.ac-big{font-family:var(--serif);font-size:2.2rem;font-weight:700;color:var(--ink);line-height:1}
+.ac-sub{font-size:.72rem;color:var(--slate);margin-top:4px}
 .ac-trend{font-size:.72rem;margin-top:3px}
-.trend-up{color:var(–sage)}.trend-down{color:var(–red)}
-.period-row{display:flex;gap:6px;margin-bottom:10px}
-.period-btn{padding:4px 10px;border-radius:999px;font-size:.7rem;font-weight:700;cursor:pointer;border:1.5px solid var(–border);background:white;color:var(–slate);transition:all .15s}
-.period-btn.on{background:var(–ink);color:white;border-color:var(–ink)}
+.trend-up{color:var(--sage)}.trend-down{color:var(--red)}
 
 /* SETTINGS */
 .settings-section{margin-bottom:20px}
-.ss-title{font-weight:700;font-size:.82rem;margin-bottom:12px;color:var(–ink);padding-bottom:6px;border-bottom:1px solid var(–border)}
-.field-lbl{display:block;font-size:.68rem;font-weight:700;color:var(–slate);margin-bottom:3px;letter-spacing:.3px;text-transform:uppercase}
-.field-in{width:100%;padding:9px 13px;border:1.5px solid var(–border);border-radius:5px;font-family:var(–sans);font-size:.88rem;margin-bottom:12px;outline:none;transition:border-color .15s;color:var(–ink);background:white}
-.field-in:focus{border-color:var(–ember)}
+.ss-title{font-weight:700;font-size:.82rem;margin-bottom:12px;color:var(--ink);padding-bottom:6px;border-bottom:1px solid var(--border)}
+.field-lbl{display:block;font-size:.68rem;font-weight:700;color:var(--slate);margin-bottom:3px;letter-spacing:.3px;text-transform:uppercase}
+.field-in{width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:5px;font-family:var(--sans);font-size:.88rem;margin-bottom:12px;outline:none;transition:border-color .15s;color:var(--ink);background:white}
+.field-in:focus{border-color:var(--ember)}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.notify-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(–warm)}
+.notify-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--warm)}
 .notify-info strong{display:block;font-size:.83rem;margin-bottom:2px}
-.notify-info span{font-size:.73rem;color:var(–slate)}
+.notify-info span{font-size:.73rem;color:var(--slate)}
+
+/* UPGRADE BANNER */
+.upgrade-banner{background:linear-gradient(135deg,rgba(232,67,10,.07),rgba(232,67,10,.03));border:1.5px solid rgba(232,67,10,.2);border-radius:8px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ub-text{font-size:.82rem;color:var(--ink);line-height:1.5}
+.ub-text strong{color:var(--ember)}
+.btn-upgrade{padding:8px 16px;background:var(--ember);color:white;border:none;border-radius:5px;font-family:var(--sans);font-weight:700;font-size:.78rem;cursor:pointer;white-space:nowrap;transition:background .15s}
+.btn-upgrade:hover{background:var(--ember-l)}
 
 /* TOAST */
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(–ink);color:white;padding:11px 22px;border-radius:5px;font-size:.82rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap;box-shadow:0 8px 28px rgba(10,8,6,.3)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:white;padding:11px 22px;border-radius:5px;font-size:.82rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;white-space:nowrap;box-shadow:0 8px 28px rgba(10,8,6,.3)}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 .toast.success{background:#1D6B3A}
 .toast.error{background:#A03008}
@@ -174,207 +185,242 @@ body{font-family:var(--sans);background:#F0EDE8;color:var(--ink);min-height:100v
 .overlay.open{display:flex}
 .modal{background:white;border-radius:12px;padding:24px;max-width:400px;width:92%;position:relative}
 .modal-title{font-weight:700;font-size:.95rem;margin-bottom:14px}
-.modal-close{position:absolute;top:12px;right:12px;background:none;border:none;font-size:1rem;cursor:pointer;color:var(–slate)}
+.modal-close{position:absolute;top:12px;right:12px;background:none;border:none;font-size:1rem;cursor:pointer;color:var(--slate);padding:4px}
 
 @media(max-width:768px){
-.sidebar{transform:translateX(-100%)}
-.sidebar.open{transform:translateX(0)}
-.main{margin-left:0}
-.mobile-header{display:flex}
-.stat-row{grid-template-columns:1fr 1fr}
-.analytics-grid{grid-template-columns:1fr}
-.field-row{grid-template-columns:1fr}
-.slots-grid{grid-template-columns:repeat(2,1fr)}
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .mobile-header{display:flex}
+  .stat-row{grid-template-columns:1fr 1fr}
+  .analytics-grid{grid-template-columns:1fr}
+  .field-row{grid-template-columns:1fr}
+  .slots-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
-
 </head>
 <body>
+<a href="#dash-main" class="skip-nav">Skip to main content</a>
 
-<div class="mobile-header">
+<div class="mobile-header" role="banner">
   <div class="mob-logo"><span class="logo-dot"></span>Dashboard</div>
-  <button class="mob-menu" onclick="toggleSidebar()">☰</button>
+  <button class="mob-menu" aria-label="Open navigation menu" onclick="toggleSidebar()">☰</button>
 </div>
 
 <div class="layout">
   <!-- SIDEBAR -->
-  <div class="sidebar" id="sidebar">
+  <aside class="sidebar" id="sidebar" aria-label="Dashboard navigation">
     <div class="sidebar-logo">
       <a class="logo" href="index.html"><span class="logo-dot"></span>GetATableSpot<span class="logo-sub">for restaurants</span></a>
     </div>
     <div class="restaurant-info">
       <div class="ri-name" id="sidebarRestName">My Restaurant</div>
-      <div class="ri-plan" id="sidebarPlan">Free Plan</div>
+      <div class="ri-plan" id="sidebarPlan">Starter Plan</div>
     </div>
-    <nav class="nav">
-      <button class="nav-item active" id="nav-live" onclick="goPage('live')"><span class="ni-icon">⚡</span>Live Control</button>
-      <button class="nav-item" id="nav-reservations" onclick="goPage('reservations')"><span class="ni-icon">📅</span>Reservations<span class="nav-badge" id="pendingBadge" style="display:none">0</span></button>
-      <button class="nav-item" id="nav-slots" onclick="goPage('slots')"><span class="ni-icon">🕐</span>Time Slots</button>
-      <button class="nav-item" id="nav-analytics" onclick="goPage('analytics')"><span class="ni-icon">📊</span>Analytics</button>
-      <button class="nav-item" id="nav-settings" onclick="goPage('settings')"><span class="ni-icon">⚙️</span>Settings</button>
+    <nav class="nav" aria-label="Dashboard sections">
+      <button class="nav-item active" id="nav-live" onclick="goPage('live')"><span class="ni-icon" aria-hidden="true">⚡</span>Live Control</button>
+      <button class="nav-item" id="nav-reservations" onclick="goPage('reservations')"><span class="ni-icon" aria-hidden="true">📅</span>Reservations<span class="nav-badge" id="pendingBadge" style="display:none" aria-label="pending reservations">0</span></button>
+      <button class="nav-item" id="nav-slots" onclick="goPage('slots')"><span class="ni-icon" aria-hidden="true">🕐</span>Time Slots</button>
+      <button class="nav-item" id="nav-analytics" onclick="goPage('analytics')"><span class="ni-icon" aria-hidden="true">📊</span>Analytics</button>
+      <button class="nav-item" id="nav-settings" onclick="goPage('settings')"><span class="ni-icon" aria-hidden="true">⚙️</span>Settings</button>
     </nav>
     <div class="sidebar-footer">
       <button class="btn-logout" onclick="logout()">Sign Out</button>
     </div>
-  </div>
+  </aside>
 
   <!-- MAIN CONTENT -->
+  <main class="main" id="dash-main">
 
-  <div class="main">
+    <!-- LIVE CONTROL -->
+    <div class="page active" id="page-live">
+      <div class="page-header">
+        <div class="page-title">Live Control</div>
+        <div class="page-sub">Update your wait time and status — changes show instantly to nearby diners</div>
+      </div>
 
-```
-<!-- LIVE CONTROL -->
-<div class="page active" id="page-live">
-  <div class="page-header">
-    <div class="page-title">Live Control</div>
-    <div class="page-sub">Update your wait time and status — changes show instantly to nearby diners</div>
-  </div>
+      <div id="upgradeBanner" style="display:none">
+        <div class="upgrade-banner">
+          <div class="ub-text">You're on the <strong>Starter</strong> plan. Upgrade to <strong>Growth ($49/mo)</strong> for featured placement and 2–3× more visibility during slow hours.</div>
+          <button class="btn-upgrade" onclick="window.location.href='claim-restaurant.html?plan=growth'">Upgrade to Growth →</button>
+        </div>
+      </div>
 
-  <div class="card">
-    <div class="live-status-bar" id="statusBar">
-      <div><div class="ls-label" id="statusLabel">Open</div><div class="ls-sub" id="statusSub">Visible to diners right now</div></div>
-      <div class="toggle-wrap">
-        <span class="toggle-lbl" id="toggleLbl">Open</span>
-        <label class="toggle"><input type="checkbox" id="openToggle" checked onchange="onToggleOpen()"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+      <div class="card">
+        <div class="live-status-bar" id="statusBar">
+          <div><div class="ls-label" id="statusLabel">Open</div><div class="ls-sub" id="statusSub">Visible to diners right now</div></div>
+          <div class="toggle-wrap">
+            <span class="toggle-lbl" id="toggleLbl">Open</span>
+            <label class="toggle" aria-label="Toggle open/closed">
+              <input type="checkbox" id="openToggle" checked onchange="onToggleOpen()">
+              <div class="toggle-track"></div>
+              <div class="toggle-thumb"></div>
+            </label>
+          </div>
+        </div>
+
+        <div class="card-title">⏱ Current Wait Time</div>
+        <div class="wait-control">
+          <div class="wait-display" id="waitDisplay">0 min</div>
+          <div class="wait-slider">
+            <label for="waitSlider" class="sr-only">Wait time in minutes</label>
+            <input type="range" id="waitSlider" min="0" max="90" step="5" value="0" aria-valuemin="0" aria-valuemax="90" aria-valuenow="0" aria-label="Wait time in minutes" oninput="onWaitSlide(this.value)">
+            <div class="wait-labels" aria-hidden="true"><span>No wait</span><span>30 min</span><span>60 min</span><span>90 min</span></div>
+          </div>
+          <div class="wait-level-badge wlb-none" id="waitLevelBadge" aria-live="polite">Walk right in</div>
+        </div>
+
+        <div class="card-title">📢 Tonight's Message <span style="font-size:.68rem;font-weight:400;color:var(--slate)">(optional — shown to diners)</span></div>
+        <label for="tonightMsg" class="sr-only">Tonight's message for diners</label>
+        <textarea class="tonight-msg" id="tonightMsg" rows="2" placeholder="e.g. Live jazz tonight · Happy hour 5–7pm · New seasonal menu →"></textarea>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap;gap:8px">
+          <span style="font-size:.73rem;color:var(--slate)" id="saveStatus" aria-live="polite">Changes not saved yet</span>
+          <button class="btn-save" id="btnSaveLive" onclick="saveLive()">Save &amp; Publish →</button>
+        </div>
+      </div>
+
+      <div class="stat-row" id="liveStats" role="list" aria-label="Today's stats">
+        <div class="stat-box" role="listitem"><div class="stat-num" id="statViewsToday">—</div><div class="stat-label">Views today</div></div>
+        <div class="stat-box" role="listitem"><div class="stat-num" id="statRequestsToday">—</div><div class="stat-label">Requests today</div></div>
+        <div class="stat-box" role="listitem"><div class="stat-num" id="statPending">—</div><div class="stat-label">Pending requests</div></div>
       </div>
     </div>
 
-    <div class="card-title">⏱ Current Wait Time</div>
-    <div class="wait-control">
-      <div class="wait-display" id="waitDisplay">0 min</div>
-      <div class="wait-slider">
-        <input type="range" id="waitSlider" min="0" max="90" step="5" value="0" oninput="onWaitSlide(this.value)">
-        <div class="wait-labels"><span>No wait</span><span>30 min</span><span>60 min</span><span>90 min</span></div>
+    <!-- RESERVATIONS -->
+    <div class="page" id="page-reservations">
+      <div class="page-header">
+        <div class="page-title">Reservations</div>
+        <div class="page-sub">Confirm, decline, or seat incoming requests</div>
       </div>
-      <div class="wait-level-badge wlb-none" id="waitLevelBadge">Walk right in</div>
-    </div>
-
-    <div class="card-title">📢 Tonight's Message <span style="font-size:.68rem;font-weight:400;color:var(--slate)">(optional — shown to diners)</span></div>
-    <textarea class="tonight-msg" id="tonightMsg" rows="2" placeholder="e.g. Live jazz tonight · Happy hour 5–7pm · New seasonal menu →"></textarea>
-
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap;gap:8px">
-      <span style="font-size:.73rem;color:var(--slate)" id="saveStatus">Changes not saved yet</span>
-      <button class="btn-save" id="btnSaveLive" onclick="saveLive()">Save &amp; Publish →</button>
-    </div>
-  </div>
-
-  <div class="stat-row" id="liveStats">
-    <div class="stat-box"><div class="stat-num" id="statViewsToday">—</div><div class="stat-label">Views today</div></div>
-    <div class="stat-box"><div class="stat-num" id="statRequestsToday">—</div><div class="stat-label">Requests today</div></div>
-    <div class="stat-box"><div class="stat-num" id="statPending">—</div><div class="stat-label">Pending requests</div></div>
-  </div>
-</div>
-
-<!-- RESERVATIONS -->
-<div class="page" id="page-reservations">
-  <div class="page-header">
-    <div class="page-title">Reservations</div>
-    <div class="page-sub">Confirm, decline, or seat incoming requests</div>
-  </div>
-  <div class="res-filters">
-    <button class="res-filter on" id="rf-all" onclick="filterRes('all',this)">All</button>
-    <button class="res-filter" id="rf-pending" onclick="filterRes('pending',this)">🟡 Pending</button>
-    <button class="res-filter" id="rf-confirmed" onclick="filterRes('confirmed',this)">✅ Confirmed</button>
-    <button class="res-filter" id="rf-seated" onclick="filterRes('seated',this)">🍽️ Seated</button>
-    <button class="res-filter" id="rf-declined" onclick="filterRes('declined',this)">❌ Declined</button>
-  </div>
-  <div id="reservationsContainer"><div class="empty-state"><div class="empty-icon">📅</div><div class="empty-title">Loading reservations…</div></div></div>
-</div>
-
-<!-- TIME SLOTS -->
-<div class="page" id="page-slots">
-  <div class="page-header">
-    <div class="page-title">Time Slots</div>
-    <div class="page-sub">Set which times diners can book for tonight or future dates</div>
-  </div>
-  <div class="card">
-    <div class="date-picker">
-      <label style="font-size:.78rem;font-weight:600;color:var(--slate)">Showing slots for:</label>
-      <input class="date-in" type="date" id="slotDate" onchange="loadSlots()">
-      <button class="btn-add-slot" onclick="addSlot()">+ Add Time Slot</button>
-      <button class="btn-save" onclick="saveSlots()" style="margin-left:auto">Save Slots →</button>
-    </div>
-    <div class="slots-grid" id="slotsGrid"></div>
-    <div style="font-size:.72rem;color:var(--slate);margin-top:8px">💡 Capacity = max guests for that slot. Uncheck to block a time.</div>
-  </div>
-</div>
-
-<!-- ANALYTICS -->
-<div class="page" id="page-analytics">
-  <div class="page-header">
-    <div class="page-title">Analytics</div>
-    <div class="page-sub">How diners are finding and booking you</div>
-  </div>
-  <div class="analytics-grid">
-    <div class="analytics-card"><div class="ac-label">Profile Views</div><div class="ac-big" id="anViews">—</div><div class="ac-sub" id="anViewsSub">this week</div></div>
-    <div class="analytics-card"><div class="ac-label">Reservation Requests</div><div class="ac-big" id="anRequests">—</div><div class="ac-sub" id="anRequestsSub">this week</div></div>
-    <div class="analytics-card"><div class="ac-label">Confirmed Bookings</div><div class="ac-big" id="anConfirmed">—</div><div class="ac-sub">this month</div></div>
-    <div class="analytics-card"><div class="ac-label">Conversion Rate</div><div class="ac-big" id="anConversion">—</div><div class="ac-sub">requests → confirmed</div></div>
-  </div>
-  <div class="card" style="font-size:.82rem;color:var(--slate);line-height:1.65">
-    <div class="card-title">📈 How to improve your numbers</div>
-    <p style="margin-bottom:8px"><strong>More views →</strong> Upgrade to Pro for featured placement at the top of local searches.</p>
-    <p style="margin-bottom:8px"><strong>More requests →</strong> Keep your wait time updated. Diners choose "low wait" restaurants first.</p>
-    <p><strong>Better conversion →</strong> Confirm reservations within 30 minutes. Diners who don't hear back cancel or go elsewhere.</p>
-  </div>
-</div>
-
-<!-- SETTINGS -->
-<div class="page" id="page-settings">
-  <div class="page-header">
-    <div class="page-title">Settings</div>
-    <div class="page-sub">Your account and notification preferences</div>
-  </div>
-
-  <div class="card">
-    <div class="settings-section">
-      <div class="ss-title">Contact Info</div>
-      <div class="field-row">
-        <div><label class="field-lbl">Your Name</label><input class="field-in" id="setName" type="text"></div>
-        <div><label class="field-lbl">Phone (for SMS alerts)</label><input class="field-in" id="setPhone" type="tel"></div>
+      <div class="res-filters" role="group" aria-label="Filter reservations">
+        <button class="res-filter on" id="rf-all" onclick="filterRes('all',this)">All</button>
+        <button class="res-filter" id="rf-pending" onclick="filterRes('pending',this)">🟡 Pending</button>
+        <button class="res-filter" id="rf-confirmed" onclick="filterRes('confirmed',this)">✅ Confirmed</button>
+        <button class="res-filter" id="rf-seated" onclick="filterRes('seated',this)">🍽️ Seated</button>
+        <button class="res-filter" id="rf-declined" onclick="filterRes('declined',this)">❌ Declined</button>
       </div>
-      <label class="field-lbl">Email Address</label>
-      <input class="field-in" id="setEmail" type="email" disabled style="background:var(--warm);color:var(--slate)">
-      <button class="btn-save" onclick="saveProfile()">Save Changes</button>
+      <div id="reservationsContainer" aria-live="polite"><div class="empty-state"><div class="empty-icon">📅</div><div class="empty-title">Loading reservations…</div></div></div>
     </div>
 
-    <div class="settings-section" style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
-      <div class="ss-title">Notification Preferences</div>
-      <div class="notify-row">
-        <div class="notify-info"><strong>Email notifications</strong><span>Get emailed when a new reservation request comes in</span></div>
-        <label class="toggle"><input type="checkbox" id="notifyEmail" onchange="saveNotifications()"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+    <!-- TIME SLOTS -->
+    <div class="page" id="page-slots">
+      <div class="page-header">
+        <div class="page-title">Time Slots</div>
+        <div class="page-sub">Set which times diners can book for tonight or future dates</div>
       </div>
-      <div class="notify-row">
-        <div class="notify-info"><strong>SMS notifications</strong><span>Get a text the moment a request arrives — fastest response</span></div>
-        <label class="toggle"><input type="checkbox" id="notifySms" onchange="saveNotifications()"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+      <div class="card">
+        <div class="date-picker">
+          <label for="slotDate" style="font-size:.78rem;font-weight:600;color:var(--slate)">Showing slots for:</label>
+          <input class="date-in" type="date" id="slotDate" onchange="loadSlots()">
+          <button class="btn-add-slot" onclick="addSlot()">+ Add Time Slot</button>
+          <button class="btn-save" onclick="saveSlots()" style="margin-left:auto">Save Slots →</button>
+        </div>
+        <div class="slots-grid" id="slotsGrid"></div>
+        <div style="font-size:.72rem;color:var(--slate);margin-top:8px">💡 Capacity = max guests for that slot. Uncheck to block a time.</div>
       </div>
     </div>
 
-    <div class="settings-section" style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
-      <div class="ss-title">Change Password</div>
-      <label class="field-lbl">Current Password</label>
-      <input class="field-in" id="curPw" type="password" placeholder="Current password">
-      <div class="field-row">
-        <div><label class="field-lbl">New Password</label><input class="field-in" id="newPw" type="password" placeholder="At least 8 characters"></div>
-        <div><label class="field-lbl">Confirm New Password</label><input class="field-in" id="newPw2" type="password" placeholder="Repeat password"></div>
+    <!-- ANALYTICS -->
+    <div class="page" id="page-analytics">
+      <div class="page-header">
+        <div class="page-title">Analytics</div>
+        <div class="page-sub">How diners are finding and booking you</div>
       </div>
-      <button class="btn-save" onclick="changePassword()">Update Password</button>
+      <div class="analytics-grid">
+        <div class="analytics-card"><div class="ac-label">Profile Views</div><div class="ac-big" id="anViews">—</div><div class="ac-sub" id="anViewsSub">this week</div></div>
+        <div class="analytics-card"><div class="ac-label">Reservation Requests</div><div class="ac-big" id="anRequests">—</div><div class="ac-sub" id="anRequestsSub">this week</div></div>
+        <div class="analytics-card"><div class="ac-label">Confirmed Bookings</div><div class="ac-big" id="anConfirmed">—</div><div class="ac-sub">this month</div></div>
+        <div class="analytics-card"><div class="ac-label">Conversion Rate</div><div class="ac-big" id="anConversion">—</div><div class="ac-sub">requests → confirmed</div></div>
+      </div>
+      <div class="card" style="font-size:.82rem;color:var(--slate);line-height:1.65">
+        <div class="card-title">📈 How to improve your numbers</div>
+        <p style="margin-bottom:8px"><strong>More views →</strong> Upgrade to <strong>Growth ($49/mo)</strong> for featured placement at the top of local searches — 2–3× more visibility during slow hours.</p>
+        <p style="margin-bottom:8px"><strong>More requests →</strong> Keep your wait time updated. Diners choose "low wait" restaurants first.</p>
+        <p><strong>Better conversion →</strong> Confirm reservations within 30 minutes. Diners who don't hear back cancel or go elsewhere.</p>
+      </div>
     </div>
-  </div>
-</div>
-```
 
-  </div>
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <div class="page-title">Settings</div>
+        <div class="page-sub">Your account and notification preferences</div>
+      </div>
+
+      <div class="card">
+        <div class="settings-section">
+          <div class="ss-title">Contact Info</div>
+          <div class="field-row">
+            <div>
+              <label class="field-lbl" for="setName">Your Name</label>
+              <input class="field-in" id="setName" type="text" autocomplete="name">
+            </div>
+            <div>
+              <label class="field-lbl" for="setPhone">Phone (for SMS alerts)</label>
+              <input class="field-in" id="setPhone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+          <label class="field-lbl" for="setEmail">Email Address</label>
+          <input class="field-in" id="setEmail" type="email" disabled style="background:var(--warm);color:var(--slate)" autocomplete="email">
+          <button class="btn-save" onclick="saveProfile()">Save Changes</button>
+        </div>
+
+        <div class="settings-section" style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
+          <div class="ss-title">Notification Preferences</div>
+          <div class="notify-row">
+            <div class="notify-info"><strong>Email notifications</strong><span>Get emailed when a new reservation request comes in</span></div>
+            <label class="toggle" aria-label="Email notifications">
+              <input type="checkbox" id="notifyEmail" onchange="saveNotifications()">
+              <div class="toggle-track"></div><div class="toggle-thumb"></div>
+            </label>
+          </div>
+          <div class="notify-row">
+            <div class="notify-info"><strong>SMS notifications</strong><span>Get a text the moment a request arrives — fastest response</span></div>
+            <label class="toggle" aria-label="SMS notifications">
+              <input type="checkbox" id="notifySms" onchange="saveNotifications()">
+              <div class="toggle-track"></div><div class="toggle-thumb"></div>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section" style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
+          <div class="ss-title">Plan &amp; Billing</div>
+          <div id="planDisplay" style="background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:12px 14px;margin-bottom:12px;font-size:.83rem;color:var(--slate)">
+            Loading plan info…
+          </div>
+          <a href="claim-restaurant.html" style="font-size:.8rem;color:var(--ember);font-weight:600;text-decoration:none">Manage plan &amp; billing →</a>
+        </div>
+
+        <div class="settings-section" style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
+          <div class="ss-title">Change Password</div>
+          <label class="field-lbl" for="curPw">Current Password</label>
+          <input class="field-in" id="curPw" type="password" placeholder="Current password">
+          <div class="field-row">
+            <div>
+              <label class="field-lbl" for="newPw">New Password</label>
+              <input class="field-in" id="newPw" type="password" placeholder="At least 8 characters">
+            </div>
+            <div>
+              <label class="field-lbl" for="newPw2">Confirm New Password</label>
+              <input class="field-in" id="newPw2" type="password" placeholder="Repeat password">
+            </div>
+          </div>
+          <button class="btn-save" onclick="changePassword()">Update Password</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
 </div>
 
 <!-- ACTION OVERLAY -->
-
-<div class="overlay" id="actionOverlay" onclick="closeOverlay(event)">
+<div class="overlay" id="actionOverlay" onclick="closeOverlay(event)" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
   <div class="modal">
-    <button class="modal-close" onclick="closeOverlay()">✕</button>
+    <button class="modal-close" aria-label="Close" onclick="closeOverlay()">✕</button>
     <div class="modal-title" id="overlayTitle">Confirm Reservation</div>
     <div style="font-size:.83rem;color:var(--slate);margin-bottom:14px" id="overlayDetail"></div>
-    <label class="field-lbl">Message to diner (optional)</label>
+    <label class="field-lbl" for="overlayNote">Message to diner (optional)</label>
     <input class="field-in" id="overlayNote" type="text" placeholder="e.g. Please arrive 5 min early · Patio seating ready">
     <div style="display:flex;gap:8px;margin-top:4px">
       <button class="btn-res" id="overlayBtn" style="flex:1;padding:11px">Confirm</button>
@@ -383,7 +429,10 @@ body{font-family:var(--sans);background:#F0EDE8;color:var(--ink);min-height:100v
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Visually hidden utility -->
+<style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style>
 
 <script>
 const API = 'https://getatablespot-api.onrender.com/api';
@@ -395,20 +444,44 @@ let currentResFilter = 'all';
 let pendingAction = null;
 let analyticsData = null;
 
-// ── Guard ──
+// ── Guard ──────────────────────────────────────────────────
 if (!token || !owner) { window.location.href = 'restaurant-auth.html'; }
 
-// ── Auth header ──
+// ── Plan label mapping (handles old + new names) ───────────
+const PLAN_LABELS = {
+  starter: 'Starter Plan',
+  growth:  'Growth Plan',
+  premium: 'Premium Plan',
+  // Legacy names — map gracefully
+  free:    'Starter Plan',
+  basic:   'Growth Plan',
+  pro:     'Growth Plan',
+  elite:   'Premium Plan',
+};
+const PLAN_DESCRIPTIONS = {
+  starter: 'Free — basic listing &amp; discovery',
+  growth:  'Growth — $49/mo · Featured placement · 2–3× more visibility',
+  premium: 'Premium — $149/mo · Max visibility · POS integration',
+  free:    'Free — basic listing &amp; discovery',
+  basic:   'Growth — $49/mo · Featured placement',
+  pro:     'Growth — $49/mo · Featured placement',
+  elite:   'Premium — $149/mo · Max visibility',
+};
+
+function planLabel(plan) { return PLAN_LABELS[plan] || (plan?.toUpperCase() + ' PLAN') || 'Starter Plan'; }
+function isUpgradeable(plan) { return !['growth','premium','elite'].includes(plan); }
+
+// ── Auth header ────────────────────────────────────────────
 function authHeaders() { return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }; }
 
-// ── API calls ──
+// ── API calls ──────────────────────────────────────────────
 async function apiFetch(path, opts = {}) {
   const r = await fetch(`${API}${path}`, { ...opts, headers: { ...authHeaders(), ...(opts.headers||{}) } });
   if (r.status === 401) { logout(); return null; }
   return r.json();
 }
 
-// ── Page navigation ──
+// ── Page navigation ────────────────────────────────────────
 function goPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -421,35 +494,58 @@ function goPage(name) {
   document.getElementById('sidebar').classList.remove('open');
 }
 
-// ── Sidebar mobile ──
+// ── Sidebar mobile ─────────────────────────────────────────
 function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
-// ── Init ──
+// ── Init ───────────────────────────────────────────────────
 async function init() {
-  // Set sidebar info
+  const plan = owner.plan || 'starter';
+
+  // Sidebar labels
   document.getElementById('sidebarRestName').textContent = owner.restaurantName || 'My Restaurant';
-  document.getElementById('sidebarPlan').textContent = (owner.plan || 'free').toUpperCase() + ' PLAN';
+  document.getElementById('sidebarPlan').textContent = planLabel(plan);
+
+  // Show upgrade banner for starter/free plans
+  if (isUpgradeable(plan)) {
+    document.getElementById('upgradeBanner').style.display = 'block';
+  }
 
   // Load restaurant profile
   const data = await apiFetch('/dashboard/restaurant');
   if (data?.restaurant) {
     restaurant = data.restaurant;
+    // Update plan from DB in case it changed
+    if (restaurant.plan) {
+      const dbPlan = restaurant.plan;
+      document.getElementById('sidebarPlan').textContent = planLabel(dbPlan);
+      if (!isUpgradeable(dbPlan)) document.getElementById('upgradeBanner').style.display = 'none';
+    }
     updateLiveUI(restaurant);
   }
 
-  // Load analytics snippet for live stats
   loadLiveStats();
-
-  // Poll for pending reservations badge every 30s
   loadPendingCount();
   setInterval(loadPendingCount, 30000);
+
+  // Close sidebar on outside click (mobile)
+  document.addEventListener('click', e => {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && !e.target.closest('.mob-menu')) {
+      sidebar.classList.remove('open');
+    }
+  });
+
+  // Escape key closes overlay
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.getElementById('actionOverlay').classList.remove('open');
+  });
 }
 
 async function loadLiveStats() {
   const data = await apiFetch('/dashboard/analytics');
   if (!data) return;
   analyticsData = data;
-  document.getElementById('statViewsToday').textContent   = data.views?.today ?? '—';
+  document.getElementById('statViewsToday').textContent    = data.views?.today ?? '—';
   document.getElementById('statRequestsToday').textContent = data.requests?.today ?? '—';
 }
 
@@ -463,12 +559,13 @@ async function loadPendingCount() {
   else { badge.style.display = 'none'; }
 }
 
-// ── LIVE CONTROL ──
+// ── LIVE CONTROL ───────────────────────────────────────────
 function updateLiveUI(r) {
   const isOpen = r.is_open ?? true;
   const waitMins = r.wait_mins ?? 0;
   document.getElementById('openToggle').checked = isOpen;
   document.getElementById('waitSlider').value = waitMins;
+  document.getElementById('waitSlider').setAttribute('aria-valuenow', waitMins);
   document.getElementById('tonightMsg').value = r.tonight_message || '';
   updateStatusBar(isOpen);
   updateWaitDisplay(waitMins);
@@ -482,13 +579,11 @@ function updateStatusBar(isOpen) {
   document.getElementById('toggleLbl').textContent = isOpen ? 'Open' : 'Closed';
 }
 
-function onToggleOpen() {
-  updateStatusBar(document.getElementById('openToggle').checked);
-  markUnsaved();
-}
+function onToggleOpen() { updateStatusBar(document.getElementById('openToggle').checked); markUnsaved(); }
 
 function onWaitSlide(val) {
   updateWaitDisplay(parseInt(val));
+  document.getElementById('waitSlider').setAttribute('aria-valuenow', val);
   markUnsaved();
 }
 
@@ -500,9 +595,9 @@ function updateWaitDisplay(mins) {
     badge.textContent = 'Walk right in'; badge.className = 'wait-level-badge wlb-none';
   } else {
     el.textContent = `${mins} min`; el.className = 'wait-display';
-    if (mins < 15) { badge.textContent = 'Low wait'; badge.className = 'wait-level-badge wlb-low'; }
+    if (mins < 15)      { badge.textContent = 'Low wait';      badge.className = 'wait-level-badge wlb-low'; }
     else if (mins < 30) { badge.textContent = 'Moderate wait'; badge.className = 'wait-level-badge wlb-med'; }
-    else { badge.textContent = 'High wait'; badge.className = 'wait-level-badge wlb-high'; }
+    else                { badge.textContent = 'High wait';     badge.className = 'wait-level-badge wlb-high'; }
   }
 }
 
@@ -517,8 +612,8 @@ async function saveLive() {
   const data = await apiFetch('/dashboard/restaurant', {
     method: 'PATCH',
     body: JSON.stringify({
-      waitMins: parseInt(document.getElementById('waitSlider').value),
-      isOpen: document.getElementById('openToggle').checked,
+      waitMins:      parseInt(document.getElementById('waitSlider').value),
+      isOpen:        document.getElementById('openToggle').checked,
       tonightMessage: document.getElementById('tonightMsg').value.trim(),
     })
   });
@@ -533,7 +628,7 @@ async function saveLive() {
   }
 }
 
-// ── RESERVATIONS ──
+// ── RESERVATIONS ───────────────────────────────────────────
 async function loadReservations() {
   document.getElementById('reservationsContainer').innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><div class="empty-title">Loading…</div></div>';
   const data = await apiFetch('/dashboard/reservations');
@@ -595,6 +690,7 @@ function openAction(ref, status, title) {
   btn.className = `btn-res ${status === 'confirmed' ? 'btn-confirm' : 'btn-decline'}`;
   btn.onclick = () => { updateRes(ref, status, document.getElementById('overlayNote').value); closeOverlay(); };
   document.getElementById('actionOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('overlayNote').focus(), 100);
 }
 
 function closeOverlay(e) {
@@ -612,16 +708,16 @@ async function updateRes(ref, status, ownerNote) {
     if (idx > -1) allReservations[idx] = data.reservation;
     renderReservations();
     loadPendingCount();
-    const labels = { confirmed: '✅ Confirmed — diner notified', declined: 'Declined — diner notified', seated: '🍽️ Marked as seated', no_show: 'Marked as no-show' };
+    const labels = { confirmed:'✅ Confirmed — diner notified', declined:'Declined — diner notified', seated:'🍽️ Marked as seated', no_show:'Marked as no-show' };
     showToast(labels[status] || 'Updated', status === 'confirmed' ? 'success' : '');
   } else {
     showToast('Update failed — please try again', 'error');
   }
 }
 
-// ── TIME SLOTS ──
+// ── TIME SLOTS ─────────────────────────────────────────────
 function initSlots() {
-  const d = new Date(); const dateStr = d.toISOString().split('T')[0];
+  const dateStr = new Date().toISOString().split('T')[0];
   document.getElementById('slotDate').value = dateStr;
   loadSlots();
 }
@@ -631,7 +727,6 @@ async function loadSlots() {
   const data = await apiFetch(`/dashboard/slots/${date}`);
   const slots = data?.slots || [];
   if (!slots.length) {
-    // Default slot template
     const defaults = ['11:30 AM','12:00 PM','12:30 PM','5:30 PM','6:00 PM','6:30 PM','7:00 PM','7:30 PM','8:00 PM','8:30 PM','9:00 PM'];
     renderSlots(defaults.map(time => ({ slot_time: time, capacity: 4, is_available: true })));
   } else {
@@ -644,12 +739,12 @@ function renderSlots(slots) {
     <div class="slot-item${s.is_available === false ? ' unavailable' : ''}" id="slot-${i}">
       <div class="slot-time">${s.slot_time || s.time}</div>
       <div class="slot-cap">
-        <span>Seats:</span>
-        <input type="number" min="1" max="50" value="${s.capacity || 4}" onchange="slotChanged(${i})">
+        <label for="cap-${i}" style="font-size:.73rem;color:var(--slate)">Seats:</label>
+        <input id="cap-${i}" type="number" min="1" max="50" value="${s.capacity || 4}" onchange="slotChanged(${i})">
       </div>
       <div class="slot-avail">
-        <input type="checkbox" ${s.is_available !== false ? 'checked' : ''} onchange="slotChanged(${i})">
-        <span>Available</span>
+        <input type="checkbox" id="avail-${i}" ${s.is_available !== false ? 'checked' : ''} onchange="slotChanged(${i})">
+        <label for="avail-${i}">Available</label>
       </div>
     </div>`).join('');
 }
@@ -667,7 +762,7 @@ function addSlot() {
   const i = grid.children.length;
   const div = document.createElement('div');
   div.className = 'slot-item'; div.id = `slot-${i}`;
-  div.innerHTML = `<div class="slot-time">${time}</div><div class="slot-cap"><span>Seats:</span><input type="number" min="1" max="50" value="4" onchange="slotChanged(${i})"></div><div class="slot-avail"><input type="checkbox" checked onchange="slotChanged(${i})"><span>Available</span></div>`;
+  div.innerHTML = `<div class="slot-time">${time}</div><div class="slot-cap"><label for="cap-${i}">Seats:</label><input id="cap-${i}" type="number" min="1" max="50" value="4" onchange="slotChanged(${i})"></div><div class="slot-avail"><input type="checkbox" id="avail-${i}" checked onchange="slotChanged(${i})"><label for="avail-${i}">Available</label></div>`;
   grid.appendChild(div);
 }
 
@@ -675,8 +770,8 @@ async function saveSlots() {
   const date = document.getElementById('slotDate').value;
   const items = document.querySelectorAll('#slotsGrid .slot-item');
   const slots = Array.from(items).map(el => ({
-    time: el.querySelector('.slot-time').textContent.trim(),
-    capacity: parseInt(el.querySelector('input[type=number]').value) || 4,
+    time:        el.querySelector('.slot-time').textContent.trim(),
+    capacity:    parseInt(el.querySelector('input[type=number]').value) || 4,
     isAvailable: el.querySelector('input[type=checkbox]').checked,
   }));
   const data = await apiFetch(`/dashboard/slots/${date}`, { method: 'PUT', body: JSON.stringify({ slots }) });
@@ -684,25 +779,30 @@ async function saveSlots() {
   else showToast('Save failed — please try again', 'error');
 }
 
-// ── ANALYTICS ──
+// ── ANALYTICS ──────────────────────────────────────────────
 async function loadAnalytics() {
   const data = await apiFetch('/dashboard/analytics');
   if (!data) return;
-  document.getElementById('anViews').textContent     = data.views?.week ?? '—';
-  document.getElementById('anViewsSub').textContent  = `this week · ${data.views?.today ?? '—'} today`;
-  document.getElementById('anRequests').textContent  = data.requests?.week ?? '—';
+  document.getElementById('anViews').textContent      = data.views?.week ?? '—';
+  document.getElementById('anViewsSub').textContent   = `this week · ${data.views?.today ?? '—'} today`;
+  document.getElementById('anRequests').textContent   = data.requests?.week ?? '—';
   document.getElementById('anRequestsSub').textContent = `this week · ${data.requests?.today ?? '—'} today`;
-  document.getElementById('anConfirmed').textContent = data.confirmed?.month ?? '—';
+  document.getElementById('anConfirmed').textContent  = data.confirmed?.month ?? '—';
   document.getElementById('anConversion').textContent = (data.conversionRate ?? '—') + (data.conversionRate != null ? '%' : '');
 }
 
-// ── SETTINGS ──
+// ── SETTINGS ───────────────────────────────────────────────
 function fillSettings() {
   document.getElementById('setName').value  = owner.name || '';
   document.getElementById('setPhone').value = owner.phone || '';
   document.getElementById('setEmail').value = owner.email || '';
   document.getElementById('notifyEmail').checked = owner.notifyEmail !== false;
   document.getElementById('notifySms').checked   = owner.notifySms !== false;
+
+  // Plan display
+  const plan = restaurant?.plan || owner.plan || 'starter';
+  const planEl = document.getElementById('planDisplay');
+  planEl.innerHTML = `<strong>${planLabel(plan)}</strong><br><span>${PLAN_DESCRIPTIONS[plan] || ''}</span>`;
 }
 
 async function saveProfile() {
@@ -731,7 +831,7 @@ async function changePassword() {
   const nw  = document.getElementById('newPw').value;
   const nw2 = document.getElementById('newPw2').value;
   if (!cur || !nw) { showToast('Please fill in all password fields', 'error'); return; }
-  if (nw !== nw2) { showToast('New passwords do not match', 'error'); return; }
+  if (nw !== nw2)  { showToast('New passwords do not match', 'error'); return; }
   if (nw.length < 8) { showToast('New password must be at least 8 characters', 'error'); return; }
   const data = await apiFetch('/auth/me', { method: 'PATCH', body: JSON.stringify({ currentPassword: cur, newPassword: nw }) });
   if (data?.success) {
@@ -740,17 +840,17 @@ async function changePassword() {
   } else { showToast(data?.error || 'Password update failed', 'error'); }
 }
 
-// ── Helpers ──
+// ── Helpers ────────────────────────────────────────────────
 function statusLabel(s) {
   return { pending:'Pending', confirmed:'Confirmed', declined:'Declined', seated:'Seated', no_show:'No Show' }[s] || s;
 }
 function fmtDate(d) {
-  const dt = new Date(d); return dt.toLocaleDateString('en-US', { month:'short', day:'numeric' });
+  return new Date(d).toLocaleDateString('en-US', { month:'short', day:'numeric' });
 }
 function timeSince(ts) {
   const d = Math.floor((Date.now() - new Date(ts)) / 60000);
-  if (d < 1)  return 'just now';
-  if (d < 60) return `${d}m ago`;
+  if (d < 1)    return 'just now';
+  if (d < 60)   return `${d}m ago`;
   if (d < 1440) return `${Math.floor(d/60)}h ago`;
   return `${Math.floor(d/1440)}d ago`;
 }
@@ -769,9 +869,8 @@ function logout() {
   window.location.href = 'restaurant-auth.html';
 }
 
-// ── Start ──
+// ── Start ──────────────────────────────────────────────────
 init();
 </script>
-
 </body>
 </html>
