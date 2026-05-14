@@ -235,7 +235,7 @@ body{font-family:var(--sans);background:#F0EDE8;color:var(--ink);min-height:100v
     <!-- LIVE CONTROL -->
     <div class="page active" id="page-live">
       <div class="page-header">
-        <div class="page-title">Live Control</div>
+        <div class="page-title" id="livePageTitle">Live Control</div>
         <div class="page-sub">Update your wait time and status — changes show instantly to nearby diners</div>
       </div>
 
@@ -504,6 +504,11 @@ async function init() {
   // Sidebar labels
   document.getElementById('sidebarRestName').textContent = owner.restaurantName || 'My Restaurant';
   document.getElementById('sidebarPlan').textContent = planLabel(plan);
+
+  // Live Control page header — show restaurant name prominently
+  const restName = owner.restaurantName || 'My Restaurant';
+  document.getElementById('livePageTitle').textContent = restName;
+  document.title = `${restName} — Dashboard`;
 
   // Show upgrade banner for starter/free plans
   if (isUpgradeable(plan)) {
